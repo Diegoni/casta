@@ -14,7 +14,17 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+//local
+$config['base_url']	= '';/* 
+if(isset($_COOKIE['idioma'])){
+	
+}else{
+	$_COOKIE['idioma']=1;
+}
+
+$config['idioma'] = $_COOKIE['idioma'];
+//sitio tms
+//$config['base_url']	= 'http://mail.tmsgroup.com.ar/carollo/';
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +37,7 @@ $config['base_url']	= '';
 |
 */
 $config['index_page'] = 'index.php';
+//$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +56,7 @@ $config['index_page'] = 'index.php';
 |
 */
 $config['uri_protocol']	= 'AUTO';
+//$config['uri_protocol']	= 'QUERY_STRING';
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +81,8 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+//$config['language']	= 'spanish';
+$config['language']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +237,9 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'casta';
+//$config['encryption_key'] = '';
+
+$config['encryption_key'] = 'pohiguyugihojuihugyfctvguhijhougyfdtrsdtfygu';
 
 /*
 |--------------------------------------------------------------------------
@@ -246,9 +261,9 @@ $config['encryption_key'] = 'casta';
 */
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
-$config['sess_expire_on_close']	= FALSE;
+$config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= FALSE;
+$config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
@@ -360,3 +375,5 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+
+$config['moneda'] = '';
