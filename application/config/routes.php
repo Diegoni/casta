@@ -38,21 +38,8 @@
 |
 */
 
-//$route['default_controller'] = "welcome";
-$route['default_controller'] = "inicio";
-$route['404_override'] = 'error404';
-
-$route['^en/(.+)$'] = "$1";
-$route['^es/(.+)$'] = "$1";
-$route['^fr/(.+)$'] = "$1";
-$route['^po/(.+)$'] = "$1";
-
- 
-$route['^en$'] = $route['default_controller'];
-$route['^es$'] = $route['default_controller'];
-$route['^fr$'] = $route['default_controller'];
-$route['^po$'] = $route['default_controller'];
-
+$route['default_controller'] = "welcome";
+$route['404_override'] = '';
 
 
 /* End of file routes.php */
