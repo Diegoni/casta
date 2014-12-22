@@ -37,5 +37,16 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+define('LIBRARIES',								'libraries/');
+
+
+/*
+|--------------------------------------------------------------------------
+| Views
+|--------------------------------------------------------------------------
+|
+*/
+define('V_CLIENTES',								'clientes/');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

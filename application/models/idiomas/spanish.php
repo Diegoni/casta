@@ -1,0 +1,31 @@
+<?php
+	$texto['nombre']				= 'Nombre';
+	$texto['apellido']				= 'Apellido';
+	$texto['empresa']				= 'Empresa';
+	$texto['cliente']				= 'Cliente';
+	$texto['cuil']					= 'Cuil';
+	$texto['estado']				= 'Estado';
+	$texto['tipo']					= 'Tipo';
+	$texto['tarifa']				= 'Tarifa';
+	$texto['grupo']					= 'Grupo';
+	$texto['idioma']				= 'Idioma';
+	$texto['ingrese']				= 'Ingrese';
+	$texto['general']				= 'General';
+	$texto['opciones']				= 'Opciones';
+	$texto['exento_iva']			= 'Exento de iva';
+	$texto['recargo']				= 'Recargo';
+	$texto['credito']				= 'Credito';
+	$texto['emails']				= 'Emails';
+	$texto['saldo']					= 'Saldo';
+	$texto['referencia']			= 'Referencia';
+	$texto['notas']					= 'Notas';
+	$texto['perfiles']				= 'Perfiles';
+	$texto['historico']				= 'Historico';
+	$texto['acciones']				= 'Acciones';
+	$texto['nuevo']					= 'Nuevo';
+	$texto['guardar']				= 'Guardar';
+	$texto['refresh']				= 'Refrescar';
+	$texto['imprimir']				= 'Imprimir';
+	$texto['buscar']				= 'Buscar';
+	$texto['seleccione']			= 'Seleccione';
+?>	
