@@ -1,0 +1,31 @@
+#comments start with '#'
+#mi  h    d    m    dow      job                       comment
+*/3	*	*	*	*      ventas/factura/procesar #Procesar Facturas
+*/2	*	*	*	*      ventas/tpv/procesar #Procesar TPV
+*/30	*	*	*	*      comunicaciones/sms/check_task #Estado SMS
+10	1	*	*	*   generico/divisa/update #Actualiza las divisas
+#9	2	*	*	*	web/webpage/mostrarweb #Actualizar los artículos que se muestran en la Web
+#8	3	*	*	*	web/webpage/articuloenmaterias #Actualizar el número de artículos que hay en las materias
+#7	4	*	*	*	web/webpage/novedades #Novedades Web
+30	0	*	*	5	web/webpage/bestsellers #Bestsellers Web
+5	10	*	*	*	sys/app/sql/costes #Actualizar costes a 0
+5	22	*	*	*   stocks/antiguedadstock/valorar #Valorar el stock diario y nocturno 
+*	12,14,18,20	*	*	*   compras/pedidoproveedor/calcular_totales #Cálculo de totales pedido proveedor
+30	1	*	*	*	compras/albaranentrada/ultimacompra #Cálculo última compra a proveedor	
+0	21	*	*	*   catalogo/articulo/media_process #Subir documentos a Scribd
+0	22	*	*	*   catalogo/articulo/quitar_oferta #Elimina la oferta de artículos sin stock
+*/30	*	*	*	*      ventas/pedidocliente/actualizar_estado #Actualizar estado pedidos cliente
+*/15	*	*	*	*      compras/pedidoproveedor/actualizar_estado #Actualizar estado pedidos proveedor
+*/45	*	*	*	*      sys/sinli/process #Comprobación buzón SINLI
+*/10	*	*	*	*      catalogo/articuloseccion/genericos #Stock a 0 en genéricos
+30	21	*	*	*	sys/bp2lc/run #Traspasos a contabilidad
+*/50	*	*	*	*	catalogo/articulo/compras_proveedores #Cálculo proveedores-compras-precios
+45	21	*	*	*	sys/app/sql/stocks #Regeneración de stocks calculados
+0	22	*	*	*   catalogo/articulo/revision_estado #Actualiza estado DESCATALOGADOS
+30	12,14,18,20	*	*	*   catalogo/articulo/search_portadas #Búsqueda de portadas de novedades
+10	12,14,18,20	*	*	*   catalogo/articulo/search_sinopsis #Búsqueda de sinopsis de novedades
+0	21	*	*	*	compras/pedidoproveedor/limpiar #Limpieza de pedidos a proveedor sin líneas
+0	23	*	*	*	sys/clean/clean_temp #Limpieza de ficheros temporales
+30	23	*	*	*	ventas/albaransalida/antiguedad #Calcula antigüedad de las ventas
+0	22	*	*	*	web/webpage/syncro_clientes	#Sincronizar clientes Web
+30	22	*	*	*	web/webpage/syncro_pedidos	#Sincronizar pedidos Web

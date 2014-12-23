@@ -18,9 +18,9 @@
 |
 | These are the things you can load automatically:
 |
-| 1. Packages
-| 2. Libraries
-| 3. Helper files
+| 1. Libraries
+| 2. Helper files
+| 3. Plugins
 | 4. Custom config files
 | 5. Language files
 | 6. Models
@@ -29,32 +29,20 @@
 
 /*
 | -------------------------------------------------------------------
-|  Auto-load Packges
-| -------------------------------------------------------------------
-| Prototype:
-|
-|  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
-|
-*/
-
-$autoload['packages'] = array();
-
-
-/*
-| -------------------------------------------------------------------
 |  Auto-load Libraries
 | -------------------------------------------------------------------
 | These are the classes located in the system/libraries folder
-| or in your application/libraries folder.
+| or in your system/application/libraries folder.
 |
 | Prototype:
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database');
+//$autoload['libraries'] = array('database', 'session', 'jsonci');
+//$autoload['libraries'] = array('JsonCI', 'Session', 'Out', 'Domains', 'Utils');
 
-
+$autoload['libraries'] = array('JsonCI', 'Session', 'Out', 'Domains', 'Utils');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Helper Files
@@ -64,7 +52,19 @@ $autoload['libraries'] = array('database');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url'/*, 'zend_framework'*/);
+
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Plugins
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['plugin'] = array('captcha', 'js_calendar');
+*/
+
+$autoload['plugin'] = array();
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('url');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('version', 'bibliopola', 'company', 'auth', 'includes');
 
 
 /*
@@ -91,12 +91,12 @@ $autoload['config'] = array();
 |
 |	$autoload['language'] = array('lang1', 'lang2');
 |
-| NOTE: Do not include the "_lang" part of your file.  For example
+| NOTE: Do not include the "_lang" part of your file.  For example 
 | "codeigniter_lang.php" would be referenced as array('codeigniter');
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('bibliopola'/*, 'userauth'*/);
 
 
 /*
@@ -109,8 +109,19 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('idiomas_model');
+$autoload['model'] = array();
+
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Core Libraries
+| -------------------------------------------------------------------
+|
+| DEPRECATED:  Use $autoload['libraries'] above instead.
+|
+*/
+// $autoload['core'] = array();
 
 
 /* End of file autoload.php */
-/* Location: ./application/config/autoload.php */
+/* Location: ./system/application/config/autoload.php */

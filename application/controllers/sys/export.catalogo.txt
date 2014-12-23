@@ -1,0 +1,4 @@
+Gen_Ofertas
+Cat_Fondo|nIdLibro IN (select nIdLibro from Cat_Secciones_Libros where nIdSeccion IN (%id%))
+Cat_Secciones_Libros|nIdSeccion IN (%id%)
+Cat_Codigos_Fondo|nIdLibro IN (select nIdLibro from Cat_Secciones_Libros where nIdSeccion IN (%id%))

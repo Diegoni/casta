@@ -1,0 +1,3 @@
+Cat_Fondo||nIdLibro,nEAN,cISBN,cISBN10,cISBNBase,cISBNBase10,cTitulo
+Cat_Secciones_Libros
+Cat_Ubicaciones

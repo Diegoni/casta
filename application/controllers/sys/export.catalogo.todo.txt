@@ -1,0 +1,4 @@
+Gen_Ofertas
+Cat_Fondo
+Cat_Secciones_Libros
+Cat_Codigos_Fondo
