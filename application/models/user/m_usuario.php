@@ -28,7 +28,6 @@ class M_Usuario extends MY_Model
 	 */
 	function __construct()
 	{
-		echo "test";
 		$data_model = array(
 			'cUsername'		=> array(DATA_MODEL_REQUIRED => TRUE),
 			'cNombre'		=> array(DATA_MODEL_DEFAULT => TRUE),
@@ -49,7 +48,6 @@ class M_Usuario extends MY_Model
 
 		parent::__construct('Usr_Usuarios', 'nIdUsuario', 'cUsername', array('cUsername', 'cNombre'), $data_model);
 		$this->_cache = TRUE;
-		
 	}
 
 	/**

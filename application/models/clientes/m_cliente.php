@@ -27,8 +27,7 @@ define('STATUS_CLIENTE_BAJA', 		3);
  * Clientes
  *
  */
- 
-class M_Cliente extends CI_Model
+class M_Cliente extends MY_Model
 {
 	/**
 	 * Añadir el email a las búsquedas

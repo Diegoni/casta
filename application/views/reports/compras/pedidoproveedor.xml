@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+    <report name="pedidoproveedor.general.titulo" file="pedidoproveedor" order="lineas.cTitulo">
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+        <param name="email" value="0"/>		
+        <param name="num_lineas_1" value="16"/>     
+    </report>    
+    <report name="pedidoproveedor.general.autores" file="pedidoproveedor" order="lineas.cAutores">
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+        <param name="email" value="0"/>		
+        <param name="num_lineas_1" value="16"/>     
+    </report>   
+    <report name="pedidoproveedor.general.isbn" file="pedidoproveedor" order="lineas.cISBN">
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+        <param name="email" value="0"/>		
+        <param name="num_lineas_1" value="16"/>     
+    </report>    
+    <report name="pedidoproveedor.email.titulo" file="pedidoproveedor" order="lineas.cTitulo">
+        <param name="pvp" value="0"/>		
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="email" value="1"/>		
+        <param name="num_lineas_1" value="16"/>     
+    </report>    
+    <report name="pedidoproveedor.excel" file="pedidoproveedor" order="lineas.cTitulo">
+        <param name="pvp" value="0"/>       
+        <param name="precio" value="0"/>        
+        <param name="totales" value="0"/>       
+        <param name="email" value="1"/>     
+        <param name="num_lineas_1" value="16"/>     
+        <param name="excel" value="1"/>       
+    </report>    
+</reports>

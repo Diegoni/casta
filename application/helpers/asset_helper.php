@@ -52,13 +52,16 @@ function other_asset_url($asset_name, $module_name = NULL, $asset_type = NULL)
 	endif;
 
 	$file = other_asset_path($asset_name, $module_name, $asset_type);
-  if (file_exists($file))
-  { 
-      $time = filemtime($file);
-	    $asset_location .= $asset_type.'/'.$asset_name . '?' . $time;
+
+	if (file_exists($file))
+	{ 
+		$time = filemtime($file);
+		$asset_location .= $asset_type.'/'.$asset_name . '?' . $time;
     	return $asset_location;
-  }
-  return null;
+	}
+	//return null;
+	//return "http://localhost/casta_test/assets/".$asset_type."/".$asset_name;
+	return $file;
 }
 
 /**
@@ -78,14 +81,19 @@ function other_asset_path($asset_name, $module_name = NULL, $asset_type = NULL)
 {
 	$obj =& get_instance();
 	$base_url = dirname(FCPATH) . DIRECTORY_SEPARATOR;
-
-	$asset_location = $base_url.'assets' . DIRECTORY_SEPARATOR;
+	//Diego: cambiar esto
+	$base_url = "http://localhost/casta_test/";
+			
+	//$asset_location = $base_url.'assets' . DIRECTORY_SEPARATOR;
+	$asset_location = $base_url.'assets/';
 
 	if(!empty($module_name)):
-		$asset_location .= 'modules' . DIRECTORY_SEPARATOR .$module_name . DIRECTORY_SEPARATOR;
+		//$asset_location .= 'modules' . DIRECTORY_SEPARATOR .$module_name . DIRECTORY_SEPARATOR;
+		$asset_location .= 'modules' . "/" .$module_name . "/";
 	endif;
 
-	$asset_location .= $asset_type. DIRECTORY_SEPARATOR.$asset_name;
+	//$asset_location .= $asset_type. DIRECTORY_SEPARATOR.$asset_name;
+	$asset_location .= $asset_type. "/".$asset_name;
 
 	return $asset_location;
 

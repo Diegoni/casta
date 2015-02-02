@@ -1,0 +1,469 @@
+-------
+INSTALL
+-------
+
+
+Requirements
+------------
+php                    Ver. => 4
+mysql                  Ver. => 4
+smtp.php               http://www.phpclasses.org/browse/download/1/file/30/name/smtp.php
+mime_parser.php        http://www.phpclasses.org/browse/download/1/file/14670/name/mime_parser.php
+rfc822_addresses.php   http://www.phpclasses.org/browse/download/1/file/21704/name/rfc822_addresses.php
+pop3.php               http://www.phpclasses.org/browse/download/1/file/3/name/pop3.php
+sasl.php               http://www.phpclasses.org/browse/download/1/file/7491/name/sasl.php (if you use smtp servers like gmail)
+login_sasl_client.php  http://www.phpclasses.org/browse/download/1/file/7493/name/login_sasl_client.php
+ntlm_sasl_client.php   http://www.phpclasses.org/browse/download/1/file/7495/name/ntlm_sasl_client.php
+
+optional
+--------
+test_pop3ml.php        http://www.phpclasses.org/browse/download/1/file/4/name/test_pop3.php
+                       (you can use it to test your pop3 account)
+test_smtp.php          http://www.phpclasses.org/browse/download/1/file/31/name/test_smtp.php
+                       (for outgoing smtp server test. run it before configure mltable smtp values)
+clean_pop3ml.php       if you want to keep clean and remove all expired records from tables, queued messages,
+                       messages waiting for moderation and subscribe/unsubscribe requests, use it
+test_pop3ml.php        an extra php script to test mailing lists
+class.viewmsg.php      required by 'test_pop3ml.php'
+class.scheduledate.php to manage email scheduling
+
+
+How to install Pop3ml
+---------------------
+- Uncompress zip/tgz file (ie. /tmp/pop3ml.tgz) into your http server DOCUMENT_ROOT (ie. /srv/www/htdocs)
+
+   cd /srv/www/htdocs
+   tar xzvf /tmp/pop3ml.tgz
+   cd pop3ml
+
+- create ml database
+
+   mysqladmin -u username -p create pop3ml
+   mysql -u username -p pop3ml <./sql/pop3ml.sql
+
+- create mltable record
+
+   mysql -u username -p pop3ml <./sql/mltable.sql
+
+   for italian version:
+
+   mysql -u username -p pop3ml <./sql/mltable-it.sql
+
+- download all required php scripts (if URLs have changed search 'phpclasses.org' for new location) into "includes"
+  folder
+
+- check file ownership and permission
+
+- run your browser to (for example) http://yourserver.com/phpMyAdmin, select database 'pop3ml' and table 'mltable'.
+  adjust mltable record filling all field (see below for explanation).
+  It's better to add subscribers list after some tests.
+
+- edit config.php file and adjust some variables (mlinfo->listname with listname, user/password...)
+
+- test installation. Run your browser:
+
+   http://yourserver.com/pop3ml/mlsend.php
+ 
+   if you receive a message like this:
+      2009/01/29 11:31:34. mylistname: 0 mess.
+   you can go on with smtp test, otherwise there is a problem with pop3 account.
+
+- make smtp test. Send an email message to ML address (i.e. a message without subject and body
+  only with 'help' for getting some help text). Be aware, messages could delay (queue,
+  slow smtp server,lan traffic,..). Run your browser:
+
+   http://yourserver.com/pop3ml/mlsend.php
+
+   if you don't receive a message like this:
+
+      2009/01/29 11:37:22. mylistname: 1 mess. total size [495] # 1, size [495]:
+
+   there is a problem sending message to smtp server. You can use "test_smtp.php" to solve the problem.
+
+- you can also make some tests with 'test_pop3ml.php'. with this extra program you can test your ML subscriber list,
+  mail filter, allow subscribers list, deny subscribers list, automatic mailer detection, ml messages and smtp server
+  test. if you check 'send mail' test message will be sent, otherwise only smtp connection will be tested.
+  for example:
+  
+          +--------------------+                   +---+
+  mlname  | mylist             |        send mail  |   |
+          +--------------------+                   +---+
+                     +---------------------------------+
+    smtp "MAIL FROM" |giu.lucarelli@gmail.com          |
+                     +---------------------------------+
+    subject          |running test_pop3ml.php script   |
+                     +---------------------------------+
+    header
+  +-------------------------------------------+
+  | from: giu.lucarelli@gmail.com             |
+  | subject: running test_pop3ml.php script   |
+  +-------------------------------------------+
+    body
+  +-------------------------------------------+
+  | testing mylist with this simple message   |
+  +-------------------------------------------+
+  
+    the 'test result' message will be:
+  +-----------------------------------------------------------+
+  |                                                           |
+  | EMAIL DATA:                                               |
+  | from: giu.lucarelli@gmail.com                             |
+  | to:                                                       |
+  | subject: running test_pop3ml.php script                   |
+  |                                                           |
+  |                                                           |
+  | CHECK SENDER RESULT: deny                                 |
+  +-----------------------------------------------------------+
+
+  
+    otherwise putting this text into header/body:
+
+                     +---------------------------------+
+    smtp "MAIL FROM" |giu.lucarelli@gmail.com          |
+                     +---------------------------------+
+    subject          |                                 |
+                     +---------------------------------+
+   header
+  +-------------------------------------------+
+  | from: giu.lucarelli@gmail.com             |
+  +-------------------------------------------+
+   body
+  +-------------------------------------------+
+  | subscribe digest                          |
+  +-------------------------------------------+
+  
+    the test result message will be:
+  +-----------------------------------------------------------------------------------------------------+
+  |                                                                                                     |
+  | EMAIL DATA:                                                                                         |
+  | from: giu.lucarelli@gmail.com                                                                       |
+  | to:                                                                                                 |
+  | subject:                                                                                            |
+  |                                                                                                     |
+  |                                                                                                     |
+  | CHECK SENDER RESULT: deny                                                                           |
+  |                                                                                                     |
+  | Got command: SUBSCRIBE                                                                              |
+  |                                                                                                     |
+  | RCPT TO:                                                                                            |
+  | giu.lucarelli@gmail.com                                                                             |
+  |                                                                                                     |
+  | To: giu.lucarelli@gmail.com                                                                         |
+  | From: mylist@gmail.com                                                                              |
+  | Subject: confirm subscribe mylist@gmail.com                                                         |
+  | Precedence: bulk                                                                                    |
+  |                                                                                                     |
+  | You have received this email because you, or someone else, submitted a subscription request for:    |
+  |                                                                                                     |
+  | <mylist@gmail.com> DIGEST mode                                                                      |
+  |                                                                                                     |
+  | Please confirm your subcription, sending a message with code below or simply hit "reply" button.    |
+  | If you don't approve simply ignore this message.                                                    |
+  |                                                                                                     |
+  | <confirm.subscribe.digest.mylist.00207b6b26ce001841ffcd295b628f24.giu.lucarelli@gmail.com>          |
+  |                                                                                                     |
+  | Thank you.                                                                                          |
+  +-----------------------------------------------------------------------------------------------------+
+
+   you can use this program to test smtp functionality too, in a little easier way then sending messages
+   to a pop3 account.
+   just add one user to subscribed list (see below), run the program again and click the 'send and debug' field:
+
+          +--------------------+                  +----+
+  mlname  | mylist             |        send mail | \/ |
+          +--------------------+                  +----+
+                     +---------------------------------+
+    smtp "MAIL FROM" |giu.lucarelli@foo.com            |
+                     +---------------------------------+
+    subject          |running test_pop3ml.php script   |
+                     +---------------------------------+
+    header
+  +-------------------------------------------+
+  | from: giu.lucarelli@foo.com               |
+  | subject: running test_pop3ml.php script   |
+  +-------------------------------------------+
+    body
+  +-------------------------------------------+
+  | testing smtp server                       |
+  +-------------------------------------------+
+  
+   in this sample i have subscribed an account with a wrong domain (foo.com), while my smtp server only manages 
+   'bsmc.it' domain and it is not configured as open relay.
+   the program will really try to send the message, using smtp 'MAIL FROM' as sender and enabling 'debug' functionality
+   of 'smtp.php' script.
+   the output of test will be:
+  +-------------------------------------------------------------------------+
+  |                                                                         |
+  | EMAIL DATA:                                                             |
+  | from: giuseppe.lucarelli@foo.com                                        |
+  | to:                                                                     |
+  | subject: running test_pop3ml.php script                                 |
+  |                                                                         |
+  | CHECK SENDER RESULT: subscribed                                         |
+  |                                                                         |
+  | STARTING SMTP:                                                          |
+  |                                                                         |
+  | Connecting to host address "11.22.33.44" port 25...                     |
+  | Connected to SMTP server "11.22.33.44".                                 |
+  | S 220 bsmc.it ESMTP                                                     |
+  | C EHLO localhost                                                        |
+  | S 250-bsmc.it                                                           |
+  | S 250-PIPELINING                                                        |
+  | S 250 8BITMIME                                                          |
+  | C MAIL FROM:<giuseppe.lucarelli@foo.com>                                |
+  | C RCPT TO:<giuseppe.lucarelli@foo.com>                                  |
+  | C DATA                                                                  |
+  | S 250 ok                                                                |
+  | S 250 ok                                                                |
+  | S 553 sorry, that domain isn't in my list of allowed rcpthosts (#5.7.1) |
+  | Disconnected.                                                           |
+  |                                                                         |
+  +-------------------------------------------------------------------------+
+
+   
+- after succesfully ML test, copy the shell script to an excecutable directory
+  and adjust it (user and password if required). you can use other programs/shell scripts
+  to run php script (lynx for example)
+
+   cp ./template/mlsend.sh /usr/local/bin
+
+   or
+
+   cp ./template/mlsend-lynx.sh /usr/local/bin/mlsend.sh
+
+- if you want to run 'clean_pop3ml.php':
+
+   cp ./template/clean.sh /usr/local/bin
+
+   or
+
+   cp ./template/clean-lynx.sh /usr/local/bin/clean.sh
+
+
+- edit your crontab file and add your personal data 
+
+   crontab -e
+
+   (this example runs Pop3ml every 10 minutes, from 8:00 AM to 20:00 PM, and from monday to saturday)
+
+    0,10,20,30,40,50 8-20 * * 1-6 /usr/local/bin/mlsend.sh >/dev/null 2>&1
+
+- if you have created 'clean.sh' add this extra row to your contab file (you can change any time/hour/day value)
+
+   (this example runs clean_pop3ml.php from monday to saturday day at 01:04 AM)
+
+    4 1 * * 1-6 /usr/local/bin/clean.sh >/dev/null 2>&1
+
+
+- check periodically log files (default "/var/log/pop3ml.log")
+
+
+How to insert more lists with phpMyAdmin:
+----------------------------------------
+
+  - edit one 'mltable' record (choose one with similar data)
+  - change 'id' value (inserting the last record id plus 1) and listname to avoid duplicate records, and all data
+    you like (listaddr, smtpserver,sublist,....)
+  - change 'SAVE' option value (at the bottom of page) to 'insert as new row'
+    (pay attention to this point to avoid rewriting the original list record)
+  - click the 'GO' button
+
+
+
+How to configure lists (database 'pop3ml' table 'mltable')
+----------------------------------
+
+field list
+
+- id
+   autoincrement primary key (unique value)
+
+- typology
+   used only with 'goshweb', do not touch
+
+- listname
+   ml list name. Put it into 'config.php' to run this list (unique value)
+
+- hostname
+   pop3 data (format 'hostname:port:tls', ie 'pop.gmail.com:995:1') set tls to '1' if smtp server require TLS
+   (you can use '\t' as delimiter too)
+
+- listaddr
+   ML address corresponding to pop3 account (ie. 'mylist@gmail.com')
+
+- listuser
+   pop3 user account
+
+- listpoppass
+   pop3 password
+
+- listowneremail
+   list owner for contacts
+
+- parentlist
+   it's very useful to allow post between lists. if you have a master list named 'master' and two children lists,
+   for example 'list1' and 'list2', every subscribed address of 'list1' could post to its own list and to 'master' list,
+   but he cannot post to 'list2', and so for 'list2' addresses. you have two ways to solve this problem. the first one is to
+   copy all subscribed addresses of 'list1' to 'allow' field of 'list2' and vice-versa. the second one is to put into
+   'list1' and 'list2' 'parentfield' the name of parent list 'master'. in this way every 'allow' children list field will
+   be filled with 'master' subscribers list and allowed subscribers list.
+   it can have multiple list name values comma separated (ie. 'firstlist,secondlist,thirdlis')
+
+- msgsize
+  max size for messages
+
+- smtpserver
+   outgoing smtp server for message delivery. you can add more then one smtp server in this form (you can use '\t'
+   as delimiter too):
+    smtpserver:port:ssl:pop3port:popuser:poppassword:tls
+    smtpserver1:port:ssl:pop3port:popuser:poppassword:tls
+   (ie.)
+    smtp.gmail.com:465:1:995:popuser:poppass
+    anothersmtp.com:25:0
+
+- mltype
+   'm' for mailinglist. Only 'allowed' or 'subscribed' users can post. Only 'allowed' users will receive messages
+       delivered by ML
+   'n' for newsletter. Only 'allowed' users can post. Only 'subscribed' user will receive messages
+
+- confirmsub
+   'yes' new subscribers will receive mail request to confirm subscription
+   'no'  no request will be sent to subscribers (deprecated)
+   
+- confirmunsub
+   'yes' new subscribers will recerive mail request to confirm unsubscription
+   'no'  no request will be sent to unsubscribers (deprecated)
+   
+- moderatedlist
+   'yes' new messages from subscribers need approvation from moderator(s)
+   'no'  no moderation for messages
+   
+- subscriptionmod
+   'yes' new confirmation request have to be confirmed from moderator(s)
+   'no'  no moderation form subscription
+   
+- subscribersonly
+   'yes' ml is private, only 'allowed' and 'subscribed' users can post
+   'no'  ml is public, everybody can post but only 'subscribed' will receive messages
+
+  if you want ML acting as forwarder, set this field to 'no' and empty 'headerchange' value (described below), so
+  all read emails will be delivered without any header change.
+   
+- removeafterpop
+   'yes' delete message after delivery
+   'no'  messages won't be removed after delivery
+   
+- shutdown
+   'yes' ml is (temporarily) disabled
+   'no'  ml is active
+   
+- recipientlimit
+   if your smtp server has a limit for simultaneous 'RCPT TO' command.
+   set it to '0' for no limit.
+
+- senddigest
+   send digest time in this format: '[day:]hour:minutes'. for example:
+      'mon:06:10' '12:10' or one of this values: 1,2,3,4,6,8,12
+      'mon:06:10'  (every monday at '06:10')
+      '12:10'      (every dat at '12:10')
+      '1'          (send every hour)
+      '2'          (send every 2 hours, first at '02:00', next at '04:00','06:00' and so on)
+      '3'          (send every 3 hours, first at '03:00', next at '06:00','09:00' and so on)
+      ...
+      '12'         (twice a day, first at '12:00', second at '24:00')
+   if set to '', script will use 'SEND_DIGEST' script's define.
+
+- digestmaxsize
+   max size for digest message: '#[KM]' ie. '65536' (byte size), '64K' (Kbyte size), '1M' (Mbyte size)
+   if 'DIGEST_MAX_SIZE' script's define is set to some value, all ML's 'digestmaxsize' field will be overridden.
+
+- digestmaxmsg
+   max number of messages per digest.
+   if 'DIGEST_MAX_MSG' script's define is set to some value, all ML's 'digestmaxmsg' field will be overridden.
+
+- sublist
+   subscribers list. add addresses separated by CR. you can put users email address or, if this ML has sublist(s)
+   (children), you can put here ML listname (please refer to README file)
+   (ie.)
+    me@gmail.com
+    you@yahoo.com
+    other-list-name
+
+- modsublist
+   moderator(s) list. as subscribers list. add addresses separated by CR. as 'sublist' field, you can put here
+   other ML listname too, so child ML subscribers can be moderators of parent ML
+   
+- denysublist
+   rejected address list. addresses will be REGEXP(ed). as 'sublist' field, you can put here
+   other ML listname too, so to child ML subscribers will be disabled posting to parent ML
+   (ie. '.*@somebaddomain.com' '.*paypal')
+   
+- allowsublist
+   allowed address list. addresses will be REGEXP(ed) and will not receive messages (post only).
+   as 'denysublist' field, you can put here ML listname too, so child ML subscribers could post to parent ML
+   
+- digestsublist
+   subscribers list for digest mode. as 'sublist' field, you can put here ML listname too, so child ML
+   subscribers will receive all digest emails with post right to parent ML.
+   
+- mailfilter
+  you can put here any kind of regexp filter (similar to procmail). allowed commands are:
+	drop			(drop email)
+	owner [text]		(notify owner with '[text]' as body message and original email as attachment)
+	store			(store email into cache folder. useful if you have not enabled 'cachemessage')
+	notify [text]		(notify user with '[text]' as body message and original email as attachment)
+	redirect [emailaddress], [emailaddress], [emailaddress].........
+				(forward email to [emailaddress](s))
+
+:0 H
+* ^Subject: (mail delivery failed|failure notice|delivery status notif).*
+owner bounced mail
+
+:0 B
+* ^content-type: application/octet-stream
+drop
+notify invalid attachment
+
+:0
+* \b(viagra|cialis|peptide)\b
+drop
+notify junk mail, not accepted
+owner junk mail with subject 'viagra!cialis!peptide'
+
+:0 H
+* ^list-(un|)subscribe:
+drop
+   
+
+- headerchange
+   put here header(s) you want to add, remove or change, from messages sent to subscribers.
+   format: [!]HeaderDef [HeaderValue] [{Regexp pattern}]
+   for example:
+
+   Reply-To __LISTADDRESS__			(__LISTADDRESS__ will be replaced with pop3ml->mltable->listadd)
+   return-receipt-to  				(this header row will be removed from message header)
+   Mailing-List  contact <__LISTOWNER__>	(__LISTWONER__ will be replaced with pop3ml->mltable->listowneremail)
+   Subject [Bigband-__LISTNAME__] \1 {/(.*)/}	(Subject header value will be replaced with its original value after
+						 '[Bigband-listname]' text)
+   !return-path __USERADDRESS__			(return-path header will be set only if it not exists yet)
+   
+- trailerfile
+   body text appended to every message delivered by ML (only for "text/plain" messages format)
+   
+- language
+   text used for subscription, unsubscription, welcome, gooodbye,.. and terms used by script
+
+- rowlock
+   '' ML is not busy and ready to accept messages
+   'user_remoteserveraddress-date' ML is busy for delivery or data administration. if you are using phpMyAdmin
+                                     or similar programs set this value not equal to '', to block 
+                                     temporarily ML delivery, or set 'shutdown' to 'yes'
+   ie.
+   'root@127.0.0.1-2008/12/12-09:10:33'
+   
+
+/* WARNING! Be careful with messages! You can easily reach max size for a
+* php script (normally 10M) or (for example) max_allowed_packet for mysql.
+*/
+
+enjoy

@@ -33,7 +33,7 @@ class App extends MY_Controller
 		$this->load->library('userauth');
 		*/
 		parent::__construct();
-		//$this->load->library('userauth');
+		$this->load->library('userauth');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class App extends MY_Controller
 	 */
 	function index()
 	{
-		//$this->userauth->check_login(null, null, null, 'sys/app/login');
+		$this->userauth->check_login(null, null, null, 'sys/app/login');
 
 		$this->load->helper('asset');
 		$this->load->helper('extjs');
@@ -402,7 +402,7 @@ class App extends MY_Controller
 	{
 		$this->session->keep_flashdata('uri');
 		$url = site_url($this->session->flashdata('uri'));
-
+		
 		// Formulario
 		$this->load->helper('asset');
 		$this->load->helper('extjs');
@@ -411,6 +411,7 @@ class App extends MY_Controller
 		$datos['url'] = $url . (isset($_GET['beta'])?'?beta':'');
 		
 		$this->load->view(isset($_GET['beta'])?'main/login3':'main/login', $datos);
+		
 	}
 
 	/**

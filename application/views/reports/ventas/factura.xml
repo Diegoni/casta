@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+    <report name="factura.general.titulo" file="factura" order="lineas.cTitulo">
+        <param name="pvp" value="1"/>		
+    </report>    
+    <report name="factura.general.autores" file="factura" order="lineas.cAutores">
+        <param name="pvp" value="1"/>		
+    </report>    
+    <report name="factura.general.titulo.base" file="factura" order="lineas.cTitulo">
+        <param name="num_lineas_2" value="22"/>
+        <param name="pvp" value="0"/>
+		<param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="titlelen" value="75"/>
+    </report>    
+    <report name="factura.ticket.titulo" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="25"/>
+        <param name="length_bold" value="16"/>
+    </report>    
+    <report name="factura.ticket.titulo.50" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="38"/>
+        <param name="length_bold" value="24"/>
+    </report>    
+    <report name="factura.ticket.titulo.60" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="48"/>
+        <param name="length_bold" value="24"/>
+    </report>    
+    <report name="factura.ticket.titulo.factura" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="25"/>
+        <param name="datos_factura" value="1" />
+        <param name="length_bold" value="16"/>
+    </report>    
+    <report name="factura.ticket.titulo.factura.50" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="38"/>
+        <param name="length_bold" value="24"/>
+        <param name="datos_factura" value="1" />
+    </report>    
+    <report name="factura.ticket.titulo.factura.60" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="48"/>
+        <param name="length_bold" value="24"/>
+        <param name="datos_factura" value="1" />
+    </report>    
+    <report name="factura.ticket.titulo.regalo" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="25"/>
+        <param name="length_bold" value="16"/>
+        <param name="precios" value="0"/>
+    </report>    
+    <report name="factura.ticket.titulo.regalo.50" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="38"/>
+        <param name="length_bold" value="24"/>
+        <param name="precios" value="0"/>
+    </report>    
+    <report name="factura.ticket.titulo.regalo.60" file="ticket" order="lineas.cTitulo">
+        <param name="length" value="48"/>
+        <param name="length_bold" value="24"/>
+        <param name="precios" value="0"/>
+    </report>    
+
+    <report name="factura.email.titulo" file="factura_email" order="lineas.cTitulo">
+    </report>    
+    <report name="factura.general.albaranes" file="factura_albaranes">
+        <param name="show_ejemplares" value="0"/>
+        <param name="show_titulos" value="0"/>
+        <param name="pvp" value="0"/>
+		<param name="show_extra_impuestos" value="0"/>
+        <param name="show_pvp" value="0"/>
+        <param name="show_dto" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="reflen" value="100"/>
+    </report>    
+    <report name="factura.regalo.titulo" file="factura" order="lineas.cTitulo">
+        <param name="precio" value="0"/>
+        <param name="show_pvp" value="0"/>
+        <param name="show_dto" value="0"/>
+        <param name="base_mode" value="1"/>
+		<param name="show_extra_impuestos" value="0"/>
+    </report>    
+    <report name="factura.general.titulo.especial.4.1" file="factura" order="lineas.cTitulo">
+        <param name="pvp" value="1"/>       
+        <param name="iva_add" value="4"/>       
+        <param name="iva_add_value" value="0.01"/>       
+    </report>    
+</reports>

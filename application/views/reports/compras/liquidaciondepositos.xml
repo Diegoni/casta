@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+    <report name="liquidaciondepositos.general.titulo" file="liquidaciondepositos" order="lineas.cTitulo">
+        <param name="num_lineas_1" value="13"/>
+        <param name="num_lineas_2" value="20"/>
+        <param name="pvp" value="0"/>
+		<param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="0"/>		
+    </report>    
+    <report name="liquidaciondepositos.general.autores" file="liquidaciondepositos" order="lineas.cAutores">
+        <param name="num_lineas_1" value="13"/>
+        <param name="num_lineas_2" value="20"/>
+        <param name="pvp" value="0"/>
+		<param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="0"/>		
+    </report>    
+    <report name="liquidaciondepositos.general.isbn" file="liquidaciondepositos" order="lineas.cISBN">
+        <param name="num_lineas_1" value="13"/>
+        <param name="num_lineas_2" value="20"/>
+        <param name="pvp" value="0"/>
+		<param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="0"/>		
+    </report>    
+    <report name="liquidaciondepositos.email.titulo" file="liquidaciondepositos" order="lineas.cTitulo">
+        <param name="num_lineas_1" value="13"/>
+        <param name="num_lineas_2" value="20"/>
+        <param name="pvp" value="0"/>
+		<param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="1"/>		
+    </report>    
+</reports>

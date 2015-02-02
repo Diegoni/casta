@@ -1,0 +1,24 @@
+<?php
+$num_lineas_1 = isset($num_lineas_1)?$num_lineas_1:14;
+$num_lineas_2 = isset($num_lineas_2)?$num_lineas_2:22;
+$titlelen = isset($titlelen)?$titlelen:100;
+$autorlen = isset($autorlen)?$autorlen:80;
+$reflen = isset($reflen)?$reflen:30;
+$clientelen = isset($clientelen)?$clientelen:50;
+$ref_cliente = isset($ref_cliente)?$ref_cliente:'cRefCliente';
+$precio = isset($precio)?$precio:1;
+$show_iva = isset($show_iva)?$show_iva:0;
+$show_total = isset($show_total)?$show_total:0;
+$show_unitario = isset($show_unitario)?$show_unitario:0;
+$base_mode = isset($base_mode)?$base_mode:0;
+$totales = isset($totales)?$totales:1;
+$pvp = isset($pvp)?$pvp:1;
+$email = isset($email)?$email:0;
+$logo = isset($logo)?$logo:1;
+$show_extra_impuestos = isset($show_extra_impuestos)?$show_extra_impuestos:1;
+$clpv = isset($clpv)?$clpv:$this->lang->line('report-Cliente');
+$show_ejemplares = isset($show_ejemplares)?$show_ejemplares:1;
+$show_titulos = isset($show_titulos)?$show_titulos:1;
+$show_pvp = isset($show_pvp)?$show_pvp:1;
+$show_dto = isset($show_dto)?$show_dto:1;
+$excel = isset($excel)?$excel:0;

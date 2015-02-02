@@ -552,10 +552,12 @@ class Test extends MY_Controller
 	{
 		$this->load->library('Sphinx');
 		$data = $this->sphinx->search($query);
+		echo "test";
 		echo '<pre>';
 		print_r($data);
 		echo '</pre>';
 		$ids = array();
+		/*
 		foreach ($data['matches'] as $id => $v)
 		{
 			$ids[] = $id;
@@ -568,7 +570,7 @@ class Test extends MY_Controller
 			echo '<pre>';
 			print_r($articulos);
 			echo '</pre>';
-		}
+		}*/
 	}
 
 	function timeout()

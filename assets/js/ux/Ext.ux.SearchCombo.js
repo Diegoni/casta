@@ -1,0 +1,133 @@
+Ext.ns('Ext.ux.form');
+
+Ext.ux.form.SearchCombo = function(config){
+    Ext.ux.form.SearchCombo.superclass.constructor.call(this, config);
+    this.addEvents('itemselect');
+};
+
+/**
+ * @private hide from doc gen
+ */
+Ext.ux.form.SearchCombo = Ext.extend(Ext.form.ComboBox, {
+    displayField: 'text',
+    valueField: 'id',
+    typeAhead: true,
+    minChars: 100,
+    cls: 'searchcontrol',
+    fnselect: null,
+    forceSelection: true,
+    //hideTrigger: true,
+    enableKeyEvents: true,
+    autoload: false,
+    url: null,
+    id: null,
+    text: null,
+    /**
+     * Inicializa componente
+     */
+    initComponent: function(){
+        // call parent initComponent
+        this.store = Ext.app.getStore(this.url, ['id', 'text'], this.autoload, true);
+        this.store.baseParams = {
+            start: 0,
+            limit: Ext.app.AUTOCOMPLETELISTSIZE
+        };
+        this.loadingText = _s('cargando');
+        var me = this;
+        
+        this.store.on('load', function(r, o){
+            var fn = function(data){
+                me.suspendEvents(false);
+                me.setValue(data.id);
+                me.my_select(parseInt(data.id), data.text);
+                me.store.removeAll();
+                me.resumeEvents();
+                me.collapse();
+            };
+            if (parseInt(me.store.getTotalCount()) == 1) {
+                fn(me.store.getAt(0).data);
+            }
+            else {
+                me.expand();
+            }
+        });
+        
+        Ext.ux.form.SearchCombo.superclass.initComponent.call(this);
+    },
+    
+    my_select: function(id, text){
+        //this.setValue(id);
+        this.fireEvent('itemselect', this, id);
+        try {
+            this.setValue(id);
+            if (this.fnselect) {
+                this.fnselect(id);
+            }
+        } 
+        catch (e) {
+            console.dir(e);
+        }
+    },
+    
+    doQueryEx: function(){
+        console.log('doQuery..');
+        var q = this.getRawValue();
+		//this.doQuery(q, true);
+		
+        try {
+            //  console.log('autocomplete doQuery');
+            //this.clearValue();
+            //this.setValue(q);
+            //console.dir(f.getStore());
+            this.store.removeAll();
+            this.store.load({
+                params: {
+                    query: q,
+                    start: 0,
+                    limit: Ext.app.AUTOCOMPLETELISTSIZE
+                }
+            });
+            //f.doQuery(q, true);
+        } 
+        catch (e) {
+        }
+    },
+    
+    /**
+     * Inicializa eventos
+     */
+    initEvents: function(){
+        var el = this.el;
+        var me = this;
+        
+        el.on({
+            focus: function(){
+                me.selectText();
+            },
+            keypress: function(e){
+                if (e.getKey() == 13) {
+                    me.doQueryEx();
+                }
+            },
+            select: function(r, i){
+                me.my_select(r.data.id, r.data.text);
+            },
+            scope: this
+        });
+    },
+    clearValue: function(supressRemoveEvent){
+        this.getStore().removeAll();
+        Ext.ux.form.SearchCombo.superclass.clearValue.call(this);
+        return this;
+    },
+    reset: function(){
+        this.getStore().removeAll();
+        Ext.ux.form.SearchCombo.superclass.reset.call(this);
+    },
+    setValueEx: function(id){
+        this.setValue(id);
+        this.doQueryEx();
+    }
+}); // eo extend
+// register xtype
+Ext.reg('searchcombofield', Ext.ux.form.SearchCombo);

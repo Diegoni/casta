@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+    <report name="suscripciones.avisorenovacion.carta" file="avisorenovacion">
+    </report>    
+    <report name="suscripciones.avisorenovacion.email" file="avisorenovacion">
+        <param name="email" value="1"/>		
+    </report>    
+</reports>

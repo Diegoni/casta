@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+    <report name="pedidocliente.general.titulo" file="pedidocliente" order="lineas.cTitulo">
+        <param name="precio" value="1"/>
+    </report>
+    <report name="pedidocliente.general.autores" file="pedidocliente" order="lineas.cAutores">
+        <param name="precio" value="1"/>
+    </report>    
+    <report name="pedidocliente.general.titulo.base" file="pedidocliente" order="lineas.cTitulo">
+        <param name="num_lineas_2" value="22"/>
+        <param name="pvp" value="0"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="titlelen" value="75"/>
+    </report>
+    <report name="pedidocliente.general.titulo.sinprecio" file="pedidocliente" order="lineas.cTitulo">
+        <param name="precio" value="0"/>
+    </report>
+    <report name="pedidocliente.general.autores.sinprecio" file="pedidocliente" order="lineas.cAutores">
+        <param name="precio" value="0"/>
+    </report>
+    <report name="pedidocliente.facturaproforma.titulo" file="facturaproforma" order="lineas.cTitulo">
+        <param name="precio" value="1"/>
+    </report>
+    <report name="pedidocliente.facturaproforma.autor" file="facturaproforma" order="lineas.cAutor">
+        <param name="precio" value="1"/>
+    </report>
+    <report name="pedidocliente.facturaproforma.titulo.base" file="facturaproforma" order="lineas.cTitulo">
+        <param name="num_lineas_2" value="22"/>
+        <param name="pvp" value="0"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+    </report>
+    <report name="pedidocliente.presupuesto.titulo" file="facturaproforma" order="lineas.cTitulo">
+        <param name="precio" value="1"/>
+        <param name="titulo" value="presupuesto"/>
+        <param name="texto_condiciones" value="text-presupuesto"/>        
+    </report>
+    <report name="pedidocliente.presupuesto.autor" file="facturaproforma" order="lineas.cAutor">
+        <param name="precio" value="1"/>
+        <param name="titulo" value="presupuesto"/>
+        <param name="texto_condiciones" value="text-presupuesto"/>        
+    </report>
+    <report name="pedidocliente.presupuesto.titulo.base" file="facturaproforma" order="lineas.cTitulo">
+        <param name="num_lineas_2" value="22"/>
+        <param name="pvp" value="0"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="titulo" value="presupuesto"/>
+        <param name="texto_condiciones" value="text-presupuesto"/>        
+    </report>
+    <report name="pedidocliente.infolibros.titulo" file="pedidoclienteinfo" order="lineas.cTitulo">
+        <param name="precio" value="1"/>
+    </report>
+    <report name="pedidocliente.infocliente.titulo" file="pedidocliente" order="lineas.cTitulo">
+        <param name="num_lineas_1" value="12"/>
+        <param name="num_lineas_2" value="20"/>
+        <param name="precio" value="0"/>
+        <param name="estado" value="1"/>
+        <param name="reflen" value="60"/>		
+    </report>
+    <report name="pedidocliente.infocliente.titulo.precios" file="pedidocliente" order="lineas.cTitulo">
+        <param name="num_lineas_1" value="12"/>
+        <param name="num_lineas_2" value="20"/>
+        <param name="precio" value="1"/>
+        <param name="estado" value="1"/>
+        <param name="reflen" value="60"/>		
+    </report>
+    <report name="pedidocliente.excel" file="pedidocliente" order="lineas.cTitulo">
+        <param name="pvp" value="1"/>       
+        <param name="precio" value="1"/>        
+        <param name="totales" value="0"/>       
+        <param name="email" value="1"/>     
+        <param name="num_lineas_1" value="16"/>     
+        <param name="excel" value="1"/>       
+    </report>    
+</reports>

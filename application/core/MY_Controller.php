@@ -103,7 +103,6 @@ class MY_Controller extends CI_Controller
 	function __construct($auth = null, $model = null, $check_loged = FALSE, $index_view = null, $title = null, $submenu = null)
 	{
 		parent::__construct();
-	
 		$this->obj =& get_instance();
 
 		if ($check_loged)
@@ -118,7 +117,6 @@ class MY_Controller extends CI_Controller
 		$this->index_view = $index_view;
 		$this->title = $this->obj->lang->line($title);
 		if (isset($model)) $this->load->model($model,'reg');
-	
 	}
 
 	/**

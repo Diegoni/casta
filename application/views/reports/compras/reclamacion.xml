@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+    <report name="reclamacionpedidoproveedor.general.titulo" file="reclamacion" order="lineas.cTitulo">
+        <param name="num_lineas_2" value="21"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="0"/>
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+    </report>
+    <report name="reclamacionpedidoproveedor.general.autores" file="reclamacion" order="lineas.cAutores">
+        <param name="num_lineas_2" value="21"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="0"/>
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+    </report>
+    <report name="reclamacionpedidoproveedor.general.isbn" file="reclamacion" order="lineas.cISBN">
+        <param name="num_lineas_2" value="21"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="0"/>
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+    </report>
+    <report name="reclamacionpedidoproveedor.email.titulo" file="reclamacion" order="lineas.cTitulo">
+        <param name="num_lineas_2" value="21"/>
+        <param name="show_extra_impuestos" value="0"/>
+        <param name="base_mode" value="1"/>
+        <param name="show_unitario" value="1"/>
+        <param name="email" value="1"/>
+        <param name="precio" value="0"/>		
+        <param name="totales" value="0"/>		
+        <param name="pvp" value="0"/>		
+    </report>
+</reports>

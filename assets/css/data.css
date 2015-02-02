@@ -1,0 +1,437 @@
+body {
+	background-color: white;
+	color: black;
+}
+.header {
+	BORDER-RIGHT: #999999 1px dashed;
+	BORDER-TOP: #999999 1px dashed;
+	BORDER-LEFT: #999999 1px dashed;
+	BORDER-BOTTOM: #999999 1px dashed;
+	width: 100%;
+	margin-bottom: 5px;
+	font-family: arial;
+}
+.titulo {
+	BACKGROUND-COLOR: #e8e8e8;
+	font-size: 20px;
+}
+.seccion {
+	BORDER-RIGHT: #999999 1px dashed;
+	BORDER-TOP: #999999 1px dashed;
+	BORDER-LEFT: #999999 1px dashed;
+	BORDER-BOTTOM: #999999 1px dashed;
+	BACKGROUND-COLOR: #e8e8e8;
+	font-size: 18px;
+	width: 100%;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	font-family: arial;
+}
+.label {
+	text-align: left;
+	font-weight: bold;
+}
+.number {
+	text-align: right;
+}
+.text {
+	text-align: left;
+}
+.image {
+	text-align: left;
+	float: left;
+	position: relative;
+	margin-top: 25px;
+	border: 1px solid #fff;
+	max-width: 100px;
+	max-height: 100px;
+	overflow: hidden;
+}
+.precio {
+	font-size: 18px;
+	color: black;
+	font-weight: bold;
+	text-align: right;
+	float: right;
+	position: relative;
+	overflow: hidden;
+}
+.precio-oferta {
+	font-size: 16px;
+	color: red;
+	font-weight: bold;
+	text-decoration: line-through;
+	text-align: right;
+	float: right;
+	position: relative;
+	overflow: hidden;
+}
+.autores {
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+}
+caption, th {
+	text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+}
+q:before, q:after {
+	content: '';
+}
+.data table {
+	width: 100%;
+	text-align: left;
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+}
+.data table th {
+	padding: 4px 3px 4px 5px;
+	border: 1px solid #d0d0d0;
+	/*border-left-color: #eee;*/
+	background-color: #ededed;
+	vertical-align: top;
+}
+.data table td {
+	padding: 4px 3px 4px 5px;
+	border-style: none solid solid;
+	border-width: 1px;
+	border-color: #d0d0d0;
+	vertical-align: top;
+}
+.cmd-target {
+	/*width: 100px;*/
+	text-align: center;
+	padding-top: 5px;
+	padding-right: 0pt;
+	padding-bottom: 5px;
+	padding-left: 0pt;
+	border-top-width: 1px;
+	border-right-width-value: 1px;
+	border-right-width-ltr-source: physical;
+	border-right-width-rtl-source: physical;
+	border-bottom-width: 1px;
+	border-left-width-value: 1px;
+	border-left-width-ltr-source: physical;
+	border-left-width-rtl-source: physical;
+	border-top-style: dotted;
+	border-right-style-value: dotted;
+	border-right-style-ltr-source: physical;
+	border-right-style-rtl-source: physical;
+	border-bottom-style: dotted;
+	border-left-style-value: dotted;
+	border-left-style-ltr-source: physical;
+	border-left-style-rtl-source: physical;
+	border-top-color: #d0d0d0;
+	border-right-color-value: #d0d0d0;
+	border-right-color-ltr-source: physical;
+	border-right-color-rtl-source: physical;
+	border-bottom-color: #d0d0d0;
+	border-left-color-value: #d0d0d0;
+	border-left-color-ltr-source: physical;
+	border-left-color-rtl-source: physical;
+	background-color: #ffffff;
+	background-image: none;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	color: #15428b;
+	cursor: default;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: 11px;
+	line-height: normal;
+	font-size-adjust: none;
+	font-stretch: normal;
+	-x-system-font: none;
+	float: left;
+}
+.cmd-link {
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	background-image: url('../images/fugue/link2.png') !important;
+	cursor: pointer;
+	padding-left: 10px;
+}
+.page-break {
+	page-break-after: always;
+}
+.icon-delete {
+	padding-top: 5px;
+	padding-right: 0pt;
+	padding-bottom: 5px;
+	padding-left: 0pt;
+	background: url('../images/app/delete.png') 0 no-repeat !important;
+}
+.col-cmd {
+	width: 16px;
+}
+.icon-add {
+	padding-top: 5px;
+	padding-right: 0pt;
+	padding-bottom: 5px;
+	padding-left: 0pt;
+	background: url('../images/app/add.png') 0 no-repeat !important;
+	padding-left: 16px;
+}
+.icon-upload {
+	padding-top: 5px;
+	padding-right: 0pt;
+	padding-bottom: 5px;
+	padding-left: 0pt;
+	background: url('../images/fugue/upload2.png') 0 no-repeat !important;
+	padding-left: 16px;
+}
+div.upload {
+   position: relative;
+   width: 16px;
+   height: 16px;
+   overflow:hidden;
+   clip:rect(0px, 80px, 24px, 0px );
+	padding-top: 5px;
+	padding-right: 0pt;
+	padding-bottom: 5px;
+	padding-left: 0pt;
+	background: url('../images/fugue/upload2.png') 0 no-repeat !important;
+	padding-left: 16px;
+}  
+
+div.upload input {
+   position: absolute;
+   left: auto;
+   right: 0px;
+   top: 0px;
+   margin:0;
+   padding:0;
+   filter: Alpha(Opacity=0);
+   -moz-opacity: 0;
+   opacity: 0;
+}
+
+.articulocodigo  {
+	margin-right: 5px;
+	color: #ffffff;
+	background: #F0F8FF;
+	padding-top: 2px;
+	padding-right: 4px;
+	padding-bottom: 2px;
+	padding-left: 4px;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+	font-size: 12px;
+	white-space: nowrap;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background-color: #333333;
+}
+
+.label-important {
+  background-color: #b94a48;
+}
+
+.label-warning {
+  background-color: #f89406;
+}
+
+.label-success {
+  background-color: #468847;
+}
+
+.label-info {
+  background-color: #3a87ad;
+}
+
+.label-inverse {
+  background-color: #333333;
+}
+
+.tipoarticulo_22, .tipoarticulo_21  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/calendar_1.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_3, .tipoarticulo_12  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/cassette.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_5, .tipoarticulo_15  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/cdaudio.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_4  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/cdrom.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_20, .tipoarticulo_22  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/web-browser.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_9  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/disk.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_8, .tipoarticulo_19  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/dvd.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_11, .tipoarticulo_1, .tipoarticulo_18, .tipoarticulo_16, .tipoarticulo_13 {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/book.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_17  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/tick-small-white.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_7  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/map-pin.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_2  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/multiple.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_6, .tipoarticulo_14 {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/newspaper.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.tipoarticulo_10  {
+	color: #3B5998;
+	border: 1px dotted lightblue;
+	background: #F0F8FF  url(../images/fugue/film.png) no-repeat 1px center;
+	margin: 5px;
+	padding: 5px 5px 5px 18px;
+	line-height: 0px;
+	font-size: 12px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}

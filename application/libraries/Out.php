@@ -385,6 +385,7 @@ class Out {
 	 * @param string $format formato de salida (JSON, XML, etc)
 	 * @return JSON
 	 */
+	
 	function redirect($url, $title = null, $icon = null, $id = null, $headers = TRUE)
 	{
 		$data = array(

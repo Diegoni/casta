@@ -1,0 +1,346 @@
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #222;
+    line-height: 20px;
+}
+
+body {
+    background: #68a5f8;
+}
+
+input, textarea {
+    outline: none;
+}
+
+img {
+    border: none;
+}
+
+div#wrap {
+    width: 500px;
+    height: 460px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+div.idea {
+    height: 36px;
+    width: 478px;
+    position: absolute;
+    top: 196px;
+    left: 0px;
+    border: 1px solid #4a6ea0;
+    background: #000000;
+    color: #820101;
+	font-size: 200%;
+    font-weight: bold;
+    padding: 2px 10px 0 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+div.idea img {
+    margin: 6px 10px 0 0;
+    float: left;
+}
+
+div.idea p {
+    margin: 7px 0;
+	text-align: center;
+    /*float: center;*/
+    color: #FFFFFF;
+}
+
+div.block {
+    height: 216px;
+    width: 500px;
+    position: absolute;
+    top: 250px;
+    left: 0px;
+    background: url('../../../images/login/bg.jpg') no-repeat;
+}
+
+div.left {
+    height: 160px;
+    width: 146px;
+    position: absolute;
+    top: 20px;
+}
+
+div.right {
+    height: 120px;
+    width: 354px;
+    padding: 20px 0px;
+    position: absolute;
+    top: 20px;
+    left: 146px;
+}
+
+div.div-row {
+    height: 31px;
+    width: 354px;
+    margin-bottom: 20px;
+    float: left;
+}
+
+div.block input {
+    float: left;
+    height: 25px;
+    width: 260px;
+    border: 1px solid #ccc;
+    padding: 4px 0 0 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: #666;
+}
+
+div.rm-row {
+    float: left;
+    width: 202px;
+    padding-left: 40px;
+    height: 24px;
+}
+
+div.rm-row input#remember {
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin: 4px 4px 0 0;
+    border: 1px solid #ccc;
+}
+
+div.rm-row label {
+    float: left;
+    font-size: 13px;
+    width: 160px;
+    margin: 2px 0 0 0;
+    color: #666;
+}
+
+div.send-row {
+    height: 24px;
+    float: left;
+    width: 70px;
+}
+
+div.send-row #login {
+    height: 24px;
+    padding: 0px;
+    width: 70px;
+    float: right;
+    border: none;
+    background: url('../../../images/login/login-icon.png') no-repeat;
+    cursor: pointer;
+}
+
+div.send-row #login:hover {
+    width: 70px;
+    background: url('../../../images/login/login-icon.png') no-repeat;
+}
+
+.clear { /* generic container (i.e. div) for floating buttons */
+    overflow: hidden;
+    width: 100%;
+}
+
+a.button {
+    background: transparent url('../../../images/login/bg_button_a.gif') no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.button span {
+    background: transparent url('../../../images/login/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+    cursor: pointer;
+}
+
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    cursor: pointer;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+    background-position: bottom left;
+    cursor: pointer;
+    padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+div.msg{
+	height:36px;
+	width:478px;
+	position:absolute;
+	top: 460px;
+	left:0px;
+	border:1px solid #fe8bfd;
+	background:#fe62fc;
+	color:#820101;
+	font-weight:bold;
+	padding:2px 10px 0 10px;
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+div.msg img{
+	margin:6px 10px 0 0;
+	float:left;
+}
+div.msg p{
+	margin:7px 0;
+	float:left;
+	color: #FFFFFF;
+}
+
+/* all this css is optional style sugar;
+   it'll work fine without it. just not look pretty. */
+.place-text {
+    background: #FFC129;
+    color: black;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 5px;
+    -o-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+}
+.place-text .place-img-content {
+    margin: 0 3px 0 1px;
+}
+.place-text.top {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+}
+.place-text.bottom {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+}
+.place-text.left {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+}
+/*.place-text.above.left {
+    border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+}
+.place-text.below.left {
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}*/
+.place-text.right {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+}
+.place-text.above {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+}
+.place-text.below {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+}
+.place-text.before {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 0px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 0px;
+}
+.place-text.after {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 5px;
+}
+.place-text.above.before {
+    border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+}
+.place-text.above.after {
+    border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+}
+.place-text.below.before {
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+}
+.place-text.below.after {
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}

@@ -1,0 +1,109 @@
+.linea {
+    border: #636363 2px;
+}
+
+.HeaderRow {
+    font-weight: bold;
+    font-size: 11px;
+    text-transform: none;
+    color: white;
+    border-bottom: #636363 thin solid;
+    font-family: Verdana, Arial;
+    background-color: black
+}
+
+.mes1 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: gray;
+    border-bottom: 1 solid;
+    vertical-align: middle;
+}
+
+.mes2 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: orange;
+    border: 1 solid;
+    vertical-align: middle;
+}
+
+.dia5, .dia1, .dia2, .dia3, .dia4 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #c0c0c0;
+    border-bottom: 1 solid;
+    vertical-align: middle;
+}
+
+.normal5, .normal1, .normal2, .normal3, .normal4 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: white;
+    color: black;
+    vertical-align: middle;
+}
+
+.normal5t, .normal1t, .normal2t, .normal3t, .normal4t {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #EEE8AA;
+    color: black;
+    vertical-align: middle;
+}
+
+.dia6 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #348B2E;
+    color: White;
+    vertical-align: middle;
+}
+
+.dia6h {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: orange;
+    color: White;
+    vertical-align: middle;
+}
+
+.normal6 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #46B03E;
+    color: White;
+    vertical-align: middle;
+}
+
+.normal6t {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #81D37B;
+    color: White;
+    vertical-align: middle;
+}
+
+.dia7, .dia0 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #B22222;
+    color: White;
+    vertical-align: middle;
+}
+
+.normal7, .normal0 {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #D82E2E;
+    color: black;
+    vertical-align: middle;
+}
+
+.normal7t, .normal0t {
+    font-size: 11px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    background-color: #DE5050;
+    color: black;
+    vertical-align: middle;
+}

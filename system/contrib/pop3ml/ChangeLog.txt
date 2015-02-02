@@ -1,0 +1,220 @@
+0.2 (2010-03-16)
+	- working on viewmsg.php 
+
+0.2 (2010-03-16)
+	- working on viewmsg.php 
+
+0.2 (2010-03-13)
+	- added '!' character to modify header value (from headerchange mltable's field) only if nonexistent
+
+0.2 (2010-03-08)
+	- working on debug
+
+0.2 (2010-02-26)
+	- changed some language text values
+
+0.2 (2010-02-16)
+	- inserted into 'test_pop3ml.php' and 'viewmsg.php' test for disabled authentication with 'passwdfile'
+
+0.2 (2010-02-15)
+	- changes test_pop3ml.php with subject input field
+
+0.2 (2010-02-13)
+	- added  initial setting for user password, in case of manually users subscription by administrator
+	- inverted oldpassword/newpassword command: PASSWORD NEWPASSWORD OLDPASSWORD
+
+0.2 (2010-02-06)
+	- working on 'notice' errors and 'scheduled messages' for moderated lists
+
+0.2 (2010-02-03)
+	- changed all 'ereg(i)' to 'preg_match' into 'class.pop3ml.php' (and 'class.viewmsg.php' too)
+
+0.2 (2010-01-29)
+	- changed 'messagesTable' to 'messages' into global option
+	- changed all 'mltable' to 'listname' (messages, queue tables)
+	- changed all 'mldate' to 'date' (messages,queue,subqueue)
+	- more little changes
+
+0.2 (2010-01-27)
+	- inserted into 'class.pop3ml.php' script the function 'IsoDecode' to put encoded subjetcs into db in clear text
+
+0.2 (2010-01-22)
+	- created 'viewmsg.php' script for viewing ml messages
+
+0.2 (2010-01-21)
+	- added 'tls' for new version of 'smtp.php' script (smtpserver field: host:port:ssl:pop3port:user:password:tls)
+	- added '\t' delimiter for 'hostname' and 'smtpserver' mltable's fields
+
+0.2 (2010-01-11)
+	- removed 'destinationHeader' becouse i dont't understand it
+	- added 'public' return value into CheckSender function for public lists
+
+0.2 (2010-01-07)
+	- working on 'scheduling messages'
+
+0.2 (2010-01-05)
+	- created 'class.scheduledate.php' repository
+
+0.2 (2009-11-26)
+	- created 'class.scheduledate.php' to manage scheduling mail date
+
+0.2 (2009-11-23)
+	- corrected a bug for 'GET' command and enabled retrieving for queued messages, but only for owner
+
+0.2 (2009-11-19)
+	- working on ml messages (in particular 'help')
+
+0.2 (2009-11-18)
+	- added 'get scheduled mail list' and 'drop scheduled message'
+
+0.2 (2009-11-14)
+	- added 'Scheduled Time' functionality
+
+0.2 (2009-10-30)
+	- added 'logSubject' option to write email subject to log file
+
+0.2 (2009-10-29)
+	- added 'forwardMailerTo' option to send all blocked emails from robots to one or more address
+
+0.2 (2009-10-27)
+	- added 'maxPop3MsgLimit' option to limit email messages number read each time script opens pop3 account
+
+0.2 (2009-10-24)
+	- inserted 'maxMsgSize' test, don't consider it if '0' or 'NULL'
+
+0.2 (2009-10-20)
+	- enabled 'subscribers' state check
+	- worked on test
+
+0.2 (2009-10-08)
+	- worked on 'clean_pop3ml.php' to remove all bugs
+
+0.2 (2009-10-05)
+	- changed some variable names to zend suggestions (ie '$bodytextplain' to '$bodyTextPlain')
+
+0.2 (2009-10-01)
+	- added global variable 'trailerFile'
+	- changed all '\n' character to '\n<br>' for html trailer file
+
+0.2 (2009-09-29)
+	- added 'destinationHeader' and 'destinationHeaderSep' configuration options to set 'To:', 'Cc' or 'Bcc'
+	  outgoing emails header to every 'rctp to' address
+
+0.2 (2009-09-23)
+	- added 'trim' into 'RebuildHeaders' function to get tokenized values correctly
+
+0.2 (2009-08-24 - 2009-09-04)
+	- working on Ron Schoellmann suggestions:
+		- removed all closing php-tag '?>' from plain php files
+		- changed all 'tab' characters for indentation with 4 white spaces
+		- working on debug display on 'class.pop3ml.php'
+		- added 'SCRIPT_DIR_PATH' INCLUDE_DIR_PATH' and 'CLASSES_DIR_PATH' to keep classes in a
+		  different folder
+		- added 'smtp debug' and 'mail rcpt to' fields into 'test_pop3ml.php'
+
+0.2 (2009-07-22)
+	- created a new program 'clean_pop3ml.php' from 'class.pop3ml.php'. moved all 'cleaner' functions to remove
+	  all expired records to this one
+	- created shell scripts to run 'clean_pop3ml.php': template/clean.sh and template/clean-lynx.sh
+	- removed from mltable record some recently added fields. i think it was going to get too much complicated.
+	  they are now into 'config.php' file
+	- corrected some little bugs
+
+0.2 (2009-07-17)
+	- changed message moderation tag, from 'X-OriginalModerationID' header to 'messages' 'keyvalue' field (added to table)
+
+0.2 (2009-07-16)
+	- corrected message moderation code
+	- inserted 'return-path/reply-to' header for user error notifies (to avoid sending email to robots)
+
+0.2 (2009-07-15)
+	- changes the meaning of parentlist field. it fill 'allow' list with all subscribed addresses of 'parentlist'
+	  list
+
+0.2 (2009-07-13)
+	- started debug
+
+0.2 (2009-07-11)
+	- changed 'msgsize' field from text to varchar(32)
+
+0.2 (2009-07-10)
+	- enabled 'BounceHandler' management
+
+0.2 (2009-07-09)
+	- added 'state' field to 'subscribers' table
+	- added 'Return-Path: ' to some 'SmtpSend' functions
+	- updated 'patches/*' and added '/patches/README'
+
+0.2 (2009-07-04)
+	- created new class 'GenPass' to generate random passwords
+	- at subscription time script generates user password and write its value into 'webpass' subscribers table field
+
+0.2 (2009-07-03)
+	- added 'webpass' field to 'subscribers' table structure (for web access to messages archive)
+
+0.2 (2009-07-30)
+	- added 'Stripos' function for PHP4 (this version has not the function 'stripos'
+
+0.2 (2009-07-27)
+	- changed 'mltable' 'listname' field from 'varchar(30)' to 'varchar(128) unique' (to avoid duplicate listname)
+	- working on documentation and test_pop3ml.php
+
+0.2 (2009-07-24)
+	- working on debug
+	- added 'UNSUBSCRIPTION PENDING' text to notify user an existing unsubscription request
+
+0.2 (2009-06-17)
+	- changed some 'tinitext' field def to 'longtext' (thanks to Gregor Buchholz)
+
+0.2 (2009-06-15)
+	- changed headerchange management
+
+0.2 (2009-05-25)
+	- enabled 'notify' ml filter command
+
+0.2 (2009-05-22)
+	- added _RECIPIENT_LIMIT field, it tells to ML how many recipients (RCPT TO) can be inserted into smtp dialog.
+	- changed message moderation code
+
+0.2 (2009-05-21)
+	- changed 'SendMessage' function from single address call, to multiple address call
+
+0.2 (2009-05-15)
+	- working on apply filter
+
+0.2 (2009-05-15)
+	- enabled 'owner' and 'help' ml commands
+	- added owner notification for user notification failure
+
+0.2 (2009-05-12)
+	- enabled 'toggle' ml command
+
+0.2 (2009-05-11)
+	- changed 'subscribe','unsubscribe','confirm','welcome','goodbye' from fixed terms to [[:SUBSCRIBE=subscribe:]] ...
+	- added check for expired subscription/unsubscription queued requests
+
+0.2 (2009-05-08)
+	- working on additional ml command (toggle,get,list,help)
+
+0.2 (2009-05-07)
+	- changed message definitions from specific db field to only one field with all definitions:
+	[[:DEFINITION KEY=text description:]]
+
+0.2 (2009-04-28)
+	- enabled bounce control for mailer-daemon's messages
+
+0.2 (2009-04-20)
+	- changed sublist management
+
+0.2 (2009-04-24)
+	- enabled cache for removed messages after pop
+
+0.2 (2009-04-20)
+	- enabled digest mode WORK IN PROGRESS
+
+0.2 (2009-04-17)
+	- added minumum time for resend queued messages and maximum time for message queue
+
+0.2 (2009-03-16)
+	- Changed 'addTrailer' function. Now it works with 'text/html' part too
+

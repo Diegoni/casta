@@ -1,0 +1,165 @@
+@CHARSET "ISO-8859-1";
+
+.bordetaula {
+    BORDER-RIGHT: #000000 1px solid;
+    BORDER-TOP: #000000 1px solid;
+    BORDER-LEFT: #000000 1px solid;
+    BORDER-BOTTOM: #000000 1px solid
+}
+
+.taula_banner {
+    BACKGROUND-POSITION: left bottom;
+    PADDING-LEFT: 5px;
+    BACKGROUND-ATTACHMENT: fixed;
+    background: url(http://www.alibri.es/templates/alibri/images/banner_sup.gif) no-repeat;
+    PADDING-TOP: 5px;
+    HEIGHT: 70px;
+}
+
+.txt_adreca {
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, verdana
+}
+
+.fonsgris {
+    BACKGROUND-COLOR: #e8e8e8
+}
+
+.fons2 {
+    MARGIN-TOP: 5px;
+    BACKGROUND-COLOR: White;
+}
+
+.pathway {
+    font-size: 11px;
+    color: #333333;
+    text-align: left;
+}
+
+.contentpaneopen {
+    TEXT-ALIGN: justify;
+    BORDER-RIGHT: #999999 1px dashed;
+    BORDER-TOP: #999999 1px dashed;
+    BORDER-LEFT: #999999 1px dashed;
+    BORDER-BOTTOM: #999999 1px dashed;
+    BACKGROUND-COLOR: #ffffff
+}
+
+.descripcion {
+    TEXT-ALIGN: justify;
+    font-size: 10px;
+    color: #2e7a8f;
+    BORDER-RIGHT: #999999 1px dashed;
+    BORDER-TOP: #999999 1px dashed;
+    BORDER-LEFT: #999999 1px dashed;
+    BORDER-BOTTOM: #999999 1px dashed;
+    BACKGROUND-COLOR: #ffffff
+}
+
+td, tr, p, div {
+    FONT-FAMILY: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #333333;
+}
+
+.taula_idiomas {
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    FONT-SIZE: 15px;
+    BORDER-LEFT: 0px;
+    COLOR: #FFFFFF;
+    BORDER-BOTTOM: 0px;
+    FONT-FAMILY: arial, verdana;
+    HEIGHT: 20px;
+    BACKGROUND-COLOR: #2e7a8f;
+}
+
+.contentheading {
+    PADDING-BOTTOM: 3px;
+    PADDING-TOP: 3px;
+    PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #333333;
+    FONT-FAMILY: arial, verdana;
+    BACKGROUND-COLOR: #e8e8e8;
+}
+
+.caixaresuminf {
+    FONT-SIZE: 11px;
+    COLOR: #ffffff;
+    HEIGHT: 10px;
+    BACKGROUND-COLOR: #333333;
+    align: center
+}
+
+a:link, a:visited {
+    font-size: 11px;
+    color: #184D63;
+    text-decoration: none;
+    font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+}
+
+a:hover {
+    color: #529EB5;
+    text-decoration: none;
+}
+
+.moduletablecesta {
+    width: 100%;
+    margin-top: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #333333;
+}
+
+.materia {
+    width: 100%;
+    FONT-SIZE: 12px;
+    COLOR: #ffffff;
+    HEIGHT: 10px;
+    BACKGROUND-COLOR: #333333;
+    align: center;
+    margin-top: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+div.c1 {
+    text-align: center
+}
+
+.precio {
+    font-size: 32px;
+    color: black;
+    text-align: right;
+    FONT-WEIGHT: bold;
+}
+
+.precioold {
+    font-size: 12px;
+    color: black;
+    text-align: right;
+    FONT-WEIGHT: bold;
+    font-style: italic;
+    text-decoration: line-through;
+}
+
+.linealistado {
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    COLOR: #333333;
+    FONT-FAMILY: arial, verdana;
+    border-bottom: 1 solid;
+}
+
+.nopagebreak {
+	page-break-inside: avoid;
+}

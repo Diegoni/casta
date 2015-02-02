@@ -263,7 +263,21 @@ class CI_Config {
 		}
 		else
 		{
-			return $this->slash_item('base_url').$this->item('index_page').'?'.$this->_uri_string($uri);
+			//return $this->slash_item('base_url').$this->item('index_page').'?'.$this->_uri_string($uri);
+			if($this->item('index_page')){
+				$index = $this->item('index_page');
+			}else{
+				$index = 'index.php/';
+			}
+			
+			if($this->slash_item('base_url')){
+				$base_url = $this->slash_item('base_url');
+			}else{
+				$base_url = 'casta_test/';
+			}
+			
+			
+			return $index.$this->_uri_string($uri);
 		}
 	}
 

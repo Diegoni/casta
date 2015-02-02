@@ -1,0 +1,207 @@
+Pop3ml
+Php Mailinglist/Newsletter manager
+==========================================
+
+Version 0.2.beta (April 09 2010)
+
+This is a php script class to manage Mailing lists without a local smtp server.
+You need only a simple pop3 mail account.
+It works with php5 and mysql => 4. It's highly configurable by users.
+You can subscribe/unsubscribe simply with mail messages. There is optional subscription/unsubscription confirmation,
+subscription moderation, message moderation, digest message mode, parent/children list management, mail scheduling to
+postpone a message, mail filter (procmail-like syntax), message queue for unsent emails, message size check,
+command to retrieve messages, bounce detection, message header management, black/white list, multi rcpt-to smtp command
+and others functions.
+There is also a program to test list settings without sending any message.
+You can configure it with programs like phpMyAdmin or, if you prefer with 'goshweb',
+another php program developed by myself.
+
+
+Installation:
+
+please refer to INSTALL file.
+
+
+
+ADMINISTRIVIA:
+-------------------
+
+MAILING LIST SUBSCRIPTION:
+send a message to ML address, without subject and with body text:
+
+subscribe
+
+If ML is configured with subscribe confirmation, you will receive an email message to validate your
+request. Reply to continue subscription.
+If you want to subscribe with digest mode:
+
+subscribe.digest
+
+you can change 'subscribe' word with any other word or, if you want a more complex detection, you can use a regexp
+expression, for example changing the value of '[[:SUBSCRIBE=subscribe:]]' message of 'language' field ('mltable' record)
+to:
+[[:SUBSCRIBE=(\s+|)(i|)(\s+|)subscribe:]]
+in this way you can do a subscribe request with both "subscribe" and "i subscribe" body text
+
+
+MAILING LIST UNSUBSCRIPTION:
+send a message to ML address, without subject and with body text:
+
+unsubscribe
+
+If ML is configured with unsubscribe confirmation, you will receive an email message to validate your
+request. Reply to continue unsubscription.
+If you want to unsubscribe from digest mode:
+
+unsubscribe.digest
+
+
+CHANGING SUBSCRIPTION MODE:
+send a message to ML address, without subject and with body text:
+
+toggle
+
+If ML is configured with subscribe confirmation, you will receive an email message to validate your
+request. Reply to confirm your request.
+
+
+CHANGING/SETTING SUBSCRIBER PASSWORD FOR WEB ACCESS TO MESSAGES ARCHIVE:
+send a message to ML address, without subject and with body text:
+
+password NewPassword OldPassword
+
+where 'password' is the request command, 'NewPassword' is the new value, and 'OldPassword' is the initial value set
+at subscription time, space separed.
+Please don't use 'space', 'carriage return','tab','line feed' or other special characters for password value.
+
+
+MAILING LIST MESSAGE MODERATION:
+if moderator(s) reply to e-mail messages received from ML, they will be delivered to all subscribers,
+otherwise they will be removed later (depending on field defined at the beginning of the class 'EXPIRE_MSG_MOD')
+
+
+RETRIEVE MESSAGES FROM ML:
+send a message to ML address, without subject and body text:
+
+get [message(s) number(s)]
+
+for example:
+
+get 1		to retrieve message number 1
+get 1,2,3	to retrieve messages 1,2 and 3
+get 1,2,5-10,11	to retrieve messages 1,2, from 5 to 10 and 11
+
+
+GET HELP MESSAGE FROM ML:
+send a message to ML address, without subject and body text:
+
+help
+
+
+SEND AN EMAIL MESSAGE TO ML OWNER:
+send a message to ML address, without subject and body text:
+
+notify owner
+
+
+RETRIEVE LIST SCHEDULED MESSAGES
+send a message to ML address, without subject and body text:
+
+scheduled list
+
+
+REMOVE A SCHEDULED MESSAGS
+send a message to ML address, without subject and body text:
+
+drop scheduled [messageid]
+
+for example:
+
+drop scheduled 102
+
+--------------------------
+
+Parent/Children management:
+
+this script can manage parent/children ML recursively. You can have, for example, some list with subscribers,
+and one or more ML child list. if you add a ML list name (child ML) to another ML (parent ML) subscribers list,
+all posted messages to parent ML will be delivered to all children subscribers email addresses (eventually child ML).
+
+you can have, for example, some ML:
+
+listname   listaddress              subscribers list             denysublist      allowsublist    parentlist
+--------   -----------              ----------------             -----------      ------------    ----------
+sample1    sample1@domain.com       sample1user1@gmail.com                                        mainlist,sample4
+                                    sample1user2@yahoo.com
+		
+sample2    sample2@otherdomain.com  sample2user1@mailserver.com                                   mainlist
+                                    sample2user2@gmail.com
+                                    sample2user3@yahoo.com
+                                    sample3
+		
+		
+sample3    sample3@bsmc.it          sample3user1@mailserver.com                                   mainlist
+		
+and a parent list:
+		
+mainlist   mainlist@mail.com        mainlistuser1@gmail.com       
+                                    mainlistuser2@yahoo.com       *@buyit.com     .*@somedom.org
+                                    sample1				
+                                    sample2			
+
+if you send a message to 'mainlist', it will be delivered to:
+
+mainlistuser1@gmail.com	
+mainlistuser2@yahho.com
+sample1user1@gmail.com
+sample1user2@yahoo.com
+sample2user1@mailserver.com
+sample2user2@gmakl.com
+sample2user3@yahoo.com
+sample3user1@mailserver.com         (because 'sample3' list is set as 'sample2' child)
+
+all users can post to other lists and parent too, due to 'parentlist' setting
+
+
+BOUNCE EMAIL
+------------
+
+the script checks if received emails are bounced messages from smtp servers, to avoid an infinite loop from sender
+and ML manager. it also notify all bounced emails to ML owner and remove associated queued messages.
+anyway if you put an email header value into 'headerchange' field (ie. 'Return-Path: listowner@someserver.com' or
+'Return-Path:') when an email fails to reach the destination address it will be bounced to this address, not to ML.
+for more security i have added the chance to use another php script class, 'BounceHandler', more complex then mine.
+if you have almost one public list (post allowed for everyone) it's better to use it, just pay attention to memory usage.
+download it from phpclasses repository (http://www.phpclasses.org/browse/file/11665.html) and put it into your pop3ml
+installation folder.
+if there is some kind of unrecognized bounced email you can add some procmail-like recipes to 'mailfilter' field
+(refer to INSTALL file).
+
+
+SCHEDULED EMAIL
+---------------
+
+if you want to use extra header for mail scheduling, with mozilla thunderbird use following instructions:
+
+# Select Edit | Preferences or Thunderbird | Preferences... from the menu in Mozilla Thunderbird.
+# Open the Advanced category.
+# Go to the General tab.
+# Click Config Editor....
+# Enter "mail.compose.other.header" (not including the quotation marks) under Filter:.
+# Double-click mail.compose.other.header.
+# Enter the desired custom headers in the Enter string value dialog. (ie. "X-Scheduled")
+# restart thunderbird
+
+
+
+CHANGELOG
+
+See ChangeLog.txt
+
+Download: http://www.bsmc.it/ftp/programs/php/pop3ml-0.1.beta.tgz
+
+Giuseppe Lucarelli
+giu.lucarelli@gmail.com
+
+
+Enjoy!

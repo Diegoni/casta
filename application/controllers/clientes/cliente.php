@@ -36,10 +36,13 @@ class Cliente extends MY_Controller
 	 * @param int $tipo Id del tipo de cliente
 	 * @return JSON
 	 */
-		 
+	function index() {
+		echo "entro";
+	} 
+	 
 	function cuenta($tipo = null)
 	{
-		//$this->userauth->roleCheck(($this->auth.'.cuenta'));
+		$this->userauth->roleCheck(($this->auth.'.cuenta'));
 
 		$tipo	= isset($tipo)?$tipo:$this->input->get_post('tipo');
 
@@ -103,7 +106,7 @@ class Cliente extends MY_Controller
 	 */
 	function info($id = null)
 	{
-		//$this->userauth->roleCheck(($this->auth.'.index'));
+		$this->userauth->roleCheck(($this->auth.'.index'));
 
 		$id	= isset($id)?$id:$this->input->get_post('id');
 
@@ -154,7 +157,7 @@ class Cliente extends MY_Controller
 	 */
 	function alta()
 	{
-		//$this->userauth->roleCheck(($this->auth.'.add'));
+		$this->userauth->roleCheck(($this->auth.'.add'));
 		$data = get_post_all();
 		foreach($data as $k => $v)
 		{
@@ -230,7 +233,7 @@ class Cliente extends MY_Controller
 	 */
 	function cesta($id = null)
 	{
-		//$this->userauth->roleCheck(($this->auth.'.index'));
+		$this->userauth->roleCheck(($this->auth.'.index'));
 
 		$id	= isset($id)?$id:$this->input->get_post('id');
 
@@ -281,7 +284,7 @@ class Cliente extends MY_Controller
 	 */
 	function favoritos($id = null)
 	{
-		//$this->userauth->roleCheck(($this->auth.'.index'));
+		$this->userauth->roleCheck(($this->auth.'.index'));
 
 		$id	= isset($id)?$id:$this->input->get_post('id');
 
