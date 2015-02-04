@@ -42,17 +42,17 @@ class App extends CI_Controller {
 		else
 		{
 			//Login ok, ingresa al sitio
-			redirect('app/inicio/','refresh');
+			redirect('sys/app/inicio/','refresh');
 		}
 
 	}
 
 	function check_database($password)
 	{
-		//Field validation succeeded.  Validate against database
+		//Validación de datos con éxito, falta validar con la base de datos
 		$username = $this->input->post('username');
 
-		//query the database
+		//query a la base de datos
 		$result = $this->usuarios_model->login($username, $password);
 
 		if($result)
@@ -77,6 +77,17 @@ class App extends CI_Controller {
 			$this->form_validation->set_message('check_database', 'Invalid username or password');
 			return FALSE;
 		}
+	}
+	
+/**********************************************************************************
+ **********************************************************************************
+ * 
+ * 				Inicio de la aplicación
+ * 
+ * ********************************************************************************
+ **********************************************************************************/
+	function inicio(){
+		
 	}
 }
 
