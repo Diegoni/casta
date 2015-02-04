@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -23,7 +24,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Libraries
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/config.html
  */
 class CI_Config {
@@ -263,21 +264,7 @@ class CI_Config {
 		}
 		else
 		{
-			//return $this->slash_item('base_url').$this->item('index_page').'?'.$this->_uri_string($uri);
-			if($this->item('index_page')){
-				$index = $this->item('index_page');
-			}else{
-				$index = 'index.php/';
-			}
-			
-			if($this->slash_item('base_url')){
-				$base_url = $this->slash_item('base_url');
-			}else{
-				$base_url = 'casta_test/';
-			}
-			
-			
-			return $index.$this->_uri_string($uri);
+			return $this->slash_item('base_url').$this->item('index_page').'?'.$this->_uri_string($uri);
 		}
 	}
 

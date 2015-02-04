@@ -1,1 +1,0 @@
-<?php echo $this->out->toHTML($data);?>

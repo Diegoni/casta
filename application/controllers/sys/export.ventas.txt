@@ -1,7 +1,0 @@
-Cli_Clientes|nIdCliente IN (select nIdCliente FROM Doc_Facturas WHERE nIdSerie IN (%id%) OR nIdCliente=100000)
-Cli_Direcciones|nIdCliente IN (select nIdCliente FROM Doc_Facturas WHERE nIdSerie IN (%id%))
-Doc_Facturas|nIdSerie IN (%id%) AND DATEDIFF(d, dFecha, GETDATE()) < 365
-Doc_AlbaranesSalida|nIdFactura IN (select nIdFactura FROM Doc_Facturas WHERE nIdSerie IN (%id%) AND DATEDIFF(d, dFecha, GETDATE()) < 365)
-Doc_FacturasModosPago|nIdFactura IN (select nIdFactura FROM Doc_Facturas WHERE nIdSerie IN (%id%) AND DATEDIFF(d, dFecha, GETDATE()) < 365)
-Doc_LineasAlbaranesSalida|nIdAlbaran IN (select nIdAlbaran from Doc_AlbaranesSalida where nIdFactura IN (select nIdFactura FROM Doc_Facturas WHERE nIdSerie IN (%id%) AND DATEDIFF(d, dFecha, GETDATE()) < 365))
-Doc_Series
