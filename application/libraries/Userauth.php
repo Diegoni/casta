@@ -54,7 +54,7 @@ class Userauth
 	function __construct()
 	{
 		$this->obj = &get_instance();
-		$this->obj->load->model('user/m_usuario');
+		//$this->obj->load->model('usuarios/m_usuario'); //TMS: este modelo es necesario ver porque no funciona
 		//$this->obj->load->library('Authorize');
 		log_message('debug', 'User Authentication Class Initialised via ' . get_class($this->obj));
 	}
@@ -66,9 +66,10 @@ class Userauth
 	function loggedin()
 	{
 		$session_username = $this->get_username();
-		$session_bool = $this->obj->session->userdata('loggedin');
-
-		if((isset($session_username) && $session_username != '') && (isset($session_bool) && $session_bool == TRUE))
+		$session_bool = $this->obj->session->userdata('logged_in');
+		
+		if((isset($session_username) && $session_username != '') 
+		&& (isset($session_bool) && $session_bool == TRUE))
 		{
 			log_message('debug', 'Userauth:loggedin = ' . $this->get_username());
 			return TRUE;
@@ -311,10 +312,12 @@ class Userauth
 				return FALSE;
 
 			$message = sprintf($this->obj->lang->line('ua_auth_denied'), $role);
-			$res = array('success' => FALSE,
-				'message' => $message,
-				'url' => $uri);
-			$this->obj->out->send($res);
+			$res = array(
+					'success' => FALSE,
+					'message' => $message,
+					'url' => $uri
+					);
+			//$this->obj->out->send($res); TMS: ver porque tira error
 		}
 		log_message('debug', 'roleCheck: Role = ' . $role . ' permitido');
 		return TRUE;
@@ -341,7 +344,9 @@ class Userauth
 		}
 		else
 		{
-			return $this->obj->session->userdata('username');
+			$session_data = $this->obj->session->userdata('logged_in');
+			//return $this->obj->session->userdata('username'); Cambiado
+			return $session_data['username'];
 		}
 	}
 

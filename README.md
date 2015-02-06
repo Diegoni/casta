@@ -11,7 +11,7 @@ Sistema de gestión
 
 * [Twitter Bootstrap] - Contiene plantillas de diseño con tipografía, formularios, botones, cuadros, menús de navegación y otros elementos de diseño basado en HTML y CSS, así como, extensiones de JavaScript opcionales adicionales.
 * [Jquery UI] - es una biblioteca de componentes para el framework jQuery que le añaden un conjunto de plug-ins, widgets y efectos visuales para la creación de aplicaciones.
-* [jQuery] - es una biblioteca de JavaScript
+* [jQuery] - es una biblioteca de JavaScript.
 
 ### Instalación
 

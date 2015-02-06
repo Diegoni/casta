@@ -5,7 +5,7 @@ class App extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('url');
+		$this->load->library('userauth');
 		$this->load->model('usuarios/usuarios_model');
 	}
 
@@ -62,11 +62,11 @@ class App extends CI_Controller {
 			foreach($result as $row)
 			{
 				$sess_array = array(
-					'id_usuario' => $row->id_usuario,
-					'usuario' => $row->usuario
+					'userid' => $row->userid,
+					'username' => $row->username
 				);
 			}
-	 
+			
 			$this->session->unset_userdata('logged_in');
 			$this->session->set_userdata('logged_in', $sess_array);
      
@@ -86,8 +86,22 @@ class App extends CI_Controller {
  * 
  * ********************************************************************************
  **********************************************************************************/
-	function inicio(){
+
+ 
+ 	function inicio(){
 		
+		//Verificamos login de usuario
+		if($this->userauth->check_login())
+		{
+			$this->load->view('head');
+			$this->load->view('menu');
+			$this->load->view('app/welcome');
+		}
+		else
+		{
+			redirect('sys/app/login/','refresh');
+		}
+				
 	}
 }
 
