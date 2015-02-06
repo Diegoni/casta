@@ -11,7 +11,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="https://github.com/fontenele/bootstrap-navbar-dropdowns" target="_blank">Project</a></li>
+				<li><a href="https://github.com/Diegoni/casta" target="_blank">Project</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
 				<li>

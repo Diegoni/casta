@@ -1,0 +1,28 @@
+body
+{
+	background-color: #eeefef;
+}
+
+.action_buttons
+{
+	padding-bottom: 10px;
+	padding-top: 10px;
+	background-color: #5b6e83;
+}
+
+.search_form
+{
+	padding-bottom: 10px;
+	padding-top: 10px;
+	background-color: #eeefef;	
+}
+.submenu
+{
+	padding-top: 5px;
+	background-color: #bac7d3;	
+}
+.abm_form
+{
+	padding: 10px;
+	background-color: #dde5e9;	
+}

@@ -48,6 +48,8 @@
 	echo css_libreria('font/whhg-font/css/whhg.css');
 	echo css_libreria('font/font-awesome/css/font-awesome.css');
 	
+	//Propios
+	echo css_libreria('main/css/main.css');
 	
 	
 

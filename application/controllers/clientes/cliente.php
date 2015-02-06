@@ -31,7 +31,7 @@ class Cliente extends MY_Controller
 		//parent::__construct('clientes.cliente', 'clientes/M_cliente', TRUE, 'clientes/cliente.js', 'Clientes');
 		parent::__construct();
 		$this->load->library('userauth');
-		$this->load->library('out');
+		$this->load->library('out');		
 	}
 
 	/**
@@ -40,8 +40,11 @@ class Cliente extends MY_Controller
 	 */
 	function abm_clientes()
 	{
+		$db['texto']	= $this->idiomas_model->getIdioma(1);
+		$db['test']		= array('test'=>'test1','test2'=>'test2');
+		
 		$this->load->helpers('vistas');
-		$this->load->view('head');
+		$this->load->view('head', $db);
 		$this->load->view('menu');
 		$this->load->view('clientes/abm_clientes');
 	}
