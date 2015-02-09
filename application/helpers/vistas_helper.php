@@ -220,4 +220,44 @@ function sub_menu($datos)
     			
 	return $mensaje;
 }
+
+
+
+function autocomplete($array, $input, $valor)
+{
+	$autocomplete =
+	"
+	<script>
+	$(function() {
+    var clientes_array = [";
+      	
+		foreach ($array as $row) {
+			if(is_array($valor)){
+				$cadena = '"';
+				foreach ($valor as $key => $value) {
+					$cadena .= $row->$value." ";	
+				}
+				$cadena .=	'",';
+								
+				$autocomplete .=$cadena;		
+			}
+			else {
+				$autocomplete .= '"'.$row->$valor.'",';	
+			}
+		}
+		
+    $autocomplete .=
+    "];
+    $( '#$input' ).autocomplete({
+      minLength: 2, 
+      source: function(request, response) {
+			var results = $.ui.autocomplete.filter(clientes_array, request.term);
+			response(results.slice(0, 10));
+    		}
+    });
+	});
+	</script>";
+	
+	return $autocomplete;
+}
 ?>

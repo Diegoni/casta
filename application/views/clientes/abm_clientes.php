@@ -15,6 +15,7 @@
 	<div class="row search_form">
 		<?php echo input_helper_horizontal('b_codigo', NULL, 2, $texto['codigo']);?>
 		<?php echo label_helper_horizontal($texto['codigo']);?>
+		<?php echo autocomplete($clientes, 'b_nombre', array('cNombre', 'cApellido'));?>
 		<?php echo input_helper_horizontal('b_nombre', NULL, 8, $texto['nombre']." ".$texto['apellido']);?>
 	</div>
 	
