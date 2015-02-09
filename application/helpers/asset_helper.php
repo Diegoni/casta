@@ -302,6 +302,11 @@ function js_libreria($libreria)
 	return '<script type="text/javascript" src="'.base_url().'librerias/'.$libreria.'"></script>' . "\n";
 }
 
+function js_vista($libreria)
+{
+	return '<script type="text/javascript" src="'.base_url().'/'.$libreria.'"></script>' . "\n";
+}
+
 function css_libreria($libreria)
 {
 	return '<link href="'.base_url().'librerias/'.$libreria.'" rel="stylesheet" type="text/css" />'. "\n";
@@ -311,5 +316,6 @@ function item_menu($link, $cadena)
 {
 	return '<li><a href="'.base_url().'index.php/'.$link.'">'.$cadena.'</a></li>'. "\n";
 }
+
 
 ?>

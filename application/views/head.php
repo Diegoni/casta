@@ -49,12 +49,24 @@
 	echo css_libreria('font/font-awesome/css/font-awesome.css');
 	
 	// Propios
-	echo js_libreria('main/js/main.js');
+	//echo js_libreria('main/js/main.js');
 	echo css_libreria('main/css/main.css');
 	
 	// Chosen
 	echo js_libreria('chosen/chosen.jquery.js');
 	echo css_libreria('chosen/chosen.css');
 	
-	
-
+  	// Librerias del controlador
+  	if(isset($js_libreria))
+  	{
+  		if(is_array($js_libreria)){
+	  		foreach ($js_libreria as $key => $value) {
+				echo $value;
+			}	
+	  	}
+	  	else
+	  	{
+	  		echo $js_libreria;
+	  	}
+			
+  	}

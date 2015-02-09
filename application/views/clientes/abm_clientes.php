@@ -1,5 +1,7 @@
 <div class="container">
-  <?php if(isset($mensaje))
+	
+  <?php 
+  if(isset($mensaje))
   {
   	echo $mensaje;	
   }

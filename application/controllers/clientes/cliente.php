@@ -56,15 +56,23 @@ class Cliente extends MY_Controller
 		
 		if($this->input->post('guardar'))
 		{
-			$id	= $this->m_cliente->insert($this->input->post());
+			$id	= $this->m_cliente->insert();
 			
 			if($id){
+				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'ok', $id);
+			}
+			else
+			{
 				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'error', $id);
 			}
 		}
 		
+		// para helper_abm_clientes
+		$db['clientes']	= $this->m_cliente->getRegistros();
+		
 		$this->load->helpers('vistas');
 		$this->load->view('head', $db);
+		$this->load->view('clientes/helper_abm_clientes');
 		$this->load->view('menu');
 		$this->load->view('clientes/abm_clientes');
 		$this->load->view('footer');
