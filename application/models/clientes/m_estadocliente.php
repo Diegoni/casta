@@ -1,17 +1,17 @@
 <?php
 /**
- * Bibliopola
+ * Casta
  *
  * Gestión de librerías
  *
- * @package		Bibliopola 5.0
+ * @package		1.1
  * @subpackage	Models
  * @category	clientes
- * @author		Alejandro López
- * @copyright	Copyright (c) 2008-2009, ALIBRI
- * @link		http://bibliopola.net
- * @since		Version 5.0
- * @version		$Rev: 435 $
+ * @author		Diego Nieto
+ * @copyright	Copyright (c) 2015
+ * @link		https://github.com/Diegoni/casta
+ * @since		Version 1.1
+ * @version		$Rev:  $
  * @filesource
  */
 
@@ -31,8 +31,14 @@ class M_estadocliente extends MY_Model
 			'cDescripcion'		=> array(DATA_MODEL_DEFAULT => TRUE, DATA_MODEL_REQUIRED => TRUE), 
 		);
 
-		parent::__construct('Cli_EstadosCliente', 'nIdEstado', 'cDescripcion', 'cDescripcion', $data_model);
-		$this->_cache = TRUE;
+		parent::__construct(
+					'Cli_EstadosCliente', 
+					'nIdEstado', 
+					'cDescripcion', 
+					'cDescripcion', 
+					$data_model
+				);
+		
 	}
 }
 

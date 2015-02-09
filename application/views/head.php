@@ -41,15 +41,20 @@
 	echo js_libreria('jquery-ui/jquery-ui.js');
 	echo css_libreria('jquery-ui/jquery-ui.css');
 	
-	//Menu
+	// Menu
 	echo css_libreria('main/css/menu.css');
 	
-	//Iconos
+	// Iconos
 	echo css_libreria('font/whhg-font/css/whhg.css');
 	echo css_libreria('font/font-awesome/css/font-awesome.css');
 	
-	//Propios
+	// Propios
+	echo js_libreria('main/js/main.js');
 	echo css_libreria('main/css/main.css');
+	
+	// Chosen
+	echo js_libreria('chosen/chosen.jquery.js');
+	echo css_libreria('chosen/chosen.css');
 	
 	
 

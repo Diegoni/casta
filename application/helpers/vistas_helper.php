@@ -24,7 +24,7 @@ function save_button($texto=NULL)
 	if(!isset($texto)){
 		$texto = 'Guardar';
 	}
-	return "<button class='btn btn-default'>
+	return "<button class='btn btn-default' type='submit' name='guardar' value='1'>
 				<i class='fa fa-pencil-square-o'></i> ".$texto."
 			</button>";
 }
@@ -172,10 +172,13 @@ function select_helper_horizontal($id, $value=NULL, $tamaño=NULL)
 	}	
 
 	$select = "<div class='col-sm-".$tamaño."'>";		
-	$select	.= "<select class='form-control'>
+	$select	.= "<select class='form-control chosen-select' name='".$id."'>
 				<option value=''></option>";
-	foreach ($value as $key => $value) {
-		$select .= "<option value='".$key."'>".$value."</option>";
+	foreach ($value as $row) {
+		if(isset($row->descripcion)){
+			$select .= "<option value='".$row->id_tabla."'>".$row->descripcion."</option>";	
+		}
+		
 	}  
 	$select	.= "</select></div>";
 	
@@ -195,13 +198,13 @@ function sub_menu($datos)
 	//Opciones del sub menu
 	$opciones = array
 		(
-			'general'	=> "<li role='.general.'><a href='#'><i class='fa fa-home'></i> ",
-			'temas'		=> "<li role='temas'><a href='#'><i class='fa fa-list-alt'></i> ",
-			'notas'		=> "<li role='notas'><a href='#'><i class='fa fa-file-text-o'></i> ",
-			'usuarios'	=> "<li role='usuarios'><a href='#'><i class='fa fa-users'></i> ",
-			'historico'	=> "<li role='historico'><a href='#'><i class='fa fa-history'></i> ",
-			'perfiles'	=> "<li role='perfiles'><a href='#'><i class='fa fa-book'></i> ",
-			'busqueda'	=> "<li role='busqueda'><a href='#'><i class='fa fa-search'></i> ",
+			'general'	=> "<li role='.general.'><a href='#' class='sub-item'><i class='fa fa-home'></i> ",
+			'temas'		=> "<li role='temas'><a href='#' class='sub-item'><i class='fa fa-list-alt'></i> ",
+			'notas'		=> "<li role='notas'><a href='#' class='sub-item'><i class='fa fa-file-text-o'></i> ",
+			'usuarios'	=> "<li role='usuarios'><a href='#' class='sub-item'><i class='fa fa-users'></i> ",
+			'historico'	=> "<li role='historico'><a href='#' class='sub-item'><i class='fa fa-history'></i> ",
+			'perfiles'	=> "<li role='perfiles'><a href='#' class='sub-item'><i class='fa fa-book'></i> ",
+			'busqueda'	=> "<li role='busqueda'><a href='#' class='sub-item'><i class='fa fa-search'></i> ",
 		);
 	
 	//Armado del sub menu
@@ -217,5 +220,15 @@ function sub_menu($datos)
     			
 	return $mensaje;
 }
+
+
+
+/**********************************************************************************
+ **********************************************************************************
+ * 
+ * 				Mensajes
+ * 
+ * ********************************************************************************
+ **********************************************************************************/
 
 ?>

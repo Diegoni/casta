@@ -19,10 +19,28 @@ body
 .submenu
 {
 	padding-top: 5px;
-	background-color: #bac7d3;	
+	background-color: #7f9ab3;
+	color: #fff;	
 }
 .abm_form
 {
 	padding: 10px;
 	background-color: #dde5e9;	
+}
+.sub-item
+{
+	color: #FFF;
+}
+
+
+
+
+.dialog-message-ok .ui-widget-header
+{
+	background-color: #5cb85c;
+}
+
+.dialog-message-error .ui-widget-header
+{
+	background-color: #d9534f;
 }

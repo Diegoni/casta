@@ -31,7 +31,12 @@ class Cliente extends MY_Controller
 		//parent::__construct('clientes.cliente', 'clientes/M_cliente', TRUE, 'clientes/cliente.js', 'Clientes');
 		parent::__construct();
 		$this->load->library('userauth');
-		$this->load->library('out');		
+		$this->load->library('out');
+		$this->load->model('clientes/m_cliente');
+		$this->load->model('clientes/m_tipocliente');		
+		$this->load->model('clientes/m_grupocliente');
+		$this->load->model('clientes/m_clientetarifa');
+		$this->load->model('clientes/m_estadocliente');
 	}
 
 	/**
@@ -40,13 +45,29 @@ class Cliente extends MY_Controller
 	 */
 	function abm_clientes()
 	{
-		$db['texto']	= $this->idiomas_model->getIdioma(1);
-		$db['test']		= array('test'=>'test1','test2'=>'test2');
+		$db['texto']	= $this->m_idiomas->getIdioma(1);
+		
+		//carga de select
+		$db['tipos']	= $this->m_tipocliente->getSelect();
+		$db['grupos']	= $this->m_grupocliente->getSelect();
+		$db['tarifas']	= $this->m_clientetarifa->getSelect();
+		$db['idiomas']	= $this->m_idiomas->getSelect();
+		$db['estados']	= $this->m_estadocliente->getSelect();
+		
+		if($this->input->post('guardar'))
+		{
+			$id	= $this->m_cliente->insert($this->input->post());
+			
+			if($id){
+				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'error', $id);
+			}
+		}
 		
 		$this->load->helpers('vistas');
 		$this->load->view('head', $db);
 		$this->load->view('menu');
 		$this->load->view('clientes/abm_clientes');
+		$this->load->view('footer');
 	}
 
 }
