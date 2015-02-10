@@ -72,7 +72,7 @@
 	<div class="row abm_form tab-pane fade in active" id="general">
 			<div class="form-group">
 				<?php echo label_helper_horizontal($texto['nombre']." , ".$texto['apellido'], 2);?>
-				<?php echo input_helper_horizontal('cNombre', NULL, 5, $texto['nombre'], 'length 10');?>
+				<?php echo input_helper_horizontal('cNombre', NULL, 5, $texto['nombre'], 'email');?>
 				<?php echo input_helper_horizontal('cApellido', NULL, 4, $texto['apellido'], 'text');?>
 				<?php echo label_helper_horizontal('', 1);?>
 	  		</div>

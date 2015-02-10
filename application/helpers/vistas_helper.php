@@ -1,5 +1,6 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+
 /**********************************************************************************
  **********************************************************************************
  * 
@@ -61,7 +62,7 @@ function action_button($texto=NULL)
 		$texto = 'Acciones';
 	}
 	return "<div class='btn-group'>
-				<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+				<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-expanded='false' disabled>
 					<i class='fa fa-cogs'></i> ".$texto." <span class='caret'></span>
 				</button>
 				<ul class='dropdown-menu' role='menu'>
@@ -79,6 +80,40 @@ function action_button($texto=NULL)
  * ********************************************************************************
  **********************************************************************************/
  
+ 
+function setTipo($type){
+		//verifica el tipo, las validaciones se hacen en librerias/main/js/main.js -> Validación de formularios
+		if($type=='email')
+		{
+			$cadena['input']		= $type;
+			$cadena['validacion']	= "data-validate='$type'";
+		}
+		else if($type=='phone')
+		{
+			$cadena['input']	= 'text';
+			$cadena['validacion']	= "data-validate='$type'";
+		}
+		else if($type=='number')
+		{
+			$cadena['input']	= $type;
+			$cadena['validacion']	= "data-validate='$type'";
+		}
+		else if($type=='text')
+		{
+			$cadena['input']	= $type;
+			$cadena['validacion']	= "data-validate='$type'";
+		}
+		else if(strstr($type, 'length '))
+		{
+			$cantidad	= substr($type, 7);
+			$cadena['input']	= 'text';
+			$cadena['validacion']	= "data-validate='length' data-length='$cantidad'";
+		}
+		
+		return $cadena;	
+} 
+ 
+ 
 function input_helper_horizontal($id, $value=NULL, $tamaño=NULL, $placeholder=NULL, $type=NULL)
 {
 	if($type===NULL)
@@ -87,38 +122,10 @@ function input_helper_horizontal($id, $value=NULL, $tamaño=NULL, $placeholder=N
 	}
 	else 
 	{
-		//verifica el tipo, las validaciones se hacen en librerias/main/js/main.js -> Validación de formularios
-		if($type=='email')
-		{
-			$type_input	= $type;
-			$validacion	= "data-validate='$type'";
-		}
-		else if($type=='phone')
-		{
-			$type_input	= 'text';
-			$validacion	= "data-validate='$type'";
-		}
-		else if($type=='number')
-		{
-			$type_input	= $type;
-			$validacion	= "data-validate='$type'";
-		}
-		else if($type=='text')
-		{
-			$type_input	= $type;
-			$validacion	= "data-validate='$type'";
-		}
-		else if(strstr($type, 'length '))
-		{
-			$cantidad	= substr($type, 7);
-			$type_input	= 'text';
-			$validacion	= "data-validate='length' data-length='$cantidad'";
-		}
-	}
-	
-	if($value===NULL)
-	{
+		$cadena = setTipo($type);
 		
+		$type_input = $cadena['input'];
+		$validacion = $cadena['validacion'];		
 	}
 	
 	if($tamaño===NULL)
@@ -163,6 +170,7 @@ function input_helper_horizontal($id, $value=NULL, $tamaño=NULL, $placeholder=N
 	return $input;
 }
 
+
 function label_helper_horizontal($texto=NULL, $tamaño=NULL)
 {
 	if($tamaño===NULL){
@@ -175,6 +183,7 @@ function label_helper_horizontal($texto=NULL, $tamaño=NULL)
     			".$texto."
     		</label>";
 }
+
 
 function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL)
 {
@@ -189,6 +198,7 @@ function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL)
 				</textarea>
 			 </div>";
 }
+
 
 function check_helper_horizontal($id, $texto=NULL, $tamaño=NULL)
 {
@@ -209,6 +219,7 @@ function check_helper_horizontal($id, $texto=NULL, $tamaño=NULL)
       			</div>
     		</div>";	
 }
+
 
 function select_helper_horizontal($id, $value=NULL, $tamaño=NULL, $required=NULL)
 {	
@@ -267,6 +278,7 @@ function select_helper_horizontal($id, $value=NULL, $tamaño=NULL, $required=NUL
 	return $select;
 }
 
+
 /**********************************************************************************
  **********************************************************************************
  * 
@@ -275,6 +287,7 @@ function select_helper_horizontal($id, $value=NULL, $tamaño=NULL, $required=NUL
  * ********************************************************************************
  **********************************************************************************/
 
+ 
 function sub_menu($datos)
 {
 	//Opciones del sub menu
@@ -302,7 +315,6 @@ function sub_menu($datos)
     			
 	return $mensaje;
 }
-
 
 
 function autocomplete($array, $input, $valor)
