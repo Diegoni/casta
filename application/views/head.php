@@ -49,7 +49,7 @@
 	echo css_libreria('font/font-awesome/css/font-awesome.css');
 	
 	// Propios
-	//echo js_libreria('main/js/main.js');
+	echo js_libreria('main/js/main.js');
 	echo css_libreria('main/css/main.css');
 	
 	// Chosen

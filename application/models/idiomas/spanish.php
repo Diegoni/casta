@@ -35,6 +35,10 @@
 	$texto['idioma']				= 'Idioma';
 	$texto['estado']				= 'Estado';
 	$texto['referencia']			= 'Referencia';
-	
-	
+	$texto['credito']				= 'Crédito';
+//Gestión Proveedores	
+	$texto['descuentos']			= 'Descuentos';
+	$texto['compra']				= 'Compra';
+	$texto['minima']				= 'Mínima';
+	$texto['desactivado']			= 'Desactivado';
 ?>	

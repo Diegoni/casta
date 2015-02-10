@@ -20,6 +20,12 @@
 						<?php echo item_menu('clientes/cliente/abm_clientes', 'Gestion de clientes.');?>
                     </ul>
 				</li>
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Proveedores <b class="caret"></b></a>
+					<ul class="dropdown-menu multi-level">
+						<?php echo item_menu('proveedores/proveedor/abm_proveedores', 'Gestion de proveedor.');?>
+                    </ul>
+				</li>
 			</ul>
         </div><!--/.nav-collapse -->
     </div>

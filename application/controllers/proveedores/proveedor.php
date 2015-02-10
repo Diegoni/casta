@@ -19,7 +19,7 @@
  * Controlador de clientes
  *
  */
-class Cliente extends MY_Controller
+class Proveedor extends MY_Controller
 {
 	/**
 	 * Constructor
@@ -33,47 +33,27 @@ class Cliente extends MY_Controller
 		$this->load->library('userauth');
 		$this->load->library('out');
 		$this->load->helpers('vistas');
-		$this->load->model('clientes/m_cliente');
-		$this->load->model('clientes/m_tipocliente');		
-		$this->load->model('clientes/m_grupocliente');
-		$this->load->model('clientes/m_clientetarifa');
-		$this->load->model('clientes/m_estadocliente');
+		$this->load->model('proveedores/m_proveedor');
 	}
 
 	/**
 	 * Gestión Cliente
 	 * @return FORM
 	 */
-	function abm_clientes()
+	function abm_proveedores()
 	{
 		$db['texto']	= $this->m_idiomas->getIdioma(1);
 		
 		//carga de select
-		$db['tipos']	= $this->m_tipocliente->getSelect();
-		$db['grupos']	= $this->m_grupocliente->getSelect();
-		$db['tarifas']	= $this->m_clientetarifa->getSelect();
 		$db['idiomas']	= $this->m_idiomas->getSelect();
-		$db['estados']	= $this->m_estadocliente->getSelect();
-		
-		if($this->input->post('guardar'))
-		{
-			$id	= $this->m_cliente->insert();
-			
-			if($id>0){
-				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'ok', $id);
-			}
-			else
-			{
-				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'error', $id);
-			}
-		}
 		
 		// para helper_abm_clientes
-		$db['clientes']	= $this->m_cliente->getRegistros();
+		$db['proveedores']	= $this->m_proveedor->getRegistros();
+		
 		
 		$this->load->view('head', $db);
 		$this->load->view('menu');
-		$this->load->view('clientes/abm_clientes');
+		$this->load->view('proveedor/abm_proveedores');
 		$this->load->view('footer');
 	}
 

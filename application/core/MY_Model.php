@@ -1,17 +1,18 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-define('DATA_MODEL_FIELD', 				0);
-define('DATA_MODEL_REQUIRED', 			1);
-define('DATA_MODEL_TYPE', 				2);
-define('DATA_MODEL_DESCRIPTION', 		3);
-define('DATA_MODEL_EDITOR', 			4);
-define('DATA_MODEL_DEFAULT', 			5);
-define('DATA_MODEL_READONLY', 			6);
-define('DATA_MODEL_DEFAULT_VALUE',		7);
-define('DATA_MODEL_NO_LIST',			8);
-define('DATA_MODEL_GRID',				9);
-define('DATA_MODEL_NO_GRID',			10);
-define('DATA_MODEL_SEARCH',				11);
+define('DATA_MODEL_FIELD', 				1);
+define('DATA_MODEL_REQUIRED', 			2);
+define('DATA_MODEL_TYPE', 				3);
+define('DATA_MODEL_DESCRIPTION', 		4);
+define('DATA_MODEL_EDITOR', 			5);
+define('DATA_MODEL_DEFAULT', 			6);
+define('DATA_MODEL_READONLY', 			7);
+define('DATA_MODEL_DEFAULT_VALUE',		8);
+define('DATA_MODEL_NO_LIST',			9);
+define('DATA_MODEL_GRID',				10);
+define('DATA_MODEL_NO_GRID',			11);
+define('DATA_MODEL_SEARCH',				12);
+define('DATA_MODEL_DUPLICATE',			13);
 
 /**
  * Tipos de datos de los camnpos
@@ -68,31 +69,70 @@ class MY_Model extends CI_Model {
 		$this->_data_model	= $data_model;
 		parent::__construct();
 	}
-	
+
+
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------
 // Hace el insert de los datos, se debe enviar el post del formulario y se recorre $data_model buscando coincidencia
+//------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
+
 	
 	function insert()
 	{
 		$datos = $this->input->post();
-			
-		foreach ($datos as $key => $value) {
-			if(isset($this->_data_model[$key])){
-				$registro[$key] = $value;
-			}
-			else 
+		$bandera_error = 0;
+		
+		foreach ($this->_data_model as $key => $value) {
+			if(isset($datos[$key]))
 			{
-				//TMS:debo guardar el log para saber que el dato no se esta insertando	
+				// Control para registros duplicados 
+				if(isset($value[DATA_MODEL_DUPLICATE]))
+				{
+					$query = $this->db->query("SELECT *
+								FROM `$this->_tablename` 
+								WHERE $this->_tablename.$key = '$datos[$key]'");
+					if($query->num_rows() > 0)
+					{	
+						$bandera_error = -1;
+					}
+				}
+				else if(isset($value[DATA_MODEL_REQUIRED]) && $datos[$key]=='')
+				{
+					$bandera_error = -2;
+				}
+				else
+				{
+					$registro[$key]	= $datos[$key];					
+				}
+			}
+			else
+			{
+				
 			}
 		}
+		
+		if($bandera_error==0)
+		{
+			$this->db->insert($this->_tablename, $registro);
+			
+			$id = $this->db->insert_id();	
+		}
+		else
+		{
+			$id = $bandera_error;	
+		}
 	 	
-	 	$this->db->insert($this->_tablename, $registro);
-		
-		$id = $this->db->insert_id();
-		
 		return $id;
 	}
 
+
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------
 // Forma el array para usar en los select de las vistas
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------
+
 
 	function getSelect()
 	{
@@ -112,7 +152,13 @@ class MY_Model extends CI_Model {
 		}
 	}
 	
+	
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------
 // Devuelve el mensaje para las acciones	
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------
+	
 	
 	function getMensaje($action, $state, $id)
 	{
@@ -140,17 +186,43 @@ class MY_Model extends CI_Model {
   					</p>
   					</div>";	
 		}
-		else {
+		else 
+		{
+			$error = $this->getError($id);
+			
 			return "<div id='dialog-message-error' title='$action $state' style='display:none;'>
   					<p>
     					<i class='fa fa-exclamation-triangle'></i>
-    					El $action del registro $row->descripcion dio error
+    					El $action del registro dio error
+    					$error
   					</p>
   					</div>";
 		}
 	}
 	
+	function getError($id)
+	{
+		switch ($id) 
+		{
+			case -1:
+				return "Registro repetido";
+				break;
+	   		case -2:
+				return "Faltan completar campos";
+				break;
+			default:
+				return "";
+				break;
+		}
+	}
+	
+	
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
 // Devuelve todos los registros que no esten dados de baja
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
+	
 	
 	function getRegistros()
 	{

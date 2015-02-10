@@ -19,6 +19,7 @@ body
 .submenu
 {
 	padding-top: 5px;
+	padding-bottom: 2px;
 	background-color: #7f9ab3;
 	color: #fff;	
 }
@@ -33,6 +34,12 @@ body
 }
 
 
+/*------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+//			Mensaje de form
+//------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------*/ 
+
 
 
 .dialog-message-ok .ui-widget-header
@@ -43,4 +50,38 @@ body
 .dialog-message-error .ui-widget-header
 {
 	background-color: #d9534f;
+}
+
+  
+/*------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+//			Validación de formularios
+//------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------*/ 
+  
+
+.input-group-addon.primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(50, 118, 177);
+    border-color: rgb(40, 94, 142);
+}
+.input-group-addon.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
+}
+.input-group-addon.info {
+    color: rgb(255, 255, 255);
+    background-color: rgb(57, 179, 215);
+    border-color: rgb(38, 154, 188);
+}
+.input-group-addon.warning {
+    color: rgb(255, 255, 255);
+    background-color: rgb(240, 173, 78);
+    border-color: rgb(238, 162, 54);
+}
+.input-group-addon.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(217, 83, 79);
+    border-color: rgb(212, 63, 58);
 }

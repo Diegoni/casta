@@ -83,7 +83,37 @@ function input_helper_horizontal($id, $value=NULL, $tamaño=NULL, $placeholder=N
 {
 	if($type===NULL)
 	{
-		$type	= "text";
+		$type_input	= "text";
+	}
+	else 
+	{
+		//verifica el tipo, las validaciones se hacen en librerias/main/js/main.js -> Validación de formularios
+		if($type=='email')
+		{
+			$type_input	= $type;
+			$validacion	= "data-validate='$type'";
+		}
+		else if($type=='phone')
+		{
+			$type_input	= 'text';
+			$validacion	= "data-validate='$type'";
+		}
+		else if($type=='number')
+		{
+			$type_input	= $type;
+			$validacion	= "data-validate='$type'";
+		}
+		else if($type=='text')
+		{
+			$type_input	= $type;
+			$validacion	= "data-validate='$type'";
+		}
+		else if(strstr($type, 'length '))
+		{
+			$cantidad	= substr($type, 7);
+			$type_input	= 'text';
+			$validacion	= "data-validate='length' data-length='$cantidad'";
+		}
 	}
 	
 	if($value===NULL)
@@ -101,16 +131,36 @@ function input_helper_horizontal($id, $value=NULL, $tamaño=NULL, $placeholder=N
 		$placeholder	= '-';
 	}
 	
-	return "<div class='col-sm-".$tamaño."'>
-				<input 
-					type		= '".$type."' 
+	$input = "<div class='col-sm-".$tamaño."'>";
+	
+	if(isset($type))
+	{
+		$input .=	"<div class='input-group' $validacion>";
+	}
+	
+	$input	.=		"<input 
+					type		= '".$type_input."' 
 					class		= 'form-control' 
 					id			= '".$id."' 
 					name		= '".$id."'
 					value		= '".$value."' 
-					placeholder	= '".$placeholder."'
-				>
-			</div>";
+					placeholder	= '".$placeholder."'";
+					
+	if(isset($type))
+	{
+		$input .= "required >
+					<span class='input-group-addon danger'>
+						<span class='glyphicon glyphicon-remove'>
+						</span>
+					</span>
+					</div></div>";
+	}
+	else 
+	{
+		$input .= "></div>";	
+	}
+	
+	return $input;
 }
 
 function label_helper_horizontal($texto=NULL, $tamaño=NULL)
@@ -153,13 +203,14 @@ function check_helper_horizontal($id, $texto=NULL, $tamaño=NULL)
           					id		= '".$id."'
           					name	= '".$id."'
           					type	= 'checkbox'
+          					value	= 1
           				> ".$texto."
         			</label>
       			</div>
     		</div>";	
 }
 
-function select_helper_horizontal($id, $value=NULL, $tamaño=NULL)
+function select_helper_horizontal($id, $value=NULL, $tamaño=NULL, $required=NULL)
 {	
 	if($value===NULL)
 	{
@@ -171,16 +222,47 @@ function select_helper_horizontal($id, $value=NULL, $tamaño=NULL)
 		$tamaño	= 10;
 	}	
 
-	$select = "<div class='col-sm-".$tamaño."'>";		
-	$select	.= "<select class='form-control chosen-select' name='".$id."'>
-				<option value=''></option>";
+	$select = "<div class='col-sm-".$tamaño."'>";
+		
+	if(isset($required))
+	{
+		$select .= "<div class='input-group'>";	
+	}
+		
+	$select	.= "<select class='form-control chosen-select' name='".$id."'";
+	
+	if(isset($required))
+	{
+		$select .= "required >";	
+	}
+	else
+	{
+		$select .= ">";
+	}
+	
+	$select	.=	"<option value=''></option>";
 	foreach ($value as $row) {
 		if(isset($row->descripcion)){
 			$select .= "<option value='".$row->id_tabla."'>".$row->descripcion."</option>";	
 		}
 		
 	}  
-	$select	.= "</select></div>";
+	$select	.= "</select>";
+	
+	if(isset($required))
+	{
+		$select .= "<span class='input-group-addon danger'>
+						<span class='glyphicon glyphicon-remove'>
+						</span>
+					</span>
+					</div>
+					</div>";	
+	}
+	else
+	{
+		$select .= "</div>";
+	}
+	
 	
 	return $select;
 }
@@ -198,13 +280,13 @@ function sub_menu($datos)
 	//Opciones del sub menu
 	$opciones = array
 		(
-			'general'	=> "<li role='.general.'><a href='#' class='sub-item'><i class='fa fa-home'></i> ",
-			'temas'		=> "<li role='temas'><a href='#' class='sub-item'><i class='fa fa-list-alt'></i> ",
-			'notas'		=> "<li role='notas'><a href='#' class='sub-item'><i class='fa fa-file-text-o'></i> ",
-			'usuarios'	=> "<li role='usuarios'><a href='#' class='sub-item'><i class='fa fa-users'></i> ",
-			'historico'	=> "<li role='historico'><a href='#' class='sub-item'><i class='fa fa-history'></i> ",
-			'perfiles'	=> "<li role='perfiles'><a href='#' class='sub-item'><i class='fa fa-book'></i> ",
-			'busqueda'	=> "<li role='busqueda'><a href='#' class='sub-item'><i class='fa fa-search'></i> ",
+			'general'	=> "<li><a href='#general' class='sub-item' data-toggle='tab'><i class='fa fa-home'></i> ",
+			'temas'		=> "<li><a href='#temas' class='sub-item' data-toggle='tab'><i class='fa fa-list-alt'></i> ",
+			'notas'		=> "<li><a href='#notas' class='sub-item' data-toggle='tab'><i class='fa fa-file-text-o'></i> ",
+			'usuarios'	=> "<li><a href='#usuarios' class='sub-item' data-toggle='tab'><i class='fa fa-users'></i> ",
+			'historico'	=> "<li><a href='#historico' class='sub-item' data-toggle='tab'><i class='fa fa-history'></i> ",
+			'perfiles'	=> "<li><a href='#perfiles' class='sub-item' data-toggle='tab'><i class='fa fa-book'></i> ",
+			'busqueda'	=> "<li><a href='#busqueda' class='sub-item' data-toggle='tab'><i class='fa fa-search'></i> ",
 		);
 	
 	//Armado del sub menu
@@ -230,20 +312,25 @@ function autocomplete($array, $input, $valor)
 	<script>
 	$(function() {
     var clientes_array = [";
-      	
-		foreach ($array as $row) {
-			if(is_array($valor)){
-				$cadena = '"';
-				foreach ($valor as $key => $value) {
-					$cadena .= $row->$value." ";	
+      	if(count($array)>0 && is_array($array)){		
+			foreach ($array as $row) {
+				if(is_array($valor)){
+					$cadena = '"';
+					foreach ($valor as $key => $value) {
+						$cadena .= $row->$value." ";	
+					}
+					$cadena .=	'",';
+									
+					$autocomplete .=$cadena;		
 				}
-				$cadena .=	'",';
-								
-				$autocomplete .=$cadena;		
+				else {
+					$autocomplete .= '"'.$row->$valor.'",';	
+				}
 			}
-			else {
-				$autocomplete .= '"'.$row->$valor.'",';	
-			}
+		}
+		else
+		{
+			$autocomplete .= " ";
 		}
 		
     $autocomplete .=

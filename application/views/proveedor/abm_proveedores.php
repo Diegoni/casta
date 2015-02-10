@@ -1,11 +1,4 @@
 <div class="container">
-	
-	<?php 
-	if(isset($mensaje))
-	{
-		echo $mensaje;	
-	}
-	?>
 	<!----------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------
 			Busqueda
@@ -13,10 +6,10 @@
 	----------------------------------------------------------------------------------->
 		
 	<div class="row search_form">
-		<?php echo autocomplete($clientes, 'b_codigo', 'nIdCliente');?>
+		<?php echo autocomplete($proveedores, 'b_codigo', 'nIdCliente');?>
 		<?php echo input_helper_horizontal('b_codigo', NULL, 2, $texto['codigo']);?>
 		<?php echo label_helper_horizontal($texto['codigo']);?>
-		<?php echo autocomplete($clientes, 'b_nombre', array('cNombre', 'cApellido'));?>
+		<?php echo autocomplete($proveedores, 'b_nombre', array('cNombre', 'cApellido'));?>
 		<?php echo input_helper_horizontal('b_nombre', NULL, 8, $texto['nombre']." ".$texto['apellido']);?>
 	</div>
 	
@@ -50,9 +43,8 @@
 				$datos = array
 						(
 							'general'	=> $texto['general'],
+							'descuentos'=> $texto['descuentos'],
 							'perfiles'	=> $texto['perfiles'],
-							'temas'		=> $texto['temas'],
-							'notas'		=> $texto['notas'],
 							'usuarios'	=> $texto['usuarios'],
 							'historico'	=> $texto['historico'],
 							'busqueda'	=> $texto['busqueda']
@@ -72,51 +64,35 @@
 	<div class="row abm_form tab-pane fade in active" id="general">
 			<div class="form-group">
 				<?php echo label_helper_horizontal($texto['nombre']." , ".$texto['apellido'], 2);?>
-				<?php echo input_helper_horizontal('cNombre', NULL, 5, $texto['nombre'], 'length 10');?>
-				<?php echo input_helper_horizontal('cApellido', NULL, 4, $texto['apellido'], 'text');?>
+				<?php echo input_helper_horizontal('cNombre', NULL, 5, $texto['nombre']);?>
+				<?php echo input_helper_horizontal('cApellido', NULL, 4, $texto['apellido']);?>
 				<?php echo label_helper_horizontal('', 1);?>
 	  		</div>
-	  		
 	  		<div class="form-group">
 				<?php echo label_helper_horizontal($texto['empresa']);?>
 				<?php echo textarea_helper_horizontal('cEmpresa', NULL, 9, 3);?>
 				<?php echo label_helper_horizontal('',1);?>
 	  		</div>
-	  		
 	  		<div class="form-group">
 				<?php echo label_helper_horizontal($texto['cuil']);?>
-				<?php echo input_helper_horizontal('cCuil', NULL, 4, $texto['cuil'], 'text');?>
-				<?php echo check_helper_horizontal('bExentoIVA', $texto['exento']);?>
-				<?php echo check_helper_horizontal('bRecargo', $texto['recargo']);?>
-				<?php echo check_helper_horizontal('bCredito', $texto['tiene']." ".$texto['credito']);?>
+				<?php echo input_helper_horizontal('cCuil', NULL, 4, $texto['cuil']);?>
+				<?php echo check_helper_horizontal('c_exento', $texto['exento']);?>
+				<?php echo check_helper_horizontal('c_recargo', $texto['recargo']);?>
+				<?php echo check_helper_horizontal('c_cuenta', $texto['tiene']." ".$texto['cuenta']);?>
 	  		</div>
-	  		
 	  		<div class="form-group">
-	  			<?php echo label_helper_horizontal($texto['tipo']." ".$texto['cliente']);?>
-	  			<?php echo select_helper_horizontal('nIdTipoCliente', $tipos, 4, 'required');?>
-	  			<?php echo label_helper_horizontal($texto['grupo']." ".$texto['cliente']);?>
-	  			<?php echo select_helper_horizontal('nIdGrupoCliente', $grupos, 4);?>
-	  		</div>
-	  		
-	  		<div class="form-group">
-	  			<?php echo label_helper_horizontal($texto['tarifa']);?>
-	  			<?php echo select_helper_horizontal('nIdTipoTarifa', $tarifas, 4);?>
-	  			<?php echo label_helper_horizontal($texto['idioma']);?>
-	  			<?php echo select_helper_horizontal('nIdIdioma', $idiomas, 4);?>
-	  		</div>
-	  		
-	  		<div class="form-group">
-	  			<?php echo label_helper_horizontal($texto['referencia']);?>
-	  			<?php echo input_helper_horizontal('cReferencia', NULL, 4, $texto['referencia']);?>
-	  			<?php echo label_helper_horizontal($texto['estado']);?>
-	  			<?php echo select_helper_horizontal('nIdEstado', $estados, 4);?>
+	  			<?php echo label_helper_horizontal($texto['descuentos']);?>
+				<?php echo input_helper_horizontal('fDescuento', NULL, 3, $texto['descuentos']);?>
+				<?php echo label_helper_horizontal($texto['compra']." ".$texto['minima']);?>
+				<?php echo input_helper_horizontal('fDescuento', NULL, 3, $texto['compra']." ".$texto['minima']);?>
+				<?php echo check_helper_horizontal('c_desactivado', $texto['desactivado']);?>
 	  		</div>
 	</div>
 	</form>
 	<div class="row abm_form tab-pane fade" id="perfiles">
 		Perfiles
 	</div>
-	<div class="row abm_form tab-pane fade" id="temas">
+	<div class="row abm_form tab-pane fade" id="descuentos">
 		Temas
 	</div>
 	</div>
