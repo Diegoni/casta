@@ -56,6 +56,9 @@
 	echo js_libreria('chosen/chosen.jquery.js');
 	echo css_libreria('chosen/chosen.css');
 	
+	//CKEditor
+	echo js_libreria('ckeditor/ckeditor.js');
+	
   	// Librerias del controlador
   	if(isset($js_libreria))
   	{

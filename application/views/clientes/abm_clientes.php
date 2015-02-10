@@ -119,5 +119,9 @@
 	<div class="row abm_form tab-pane fade" id="temas">
 		Temas
 	</div>
+	<div class="row abm_form tab-pane fade" id="notas">
+		<?php echo label_helper_horizontal($texto['notas']); ?>
+		<?php echo textarea_helper_horizontal('cNotas', NULL, 10, 3, TRUE); ?>
+	</div>
 	</div>
 </div>

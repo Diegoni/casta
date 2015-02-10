@@ -101,7 +101,7 @@ function setTipo($type){
 		else if($type=='text')
 		{
 			$cadena['input']	= $type;
-			$cadena['validacion']	= "data-validate='$type'";
+			$cadena['validacion']	= "";
 		}
 		else if(strstr($type, 'length '))
 		{
@@ -185,11 +185,20 @@ function label_helper_horizontal($texto=NULL, $tamaño=NULL)
 }
 
 
-function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL)
+function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL, $ckeditor=NULL)
 {
+	if($ckeditor===NULL)
+	{
+		$ckeditor = "";
+	}
+	else 
+	{
+		$ckeditor = "ckeditor";	
+	}
+	
 	return	"<div class='col-sm-".$tamaño."'>
 				<textarea 
-					class='form-control' 
+					class='form-control $ckeditor' 
 					id='".$id."' 
 					name='".$id."' 
 					rows='".$rows."'
