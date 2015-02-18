@@ -84,7 +84,7 @@ class MY_Model extends CI_Model {
 		$bandera_error = 0;
 		
 		foreach ($this->_data_model as $key => $value) {
-			if(isset($datos[$key]))
+			if(isset($datos[$key]))//Controlamos que el dato enviado pertenesca al modelo
 			{
 				// Control para registros duplicados 
 				if(isset($value[DATA_MODEL_DUPLICATE]))
@@ -97,6 +97,7 @@ class MY_Model extends CI_Model {
 						$bandera_error = -1;
 					}
 				}
+				// Control que los datos requeridos no sean vacios
 				else if(isset($value[DATA_MODEL_REQUIRED]) && $datos[$key]=='')
 				{
 					$bandera_error = -2;
@@ -106,13 +107,9 @@ class MY_Model extends CI_Model {
 					$registro[$key]	= $datos[$key];					
 				}
 			}
-			else
-			{
-				
-			}
 		}
 		
-		if($bandera_error==0)
+		if($bandera_error==0)//Si no hay errores
 		{
 			$this->db->insert($this->_tablename, $registro);
 			

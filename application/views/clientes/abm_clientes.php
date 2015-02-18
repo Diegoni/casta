@@ -6,6 +6,41 @@
 		echo $mensaje;	
 	}
 	?>
+	<?php 
+		if(isset($b_clientes))
+		{
+			foreach ($b_clientes as $row) {
+				$b_cliente = array(
+						'nIdCliente'		=> $row->nIdCliente,
+						'cNombre'			=> $row->cNombre,
+						'cApellido'			=> $row->cApellido,
+						'cEmpresa'			=> $row->cEmpresa,
+						'cCuil'				=> $row->cCuil,	
+						'nIdTipoCliente'	=> $row->nIdTipoCliente,
+						'nIdGrupoCliente'	=> $row->nIdGrupoCliente,
+						'nIdTipoTarifa'		=> $row->nIdTipoTarifa,
+						'nIdIdioma'			=> $row->nIdIdioma,
+						'cReferencia'		=> $row->cReferencia,
+						'nIdEstado'			=> $row->nIdEstado
+				);
+			}
+		}
+		else {
+			$b_cliente = array(
+					'nIdCliente'		=> NULL,
+					'cNombre'			=> NULL,
+					'cApellido'			=> NULL,
+					'cEmpresa'			=> NULL,
+					'cCuil'				=> NULL,
+					'nIdTipoCliente'	=> NULL,
+					'nIdGrupoCliente'	=> NULL,
+					'nIdTipoTarifa'		=> NULL,
+					'nIdIdioma'			=> NULL,
+					'cReferencia'		=> NULL,
+					'nIdEstado'			=> NULL		
+			);
+		}
+		?>
 	<!----------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------
 			Busqueda
@@ -15,22 +50,12 @@
 	<div class="row search_form">
 		<form class="form-horizontal" method="post">
 		<?php echo autocomplete($clientes, 'b_codigo', 'nIdCliente');?>
-		<?php echo input_helper_horizontal('b_codigo', NULL, 2, $texto['codigo']);?>
+		<?php echo input_helper_horizontal('b_codigo', $b_cliente['nIdCliente'], 2, $texto['codigo']);?>
 		<?php echo label_helper_horizontal($texto['codigo'], 1);?>
-		<?php echo input_helper_horizontal('b_nombre', NULL, 7, $texto['nombre']." ".$texto['apellido']);?>
+		<?php echo input_helper_horizontal('b_nombre', $b_cliente['cNombre']." ".$b_cliente['cApellido'], 7, $texto['nombre']." ".$texto['apellido']);?>
 		<?php echo autocomplete($clientes, 'b_nombre', array('cNombre', 'cApellido'), 'nIdCliente', 'b_codigo');?>
 		<div class="col-sm-2">
-			<button class="btn btn-default form-control" type="submit"
-			<!--onclick="carga_ajax('<?php echo base_url()?>index.php/ajax/respuesta','b_codigo',  
-			[
-			<?php 
-				foreach ($clientes_model as $key => $value)
-				{
-					echo "'".$key."',";
-				}
-			?>
-			])-->
-			">
+			<button class="btn btn-default form-control" type="submit">
 				<i class="fa fa-search"></i> <?php echo  $texto['buscar']?>
 			</a>
 		</div>
@@ -86,41 +111,6 @@
 	----------------------------------------------------------------------------------->
 	<div class="tab-content">
 	<div class="row abm_form tab-pane fade in active" id="general">
-		<?php 
-		if(isset($b_clientes))
-		{
-			foreach ($b_clientes as $row) {
-				$b_cliente = array(
-						'nIdCliente'		=> $row->nIdCliente,
-						'cNombre'			=> $row->cNombre,
-						'cApellido'			=> $row->cApellido,
-						'cEmpresa'			=> $row->cEmpresa,
-						'cCuil'				=> $row->cCuil,	
-						'nIdTipoCliente'	=> $row->nIdTipoCliente,
-						'nIdGrupoCliente'	=> $row->nIdGrupoCliente,
-						'nIdTipoTarifa'		=> $row->nIdTipoTarifa,
-						'nIdIdioma'			=> $row->nIdIdioma,
-						'cReferencia'		=> $row->cReferencia,
-						'nIdEstado'			=> $row->nIdEstado
-				);
-			}
-		}
-		else {
-			$b_cliente = array(
-					'nIdCliente'		=> NULL,
-					'cNombre'			=> NULL,
-					'cApellido'			=> NULL,
-					'cEmpresa'			=> NULL,
-					'cCuil'				=> NULL,
-					'nIdTipoCliente'	=> NULL,
-					'nIdGrupoCliente'	=> NULL,
-					'nIdTipoTarifa'		=> NULL,
-					'nIdIdioma'			=> NULL,
-					'cReferencia'		=> NULL,
-					'nIdEstado'			=> NULL		
-			);
-		}
-		?>
 		<input name="nIdCliente" value="<?php echo $b_cliente['nIdCliente']?>" type="hidden"/>
 		<div class="form-group">
 			<?php echo label_helper_horizontal($texto['nombre']." , ".$texto['apellido'], 2);?>

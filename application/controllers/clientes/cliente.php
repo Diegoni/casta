@@ -58,13 +58,20 @@ class Cliente extends MY_Controller
 		if($this->input->post('b_codigo'))
 		{
 			$db['b_clientes']	= $this->m_cliente->getID($this->input->post('b_codigo'));
+			if($db['b_clientes']==null)//Aseguramos que el codigo exista
+			{
+				unset($db['b_clientes']);
+				$db['mensaje']	= $this->m_cliente->getMensaje('Busqueda', 'error', $this->input->post('b_codigo'));
+			}
 		}
 		
 		if($this->input->post('guardar'))
 		{
 			if($this->input->post('nIdCliente'))//update
 			{
-				$this->m_cliente->update($this->input->post('nIdCliente'));
+				$id = $this->input->post('nIdCliente');
+				$this->m_cliente->update($id);
+				$db['mensaje']	= $this->m_cliente->getMensaje('Modificacion', 'ok', $id);
 			}
 			else
 			{

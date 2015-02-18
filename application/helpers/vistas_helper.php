@@ -209,9 +209,7 @@ function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL,
 					id='".$id."' 
 					name='".$id."' 
 					rows='".$rows."'
-				>
-				".$value."
-				</textarea>
+				>".$value."</textarea>
 			 </div>";
 }
 
