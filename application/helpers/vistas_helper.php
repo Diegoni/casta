@@ -9,6 +9,13 @@
  * ********************************************************************************
  **********************************************************************************/
 
+function single_button($texto=NULL, $id=NULL)
+{
+	return "<button class='btn btn-default form-control' id='$id'>
+				".$texto."
+			</button>";
+} 
+ 
 
 function add_button($texto=NULL)
 {
@@ -153,7 +160,7 @@ function input_helper_horizontal($id, $value=NULL, $tamaño=NULL, $placeholder=N
 					value		= '".$value."' 
 					placeholder	= '".$placeholder."'";
 					
-	if(isset($type))
+	if(isset($type) )
 	{
 		$input .= "required >
 					<span class='input-group-addon danger'>
@@ -185,7 +192,7 @@ function label_helper_horizontal($texto=NULL, $tamaño=NULL)
 }
 
 
-function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL, $ckeditor=NULL)
+function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL, $ckeditor=NULL, $required=NULL)
 {
 	if($ckeditor===NULL)
 	{
@@ -230,13 +237,8 @@ function check_helper_horizontal($id, $texto=NULL, $tamaño=NULL)
 }
 
 
-function select_helper_horizontal($id, $value=NULL, $tamaño=NULL, $required=NULL)
+function select_helper_horizontal($id, $options=NULL, $value=NULL, $tamaño=NULL, $required=NULL)
 {	
-	if($value===NULL)
-	{
-		
-	}
-	
 	if($tamaño===NULL)
 	{
 		$tamaño	= 10;
@@ -261,9 +263,15 @@ function select_helper_horizontal($id, $value=NULL, $tamaño=NULL, $required=NUL
 	}
 	
 	$select	.=	"<option value=''></option>";
-	foreach ($value as $row) {
+	foreach ($options as $row) {
 		if(isset($row->descripcion)){
-			$select .= "<option value='".$row->id_tabla."'>".$row->descripcion."</option>";	
+			$select .= "<option value='".$row->id_tabla."'";
+			if($row->id_tabla==$value && $value!=NULL)
+			{
+				 $select .= "selected";
+			}
+			$select .=">";
+			$select .= $row->descripcion."</option>";	
 		}
 		
 	}  
@@ -326,27 +334,33 @@ function sub_menu($datos)
 }
 
 
-function autocomplete($array, $input, $valor)
+function autocomplete($array, $input, $valor, $id_array = NULL, $id_input = NULL)
 {
+	$id=0;
 	$autocomplete =
 	"
 	<script>
 	$(function() {
-    var clientes_array = [";
+    var raw = [";
       	if(count($array)>0 && is_array($array)){		
 			foreach ($array as $row) {
+				$cadena = "{ value: ";	
+				$cadena .= $row->nIdCliente;
+				$id = $id + 1;
+				$cadena .= ", label: '";
+				
 				if(is_array($valor)){
-					$cadena = '"';
 					foreach ($valor as $key => $value) {
 						$cadena .= $row->$value." ";	
-					}
-					$cadena .=	'",';
-									
-					$autocomplete .=$cadena;		
+					}		
 				}
 				else {
 					$autocomplete .= '"'.$row->$valor.'",';	
 				}
+				
+				$cadena .= "' },";
+				
+				$autocomplete .= $cadena;
 			}
 		}
 		else
@@ -354,15 +368,25 @@ function autocomplete($array, $input, $valor)
 			$autocomplete .= " ";
 		}
 		
+	$autocomplete = trim($autocomplete, ',');
+		
     $autocomplete .=
     "];
-    $( '#$input' ).autocomplete({
-      minLength: 2, 
-      source: function(request, response) {
-			var results = $.ui.autocomplete.filter(clientes_array, request.term);
-			response(results.slice(0, 10));
-    		}
-    });
+   var source  = [ ];
+	var mapping = { };
+	for(var i = 0; i < raw.length; ++i) {
+	    source.push(raw[i].label);
+	    mapping[raw[i].label] = raw[i].value;
+	}
+	
+	$('#$input').autocomplete({
+	    minLength: 1,
+	    source: source,
+	    select: function(event, ui) {
+	    	$('#$id_input').val('');
+	        $('#$id_input').val(mapping[ui.item.value]);
+	    }
+	});
 	});
 	</script>";
 	

@@ -36,6 +36,7 @@
 	$texto['estado']				= 'Estado';
 	$texto['referencia']			= 'Referencia';
 	$texto['credito']				= 'Crédito';
+	$texto['buscar']				= 'Buscar';
 //Gestión Proveedores	
 	$texto['descuentos']			= 'Descuentos';
 	$texto['compra']				= 'Compra';

@@ -21,7 +21,7 @@ class App extends CI_Controller {
 	function login()
 	{
 		$this->load->helper(array('form'));
-		$db['texto']	= $this->idiomas_model->getIdioma(1);
+		$db['texto']	= $this->m_idiomas->getIdioma(1);
 		$this->load->view('app/login', $db);
 	}
 	

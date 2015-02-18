@@ -55,28 +55,39 @@ class Cliente extends MY_Controller
 		$db['idiomas']	= $this->m_idiomas->getSelect();
 		$db['estados']	= $this->m_estadocliente->getSelect();
 		
+		if($this->input->post('b_codigo'))
+		{
+			$db['b_clientes']	= $this->m_cliente->getID($this->input->post('b_codigo'));
+		}
+		
 		if($this->input->post('guardar'))
 		{
-			$id	= $this->m_cliente->insert();
-			
-			if($id>0){
-				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'ok', $id);
+			if($this->input->post('nIdCliente'))//update
+			{
+				$this->m_cliente->update($this->input->post('nIdCliente'));
 			}
 			else
 			{
-				$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'error', $id);
+				$id	= $this->m_cliente->insert();
+				if($id>0){
+					$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'ok', $id);
+				}
+				else
+				{
+					$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'error', $id);
+				}	
 			}
 		}
 		
 		// para helper_abm_clientes
 		$db['clientes']	= $this->m_cliente->getRegistros();
+		$db['clientes_model'] = $this->m_cliente->getData_model();
 		
 		$this->load->view('head', $db);
 		$this->load->view('menu');
 		$this->load->view('clientes/abm_clientes');
 		$this->load->view('footer');
 	}
-
 }
 
 /* End of file cliente.php */

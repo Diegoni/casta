@@ -63,8 +63,7 @@
   	if(isset($js_libreria))
   	{
   		if(is_array($js_libreria)){
-  			echo "entro";
-	  		foreach ($js_libreria as $key => $value) {
+  			foreach ($js_libreria as $key => $value) {
 				echo $value;
 			}	
 	  	}

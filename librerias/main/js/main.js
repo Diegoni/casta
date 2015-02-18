@@ -79,6 +79,27 @@ $(document).ready(function() {
 	});
     
     $('.input-group input[required], .input-group textarea[required], .input-group select[required]').trigger('change');
-    
-    
 });
+  
+  
+//------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+//			Validación de formularios
+//------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------> 
+
+
+function carga_ajax(ruta,id,div) 
+	{
+		var id=$("#"+id+"").val();
+		var arr = div;
+		
+		$.post(ruta,{id:id,},function(resp)
+		{
+			for (var i in arr)
+			{
+				$("#"+arr[i]+"").val(resp);
+			}
+		});
+		
+	}
