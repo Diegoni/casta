@@ -34,7 +34,13 @@ class M_telefono extends MY_Model
 			'nIdCliente'	=> array(DATA_MODEL_TYPE => DATA_MODEL_TYPE_INT), 
 		);
 
-		parent::__construct('Cli_Telefonos', 'nIdTelefono', 'cDescripcion', 'cDescripcion', $data_model);	
+		parent::__construct(
+					'Cli_Telefonos', 
+					'nIdTelefono', 
+					'cDescripcion', 
+					'cDescripcion', 
+					$data_model
+				);	
 		#$this->_cache = TRUE;
 	}
 	

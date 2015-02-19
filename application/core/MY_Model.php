@@ -136,8 +136,7 @@ class MY_Model extends CI_Model {
 		$query = $this->db->query("SELECT 
 				$this->_name as descripcion,
 				$this->_id as id_tabla
-				FROM `$this->_tablename` 
-				WHERE $this->_tablename.delete=0");
+				FROM `$this->_tablename`");
 			
 		if($query->num_rows() > 0){	
 			foreach ($query->result() as $fila){
@@ -157,18 +156,27 @@ class MY_Model extends CI_Model {
 //------------------------------------------------------------------------------------------------
 
 
-	function getID($id)
+	function getID($id, $array=NULL)
 	{
 		$query = $this->db->query("SELECT 
 				*
 				FROM `$this->_tablename` 
-				WHERE $this->_tablename.$this->_id=$id");
+				WHERE $this->_tablename.$this->_id = $id");
 			
-		if($query->num_rows() > 0){	
-			foreach ($query->result() as $fila){
-				$data[] = $fila;
+		if($query->num_rows() > 0){
+			
+			if($array == NULL || $array == FALSE)
+			{
+				foreach ($query->result() as $fila){
+					$data[] = $fila;
+				}
+				return $data;	
 			}
-			return $data;
+			else
+			{
+				return $query->row_array();	
+			}		
+						
 		}else{
 			return FALSE;
 		}
@@ -245,13 +253,33 @@ class MY_Model extends CI_Model {
 //------------------------------------------------------------------------------------------------	
 	
 	
-	function getRegistros()
+	function getRegistros($where = NULL)
 	{
-		$query = $this->db->query("SELECT 
-				*
-				FROM `$this->_tablename` 
-				WHERE $this->_tablename.delete=0");
-			
+		//Si la tabla tiene el dato delete lo usamos, si no traemos todos los registros
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'delete' ")) == 1 )
+		{
+			if($where == NULL)
+			{
+				$query = "SELECT * FROM `$this->_tablename`	WHERE $this->_tablename.delete = 0";
+			}
+			else 
+			{
+				$query = "SELECT * FROM `$this->_tablename`	WHERE $where AND $this->_tablename.delete = 0";		
+			}		
+		}
+		else 
+		{
+			if($where == NULL)
+			{
+				$query = "SELECT * FROM `$this->_tablename`";
+			}
+			else 
+			{
+				$query = "SELECT * FROM `$this->_tablename` WHERE $where";		
+			}						
+		}
+		$query = $this->db->query($query);
+		
 		if($query->num_rows() > 0){	
 			foreach ($query->result() as $fila){
 				$data[] = $fila;

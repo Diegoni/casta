@@ -38,6 +38,10 @@ class Cliente extends MY_Controller
 		$this->load->model('clientes/m_grupocliente');
 		$this->load->model('clientes/m_clientetarifa');
 		$this->load->model('clientes/m_estadocliente');
+		$this->load->model('clientes/m_telefono');
+		$this->load->model('clientes/m_direccioncliente');
+		$this->load->model('clientes/m_email');
+		$this->load->model('clientes/m_contacto');
 	}
 
 	/**
@@ -57,11 +61,20 @@ class Cliente extends MY_Controller
 		
 		if($this->input->post('b_codigo'))
 		{
-			$db['b_clientes']	= $this->m_cliente->getID($this->input->post('b_codigo'));
+			$db['b_clientes']	= $this->m_cliente->getID($this->input->post('b_codigo'), TRUE);
 			if($db['b_clientes']==null)//Aseguramos que el codigo exista
 			{
 				unset($db['b_clientes']);
 				$db['mensaje']	= $this->m_cliente->getMensaje('Busqueda', 'error', $this->input->post('b_codigo'));
+			}
+			else
+			{
+				$where = 'nIdCliente = '.$this->input->post('b_codigo');
+				
+				$db['telefonos']	= $this->m_telefono->getRegistros($where);
+				$db['direcciones']	= $this->m_direccioncliente->getRegistros($where);
+				$db['emails']		= $this->m_email->getRegistros($where);
+				$db['contactos']	= $this->m_contacto->getRegistros($where);
 			}
 		}
 		
@@ -87,8 +100,8 @@ class Cliente extends MY_Controller
 		}
 		
 		// para helper_abm_clientes
-		$db['clientes']	= $this->m_cliente->getRegistros();
-		$db['clientes_model'] = $this->m_cliente->getData_model();
+		$db['clientes']			= $this->m_cliente->getRegistros();
+		$db['clientes_model']	= $this->m_cliente->getData_model();
 		
 		$this->load->view('head', $db);
 		$this->load->view('menu');
