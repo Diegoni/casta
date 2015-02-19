@@ -15,15 +15,34 @@
 			</ul>
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['catalogo'] ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('clientes/cliente/abm_clientes', 'Gestion de clientes.');?>
+						<?php echo item_menu('proveedores/proveedor/abm_proveedores', $texto['articulos']);?>
                     </ul>
 				</li>
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Proveedores <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['compras'] ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('proveedores/proveedor/abm_proveedores', 'Gestion de proveedor.');?>
+						<?php echo item_menu('proveedores/proveedor/abm_proveedores', $texto['proveedores']);?>
+                    </ul>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['ventas'] ?> <b class="caret"></b></a>
+					<ul class="dropdown-menu multi-level">
+						<?php echo item_menu('clientes/cliente/abm_clientes', $texto['clientes']);?>
+						<li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datos Maestros</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-submenu">
+											<?php echo item_menu('clientes/cliente/abm_clientes', $texto['clientes']);?>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
 				</li>
 			</ul>

@@ -9,11 +9,24 @@
  * ********************************************************************************
  **********************************************************************************/
 
-function single_button($texto=NULL, $id=NULL)
+function single_button($texto=NULL, $id=NULL, $icono=NULL)
 {
-	return "<button class='btn btn-default form-control' id='$id'>
-				".$texto."
-			</button>";
+	$button = "<button type='button' class='btn btn-default form-control' id='$id'>";
+	if($icono != NULL)
+	{
+		if(strpos($icono, 'fa-') !== false)
+		{
+			$button .= "<i class='fa $icono'></i> ";	
+		}
+		else
+		if(strpos($icono, 'icon-') !== false)	 
+		{
+			$button .= "<span class='$icono'></span> ";	
+		}
+	}
+	$button .= $texto."</button>";
+	
+	return $button;
 } 
  
 

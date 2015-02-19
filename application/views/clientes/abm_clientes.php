@@ -5,42 +5,22 @@
 	{
 		echo $mensaje;	
 	}
+	
+	if(isset($b_clientes))
+	{
+		foreach ($b_clientes as $key => $value) {
+			$b_cliente[$key] = $value;
+		}
+	}
+	else 
+	{
+		foreach ($clientes_model as $key => $value) {
+			$b_cliente[$key] = NULL;
+		}
+			
+		$b_cliente['nIdCliente']	= NULL;
+	}
 	?>
-	<?php 
-		if(isset($b_clientes))
-		{
-			foreach ($b_clientes as $row) {
-				$b_cliente = array(
-						'nIdCliente'		=> $row->nIdCliente,
-						'cNombre'			=> $row->cNombre,
-						'cApellido'			=> $row->cApellido,
-						'cEmpresa'			=> $row->cEmpresa,
-						'cCuil'				=> $row->cCuil,	
-						'nIdTipoCliente'	=> $row->nIdTipoCliente,
-						'nIdGrupoCliente'	=> $row->nIdGrupoCliente,
-						'nIdTipoTarifa'		=> $row->nIdTipoTarifa,
-						'nIdIdioma'			=> $row->nIdIdioma,
-						'cReferencia'		=> $row->cReferencia,
-						'nIdEstado'			=> $row->nIdEstado
-				);
-			}
-		}
-		else {
-			$b_cliente = array(
-					'nIdCliente'		=> NULL,
-					'cNombre'			=> NULL,
-					'cApellido'			=> NULL,
-					'cEmpresa'			=> NULL,
-					'cCuil'				=> NULL,
-					'nIdTipoCliente'	=> NULL,
-					'nIdGrupoCliente'	=> NULL,
-					'nIdTipoTarifa'		=> NULL,
-					'nIdIdioma'			=> NULL,
-					'cReferencia'		=> NULL,
-					'nIdEstado'			=> NULL		
-			);
-		}
-		?>
 	<!----------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------
 			Busqueda
@@ -92,9 +72,9 @@
 						(
 							'general'	=> $texto['general'],
 							'perfiles'	=> $texto['perfiles'],
-							'temas'		=> $texto['temas'],
+							/*'temas'		=> $texto['temas'],*/
 							'notas'		=> $texto['notas'],
-							'usuarios'	=> $texto['usuarios'],
+							/*'usuarios'	=> $texto['usuarios'],*/
 							'historico'	=> $texto['historico'],
 							'busqueda'	=> $texto['busqueda']
 						);
@@ -156,7 +136,87 @@
 	</div>
 	</form>
 	<div class="row abm_form tab-pane fade" id="perfiles">
-		Perfiles
+		<div class="row">
+			<div class="col-md-2">
+				<?php echo single_button($texto['telefonos'], 'telefonos', 'fa-phone')?>
+			</div>
+			
+			<div class="col-md-10">
+				<?php 
+				if(isset($telefonos))
+				{
+					foreach ($telefonos as $row) {
+						echo "<div class='row'>";
+							echo "<div class='col-md-4'>".$row->cTelefono."</div>";
+							echo "<div class='col-md-4'>".$row->nIdTipo."</div>";
+							echo "<div class='col-md-4'>".$row->cDescripcion."</div>";
+						echo "</div>";	
+					}
+				}
+				?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<?php echo single_button($texto['direcciones'], 'telefonos', 'icon-address')?>
+			</div>
+			
+			<div class="col-md-10">
+				<?php 
+				if(isset($direcciones))
+				{
+					foreach ($direcciones as $row) {
+						echo "<div class='row'>";
+							echo "<div class='col-md-4'>".$row->cCalle." ".$row->cCP."</div>";
+							echo "<div class='col-md-4'>".$row->nIdTipo."</div>";
+							echo "<div class='col-md-4'>".$row->cDescripcion."</div>";
+						echo "</div>";	
+					}
+				}
+				?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<?php echo single_button($texto['emails'], 'emails', 'fa-envelope-o')?>
+			</div>
+			
+			<div class="col-md-10">
+				<?php 
+				if(isset($emails))
+				{
+					foreach ($emails as $row) {
+						echo "<div class='row'>";
+							echo "<div class='col-md-4'>".$row->cEMail."</div>";
+							echo "<div class='col-md-4'>".$row->nIdTipo."</div>";
+							echo "<div class='col-md-4'>".$row->cDescripcion."</div>";
+						echo "</div>";	
+					}
+				}
+				?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<?php echo single_button($texto['contactos'], 'contactos', 'fa-user')?>
+			</div>
+			
+			<div class="col-md-10">
+				<?php 
+				if(isset($contactos))
+				{
+					foreach ($contactos as $row) {
+						echo "<div class='row'>";
+							echo "<div class='col-md-4'>".$row->cApellido." ".$row->cNombre."</div>";
+							echo "<div class='col-md-4'>".$row->nIdTipo."</div>";
+							echo "<div class='col-md-4'>".$row->cDescripcion."</div>";
+						echo "</div>";	
+					}
+				}
+				?>
+			</div>
+		</div>
+		
 	</div>
 	<div class="row abm_form tab-pane fade" id="temas">
 		Temas

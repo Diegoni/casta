@@ -1,10 +1,18 @@
 <?php
+//Login
 	$texto['login']					= 'Login';
 	$texto['usuario']				= 'Usuario';
 	$texto['pass']					= 'Password';
 	$texto['incorrecto']			= 'incorrecto';
 	$texto['ingrese']				= 'Ingrese';
 	$texto['codigo']				= 'Código';
+//Menú
+	$texto['catalogo']				= "Catálogo";
+	$texto['articulos']				= "Artículos";
+	$texto['compras']				= "Compras";
+	$texto['proveedores']			= "Proveedores";
+	$texto['ventas']				= "Ventas";
+	$texto['clientes']				= "Clientes";
 //Submenú
 	$texto['general']				= 'General';
 	$texto['perfiles']				= 'Perfiles';
@@ -37,6 +45,10 @@
 	$texto['referencia']			= 'Referencia';
 	$texto['credito']				= 'Crédito';
 	$texto['buscar']				= 'Buscar';
+	$texto['telefonos']				= 'Teléfonos';
+	$texto['direcciones']			= 'Direcciones';
+	$texto['emails']				= 'Emails';
+	$texto['contactos']				= 'Contactos';
 //Gestión Proveedores	
 	$texto['descuentos']			= 'Descuentos';
 	$texto['compra']				= 'Compra';
