@@ -93,7 +93,9 @@ class App extends CI_Controller {
 		//Verificamos login de usuario
 		if($this->userauth->check_login())
 		{
-			$this->load->view('head');
+			$db['texto']	= $this->m_idiomas->getIdioma(1);
+		
+			$this->load->view('head', $db);
 			$this->load->view('menu');
 			$this->load->view('app/welcome');
 		}

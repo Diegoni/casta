@@ -30,6 +30,9 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['ventas'] ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
 						<?php echo item_menu('clientes/cliente/abm_clientes', $texto['clientes']);?>
+						
+						<li class="divider"></li>
+						
 						<li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datos Maestros</a>
                             <ul class="dropdown-menu">
@@ -37,7 +40,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes</a>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-submenu">
-											<?php echo item_menu('clientes/cliente/abm_clientes', $texto['clientes']);?>
+											<?php echo item_menu('clientes/datos_maestros/crud_cli_tiposcliente', $texto['tipo']);?>
+											<?php echo item_menu('clientes/datos_maestros/crud_cli_estadoscliente', $texto['estado']);?>
+											<?php echo item_menu('clientes/datos_maestros/crud_cli_gruposcliente', $texto['grupo']);?>
+											<?php echo item_menu('clientes/datos_maestros/crud_gen_tratamientos', $texto['tratamientos']);?>
                                         </li>
                                     </ul>
                                 </li>

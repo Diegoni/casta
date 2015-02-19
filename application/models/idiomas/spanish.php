@@ -13,6 +13,7 @@
 	$texto['proveedores']			= "Proveedores";
 	$texto['ventas']				= "Ventas";
 	$texto['clientes']				= "Clientes";
+	$texto['tratamientos']			= "Tratamientos";
 //Submenú
 	$texto['general']				= 'General';
 	$texto['perfiles']				= 'Perfiles';

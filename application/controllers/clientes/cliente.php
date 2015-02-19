@@ -30,9 +30,12 @@ class Cliente extends MY_Controller
 	{
 		//parent::__construct('clientes.cliente', 'clientes/M_cliente', TRUE, 'clientes/cliente.js', 'Clientes');
 		parent::__construct();
+		
 		$this->load->library('userauth');
 		$this->load->library('out');
+		
 		$this->load->helpers('vistas');
+		
 		$this->load->model('clientes/m_cliente');
 		$this->load->model('clientes/m_tipocliente');		
 		$this->load->model('clientes/m_grupocliente');
@@ -43,11 +46,13 @@ class Cliente extends MY_Controller
 		$this->load->model('clientes/m_email');
 		$this->load->model('clientes/m_contacto');
 	}
-
-	/**
-	 * Gestión Cliente
-	 * @return FORM
-	 */
+	
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Crud de clientes
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+	
 	function abm_clientes()
 	{
 		$db['texto']	= $this->m_idiomas->getIdioma(1);
@@ -108,6 +113,7 @@ class Cliente extends MY_Controller
 		$this->load->view('clientes/abm_clientes');
 		$this->load->view('footer');
 	}
+	
 }
 
 /* End of file cliente.php */

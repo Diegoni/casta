@@ -89,6 +89,7 @@
 			Formulario
 	------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------->
+	
 	<div class="tab-content">
 	<div class="row abm_form tab-pane fade in active" id="general">
 		<input name="nIdCliente" value="<?php echo $b_cliente['nIdCliente']?>" type="hidden"/>
@@ -139,6 +140,9 @@
 		<div class="row">
 			<div class="col-md-2">
 				<?php echo single_button($texto['telefonos'], 'telefonos', 'fa-phone')?>
+			</div>
+			<div class="hide" >
+				
 			</div>
 			
 			<div class="col-md-10">

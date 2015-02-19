@@ -35,7 +35,8 @@
 
 	// Bootstrap
 	echo js_libreria('bootstrap/js/bootstrap.js');
-	echo css_libreria('bootstrap/css/bootstrap.css');
+	//echo css_libreria('bootstrap/css/bootstrap.css');
+	echo css_libreria('bootstrap/css/bootstrap_back.css');
 	
 	// Jquery UI
 	echo js_libreria('jquery-ui/jquery-ui.js');

@@ -9,9 +9,18 @@
  * ********************************************************************************
  **********************************************************************************/
 
-function single_button($texto=NULL, $id=NULL, $icono=NULL)
+function single_button($texto=NULL, $id=NULL, $icono=NULL, $tipo=NULL)
 {
-	$button = "<button type='button' class='btn btn-default form-control' id='$id'>";
+	if($tipo=='modal')
+	{
+		$modal = "data-toggle='modal' data-target='#modal-".$id."'";	
+	}
+	else 
+	{
+		$modal = '';	
+	}
+	
+	$button = "<button type='button' class='btn btn-default form-control' id='$id' $modal>";
 	if($icono != NULL)
 	{
 		if(strpos($icono, 'fa-') !== false)
