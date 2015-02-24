@@ -17,7 +17,7 @@
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['catalogo'] ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('proveedores/proveedor/abm_proveedores', $texto['articulos']);?>
+						<?php echo item_menu('product/product/crud_product', $texto['productos']);?>
                     </ul>
 				</li>
 				<li>
@@ -29,7 +29,7 @@
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['ventas'] ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('clientes/cliente/abm_clientes', $texto['clientes']);?>
+						<?php echo item_menu('customer/customer/crud_customer', $texto['clientes']);?>
 						
 						<li class="divider"></li>
 						

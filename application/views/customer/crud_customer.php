@@ -18,8 +18,9 @@
 			$b_cliente[$key] = NULL;
 		}
 			
-		$b_cliente['nIdCliente']	= NULL;
+		$b_cliente['id_customer']	= NULL;
 	}
+	 
 	?>
 	<!----------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------
@@ -29,11 +30,11 @@
 		
 	<div class="row search_form">
 		<form class="form-horizontal" method="post">
-		<?php echo autocomplete($clientes, 'b_codigo', 'nIdCliente');?>
-		<?php echo input_helper_horizontal('b_codigo', $b_cliente['nIdCliente'], 2, $texto['codigo']);?>
+		<?php echo autocomplete($clientes, 'b_codigo', 'id_customer');?>
+		<?php echo input_helper_horizontal('b_codigo', $b_cliente['id_customer'], 2, $texto['codigo']);?>
 		<?php echo label_helper_horizontal($texto['codigo'], 1);?>
-		<?php echo input_helper_horizontal('b_nombre', $b_cliente['cNombre']." ".$b_cliente['cApellido'], 7, $texto['nombre']." ".$texto['apellido']);?>
-		<?php echo autocomplete($clientes, 'b_nombre', array('cNombre', 'cApellido'), 'nIdCliente', 'b_codigo');?>
+		<?php echo input_helper_horizontal('b_nombre', $b_cliente['firstname']." ".$b_cliente['lastname'], 7, $texto['nombre']." ".$texto['apellido']);?>
+		<?php echo autocomplete($clientes, 'b_nombre', array('firstname', 'lastname'), 'id_customer', 'b_codigo');?>
 		<div class="col-sm-2">
 			<button class="btn btn-default form-control" type="submit">
 				<i class="fa fa-search"></i> <?php echo  $texto['buscar']?>
@@ -51,7 +52,9 @@
 	<div class="row action_buttons">
 		<div class="col-md-12">
 			<?php echo action_button($texto['action']); ?>
+			<!--
 			<?php echo add_button($texto['add']); ?>
+			-->
 			<?php echo save_button($texto['save']); ?>
 			<?php echo refresh_button($texto['refresh']); ?>
 			<?php echo print_button($texto['print']); ?>
@@ -92,35 +95,40 @@
 	
 	<div class="tab-content">
 	<div class="row abm_form tab-pane fade in active" id="general">
-		<input name="nIdCliente" value="<?php echo $b_cliente['nIdCliente']?>" type="hidden"/>
+		
+		<input name="id_customer" value="<?php echo $b_cliente['id_customer']?>" type="hidden"/>
 		<div class="form-group">
 			<?php echo label_helper_horizontal($texto['nombre']." , ".$texto['apellido'], 2);?>
-			<?php echo input_helper_horizontal('cNombre', $b_cliente['cNombre'], 5, $texto['nombre'], 'text');?>
-			<?php echo input_helper_horizontal('cApellido', $b_cliente['cApellido'], 4, $texto['apellido'], 'text');?>
+			<?php echo input_helper_horizontal('firstname', $b_cliente['firstname'], 5, $texto['nombre'], 'text');?>
+			<?php echo input_helper_horizontal('lastname', $b_cliente['lastname'], 4, $texto['apellido'], 'text');?>
 			<?php echo label_helper_horizontal('', 1);?>
 	  	</div>
-	  		
+	  	
 	  	<div class="form-group">
 			<?php echo label_helper_horizontal($texto['empresa']);?>
-			<?php echo textarea_helper_horizontal('cEmpresa', $b_cliente['cEmpresa'], 9, 3);?>
+			<?php echo textarea_helper_horizontal('company', $b_cliente['company'], 9, 3);?>
 			<?php echo label_helper_horizontal('',1);?>
 	  	</div>
 	  		
 	  	<div class="form-group">
 			<?php echo label_helper_horizontal($texto['cuil']);?>
-			<?php echo input_helper_horizontal('cCuil', $b_cliente['cCuil'], 4, $texto['cuil'], 'text');?>
-			<?php echo check_helper_horizontal('bExentoIVA', $texto['exento']);?>
-			<?php echo check_helper_horizontal('bRecargo', $texto['recargo']);?>
-			<?php echo check_helper_horizontal('bCredito', $texto['tiene']." ".$texto['credito']);?>
+			<?php echo input_helper_horizontal('cuil', $b_cliente['cuil'], 4, $texto['cuil'], 'text');?>
+			<?php echo check_helper_horizontal('active', $b_cliente['active'], $texto['activo']);?>
+			<?php echo check_helper_horizontal('newsletter', $b_cliente['newsletter'], $texto['boletin']);?>
+			<?php echo check_helper_horizontal('optin', $b_cliente['optin'], $texto['optar_en']);?>
 	  	</div>
+	  	
 	  		
 	  	<div class="form-group">
+	  		<!--
 	  		<?php echo label_helper_horizontal($texto['tipo']." ".$texto['cliente']);?>
 	  		<?php echo select_helper_horizontal('nIdTipoCliente', $tipos,  $b_cliente['nIdTipoCliente'], 4, 'required');?>
+	  		-->
 	  		<?php echo label_helper_horizontal($texto['grupo']." ".$texto['cliente']);?>
-	  		<?php echo select_helper_horizontal('nIdGrupoCliente', $grupos, $b_cliente['nIdGrupoCliente'], 4);?>
+	  		<?php echo select_helper_horizontal('id_default_group', $grupos, $b_cliente['id_default_group'], 4);?>
 	  	</div>
-	  		
+	  	
+	  	<!--		
 	  	<div class="form-group">
 	  		<?php echo label_helper_horizontal($texto['tarifa']);?>
 	  		<?php echo select_helper_horizontal('nIdTipoTarifa', $tarifas, $b_cliente['nIdTipoTarifa'], 4);?>
@@ -230,4 +238,5 @@
 		<?php echo textarea_helper_horizontal('cNotas', NULL, 10, 3, TRUE); ?>
 	</div>
 	</div>
+	-->
 </div>

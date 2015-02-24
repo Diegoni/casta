@@ -8,7 +8,7 @@
 	$texto['codigo']				= 'Código';
 //Menú
 	$texto['catalogo']				= "Catálogo";
-	$texto['articulos']				= "Artículos";
+	$texto['productos']				= "Productos";
 	$texto['compras']				= "Compras";
 	$texto['proveedores']			= "Proveedores";
 	$texto['ventas']				= "Ventas";
@@ -33,6 +33,9 @@
 	$texto['apellido']				= 'Apellido';
 	$texto['empresa']				= 'Empresa';
 	$texto['cuil']					= 'Cuil';
+	$texto['activo']				= 'Activo';
+	$texto['boletin']				= 'Boletín';
+	$texto['optar_en']				= 'Optar en';
 	$texto['exento']				= 'Exento Iva';
 	$texto['recargo']				= 'Recargo';
 	$texto['tiene']					= 'Tiene';

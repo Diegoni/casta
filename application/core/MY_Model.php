@@ -133,10 +133,24 @@ class MY_Model extends CI_Model {
 
 	function getSelect()
 	{
-		$query = $this->db->query("SELECT 
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_lang' ")) == 1 )
+		{
+			$query = $this->db->query("SELECT 
 				$this->_name as descripcion,
 				$this->_id as id_tabla
-				FROM `$this->_tablename`");
+				FROM `$this->_tablename`
+				WHERE id_lang = 1
+				ORDER BY $this->_order");//Mejorar esto
+		}
+		else 
+		{
+			$query = $this->db->query("SELECT 
+				$this->_name as descripcion,
+				$this->_id as id_tabla
+				FROM `$this->_tablename`
+				ORDER BY $this->_order");//Mejorar esto
+		}
+		
 			
 		if($query->num_rows() > 0){	
 			foreach ($query->result() as $fila){
@@ -312,9 +326,10 @@ class MY_Model extends CI_Model {
 	function update($id)
 	{
 		$datos = $this->input->post();
+		
 		foreach ($datos as $key => $value) {
 			if(array_key_exists($key, $this->_data_model)){
-				$registro[$key]=$value;	
+				$registro[$key] = $value;
 			}
 		}
 		

@@ -19,7 +19,7 @@
  * Controlador de clientes
  *
  */
-class Cliente extends MY_Controller
+class Customer extends MY_Controller
 {
 	/**
 	 * Constructor
@@ -36,15 +36,9 @@ class Cliente extends MY_Controller
 		
 		$this->load->helpers('vistas');
 		
-		$this->load->model('clientes/m_cliente');
-		$this->load->model('clientes/m_tipocliente');		
-		$this->load->model('clientes/m_grupocliente');
-		$this->load->model('clientes/m_clientetarifa');
-		$this->load->model('clientes/m_estadocliente');
-		$this->load->model('clientes/m_telefono');
-		$this->load->model('clientes/m_direccioncliente');
-		$this->load->model('clientes/m_email');
-		$this->load->model('clientes/m_contacto');
+		$this->load->model('customer/m_customer');
+		$this->load->model('group/m_group');
+		$this->load->model('group/m_group_lang');
 	}
 	
 /*----------------------------------------------------------------------------------
@@ -54,74 +48,58 @@ class Cliente extends MY_Controller
 ----------------------------------------------------------------------------------*/
 	function crud_customer()
 	{
-		$db['texto']	= $this->m_idiomas->getIdioma(1);
-		
-		$this->load->view('head', $db);
-		$this->load->view('menu');
-		$this->load->view('clientes/abm_clientes');
-		$this->load->view('footer');		
-	}
-	
-	
-	function abm_clientes()
-	{
-		$db['texto']	= $this->m_idiomas->getIdioma(1);
-		
-		//carga de select
-		$db['tipos']	= $this->m_tipocliente->getSelect();
-		$db['grupos']	= $this->m_grupocliente->getSelect();
-		$db['tarifas']	= $this->m_clientetarifa->getSelect();
-		$db['idiomas']	= $this->m_idiomas->getSelect();
-		$db['estados']	= $this->m_estadocliente->getSelect();
+		$db['texto']			= $this->m_idiomas->getIdioma(1);
+		$db['grupos']			= $this->m_group_lang->getSelect();
 		
 		if($this->input->post('b_codigo'))
 		{
-			$db['b_clientes']	= $this->m_cliente->getID($this->input->post('b_codigo'), TRUE);
+			$db['b_clientes']	= $this->m_customer->getID($this->input->post('b_codigo'), TRUE);
 			if($db['b_clientes']==null)//Aseguramos que el codigo exista
 			{
 				unset($db['b_clientes']);
-				$db['mensaje']	= $this->m_cliente->getMensaje('Busqueda', 'error', $this->input->post('b_codigo'));
+				$db['mensaje']	= $this->m_customer->getMensaje('Busqueda', 'error', $this->input->post('b_codigo'));
 			}
 			else
 			{
+				/*
 				$where = 'nIdCliente = '.$this->input->post('b_codigo');
 				
 				$db['telefonos']	= $this->m_telefono->getRegistros($where);
 				$db['direcciones']	= $this->m_direccioncliente->getRegistros($where);
 				$db['emails']		= $this->m_email->getRegistros($where);
 				$db['contactos']	= $this->m_contacto->getRegistros($where);
+				 * */
 			}
 		}
 		
 		if($this->input->post('guardar'))
 		{
-			if($this->input->post('nIdCliente'))//update
+			if($this->input->post('id_customer'))//update
 			{
-				$id = $this->input->post('nIdCliente');
-				$this->m_cliente->update($id);
-				$db['mensaje']	= $this->m_cliente->getMensaje('Modificacion', 'ok', $id);
+				$id = $this->input->post('id_customer');
+				$this->m_customer->update($id);
+				$db['mensaje']	= $this->m_customer->getMensaje('Modificacion', 'ok', $id);
 			}
 			else
 			{
-				$id	= $this->m_cliente->insert();
+				$id	= $this->m_customer->insert();
 				if($id>0){
-					$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'ok', $id);
+					$db['mensaje']	= $this->m_customer->getMensaje('Alta', 'ok', $id);
 				}
 				else
 				{
-					$db['mensaje']	= $this->m_cliente->getMensaje('Alta', 'error', $id);
+					$db['mensaje']	= $this->m_customer->getMensaje('Alta', 'error', $id);
 				}	
 			}
 		}
 		
-		// para helper_abm_clientes
-		$db['clientes']			= $this->m_cliente->getRegistros();
-		$db['clientes_model']	= $this->m_cliente->getData_model();
+		$db['clientes']			= $this->m_customer->getRegistros();
+		$db['clientes_model']	= $this->m_customer->getData_model();
 		
 		$this->load->view('head', $db);
 		$this->load->view('menu');
-		$this->load->view('clientes/abm_clientes');
-		$this->load->view('footer');
+		$this->load->view('customer/crud_customer');
+		$this->load->view('footer');		
 	}
 	
 }

@@ -236,10 +236,21 @@ function textarea_helper_horizontal($id, $value=NULL, $tamaño=NULL, $rows=NULL,
 }
 
 
-function check_helper_horizontal($id, $texto=NULL, $tamaño=NULL)
+function check_helper_horizontal($id, $value=NULL,$texto=NULL, $tamaño=NULL)
 {
 	if($tamaño===NULL){
 		$tamaño	= 2;
+	}
+	
+	if($value!=NULL && $value!=0)
+	{
+		$selected = "checked";
+		$value = 1; 
+	}
+	else 
+	{
+		$selected = "";
+		$value = 0;	
 	}
 	
 	return	"<div class='col-sm-".$tamaño."'>
@@ -249,7 +260,18 @@ function check_helper_horizontal($id, $texto=NULL, $tamaño=NULL)
           					id		= '".$id."'
           					name	= '".$id."'
           					type	= 'checkbox'
-          					value	= 1
+          					value	= '".$value."'
+          					onclick='
+          					if(this.checked)
+          					{
+          						this.value = 1;
+          					}
+          					else 
+          					{
+          						this.value = 0;
+							}
+          					'
+          					".$selected."
           				> ".$texto."
         			</label>
       			</div>
@@ -365,7 +387,7 @@ function autocomplete($array, $input, $valor, $id_array = NULL, $id_input = NULL
       	if(count($array)>0 && is_array($array)){		
 			foreach ($array as $row) {
 				$cadena = "{ value: ";	
-				$cadena .= $row->nIdCliente;
+				$cadena .= $row->id_customer;//arreglar
 				$id = $id + 1;
 				$cadena .= ", label: '";
 				
