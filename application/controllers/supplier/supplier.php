@@ -1,5 +1,5 @@
 <?php
-class Product extends MY_Controller
+class Supplier extends MY_Controller
 {
 	function __construct()
 	{
@@ -10,28 +10,29 @@ class Product extends MY_Controller
 		
 		$this->load->helpers('vistas');
 		
-		$this->load->model('product/m_product');
-		$this->load->model('product/m_product_lang');
+		$this->load->model('supplier/m_supplier');	
+		$this->load->model('supplier/m_supplier_lang');
 	}
 	
 /*----------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-			Crud de productos
+			Crud de proveedores
 ------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------*/
-	function crud_product()
+
+	function crud_supplier()
 	{
 		$db['texto']			= $this->m_idiomas->getIdioma(1);
 		
 		if($this->input->post('b_codigo'))
 		{
-			$db['b_registros']	= $this->m_product->getID($this->input->post('b_codigo'), TRUE);
-			$db['b_registros_lang']	= $this->m_product_lang->getID($this->input->post('b_codigo'), TRUE);
+			$db['b_registros']	= $this->m_supplier->getID($this->input->post('b_codigo'), TRUE);
+			$db['b_registros_lang']	= $this->m_supplier_lang->getID($this->input->post('b_codigo'), TRUE);
 			if($db['b_registros']==null)//Aseguramos que el codigo exista
 			{
 				unset($db['b_registros']);
 				unset($db['b_registros_lang']);
-				$db['mensaje']	= $this->m_product->getMensaje('Busqueda', 'error', $this->input->post('b_codigo'));
+				$db['mensaje']	= $this->m_supplier->getMensaje('Busqueda', 'error', $this->input->post('b_codigo'));
 			}
 			else
 			{
@@ -46,14 +47,16 @@ class Product extends MY_Controller
 			}
 		}
 		
-		$db['productos']			= $this->m_product_lang->getRegistros();
-		$db['registro_model']		= $this->m_product->getData_model();
-		$db['lang_model']			= $this->m_product_lang->getData_model();
+		$db['proveedores']			= $this->m_supplier_lang->getRegistros();
+		$db['registro_model']		= $this->m_supplier->getData_model();
+		$db['lang_model']			= $this->m_supplier_lang->getData_model();
 		
+				
 		$this->load->view('head', $db);
 		$this->load->view('menu');
-		$this->load->view('product/crud_product');
+		$this->load->view('supplier/crud_supplier');
 		$this->load->view('footer');		
 	}
 	
 }
+

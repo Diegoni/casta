@@ -23,7 +23,7 @@
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['compras'] ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('proveedores/proveedor/abm_proveedores', $texto['proveedores']);?>
+						<?php echo item_menu('supplier/supplier/crud_supplier', $texto['proveedores']);?>
                     </ul>
 				</li>
 				<li>

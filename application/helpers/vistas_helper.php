@@ -387,7 +387,15 @@ function autocomplete($array, $input, $valor, $id_array = NULL, $id_input = NULL
       	if(count($array)>0 && is_array($array)){		
 			foreach ($array as $row) {
 				$cadena = "{ value: ";	
-				$cadena .= $row->id_customer;//arreglar
+				if(isset($row->id_customer))
+				{
+					$cadena .= $row->id_customer;//arreglar	
+				}
+				else
+				{
+					$cadena .= $row->id_product;//arreglar
+				}
+				
 				$id = $id + 1;
 				$cadena .= ", label: '";
 				

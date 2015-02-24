@@ -269,29 +269,63 @@ class MY_Model extends CI_Model {
 	
 	function getRegistros($where = NULL)
 	{
-		//Si la tabla tiene el dato delete lo usamos, si no traemos todos los registros
+		$condicion = 'WHERE ';
+		
+		// Where que puede poner en la función 
+		if($where != NULL)
+		{
+			$condicion .= $where;
+		}
+		
+		// Comprobamos que este el campo delete, si esta no hay que seleccionar los que estan eliminados
 		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'delete' ")) == 1 )
 		{
-			if($where == NULL)
+			if($condicion == 'WHERE ')
 			{
-				$query = "SELECT * FROM `$this->_tablename`	WHERE $this->_tablename.delete = 0";
+				$condicion .= "$this->_tablename.delete = 0";	
 			}
-			else 
+			else
 			{
-				$query = "SELECT * FROM `$this->_tablename`	WHERE $where AND $this->_tablename.delete = 0";		
-			}		
+				$condicion .= " AND $this->_tablename.delete = 0";
+			}
+		}
+		
+		// Comprobamos que este el campo id_lang, para seleccionar solo un idioma, hay que mejorar esta consulta
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_lang' ")) == 1 )
+		{
+			if($condicion == 'WHERE ')
+			{
+				$condicion .= "$this->_tablename.id_lang = 1";	
+			}
+			else
+			{
+				$condicion .= " AND $this->_tablename.id_lang = 1";
+			}
+		}
+		
+		// Comprobamos que este el campo id_shop, para seleccionar solo una tienda
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_shop' ")) == 1 )
+		{
+			if($condicion == 'WHERE ')
+			{
+				$condicion .= "$this->_tablename.id_shop = 1";	
+			}
+			else
+			{
+				$condicion .= " AND $this->_tablename.id_shop = 1";
+			}
+		}
+		
+		if($condicion != 'WHERE ')
+		{
+			$query = "SELECT * FROM `$this->_tablename` $condicion";
 		}
 		else 
 		{
-			if($where == NULL)
-			{
-				$query = "SELECT * FROM `$this->_tablename`";
-			}
-			else 
-			{
-				$query = "SELECT * FROM `$this->_tablename` WHERE $where";		
-			}						
+			$query = "SELECT * FROM `$this->_tablename`";
 		}
+		
+
 		$query = $this->db->query($query);
 		
 		if($query->num_rows() > 0){	

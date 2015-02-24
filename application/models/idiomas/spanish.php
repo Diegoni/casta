@@ -9,6 +9,7 @@
 //Menú
 	$texto['catalogo']				= "Catálogo";
 	$texto['productos']				= "Productos";
+	$texto['producto']				= "Producto";
 	$texto['compras']				= "Compras";
 	$texto['proveedores']			= "Proveedores";
 	$texto['ventas']				= "Ventas";
@@ -53,6 +54,8 @@
 	$texto['direcciones']			= 'Direcciones';
 	$texto['emails']				= 'Emails';
 	$texto['contactos']				= 'Contactos';
+	$texto['descripcion']			= 'Descripción';
+	$texto['corta']					= 'Corta';
 //Gestión Proveedores	
 	$texto['descuentos']			= 'Descuentos';
 	$texto['compra']				= 'Compra';

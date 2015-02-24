@@ -5,21 +5,21 @@ class M_Product extends MY_Model
 	{
 		
 		$data_model = array(
-			'firstname'			=> array(), 
-			'lastname'			=> array(),
-			'company'			=> array(),
-			'cuil'				=> array(),
-			'id_default_group'	=> array(),
-			'active'			=> array(DATA_MODEL_TYPE_BOOLEAN => TRUE),
-			'newsletter'		=> array(),
-			'optin'				=> array(),
+			'id_category_default'		=> array(), 
+			'id_shop_default'			=> array(),
+			'minimal_quantity'			=> array(),
+			'price'						=> array(),
+			'reference'					=> array(),
+			'out_of_stock'				=> array(),
+			'show_price'				=> array(),
+			'active'					=> array(),
 		);
 		
 		parent::__construct(
-					'ps_customer', 
-					'id_customer', 
-					'firstname, lastname', 
-					array('firstname', 'lastname'), 
+					'ps_product', 
+					'id_product', 
+					'id_product', 
+					'reference', 
 					$data_model
 				);
 	}
