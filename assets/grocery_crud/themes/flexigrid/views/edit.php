@@ -34,7 +34,7 @@
 					<?php echo ($input_fields[$field->field_name]->required)? 
 					"<span class='required'>*</span> " : ""?> :
 				</div>
-				<div class='col-sm-5' id="<?php echo $field->field_name; ?>_input_box">
+				<div class='col-sm-8' id="<?php echo $field->field_name; ?>_input_box">
 					<?php echo $input_fields[$field->field_name]->input?>
 				</div>
 			</div>

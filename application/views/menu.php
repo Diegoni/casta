@@ -40,10 +40,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes</a>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-submenu">
-											<?php echo item_menu('clientes/datos_maestros/crud_cli_tiposcliente', $texto['tipo']);?>
-											<?php echo item_menu('clientes/datos_maestros/crud_cli_estadoscliente', $texto['estado']);?>
-											<?php echo item_menu('clientes/datos_maestros/crud_cli_gruposcliente', $texto['grupo']);?>
-											<?php echo item_menu('clientes/datos_maestros/crud_gen_tratamientos', $texto['tratamientos']);?>
+											<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $texto['tipo']);?>
+											<?php echo item_menu('customer/datos_maestros/crud_cli_estadoscliente', $texto['estado']);?>
+											<?php echo item_menu('customer/datos_maestros/crud_cli_gruposcliente', $texto['grupo']);?>
+											<?php echo item_menu('customer/datos_maestros/crud_gen_tratamientos', $texto['tratamientos']);?>
                                         </li>
                                     </ul>
                                 </li>

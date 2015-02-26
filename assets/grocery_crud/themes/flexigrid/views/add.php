@@ -32,7 +32,7 @@
 				<div class='col-sm-2 control-label' id="<?php echo $field->field_name; ?>_display_as_box">
 					<?php echo $input_fields[$field->field_name]->display_as; ?><?php echo ($input_fields[$field->field_name]->required)? "<span class='required'>*</span> " : ""; ?> :
 				</div>
-				<div class="col-sm-5">
+				<div class="col-sm-8">
 					<div id="<?php echo $field->field_name; ?>_input_box">
 						<?php echo $input_fields[$field->field_name]->input?>
 					</div>

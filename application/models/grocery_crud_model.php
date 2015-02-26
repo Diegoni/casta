@@ -58,7 +58,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     		foreach($this->relation as $relation)
     		{
     			list($field_name , $related_table , $related_field_title) = $relation;
-    			$unique_join_name = $this->_unique_join_name($field_name);
+				$unique_join_name = $this->_unique_join_name($field_name);
     			$unique_field_name = $this->_unique_field_name($field_name);
 
 				if(strstr($related_field_title,'{'))
@@ -75,7 +75,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     				$select .= ", `{$this->table_name}`.$related_field_title AS '{$this->table_name}.$related_field_title'";
     		}
     	}
-
+		
     	//set_relation_n_n special queries. We prefer sub queries from a simple join for the relation_n_n as it is faster and more stable on big tables.
     	if(!empty($this->relation_n_n))
     	{
@@ -85,7 +85,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     	$this->db->select($select, false);
 
     	$results = $this->db->get($this->table_name)->result();
-
+		
     	return $results;
     }
 

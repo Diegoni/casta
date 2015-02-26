@@ -3535,6 +3535,7 @@ class Grocery_CRUD extends grocery_CRUD_States
 
 		return $this;
 	}
+	
 
 	/**
 	 * Unsets just the jquery library from the js. This function can be used if there is already a jquery included

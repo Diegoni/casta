@@ -277,45 +277,8 @@ class MY_Model extends CI_Model {
 			$condicion .= $where;
 		}
 		
-		// Comprobamos que este el campo delete, si esta no hay que seleccionar los que estan eliminados
-		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'delete' ")) == 1 )
-		{
-			if($condicion == 'WHERE ')
-			{
-				$condicion .= "$this->_tablename.delete = 0";	
-			}
-			else
-			{
-				$condicion .= " AND $this->_tablename.delete = 0";
-			}
-		}
-		
-		// Comprobamos que este el campo id_lang, para seleccionar solo un idioma, hay que mejorar esta consulta
-		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_lang' ")) == 1 )
-		{
-			if($condicion == 'WHERE ')
-			{
-				$condicion .= "$this->_tablename.id_lang = 1";	
-			}
-			else
-			{
-				$condicion .= " AND $this->_tablename.id_lang = 1";
-			}
-		}
-		
-		// Comprobamos que este el campo id_shop, para seleccionar solo una tienda
-		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_shop' ")) == 1 )
-		{
-			if($condicion == 'WHERE ')
-			{
-				$condicion .= "$this->_tablename.id_shop = 1";	
-			}
-			else
-			{
-				$condicion .= " AND $this->_tablename.id_shop = 1";
-			}
-		}
-		
+		$condicion = $this->addCondicion($condicion);
+				
 		if($condicion != 'WHERE ')
 		{
 			$query = "SELECT * FROM `$this->_tablename` $condicion";
@@ -341,16 +304,111 @@ class MY_Model extends CI_Model {
 	
 //------------------------------------------------------------------------------------------------	
 //------------------------------------------------------------------------------------------------	
+// Devuelve condiciones comunes para el select
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
+	
+	
+	function addCondicion($where=NULL, $tablename=NULL)
+	{
+		if($tablename==NULL)
+		{
+			 $tablename = $this->_tablename;
+		}
+		
+		if($where==NULL || $where=='')
+		{
+			$condicion = 'WHERE ';
+		}
+		else
+		{
+			$condicion = $where;	
+		}
+		
+		
+		// Comprobamos que este el campo delete, si esta no hay que seleccionar los que estan eliminados
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $tablename LIKE 'delete' ")) == 1 )
+		{
+			if($condicion == 'WHERE ')
+			{
+				$condicion .= "$tablename.delete = 0";	
+			}
+			else
+			{
+				$condicion .= " AND $tablename.delete = 0";
+			}
+		}
+		
+		// Comprobamos que este el campo id_lang, para seleccionar solo un idioma, hay que mejorar esta consulta
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $tablename LIKE 'id_lang' ")) == 1 )
+		{
+			if($condicion == 'WHERE ')
+			{
+				$condicion .= "$tablename.id_lang = 1";	
+			}
+			else
+			{
+				$condicion .= " AND $tablename.id_lang = 1";
+			}
+		}
+		
+		// Comprobamos que este el campo id_shop, para seleccionar solo una tienda
+		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $tablename LIKE 'id_shop' ")) == 1 )
+		{
+			if($condicion == 'WHERE ')
+			{
+				$condicion .= "$tablename.id_shop = 1";	
+			}
+			else
+			{
+				$condicion .= " AND $tablename.id_shop = 1";
+			}
+		}
+		
+		return $condicion;
+	}
+	
+	
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
 // Get data_model
 //------------------------------------------------------------------------------------------------	
 //------------------------------------------------------------------------------------------------	
+
 	
 	function getData_model()
 	{
 		return $this->_data_model;
 	}
+	
+	
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
+// Devuelve tabla
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
 
 	
+	function getTable()
+	{
+		return $this->_tablename;
+	}
+	
+	
+	
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
+// Devuelve ID tabla 
+//------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------	
+
+	
+	function getId_table()
+	{
+		return $this->_id;
+	}
+	
+		
 //------------------------------------------------------------------------------------------------	
 //------------------------------------------------------------------------------------------------	
 // Update

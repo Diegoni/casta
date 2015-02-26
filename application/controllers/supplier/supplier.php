@@ -36,14 +36,7 @@ class Supplier extends MY_Controller
 			}
 			else
 			{
-				/*
-				$where = 'nIdCliente = '.$this->input->post('b_codigo');
-				
-				$db['telefonos']	= $this->m_telefono->getRegistros($where);
-				$db['direcciones']	= $this->m_direccioncliente->getRegistros($where);
-				$db['emails']		= $this->m_email->getRegistros($where);
-				$db['contactos']	= $this->m_contacto->getRegistros($where);
-				 * */
+
 			}
 		}
 		
