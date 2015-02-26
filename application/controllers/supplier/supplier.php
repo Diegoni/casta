@@ -1,12 +1,23 @@
 <?php
 class Supplier extends MY_Controller
 {
+	protected $model		= 'supplier/m_supplier';
+	protected $check_loged	= FALSE; 
+	protected $title		= 'Proveedores'; 
+	protected $view			= 'supplier';
+	
 	function __construct()
 	{
-		parent::__construct();
+		parent::__construct(
+			$model			= $this->model, 
+			$check_loged	= $this->check_loged, 
+			$title			= $this->title, 
+			$view			= $this->view
+		);
 		
 		$this->load->library('userauth');
 		$this->load->library('out');
+		$this->load->library('grocery_CRUD');
 		
 		$this->load->helpers('vistas');
 		
@@ -20,7 +31,7 @@ class Supplier extends MY_Controller
 ------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------*/
 
-	function crud_supplier()
+	function crud_supplier_faster()
 	{
 		$db['texto']			= $this->m_idiomas->getIdioma(1);
 		
@@ -50,6 +61,43 @@ class Supplier extends MY_Controller
 		$this->load->view('supplier/crud_supplier');
 		$this->load->view('footer');		
 	}
+
+
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Crud de productos
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+
+
+	function crud_supplier()
+	{
+		
+		$crud = new grocery_CRUD();
+		
+		$crud->where('ps_supplier.active = 1');
+		$crud->set_table('ps_supplier');
+		
+		$crud->set_subject($this->title);
+				
+		$crud->columns('name');
+				
+		$crud->display_as('date_add',	$this->lang->line("fecha")." ".$this->lang->line("alta"))
+			 ->display_as('name',		$this->lang->line("nombre"))
+			 ->display_as('date_upd',	$this->lang->line("fecha")." ".$this->lang->line("modificacion"));
+		
+		$crud->field_type('date_add', 'readonly');
+		$crud->field_type('date_upd', 'readonly');
+		$crud->field_type('active', 'hidden');
+		
+		$crud->callback_delete(array($this,'delete_reg'));
+		
+		$output = $crud->render();
+		
+		$this->_crud_output($output);
+
+	}
+	
 	
 }
 

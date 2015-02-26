@@ -15,21 +15,21 @@
 			</ul>
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['catalogo'] ?><b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('catalogo') ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('product/product/crud_product', $texto['productos']);?>
+						<?php echo item_menu('product/product/crud_product', $this->lang->line('productos'));?>
                     </ul>
 				</li>
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['compras'] ?><b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('compras') ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('supplier/supplier/crud_supplier', $texto['proveedores']);?>
+						<?php echo item_menu('supplier/supplier/crud_supplier', $this->lang->line('proveedores'));?>
                     </ul>
 				</li>
 				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $texto['ventas'] ?> <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('ventas')?> <b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
-						<?php echo item_menu('customer/customer/crud_customer', $texto['clientes']);?>
+						<?php echo item_menu('customer/customer/crud_customer', $this->lang->line('clientes'));?>
 						
 						<li class="divider"></li>
 						
@@ -40,10 +40,10 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes</a>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-submenu">
-											<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $texto['tipo']);?>
-											<?php echo item_menu('customer/datos_maestros/crud_cli_estadoscliente', $texto['estado']);?>
-											<?php echo item_menu('customer/datos_maestros/crud_cli_gruposcliente', $texto['grupo']);?>
-											<?php echo item_menu('customer/datos_maestros/crud_gen_tratamientos', $texto['tratamientos']);?>
+											<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
+											<?php echo item_menu('customer/datos_maestros/crud_cli_estadoscliente', $this->lang->line('estado'));?>
+											<?php echo item_menu('customer/datos_maestros/crud_cli_gruposcliente', $this->lang->line('grupo'));?>
+											<?php echo item_menu('customer/datos_maestros/crud_gen_tratamientos', $this->lang->line('tratamientos'));?>
                                         </li>
                                     </ul>
                                 </li>

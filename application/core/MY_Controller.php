@@ -6,14 +6,21 @@ class MY_Controller extends CI_Controller
 	protected $check_loged; 
 	protected $index_view; 
 	protected $title; 
-	protected $submenu;
+	protected $view;
 	
-	public function __construct($model = null,$check_loged = FALSE,	$title = null,$submenu = null)
+	public function __construct($model = null,$check_loged = FALSE,	$title = null, $view = null)
 	{
 		parent::__construct();
-		$this->submenu = $submenu;
 		$this->load->model($model,'reg');
     }
+
+
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Busca la correspondiente traduccion
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+
 	
 	function _lang($value, $row) 
 	{
@@ -37,5 +44,71 @@ class MY_Controller extends CI_Controller
 		
 		return $name;
 	}
+	
+
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Devuelve la vista de la traducción
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+	
+	
+	function vista_traduccion($primary_key , $row)
+	{
+		$table		= $this->reg->getTable();
+		$table		= substr($table, 3);
+	    return site_url($table.'/'.$table.'/crud_'.$table.'_lang/'.$primary_key);
+	}
+		
+
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Cambia la forma de delete de Grocery Crud
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+	
+	
+	public function delete_reg($primary_key_value)
+	{
+		$table		= $this->reg->getTable();
+		$id_table	= $this->reg->getId_table();
+		
+		$delete_array['active']	= '0';
+		
+		if ($this->db->field_exists('date_upd', $table))
+		{
+			$this->load->helper('date');
+			$delete_array['date_upd'] = date('Y-m-d H:i:s',now());
+		}
+		
+    	return $this->db->update($table, $delete_array, array($id_table => $primary_key_value));
+	}
+			
+	
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Salida del Crud 
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+	
+	
+	public function _crud_output($output = null, $titulo = NULL)
+	{
+		if($titulo != NULL)
+		{
+			$db['titulo']	= $this->title." : ".$titulo;	
+		}
+		else
+		{
+			$db['titulo']	= $this->title;
+		}
+		
+		$this->load->view('head', $db);
+		$this->load->view('menu');
+		$this->load->view($this->view.'/crud',$output);
+		$this->load->view('footer');
+	}	
+	
+	
   
 }

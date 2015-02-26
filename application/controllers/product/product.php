@@ -1,20 +1,23 @@
 <?php
 class Product extends MY_Controller
 {
+	protected $model		= 'product/m_product'; 
+	protected $check_loged	= FALSE;
+	protected $title		= 'Productos'; 
+	protected $view			= 'product';
+		
 	function __construct()
 	{
 		parent::__construct(
-			$model = 'product/m_product', 
-			$check_loged = FALSE, 
-			$title = 'productos', 
-			$submenu = 'productos'
+			$model			= $this->model, 
+			$check_loged	= $this->check_loged, 
+			$title			= $this->title, 
+			$view			= $this->view
 		);
 		
 		$this->load->library('userauth');
 		$this->load->library('out');
 		$this->load->library('grocery_CRUD');
-		
-		$this->load->helpers('vistas');
 		
 		$this->load->model('product/m_product');
 		$this->load->model('product/m_product_lang');
@@ -68,33 +71,20 @@ class Product extends MY_Controller
 
 /*----------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-			Salida del Crud 
-------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------*/
-	
-	public function _crud_output($output = null)
-	{
-		$db['texto']	= $this->m_idiomas->getIdioma(1);
-		
-		$this->load->view('head', $db);
-		$this->load->view('menu');
-		$this->load->view('product/crud.php',$output);
-		$this->load->view('footer');
-	}	
-
-
-/*----------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 			Crud de productos traduccion
 ------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------*/
 
 
-	function crud_product_lang()
+	function crud_product_lang($id=NULL)
 	{
 		
 		$crud = new grocery_CRUD();
-
+		
+		if($id != NULL)
+		{
+			$crud->where('ps_product_lang.id_product = 1');
+		}
 		$crud->set_table('ps_product_lang');
 		$crud->set_subject('Productos');
 		
@@ -106,6 +96,8 @@ class Product extends MY_Controller
 			 ->display_as('description_short','Descripción');
 			 
 		$crud->field_type('id_shop', 'hidden');
+		$crud->field_type('id_lang', 'readonly');
+		$crud->field_type('id_product', 'readonly');
 		
 		$crud->set_relation('id_lang','ps_lang', 'name');
 		
@@ -131,29 +123,33 @@ class Product extends MY_Controller
 	{
 		
 		$crud = new grocery_CRUD();
-
+		
+		$crud->where('ps_product.active = 1');
 		$crud->set_table('ps_product');
 		$crud->set_subject('Productos');
 		$crud->set_model('MY_grocery_Model');
 		
 		$crud->columns('id_product','reference', 'id_supplier', 'producto', 'price');
+	
 		$crud->callback_column('producto',array($this,'_lang'));
+		$crud->add_action('Traducción', '', '','fa fa-globe',array($this,'vista_traduccion'));
+		$crud->callback_delete(array($this,'delete_reg'));
 		
-		$crud->display_as('id_product','ID')
-			 ->display_as('id_supplier','Proveedor')
-			 ->display_as('manufacturer','Fabricante')
-			 ->display_as('id_lang','Lenguaje')
-			 ->display_as('id_category_default', 'Categoría')
-  			 ->display_as('id_tax_rules_group', 'Reglas del grupo')
-  			 ->display_as('on_sale', 'En venta')
-  			 ->display_as('online_only', 'Sólo online (no se vende en ningún establecimiento físico)')
-			 ->display_as('quantity', 'Cantidad')//Ver de donde saca
-			 ->display_as('minimal_quantity', 'Cantidad mínima')
-			 ->display_as('price', 'Precio')
-			 ->display_as('wholesale_price', 'Precio al por mayor')
-			 ->display_as('additional_shipping_cost', 'Costo de envío adicional')
-			 ->display_as('unity', 'Unidad')
-			 ->display_as('reference', 'Referencia') 
+		$crud->display_as('id_product', 		'ID')
+			 ->display_as('id_supplier',		$this->lang->line("proveedor"))
+			 ->display_as('id_manufacturer',	$this->lang->line("fabricante"))
+			 ->display_as('id_lang',			$this->lang->line("lenguaje"))
+			 ->display_as('id_category_default',$this->lang->line("categoria"))
+  			 ->display_as('id_tax_rules_group',	$this->lang->line("reglas")." ".$this->lang->line("grupo"))
+  			 ->display_as('on_sale',			$this->lang->line("en")." ".$this->lang->line("venta"))
+  			 ->display_as('online_only', 		$this->lang->line("solo")." ".$this->lang->line("online"))
+			 ->display_as('quantity', 			$this->lang->line("cantidad"))//Ver de donde saca
+			 ->display_as('minimal_quantity',	$this->lang->line("cantidad")." ".$this->lang->line("minima"))
+			 ->display_as('price',				$this->lang->line("precio"))
+			 ->display_as('wholesale_price',	$this->lang->line("precio")." ".$this->lang->line("mayor"))
+			 ->display_as('additional_shipping_cost', $this->lang->line("costo")." ".$this->lang->line("envio"))
+			 ->display_as('unity', 				$this->lang->line("unidad"))
+			 ->display_as('reference',			$this->lang->line("referencia"))
 			 ;
   			 
 		$crud->field_type('upc', 'hidden');
