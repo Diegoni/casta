@@ -98,13 +98,14 @@ class Customer extends MY_Controller
 	{
 		
 		$crud = new grocery_CRUD();
-		
-		$crud->where('ps_customer.active = 1');
+
+		$crud->where(array('ps_customer.active' => 1));
+							
 		$crud->set_table('ps_customer');
 		
 		$crud->set_subject($this->title);
 				
-		$crud->columns('id_customer', 'firstname', 'lastname', 'email');
+		$crud->columns('id_customer', 'firstname', 'lastname', 'email', 'id_gender');
 				
 		$crud->display_as('id_customer', 'ID')
 			 ->display_as('date_add',	$this->lang->line("fecha")." ".$this->lang->line("alta"))
@@ -133,6 +134,7 @@ class Customer extends MY_Controller
 		$crud->field_type('outstanding_allow_amount', 'readonly');
 				
 		$crud->field_type('active', 'hidden');
+		$crud->field_type('id_lang', 'hidden');
 		$crud->field_type('id_shop_group', 'hidden');
 		$crud->field_type('id_shop', 'hidden');
 		$crud->field_type('siret', 'hidden');
@@ -144,11 +146,13 @@ class Customer extends MY_Controller
 		$crud->field_type('secure_key', 'hidden');		
 		$crud->field_type('is_guest', 'hidden');
 		$crud->field_type('deleted', 'hidden');
+			
+		
 								
-		//$crud->set_relation('id_gender','ps_gender_lang','name');
+		$crud->callback_edit_field('id_gender',array($this,'select_gender'));
+		$crud->callback_edit_field('id_risk',array($this,'select_risk'));
 		//$crud->set_relation('id_default_group','ps_group_lang','name');
-		$crud->set_relation('id_lang','ps_lang','name');
-		$crud->set_relation('id_risk','ps_risk_lang','name');
+
 		
 		$crud->callback_delete(array($this,'delete_reg'));
 		
@@ -157,6 +161,29 @@ class Customer extends MY_Controller
 		$this->_crud_output($output);
 
 	}
+
+	function select_risk($value, $primary_key)
+	{
+		$datos= array(
+				'table'	=> 'ps_risk_lang',
+				'id'	=> 'id_risk',
+				'value'	=> '' 
+		);
+		
+		return $this->buscar_select($datos);
+	}
+
+	function select_gender()
+	{
+		$datos= array(
+				'table'	=> 'ps_gender_lang',
+				'id'	=> 'id_gender',
+				'value'	=> '' 
+		);
+		
+	   return $this->buscar_select($datos);
+	}
+
 	
 }
 

@@ -108,6 +108,34 @@ class MY_Controller extends CI_Controller
 		$this->load->view($this->view.'/crud',$output);
 		$this->load->view('footer');
 	}	
+
+	
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Salida del Crud 
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+	
+
+	function buscar_select($datos)
+	{
+		$datos['table'];
+		$query = $this->db->query("SELECT * FROM $datos[table] WHERE $datos[table].id_lang=1");
+		
+		$input ="<SELECT id='' name='' class='chosen-select'>";
+			
+		if($query->num_rows() > 0){	
+			foreach ($query->result() as $row){
+				$input .= "<option>".$row->name."</option>";
+			}
+			
+		}	
+		
+		
+		$input .="</SELECT>";
+		
+		return $input;
+	}
 	
 	
   

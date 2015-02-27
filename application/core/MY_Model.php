@@ -133,10 +133,23 @@ class MY_Model extends CI_Model {
 
 	function getSelect()
 	{
+		if(is_array($this->_name))
+		{
+			foreach ($this->_name as $key => $value) 
+			{
+				$valor = $value;
+			}
+		}
+		else
+		{
+			$valor = $this->_name;
+		}
+		
+		
 		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_lang' ")) == 1 )
 		{
 			$query = $this->db->query("SELECT 
-				$this->_name as descripcion,
+				$valor as descripcion,
 				$this->_id as id_tabla
 				FROM `$this->_tablename`
 				WHERE id_lang = 1
