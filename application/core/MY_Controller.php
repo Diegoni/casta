@@ -120,17 +120,25 @@ class MY_Controller extends CI_Controller
 	function buscar_select($datos)
 	{
 		$datos['table'];
-		$query = $this->db->query("SELECT * FROM $datos[table] WHERE $datos[table].id_lang=1");
+		$query = $this->db->query("SELECT *, $datos[id] as id_table FROM $datos[table] WHERE $datos[table].id_lang=1");
 		
-		$input ="<SELECT id='' name='' class='chosen-select'>";
+		$input ="<SELECT id='' name='".$datos['name']."' class='chosen-select form-control'>";
 			
 		if($query->num_rows() > 0){	
 			foreach ($query->result() as $row){
-				$input .= "<option>".$row->name."</option>";
+				if($row->id_table==$datos['value'])
+				{
+					$option = 'selected';	
+				}
+				else 
+				{
+					$option = '';
+				}
+				
+				$input .= "<option ".$option." value='".$row->id_table	."'>".$row->name."</option>";
 			}
 			
-		}	
-		
+		}			
 		
 		$input .="</SELECT>";
 		

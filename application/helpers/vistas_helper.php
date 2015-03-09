@@ -9,18 +9,45 @@
  * ********************************************************************************
  **********************************************************************************/
 
-function single_button($texto=NULL, $id=NULL, $icono=NULL, $tipo=NULL)
+function single_button($texto=NULL, $id=NULL, $icono=NULL, $class=NULL, $type=NULL)
 {
-	if($tipo=='modal')
+	if(is_array($class))
 	{
-		$modal = "data-toggle='modal' data-target='#modal-".$id."'";	
+		if(	in_array('primary', $class) || 
+			in_array('danger', $class)  ||
+			in_array('warning', $class) ||
+			in_array('success', $class) )
+		{
+			$class_button = 'form-control btn btn-'.$class.' ';
+		}
+		else
+		{
+			$class_button = 'form-control btn btn-default ';	
+		}
+		
+		foreach ($class as $key => $value) {
+			$class_button .= $value.' ';
+		}
 	}
-	else 
+	else
 	{
-		$modal = '';	
+		if($class=='primary' || $class=='danger' || $class=='warning' || $class=='success')
+		{
+			$class_button='form-control btn btn-'.$class;
+		}
+		else 
+		{
+			$class_button='form-control btn btn-default '.$class;
+		}	
 	}
 	
-	$button = "<button type='button' class='btn btn-default form-control' id='$id' $modal>";
+	if($type==NULL)
+	{
+		$type='button';
+	}
+	
+	
+	$button = "<button type='$type' class='$class_button' id='$id' name='$id' value='1'>";
 	if($icono != NULL)
 	{
 		if(strpos($icono, 'fa-') !== false)

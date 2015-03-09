@@ -18,12 +18,14 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('catalogo') ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
 						<?php echo item_menu('product/product/crud_product', $this->lang->line('productos'));?>
+						<?php echo item_menu('product/Stock/stock', $this->lang->line('stock'));?>
                     </ul>
 				</li>
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('compras') ?><b class="caret"></b></a>
 					<ul class="dropdown-menu multi-level">
 						<?php echo item_menu('supplier/supplier/crud_supplier', $this->lang->line('proveedores'));?>
+						<?php echo item_menu('supplier/supplier/pedidos', $this->lang->line('pedidos')." ".$this->lang->line('proveedores'));?>
                     </ul>
 				</li>
 				<li>

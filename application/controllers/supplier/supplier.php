@@ -97,6 +97,33 @@ class Supplier extends MY_Controller
 		$this->_crud_output($output);
 
 	}
+
+
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Pedidos
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+
+
+	function pedidos()
+	{
+		if($this->input->post('agregar'))
+		{
+			if($this->input->post('upc'))
+			{
+				
+			}
+		}
+		
+		$db['supplier']		= $this->m_supplier->getSelect();
+		
+		$this->load->view('head', $db);	
+		$this->load->view('menu');
+		$this->load->view($this->view.'/pedidos');
+		$this->load->view('footer');
+	}
+
 	
 	
 }

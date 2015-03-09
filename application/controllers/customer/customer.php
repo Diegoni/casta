@@ -123,8 +123,8 @@ class Customer extends MY_Controller
 			 ->display_as('newsletter_date_add',	$this->lang->line("boletin")." ".$this->lang->line("alta"))
 			 ->display_as('outstanding_allow_amount',	$this->lang->line("saldo")." ".$this->lang->line("pendiente"))
 			 ->display_as('max_payment_days',	$this->lang->line("maximo")." ".$this->lang->line("dias")." ".$this->lang->line("pago"))
-			 ->display_as('note',	$this->lang->line("nota"))
-			 ->display_as('optin',	$this->lang->line("anuncios"))
+			 ->display_as('note',		$this->lang->line("nota"))
+			 ->display_as('optin',		$this->lang->line("anuncios"))
 			 ->display_as('date_upd',	$this->lang->line("fecha")." ".$this->lang->line("modificacion"));
 		
 		$crud->field_type('date_add', 'readonly');
@@ -133,8 +133,8 @@ class Customer extends MY_Controller
 		$crud->field_type('newsletter_date_add', 'readonly');
 		$crud->field_type('outstanding_allow_amount', 'readonly');
 				
-		$crud->field_type('active', 'hidden');
-		$crud->field_type('id_lang', 'hidden');
+		$crud->field_type('active',		'hidden');
+		$crud->field_type('id_lang',	'hidden');
 		$crud->field_type('id_shop_group', 'hidden');
 		$crud->field_type('id_shop', 'hidden');
 		$crud->field_type('siret', 'hidden');
@@ -146,13 +146,11 @@ class Customer extends MY_Controller
 		$crud->field_type('secure_key', 'hidden');		
 		$crud->field_type('is_guest', 'hidden');
 		$crud->field_type('deleted', 'hidden');
-			
-		
 								
-		$crud->callback_edit_field('id_gender',array($this,'select_gender'));
-		$crud->callback_edit_field('id_risk',array($this,'select_risk'));
+		$crud->callback_edit_field('id_gender', array($this,'select_gender'));
+		$crud->callback_edit_field('id_risk', array($this,'select_risk'));
+		$crud->callback_edit_field('id_default_group', array($this,'select_group'));
 		//$crud->set_relation('id_default_group','ps_group_lang','name');
-
 		
 		$crud->callback_delete(array($this,'delete_reg'));
 		
@@ -162,23 +160,37 @@ class Customer extends MY_Controller
 
 	}
 
-	function select_risk($value, $primary_key)
+	function select_group($value, $primary_key)
 	{
 		$datos= array(
-				'table'	=> 'ps_risk_lang',
-				'id'	=> 'id_risk',
-				'value'	=> '' 
+				'table'	=> 'ps_group_lang',
+				'id'	=> 'id_group',
+				'name'	=> 'id_default_group',
+				'value'	=> $value
 		);
 		
 		return $this->buscar_select($datos);
 	}
 
-	function select_gender()
+	function select_risk($value, $primary_key)
+	{
+		$datos= array(
+				'table'	=> 'ps_risk_lang',
+				'id'	=> 'id_risk',
+				'name'	=> 'id_risk',
+				'value'	=> $value
+		);
+		
+		return $this->buscar_select($datos);
+	}
+
+	function select_gender($value, $primary_key)
 	{
 		$datos= array(
 				'table'	=> 'ps_gender_lang',
 				'id'	=> 'id_gender',
-				'value'	=> '' 
+				'name'	=> 'id_gender',
+				'value'	=> $value 
 		);
 		
 	   return $this->buscar_select($datos);

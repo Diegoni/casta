@@ -23,6 +23,10 @@ class Product extends MY_Controller
 		$this->load->model('product/m_product_lang');
 	}
 
+	function stock()
+	{
+		echo "test";
+	}
 	
 /*----------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -77,8 +81,7 @@ class Product extends MY_Controller
 
 
 	function crud_product_lang($id=NULL)
-	{
-		
+	{	
 		$crud = new grocery_CRUD();
 		
 		if($id != NULL)
@@ -103,12 +106,12 @@ class Product extends MY_Controller
 		
 		$crud->order_by('id_product','desc');
 		
-		
+		$crud->unset_add();
+		$crud->unset_delete();
 			
 		$output = $crud->render();
 
 		$this->_crud_output($output);
-
 	}
 	
 

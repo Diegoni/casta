@@ -30,6 +30,8 @@
 	$lang['pago']				= 'Pago';
 	$lang['nota']				= 'Nota';
 	$lang['anuncios']			= 'Anuncios';
+	$lang['agregar']			= 'Agregar';
+	$lang['opciones']			= 'Opciones';
 //Login
 	$lang['login']				= 'Login';
 	$lang['usuario']			= 'Usuario';
@@ -40,9 +42,11 @@
 //Menú
 	$lang['catalogo']			= "Catálogo";
 	$lang['productos']			= "Productos";
+	$lang['stock']				= "Stock";
 	$lang['producto']			= "Producto";
 	$lang['compras']			= "Compras";
 	$lang['proveedores']		= "Proveedores";
+	$lang['pedidos']			= "Pedidos";
 	$lang['proveedor']			= "Proveedor";
 	$lang['ventas']				= "Ventas";
 	$lang['clientes']			= "Clientes";
