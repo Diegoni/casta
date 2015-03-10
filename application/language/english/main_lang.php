@@ -51,6 +51,8 @@
 	$lang['ventas']				= "Ventas";
 	$lang['clientes']			= "Clientes";
 	$lang['tratamientos']		= "Tratamientos";
+	$lang['datos']				= "Datos";
+	$lang['maestros']			= "Maestros";
 //Submenú
 	$lang['general']			= 'General';
 	$lang['perfiles']			= 'Perfiles';

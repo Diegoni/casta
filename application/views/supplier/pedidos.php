@@ -1,4 +1,18 @@
-<body>
+	<script>
+	$(document).ready(function(){
+		$("#agregar").click(function(){
+			$.ajax({
+				url: '<?php echo base_url(); ?>' + 'index.php/supplier/supplier/buscar',
+				type: 'POST',
+				data: $('#form').serialize(),
+				success: function(msj){
+					$('.cloundcontainer').append('<div class="cloud">'+msj+'</div>');
+				}
+			})
+		})
+	});
+	</script>
+	
 	<div class='container'>  
 	    <div class="col-md-12">
 			<div class="panel panel-default">
@@ -7,23 +21,23 @@
 	  			</div>
 	  			<div class="panel-body">
 	  				<div class="row">
-					<form class='form-horizontal'>
+					<form class='form-horizontal' method="post">
 						<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
-						<?php echo select_helper_horizontal('supplier', $supplier); ?>
+						<?php echo select_helper_horizontal('supplier', $supplier, NULL, 8); ?>
+						<div class='col-md-2'>
+							<?php echo single_button($this->lang->line('buscar'), 'buscar', 'fa fa-find', 'default', 'submit') ?>
+						</div> 
 					</form>
 					</div>
 					<hr>
 					
 					<div class="row">
-					<form class='form-horizontal' method="post">
-						<?php echo label_helper_horizontal($this->lang->line('codigo')); ?>
-						<?php echo input_helper_horizontal('upc', NULL, 4, 'UPC'); ?>
-						<?php echo label_helper_horizontal($this->lang->line('cantidad')); ?>
-						<?php echo input_helper_horizontal('cantidad', NULL, 4, $this->lang->line('cantidad')); ?>
-						<?php echo label_helper_horizontal($this->lang->line('nombre')); ?>
-						<?php echo input_helper_horizontal('name', NULL, 8, $this->lang->line('nombre')); ?>
+					<form class='form-horizontal' method="post" id="form">
+						<?php echo select_helper_horizontal('upc', $products_upc, NULL,2); ?>
+						<?php echo select_helper_horizontal('name', $products_name, NULL,6); ?>
+						<?php echo input_helper_horizontal('cantidad', NULL, 2, $this->lang->line('cantidad')); ?>
 						<div class='col-md-2'>
-							<?php echo single_button($this->lang->line('agregar'), 'agregar', 'fa fa-plus-circle', 'primary', 'submit') ?>
+							<?php echo single_button($this->lang->line('agregar'), 'agregar', 'fa fa-plus-circle', 'primary', 'button') ?>
 						</div> 
 					</form>
 					</div>
@@ -35,9 +49,8 @@
 						<div class="col-md-2"><?php echo $this->lang->line('cantidad') ?></div>
 						<div class="col-md-2"><?php echo $this->lang->line('opciones') ?></div>
 					</div>
+					<div class="cloundcontainer"></div>
 				</div>
 		    </div>
 	    </div>
     </div>
-</body>
-</html>

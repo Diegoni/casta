@@ -131,20 +131,26 @@ class MY_Model extends CI_Model {
 //------------------------------------------------------------------------------------------------
 
 
-	function getSelect()
+	function getSelect($column=NULL)
 	{
-		if(is_array($this->_name))
+		if($column==NULL)
 		{
-			foreach ($this->_name as $key => $value) 
+			if(is_array($this->_name))
 			{
-				$valor = $value;
+				foreach ($this->_name as $key => $value) 
+				{
+					$valor = $value;
+				}
 			}
+			else
+			{
+				$valor = $this->_name;
+			}	
 		}
-		else
+		else 
 		{
-			$valor = $this->_name;
+			$valor = $column;
 		}
-		
 		
 		if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM $this->_tablename LIKE 'id_lang' ")) == 1 )
 		{

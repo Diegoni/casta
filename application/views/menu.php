@@ -19,6 +19,15 @@
 					<ul class="dropdown-menu multi-level">
 						<?php echo item_menu('product/product/crud_product', $this->lang->line('productos'));?>
 						<?php echo item_menu('product/Stock/stock', $this->lang->line('stock'));?>
+						<li class="divider"></li>
+						<li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            	<?php echo $this->lang->line('datos')." ".$this->lang->line('maestros'); ?>
+                            </a>
+                            <ul class="dropdown-menu">
+								<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
+							</ul>
+                        </li>
                     </ul>
 				</li>
 				<li>
@@ -26,6 +35,13 @@
 					<ul class="dropdown-menu multi-level">
 						<?php echo item_menu('supplier/supplier/crud_supplier', $this->lang->line('proveedores'));?>
 						<?php echo item_menu('supplier/supplier/pedidos', $this->lang->line('pedidos')." ".$this->lang->line('proveedores'));?>
+						<li class="divider"></li>
+						<li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datos Maestros</a>
+                            <ul class="dropdown-menu">
+								<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
+							</ul>
+                        </li>
                     </ul>
 				</li>
 				<li>

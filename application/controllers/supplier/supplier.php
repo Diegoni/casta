@@ -23,6 +23,8 @@ class Supplier extends MY_Controller
 		
 		$this->load->model('supplier/m_supplier');	
 		$this->load->model('supplier/m_supplier_lang');
+		$this->load->model('product/m_product');	
+		$this->load->model('product/m_product_lang');
 	}
 	
 /*----------------------------------------------------------------------------------
@@ -112,17 +114,37 @@ class Supplier extends MY_Controller
 		{
 			if($this->input->post('upc'))
 			{
-				
+				$db['products'] = $this->m_product->getRegistros('upc = '.$this->input->post('upc'));
+				$db['cantidad']	= $this->input->post('cantidad');
 			}
 		}
 		
-		$db['supplier']		= $this->m_supplier->getSelect();
+		$db['products_name']	= $this->m_product_lang->getSelect();
+		$db['products_upc']		= $this->m_product->getSelect('upc');
+		$db['supplier']			= $this->m_supplier->getSelect();
 		
 		$this->load->view('head', $db);	
 		$this->load->view('menu');
 		$this->load->view($this->view.'/pedidos');
 		$this->load->view('footer');
 	}
+	
+	function buscar(){
+	if(!$this->input->is_ajax_request())
+	{
+		redirect('404');
+	}
+	else
+	{
+		$cadena =  "<div class='row'>";
+		$cadena .= "<div class='col-md-2'>".$this->input->post('upc')."</div>";
+		$cadena .= "<div class='col-md-6'>".$this->input->post('name')."</div>";
+		$cadena .= "<div class='col-md-2'>".$this->input->post('cantidad')."</div>";
+		$cadena .= "<div class='col-md-2'>"."</div>";
+		$cadena .= "</div>";
+		echo $cadena;
+	}
+}
 
 	
 	
