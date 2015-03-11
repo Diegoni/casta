@@ -19,13 +19,13 @@
             	</div>	
             <?php }else{ ?>
             	<div class="alert alert-success animated fadeInUp">
-            		<?php echo $texto['ingrese']." ".$texto['usuario']." & ".$texto['pass'] ?>
+            		<?php echo $this->lang->line('ingrese')." ".$this->lang->line('usuario')." & ".$this->lang->line('pass') ?>
             	</div>
             <?php } ?>
 			<?php echo form_open('sys/app/verifylogin'); ?>
-				<input name="username" type="text" placeholder="<?php echo $texto['usuario']?>">
-				<input name="password" type="password" placeholder="<?php echo $texto['pass']?>">
-				<button class="btn btn-info btn-block login" type="submit"><?php echo $texto['login']?></button>
+				<input name="username" type="text" placeholder="<?php echo $this->lang->line('usuario')?>">
+				<input name="password" type="password" placeholder="<?php echo $this->lang->line('pass')?>">
+				<button class="btn btn-info btn-block login" type="submit"><?php echo $this->lang->line('login')?></button>
 			<?php echo form_close() ?>
 		</div>
 	</div>

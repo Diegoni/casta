@@ -21,8 +21,7 @@ class App extends CI_Controller {
 	function login()
 	{
 		$this->load->helper(array('form'));
-		$db['texto']	= $this->m_idiomas->getIdioma(1);
-		$this->load->view('app/login', $db);
+		$this->load->view('app/login');
 	}
 	
 	function verifylogin()
@@ -93,9 +92,7 @@ class App extends CI_Controller {
 		//Verificamos login de usuario
 		if($this->userauth->check_login())
 		{
-			$db['texto']	= $this->m_idiomas->getIdioma(1);
-		
-			$this->load->view('head', $db);
+			$this->load->view('head');
 			$this->load->view('menu');
 			$this->load->view('app/welcome');
 		}
