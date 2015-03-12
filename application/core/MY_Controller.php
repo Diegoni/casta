@@ -75,8 +75,21 @@ class MY_Controller extends CI_Controller
 ----------------------------------------------------------------------------------*/
 	
 
-	function insert_lang($post_array, $primary_key)
+	function insert_lang($post_array)
 	{
+		$name = $post_array['name'];
+		unset($post_array['name']);
+		
+		if ($this->field_exists('date_add'))
+		{
+			$this->load->helper('date');
+			$post_array['date_add'] = date('Y-m-d H:i:s',now());
+		}
+		
+		$this->db->insert($this->reg->getTable(), $post_array);
+		
+		$id = $this->db->insert_id();
+		
 		$table_lang = $this->reg->getTable().'_lang';
 		
 		$query = $this->db->query("SELECT * FROM ps_lang");
@@ -85,16 +98,16 @@ class MY_Controller extends CI_Controller
 			foreach ($query->result() as $row){
 					
 				$data = array(
-			        $this->reg->getId_table() => $primary_key,
+			        $this->reg->getId_table() => $id,
 			        "id_lang"		=> $row->id_lang,
-			        "name"			=> "Test nuevo"
+			        "name"			=> $name
 		    	);
 				
 				$this->db->insert($table_lang, $data);
 			}
 		}
-		
-		return true;
+				
+		return TRUE;
 	}		
 
 
