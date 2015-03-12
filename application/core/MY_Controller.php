@@ -80,7 +80,7 @@ class MY_Controller extends CI_Controller
 		$name = $post_array['name'];
 		unset($post_array['name']);
 		
-		if ($this->field_exists('date_add'))
+		if ($this->db->field_exists('date_add', $this->reg->getTable()))
 		{
 			$this->load->helper('date');
 			$post_array['date_add'] = date('Y-m-d H:i:s',now());
@@ -94,13 +94,22 @@ class MY_Controller extends CI_Controller
 		
 		$query = $this->db->query("SELECT * FROM ps_lang");
 		
+		if ($this->db->field_exists('name', $table_lang))
+		{
+			$table_name = 'name';
+		}
+		else
+		{
+			$table_name = 'value';
+		}
+		
 		if($query->num_rows() > 0){
 			foreach ($query->result() as $row){
 					
 				$data = array(
 			        $this->reg->getId_table() => $id,
 			        "id_lang"		=> $row->id_lang,
-			        "name"			=> $name
+			        $table_name		=> $name
 		    	);
 				
 				$this->db->insert($table_lang, $data);

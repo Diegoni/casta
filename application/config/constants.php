@@ -45,7 +45,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |
 */
 
-define('_COOKIE_KEY_', 'dVSYdPAraiPtsEuihA0e9wsy6ZeYTMdffdxptKiPpQ4zCHLI1UKfJJKS');
+define('_COOKIE_KEY_', 'E5fLgbcxVjrNc4jSe6Pm2RJeFiztq6BLXKsOidWkacWGsNtUrRE0bjTQ');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

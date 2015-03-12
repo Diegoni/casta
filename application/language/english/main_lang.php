@@ -35,6 +35,7 @@
 	$lang['opcion']				= 'Opción';
 	$lang['seleccione']			= 'Seleccione';
 	$lang['una']				= 'una';
+	$lang['posicion']			= 'Posición';
 //Login
 	$lang['login']				= 'Login';
 	$lang['usuario']			= 'Usuario';
