@@ -320,7 +320,7 @@ function select_helper_horizontal($id, $options=NULL, $value=NULL, $tamaño=NULL
 		$select .= "<div class='input-group'>";	
 	}
 		
-	$select	.= "<select class='form-control chosen-select' name='".$id."'";
+	$select	.= "<select class='form-control chosen-select' name='".$id."' id='".$id."'";
 	
 	if(isset($required))
 	{

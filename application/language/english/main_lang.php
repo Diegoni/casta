@@ -32,6 +32,9 @@
 	$lang['anuncios']			= 'Anuncios';
 	$lang['agregar']			= 'Agregar';
 	$lang['opciones']			= 'Opciones';
+	$lang['opcion']				= 'Opción';
+	$lang['seleccione']			= 'Seleccione';
+	$lang['una']				= 'una';
 //Login
 	$lang['login']				= 'Login';
 	$lang['usuario']			= 'Usuario';
@@ -99,4 +102,7 @@
 	$lang['compra']				= 'Compra';
 	$lang['minima']				= 'Mínima';
 	$lang['desactivado']		= 'Desactivado';
+	$lang['caracteristicas']	= 'Características';
+	$lang['traduccion']			= 'Traducción';
+	$lang['valor']				= 'Valor';
 ?>	

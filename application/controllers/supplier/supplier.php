@@ -136,12 +136,34 @@ class Supplier extends MY_Controller
 	}
 	else
 	{
-		$cadena =  "<div class='row'>";
-		$cadena .= "<div class='col-md-2'>".$this->input->post('upc')."</div>";
-		$cadena .= "<div class='col-md-6'>".$this->input->post('name')."</div>";
-		$cadena .= "<div class='col-md-2'>".$this->input->post('cantidad')."</div>";
-		$cadena .= "<div class='col-md-2'>"."</div>";
+		$id = $this->input->post('name');
+		
+		$product	= $this->m_product_lang->getRegistros('id_product = '.$id);
+		
+		foreach ($product as $row) {
+			$name = $row->name;
+		}
+		
+		$product	= $this->m_product->getID($id);
+		
+		foreach ($product as $row) {
+			$upc = $row->upc;
+		}
+		
+		$cadena =  "<div class='row' id='div-$id'>";
+		$cadena .= "<div class='col-md-1'>".$id."</div>";
+		$cadena .= "<div class='col-md-2'>".$upc."</div>";
+		$cadena .= "<div class='col-md-6'>".$name."</div>";
+		$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'></div>";
+		$cadena .= "<div class='col-md-2'><button id='button-$id' class='btn btn-danger btn-xs'>Eliminar</button></div>";
 		$cadena .= "</div>";
+		$cadena .= "<script type='text/javascript'>
+					$(document).ready(function() {
+						$('#button-$id').click(function(event) {
+							$('#div-$id').remove();
+						});
+					});
+					</script>";
 		echo $cadena;
 	}
 }

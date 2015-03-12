@@ -11,7 +11,7 @@ foreach($css_files as $file): ?>
 	    <div class="col-md-12">
 			<div class="panel panel-default">
 	  			<div class="panel-heading">
-	  				<?php echo $titulo ?>
+	  				<?php echo $titulo;?>
 	  			</div>
 	  			<div class="panel-body">
 					<?php echo $output; ?>

@@ -6,7 +6,7 @@ class App extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('userauth');
-		$this->load->model('usuarios/usuarios_model');
+		$this->load->model('employee/m_employee');
 	}
 
 /**********************************************************************************
@@ -35,8 +35,7 @@ class App extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			//Falló la validación, regresa al login
-			$db['texto']	= $this->idiomas_model->getIdioma(1);
-			$this->load->view('app/login', $db);
+			$this->load->view('app/login');
 		}
 		else
 		{
@@ -52,7 +51,7 @@ class App extends CI_Controller {
 		$username = $this->input->post('username');
 
 		//query a la base de datos
-		$result = $this->usuarios_model->login($username, $password);
+		$result = $this->m_employee->login($username, $password);
 
 		if($result)
 		{
@@ -61,8 +60,8 @@ class App extends CI_Controller {
 			foreach($result as $row)
 			{
 				$sess_array = array(
-					'userid' => $row->userid,
-					'username' => $row->username
+					'userid'	=> $row->id_employee,
+					'username'	=> $row->firstname
 				);
 			}
 			
@@ -90,6 +89,7 @@ class App extends CI_Controller {
  	function inicio(){
 		
 		//Verificamos login de usuario
+		
 		if($this->userauth->check_login())
 		{
 			$this->load->view('head');
@@ -99,8 +99,7 @@ class App extends CI_Controller {
 		else
 		{
 			redirect('sys/app/login/','refresh');
-		}
-				
+		}				
 	}
 }
 

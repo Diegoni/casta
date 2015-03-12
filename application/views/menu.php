@@ -25,7 +25,7 @@
                             	<?php echo $this->lang->line('datos')." ".$this->lang->line('maestros'); ?>
                             </a>
                             <ul class="dropdown-menu">
-								<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
+								<?php echo item_menu('product/feature/crud_feature/', $this->lang->line('caracteristicas'));?>
 							</ul>
                         </li>
                     </ul>

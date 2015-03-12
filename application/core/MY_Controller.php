@@ -36,7 +36,14 @@ class MY_Controller extends CI_Controller
 			
 			if($query->num_rows() > 0){	
 				foreach ($query->result() as $row){
-					$name = $row->name;
+					if(isset($row->name))
+					{
+						$name = $row->name;	
+					}	
+					if(isset($row->value))
+					{
+						$name = $row->value;	
+					}
 				}
 				
 			}	
@@ -57,9 +64,39 @@ class MY_Controller extends CI_Controller
 	{
 		$table		= $this->reg->getTable();
 		$table		= substr($table, 3);
-	    return site_url($table.'/'.$table.'/crud_'.$table.'_lang/'.$primary_key);
+	    return site_url($this->view.'/'.$table.'/crud_'.$table.'_lang/'.$primary_key);
 	}
+
+
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Devuelve la vista de la traducción
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+	
+
+	function insert_lang($post_array, $primary_key)
+	{
+		$table_lang = $this->reg->getTable().'_lang';
 		
+		$query = $this->db->query("SELECT * FROM ps_lang");
+		
+		if($query->num_rows() > 0){
+			foreach ($query->result() as $row){
+					
+				$data = array(
+			        $this->reg->getId_table() => $primary_key,
+			        "id_lang"		=> $row->id_lang,
+			        "name"			=> "Test nuevo"
+		    	);
+				
+				$this->db->insert($table_lang, $data);
+			}
+		}
+		
+		return true;
+	}		
+
 
 /*----------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------

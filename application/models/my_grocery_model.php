@@ -20,8 +20,10 @@ class MY_grocery_Model  extends grocery_CRUD_Model{
 			$post_array['date_add'] = date('Y-m-d H:i:s',now());
 			$post_array['date_upd'] = date('Y-m-d H:i:s',now());
 		}
+		
 		return parent::db_insert($post_array);
 	}
+	
 	
 	//The function get_list is just a copy-paste from grocery_CRUD_Model
 	function get_list()

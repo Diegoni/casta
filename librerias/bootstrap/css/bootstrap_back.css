@@ -2496,8 +2496,8 @@ fieldset[disabled] .checkbox label {
 }
 .input-sm,
 .form-horizontal .form-group-sm .form-control {
-  height: 30px;
-  padding: 5px 10px;
+  height: 22px;
+  padding: 0px 5px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;

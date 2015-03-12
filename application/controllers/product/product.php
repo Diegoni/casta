@@ -86,8 +86,9 @@ class Product extends MY_Controller
 		
 		if($id != NULL)
 		{
-			$crud->where('ps_product_lang.id_product = 1');
+			$crud->where('ps_product_lang.id_product = '.$id);
 		}
+		
 		$crud->set_table('ps_product_lang');
 		$crud->set_subject('Productos');
 		
@@ -132,7 +133,7 @@ class Product extends MY_Controller
 		$crud->set_subject('Productos');
 		$crud->set_model('MY_grocery_Model');
 		
-		$crud->columns('id_product','reference', 'id_supplier', 'producto', 'price');
+		$crud->columns('id_product','producto', 'reference', 'id_supplier',  'price');
 	
 		$crud->callback_column('producto',array($this,'_lang'));
 		$crud->add_action('Traducción', '', '','fa fa-globe',array($this,'vista_traduccion'));
