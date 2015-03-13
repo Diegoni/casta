@@ -94,6 +94,11 @@ class MY_Controller extends CI_Controller
 		
 		$query = $this->db->query("SELECT * FROM ps_lang");
 		
+		if ($this->field_exists('name'))
+		{
+			
+		}
+		
 		if($query->num_rows() > 0){
 			foreach ($query->result() as $row){
 					

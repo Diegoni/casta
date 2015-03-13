@@ -19,7 +19,7 @@ class M_Product extends MY_Model
 					'ps_product', 
 					'id_product', 
 					'id_product', 
-					'reference', 
+					'descripcion', 
 					$data_model
 				);
 	}

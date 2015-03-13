@@ -7,6 +7,7 @@ class App extends CI_Controller {
 		parent::__construct();
 		$this->load->library('userauth');
 		$this->load->model('employee/m_employee');
+		$this->load->model('sys/m_actualizar');
 	}
 
 /**********************************************************************************
@@ -77,6 +78,7 @@ class App extends CI_Controller {
 		}
 	}
 	
+	
 /**********************************************************************************
  **********************************************************************************
  * 
@@ -100,6 +102,39 @@ class App extends CI_Controller {
 		{
 			redirect('sys/app/login/','refresh');
 		}				
+	}
+	
+	
+		
+/**********************************************************************************
+ **********************************************************************************
+ * 
+ * 				Actualizar nombres
+ * 
+ * ********************************************************************************
+ **********************************************************************************/
+
+ 
+ 	function actualizar_nombres(){
+		
+		//Verificamos login de usuario
+		
+		$this->load->view('head');
+		$this->load->view('menu');
+		$tables	= array(
+			'product',
+			'category',
+			'gender',
+			'risk',
+			'group',
+			'feature',
+			'feature_value'
+		);
+		
+		$db['suma'] = $this->m_actualizar->actualizar($tables);	
+			
+		$this->load->view('app/actualizar_nombres', $db);
+		
 	}
 }
 

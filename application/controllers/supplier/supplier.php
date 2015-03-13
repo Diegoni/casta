@@ -1,4 +1,4 @@
-<?php
+	<?php
 class Supplier extends MY_Controller
 {
 	protected $model		= 'supplier/m_supplier';
@@ -110,16 +110,12 @@ class Supplier extends MY_Controller
 
 	function pedidos()
 	{
-		if($this->input->post('agregar'))
+		if($this->input->post('guardar'))
 		{
-			if($this->input->post('upc'))
-			{
-				$db['products'] = $this->m_product->getRegistros('upc = '.$this->input->post('upc'));
-				$db['cantidad']	= $this->input->post('cantidad');
-			}
+
 		}
 		
-		$db['products_name']	= $this->m_product_lang->getSelect();
+		$db['products_name']	= $this->m_product->getSelect();
 		$db['products_upc']		= $this->m_product->getSelect('upc');
 		$db['supplier']			= $this->m_supplier->getSelect();
 		
@@ -130,43 +126,55 @@ class Supplier extends MY_Controller
 	}
 	
 	function buscar(){
-	if(!$this->input->is_ajax_request())
-	{
-		redirect('404');
-	}
-	else
-	{
-		$id = $this->input->post('name');
-		
-		$product	= $this->m_product_lang->getRegistros('id_product = '.$id);
-		
-		foreach ($product as $row) {
-			$name = $row->name;
+		if(!$this->input->is_ajax_request())
+		{
+			redirect('404');
 		}
-		
-		$product	= $this->m_product->getID($id);
-		
-		foreach ($product as $row) {
-			$upc = $row->upc;
-		}
-		
-		$cadena =  "<div class='row' id='div-$id'>";
-		$cadena .= "<div class='col-md-1'>".$id."</div>";
-		$cadena .= "<div class='col-md-2'>".$upc."</div>";
-		$cadena .= "<div class='col-md-6'>".$name."</div>";
-		$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'></div>";
-		$cadena .= "<div class='col-md-2'><button id='button-$id' class='btn btn-danger btn-xs'>Eliminar</button></div>";
-		$cadena .= "</div>";
-		$cadena .= "<script type='text/javascript'>
-					$(document).ready(function() {
-						$('#button-$id').click(function(event) {
-							$('#div-$id').remove();
+		else
+		{
+			$id = $this->input->post('name');
+			
+			$product	= $this->m_product->getID($id);
+			
+			foreach ($product as $row) {
+				$upc	= $row->upc;
+				$name	= $row->descripcion;
+			}
+			
+			$cadena =  "<div class='row' id='div-$id'>";
+			$cadena .= "<div class='col-md-1'>".$id."</div>";
+			$cadena .= "<div class='col-md-2'>".$upc."</div>";
+			$cadena .= "<div class='col-md-5'>".$name."</div>";
+			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'></div>";
+			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')."'></div>";
+			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')*$this->input->post('cantidad')."' readonly></div>";
+			$cadena .= "<div class='col-md-1'><button id='button-$id' class='btn btn-danger btn-xs'>Eliminar</button></div>";
+			$cadena .= "</div>";
+			$cadena .= "<script type='text/javascript'>
+						$(document).ready(function() {
+							$('#button-$id').click(function(event) {
+								$('#div-$id').remove();
+							});
 						});
-					});
-					</script>";
-		echo $cadena;
+						</script>";
+			echo $cadena;
+		}
 	}
-}
+
+	function buscar_precio($id){
+		if(!$this->input->is_ajax_request())
+		{
+			redirect('404');
+		}
+		else
+		{
+			$product	= $this->m_product->getRegistros('id_product = '.$id);
+			
+			foreach ($product as $row) {
+				echo round($row->price, 2);
+			}
+		}
+	}
 
 	
 	

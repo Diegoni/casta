@@ -164,7 +164,7 @@ class MY_Model extends CI_Model {
 		else 
 		{
 			$query = $this->db->query("SELECT 
-				$this->_name as descripcion,
+				$valor as descripcion,
 				$this->_id as id_tabla
 				FROM `$this->_tablename`
 				ORDER BY $this->_order");//Mejorar esto

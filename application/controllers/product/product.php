@@ -133,9 +133,9 @@ class Product extends MY_Controller
 		$crud->set_subject('Productos');
 		$crud->set_model('MY_grocery_Model');
 		
-		$crud->columns('id_product','producto', 'reference', 'id_supplier',  'price');
+		$crud->columns('id_product', 'descripcion', 'reference', 'id_supplier',  'price');
 	
-		$crud->callback_column('producto',array($this,'_lang'));
+		//$crud->callback_column('producto',array($this,'_lang'));
 		$crud->add_action('Traducción', '', '','fa fa-globe',array($this,'vista_traduccion'));
 		$crud->callback_delete(array($this,'delete_reg'));
 		
@@ -195,8 +195,8 @@ class Product extends MY_Controller
 		$crud->field_type('id_shop_default', 'hidden');
 				
 		$crud->set_relation('id_supplier','ps_supplier', 'name');
-		$crud->set_relation('id_manufacturer','ps_manufacturer', 'name');
-		$crud->set_relation('id_category_default','ps_category', 'level_depth', 'level_depth');
+		$crud->set_relation('id_manufacturer', 'ps_manufacturer', 'name');
+		$crud->set_relation('id_category_default','ps_category', 'descripcion');
 		
 		//$crud->order_by('id_product','desc');
 			

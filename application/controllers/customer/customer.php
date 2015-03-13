@@ -147,10 +147,9 @@ class Customer extends MY_Controller
 		$crud->field_type('is_guest', 'hidden');
 		$crud->field_type('deleted', 'hidden');
 								
-		$crud->callback_edit_field('id_gender', array($this,'select_gender'));
-		$crud->callback_edit_field('id_risk', array($this,'select_risk'));
-		$crud->callback_edit_field('id_default_group', array($this,'select_group'));
-		//$crud->set_relation('id_default_group','ps_group_lang','name');
+		$crud->set_relation('id_gender', 'ps_gender', 'descripcion');
+		$crud->set_relation('id_risk', 'ps_risk', 'descripcion');
+		$crud->set_relation('id_default_group', 'ps_group', 'descripcion');
 		
 		$crud->callback_delete(array($this,'delete_reg'));
 		
@@ -159,44 +158,6 @@ class Customer extends MY_Controller
 		$this->_crud_output($output);
 
 	}
-
-	function select_group($value, $primary_key)
-	{
-		$datos= array(
-				'table'	=> 'ps_group_lang',
-				'id'	=> 'id_group',
-				'name'	=> 'id_default_group',
-				'value'	=> $value
-		);
-		
-		return $this->buscar_select($datos);
-	}
-
-	function select_risk($value, $primary_key)
-	{
-		$datos= array(
-				'table'	=> 'ps_risk_lang',
-				'id'	=> 'id_risk',
-				'name'	=> 'id_risk',
-				'value'	=> $value
-		);
-		
-		return $this->buscar_select($datos);
-	}
-
-	function select_gender($value, $primary_key)
-	{
-		$datos= array(
-				'table'	=> 'ps_gender_lang',
-				'id'	=> 'id_gender',
-				'name'	=> 'id_gender',
-				'value'	=> $value 
-		);
-		
-	   return $this->buscar_select($datos);
-	}
-
-	
 }
 
 /* End of file cliente.php */

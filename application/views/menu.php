@@ -37,7 +37,7 @@
 						<?php echo item_menu('supplier/supplier/pedidos', $this->lang->line('pedidos')." ".$this->lang->line('proveedores'));?>
 						<li class="divider"></li>
 						<li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datos Maestros</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('datos')." ".$this->lang->line('maestros') ?></a>
                             <ul class="dropdown-menu">
 								<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
 							</ul>
@@ -52,16 +52,15 @@
 						<li class="divider"></li>
 						
 						<li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datos Maestros</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('datos')." ".$this->lang->line('maestros') ?></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes</a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('clientes') ?></a>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-submenu">
-											<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
-											<?php echo item_menu('customer/datos_maestros/crud_cli_estadoscliente', $this->lang->line('estado'));?>
-											<?php echo item_menu('customer/datos_maestros/crud_cli_gruposcliente', $this->lang->line('grupo'));?>
-											<?php echo item_menu('customer/datos_maestros/crud_gen_tratamientos', $this->lang->line('tratamientos'));?>
+											<?php echo item_menu('customer/gender/crud_gender', $this->lang->line('genero'));?>
+											<?php echo item_menu('customer/risk/crud_risk', $this->lang->line('riesgo'));?>
+											<?php echo item_menu('customer/group/crud_group', $this->lang->line('grupo'));?>
                                         </li>
                                     </ul>
                                 </li>

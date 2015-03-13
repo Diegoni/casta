@@ -38,17 +38,13 @@ class Feature extends MY_Controller
 		$crud->set_table('ps_feature');
 		$crud->set_subject($this->lang->line('caracteristicas'));
 		
-		$crud->columns('id_feature', 'feature');
+		$crud->columns('id_feature', 'descripcion');
 		
 		$crud->display_as('id_feature','ID')
 			 ->display_as('feature',	$this->lang->line('caracteristicas'));
 		
-		$crud->add_fields('position', 'name');
-		
 		$crud->add_action($this->lang->line('traduccion'), '', '','fa fa-globe',array($this,'vista_traduccion'));
 		$crud->add_action($this->lang->line('valor'), '', '','fa fa-chevron-circle-right',array($this,'vista_valor'));
-		$crud->callback_column('feature',array($this,'_lang'));
-		$crud->callback_insert(array($this,'insert_lang'));
 		
 		$crud->display_as('id_feature','ID')
 			 ->display_as('caracteristica', $this->lang->line('caracteristicas'));
