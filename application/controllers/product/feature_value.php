@@ -47,12 +47,20 @@ class Feature_value extends MY_Controller
 		
 		$crud->display_as('id_feature_value','ID')
 			 ->display_as('feature',	$this->lang->line('caracteristicas'));
+			 
+		$crud->fields('id_feature', 'name');
 		
 		$crud->add_action($this->lang->line('traduccion'), '', '','fa fa-globe',array($this,'vista_traduccion'));
+<<<<<<< HEAD
 		//$crud->add_action($this->lang->line('valor'), '', '','fa fa-chevron-circle-right',array($this,'vista_valor'));
 		//$crud->callback_column('feature',array($this,'_lang'));
 		
 		$crud->callback_field('id_feature', function () {
+=======
+		$crud->callback_column('feature',array($this,'_lang'));
+		$crud->callback_insert(array($this,'insert_lang'));
+		$crud->callback_add_field('id_feature', function () {
+>>>>>>> f6abb8e24106258c849299f33a7a5357a25e204b
         	return "<input type='text' class='form-control' maxlength='50' value='".$this->uri->segment(4)."' name='id_feature' readonly>";
     	});
 		

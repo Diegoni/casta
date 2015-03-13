@@ -41,7 +41,9 @@ class Feature extends MY_Controller
 		$crud->columns('id_feature', 'descripcion');
 		
 		$crud->display_as('id_feature','ID')
-			 ->display_as('feature',	$this->lang->line('caracteristicas'));
+			 ->display_as('feature',	$this->lang->line('caracteristicas'))
+			 ->display_as('name',		$this->lang->line('nombre'))
+			 ->display_as('position',	$this->lang->line('posicion'));
 		
 		$crud->add_action($this->lang->line('traduccion'), '', '','fa fa-globe',array($this,'vista_traduccion'));
 		$crud->add_action($this->lang->line('valor'), '', '','fa fa-chevron-circle-right',array($this,'vista_valor'));
@@ -92,6 +94,7 @@ class Feature extends MY_Controller
 			 ->display_as('id_lang',$this->lang->line('lenguaje'));
 			 
 		$crud->field_type('id_lang', 'readonly');
+		$crud->field_type('id_feature', 'readonly');
 		
 		$crud->set_relation('id_lang','ps_lang', 'name');
 		
