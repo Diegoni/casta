@@ -93,12 +93,8 @@ class MY_Controller extends CI_Controller
 		$table_lang = $this->reg->getTable().'_lang';
 		
 		$query = $this->db->query("SELECT * FROM ps_lang");
-		
-<<<<<<< HEAD
-		if ($this->field_exists('name'))
-		{
-			
-=======
+							
+
 		if ($this->db->field_exists('name', $table_lang))
 		{
 			$table_name = 'name';
@@ -106,7 +102,6 @@ class MY_Controller extends CI_Controller
 		else
 		{
 			$table_name = 'value';
->>>>>>> f6abb8e24106258c849299f33a7a5357a25e204b
 		}
 		
 		if($query->num_rows() > 0){
@@ -133,7 +128,7 @@ class MY_Controller extends CI_Controller
 ----------------------------------------------------------------------------------*/
 	
 	
-	public function delete_reg($primary_key_value)
+	function delete_reg($primary_key_value)
 	{
 		$table		= $this->reg->getTable();
 		$id_table	= $this->reg->getId_table();
@@ -157,7 +152,7 @@ class MY_Controller extends CI_Controller
 ----------------------------------------------------------------------------------*/
 	
 	
-	public function _crud_output($output = null, $titulo = NULL)
+	function _crud_output($output = null, $titulo = NULL)
 	{
 		if($titulo != NULL)
 		{
@@ -209,7 +204,4 @@ class MY_Controller extends CI_Controller
 		
 		return $input;
 	}
-	
-	
-  
 }

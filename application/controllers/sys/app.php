@@ -128,7 +128,8 @@ class App extends CI_Controller {
 			'risk',
 			'group',
 			'feature',
-			'feature_value'
+			'feature_value',
+			'tax'
 		);
 		
 		$db['suma'] = $this->m_actualizar->actualizar($tables);	

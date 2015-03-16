@@ -25,6 +25,8 @@ class Supplier extends MY_Controller
 		$this->load->model('supplier/m_supplier_lang');
 		$this->load->model('product/m_product');	
 		$this->load->model('product/m_product_lang');
+		$this->load->model('general/m_tax');
+		$this->load->model('general/m_currency');
 	}
 	
 /*----------------------------------------------------------------------------------
@@ -118,6 +120,8 @@ class Supplier extends MY_Controller
 		$db['products_name']	= $this->m_product->getSelect();
 		$db['products_upc']		= $this->m_product->getSelect('upc');
 		$db['supplier']			= $this->m_supplier->getSelect();
+		$db['taxs']				= $this->m_tax->getSelect();
+		$db['currencys']		= $this->m_currency->getSelect();
 		
 		$this->load->view('head', $db);	
 		$this->load->view('menu');
@@ -142,12 +146,16 @@ class Supplier extends MY_Controller
 			}
 			
 			$cadena =  "<div class='row' id='div-$id'>";
-			$cadena .= "<div class='col-md-1'>".$id."</div>";
 			$cadena .= "<div class='col-md-2'>".$upc."</div>";
 			$cadena .= "<div class='col-md-5'>".$name."</div>";
 			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'></div>";
 			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')."'></div>";
-			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')*$this->input->post('cantidad')."' readonly></div>";
+			$cadena .= "<div class='col-md-2'>
+								<div class='input-group'>
+      							<div class='input-group-addon addon-sm'>$</div>
+      							<input class='form-control input-sm subtotal' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')*$this->input->post('cantidad')."' readonly>
+      							</div>
+      							</div>";
 			$cadena .= "<div class='col-md-1'><button id='button-$id' class='btn btn-danger btn-xs'>Eliminar</button></div>";
 			$cadena .= "</div>";
 			$cadena .= "<script type='text/javascript'>

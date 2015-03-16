@@ -44,8 +44,10 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | These modes are used when working with fopen()/popen()
 |
 */
-
-define('_COOKIE_KEY_', 'E5fLgbcxVjrNc4jSe6Pm2RJeFiztq6BLXKsOidWkacWGsNtUrRE0bjTQ');
-
+// TMS
+	define('_COOKIE_KEY_', 'dVSYdPAraiPtsEuihA0e9wsy6ZeYTMdffdxptKiPpQ4zCHLI1UKfJJKS');	
+// Notebook
+//	define('_COOKIE_KEY_', 'E5fLgbcxVjrNc4jSe6Pm2RJeFiztq6BLXKsOidWkacWGsNtUrRE0bjTQ');
+		
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

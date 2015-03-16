@@ -106,4 +106,13 @@
 	$lang['caracteristicas']	= 'Características';
 	$lang['traduccion']			= 'Traducción';
 	$lang['valor']				= 'Valor';
+	$lang['subtotal']			= 'Subtotal';
+	$lang['total']				= 'Total';
+	$lang['impuesto']			= 'Impuesto';
+	$lang['finalizar']			= 'Terminar';
+	$lang['limpiar']			= 'Limpiar';
+	$lang['destalles']			= 'Destalles';
+	$lang['moneda']				= 'Moneda';
+	$lang['detalles']			= 'Detalles';
+	$lang['menos']				= 'Menos';
 ?>	
