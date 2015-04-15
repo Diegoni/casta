@@ -27,6 +27,7 @@ class Supplier extends MY_Controller
 		$this->load->model('product/m_product_lang');
 		$this->load->model('general/m_tax');
 		$this->load->model('general/m_currency');
+		$this->load->model('remitos/m_remito_entrada');
 	}
 	
 /*----------------------------------------------------------------------------------
@@ -112,11 +113,6 @@ class Supplier extends MY_Controller
 
 	function pedidos()
 	{
-		if($this->input->post('guardar'))
-		{
-
-		}
-		
 		$db['products_name']	= $this->m_product->getSelect();
 		$db['products_upc']		= $this->m_product->getSelect('upc');
 		$db['supplier']			= $this->m_supplier->getSelect();
@@ -148,21 +144,78 @@ class Supplier extends MY_Controller
 			$cadena =  "<div class='row' id='div-$id'>";
 			$cadena .= "<div class='col-md-2'>".$upc."</div>";
 			$cadena .= "<div class='col-md-5'>".$name."</div>";
-			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'></div>";
-			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')."'></div>";
+			$cadena .= "<div class='col-md-1'>
+							<input class='form-control input-sm' min='1' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'>
+						</div>";
+			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' min='0' input-sm' name='price-$id' id='price-$id' type='text' value='".$this->input->post('precio')."'></div>";
 			$cadena .= "<div class='col-md-2'>
-								<div class='input-group'>
+							<div class='input-group'>
       							<div class='input-group-addon addon-sm'>$</div>
-      							<input class='form-control input-sm subtotal' name='price-$id' id='price-$id' type='number' value='".$this->input->post('precio')*$this->input->post('cantidad')."' readonly>
-      							</div>
-      							</div>";
+      							<input class='form-control input-sm subtotal' name='subtotal-$id' id='subtotal-$id' type='number' value='".$this->input->post('precio')*$this->input->post('cantidad')."' readonly>
+      						</div>
+      					</div>";
 			$cadena .= "<div class='col-md-1'><button id='button-$id' class='btn btn-danger btn-xs'>Eliminar</button></div>";
 			$cadena .= "</div>";
 			$cadena .= "<script type='text/javascript'>
 						$(document).ready(function() {
 							$('#button-$id').click(function(event) {
 								$('#div-$id').remove();
+								cambiar_subtotal();
 							});
+							
+							$('#product-$id').change(function(event) {
+								$('#subtotal-$id').val($('#product-$id').val() * $('#price-$id').val()) ;
+								cambiar_subtotal();
+							});
+							
+							$('#product-$id').keypress(function(e) {
+							    var a = [];
+							    var k = e.which;
+							    
+							    for (i = 48; i < 58; i++)
+							        a.push(i);
+								
+								a.push(46);
+							    
+							    if (!(a.indexOf(k)>=0))
+							        e.preventDefault();							    
+							});
+							
+							$('#price-$id').keypress(function(e) {
+							    var a = [];
+							    var k = e.which;
+							    
+							    for (i = 48; i < 58; i++)
+							        a.push(i);
+								
+								a.push(46);
+							    
+							    if (!(a.indexOf(k)>=0))
+							        e.preventDefault();							    
+							});
+							
+							$('#price-$id').change(function(event) {
+								$('#subtotal-$id').val($('#product-$id').val() * $('#price-$id').val()) ;
+								cambiar_subtotal();
+							});
+							
+							function cambiar_subtotal()
+							{
+								var total = 0;
+								$('.subtotal').each(function(){
+									total = total + parseFloat($(this).val());
+									
+								})
+								$('#subtotal').val(total.toFixed(2));
+								
+								impuesto = total * 21 / 100;
+								
+								$('#impuesto').val(impuesto.toFixed(2));
+								
+								valor_final = total + impuesto;
+								
+								$('#total').val(valor_final.toFixed(2));
+							}
 						});
 						</script>";
 			echo $cadena;
@@ -183,6 +236,61 @@ class Supplier extends MY_Controller
 			}
 		}
 	}
+	
+	
+/*----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+			Pago de Pedidos
+------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------*/
+
+
+	function pedido_pago()
+	{
+		
+		$array_post = $this->input->post();
+		
+		$array_insert_remito = array(
+			'id_supplier'	=> $array_post['supplier'],
+			'id_tax'		=> $array_post['taxs'],
+			'id_currency'	=> $array_post['currencys'],
+			'date'			=> $array_post['fecha'],
+			'date_add'		=> date('Y-d-m H:i:s'),
+			'active'		=> 1,
+			'id_status'		=> 1,
+		);
+		
+		$this->db->insert('tms_remito_entrada', $array_insert_remito);
+		
+		$array_insert['id_remito'] = $this->db->insert_id();
+		
+		foreach ($array_post as $key => $value) {
+			$array_key = explode("-", $key);
+			if($array_key[0] == 'product')
+			{
+				$array_insert['quantity'] = $value;
+			}
+			else
+			if($array_key[0] == 'price')	
+			{
+				$array_insert['price'] = $value;
+			}
+			else
+			if($array_key[0] == 'subtotal')
+			{
+				$array_insert['id_product'] = $array_key[1];
+				$this->db->insert('tms_detalle_remito_entrada', $array_insert); 
+			}	
+		}
+		
+		$db['remitos']		= $this->m_remito_entrada->getID();
+		
+		$this->load->view('head');	
+		$this->load->view('menu');
+		$this->load->view($this->view.'/pedido_pago');
+		$this->load->view('footer');
+	}
+	
 
 	
 	

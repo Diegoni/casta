@@ -65,20 +65,30 @@
 		};
 		
 		
+		function cambio_cantidad()
+		{
+			alert();
+		}
+		
+		
 		$(document).keypress(function(e) {
+		    
 		    if(e.which == 13) {
 		    	if($('#cantidad').is(":focus"))
 		    	{
 		    		$('#precio').focus();
+		    		 return false;
 		    	}
 		    	else
 		    	if($('#precio').is(":focus"))
 		    	{
 		    		$('#agregar').click();
+		    		 return false;
 		    	}	
 		    	else
 		    	{
 		    		$('#cantidad').focus();	
+		    		 return false;
 		    	}
 		    }
 		});
@@ -147,7 +157,8 @@
 	  				<?php echo $this->lang->line('pedidos') ?>
 	  			</div>
 	  			<div class="panel-body">
-	  				<form class='form-horizontal' method="post">
+	  				<form class='form-horizontal' method="post" id="form" action="<?php echo base_url().'index.php/supplier/supplier/pedido_pago'?>">
+					
 					<div class="row">
 						<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
 						<?php echo select_helper_horizontal('supplier', $supplier, NULL, 6); ?>
@@ -166,19 +177,17 @@
 						</div>
 					</div>
 												
-						<div class='row slidingDiv'>
-							<?php echo label_helper_horizontal($this->lang->line('impuesto')); ?>
-							<?php echo select_helper_horizontal('taxs', $taxs, 1, 2); ?>
-							<?php echo label_helper_horizontal($this->lang->line('moneda')); ?>
-							<?php echo select_helper_horizontal('currencys', $currencys, 1, 2); ?>
-							<?php echo label_helper_horizontal($this->lang->line('fecha')); ?>
-							<?php echo input_helper_horizontal('fecha', date('d-m-Y'), 2, $this->lang->line('fecha')); ?>
-						</div>
-					</form>
+					<div class='row slidingDiv'>
+						<?php echo label_helper_horizontal($this->lang->line('impuesto')); ?>
+						<?php echo select_helper_horizontal('taxs', $taxs, 1, 2); ?>
+						<?php echo label_helper_horizontal($this->lang->line('moneda')); ?>
+						<?php echo select_helper_horizontal('currencys', $currencys, 1, 2); ?>
+						<?php echo label_helper_horizontal($this->lang->line('fecha')); ?>
+						<?php echo input_helper_horizontal('fecha', date('d-m-Y'), 2, $this->lang->line('fecha')); ?>
+					</div>
 					<hr>
 					
 					<div class="row">
-					<form class='form-horizontal' method="post" id="form">
 						<?php echo select_helper_horizontal('upc', $products_upc, NULL,2); ?>
 						<?php echo select_helper_horizontal('name', $products_name, NULL,6); ?>
 						<?php echo input_helper_horizontal('cantidad', NULL, 1, $this->lang->line('cantidad')); ?>
@@ -186,10 +195,9 @@
 						<div class='col-md-1'>
 							<?php echo single_button(NULL, 'agregar', 'fa fa-plus-circle', 'primary', 'button') ?>
 						</div> 
-					</form>
 					</div>
 					<hr>
-					
+				
 					<div class="row hide test">
 						<div class="col-md-2 cabecera"><?php echo $this->lang->line('codigo') ?></div>
 						<div class="col-md-5 cabecera"><?php echo $this->lang->line('nombre') ?></div>
@@ -240,9 +248,11 @@
 						</div> 
 						
 						<div class='col-md-2'>
-							<?php echo single_button($this->lang->line('finalizar'), 'finalizar', 'fa fa-check-square-o', 'success', 'button') ?>
+							<?php echo single_button($this->lang->line('finalizar'), 'finalizar', 'fa fa-check-square-o', 'success', 'submit') ?>
 						</div>
-					</div>	 
+					</div>	
+					
+					</form> 
 				</div>
 		    </div>
 	    </div>

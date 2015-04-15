@@ -34,9 +34,12 @@
 	echo js_libreria('jquery/jquery.js'); 
 
 	// Bootstrap
-	echo js_libreria('bootstrap/js/bootstrap.js');
+	//echo js_libreria('bootstrap/js/bootstrap.js');
 	//echo css_libreria('bootstrap/css/bootstrap.css');
-	echo css_libreria('bootstrap/css/bootstrap_back.css');
+	//echo css_libreria('bootstrap/css/bootstrap_back.css');
+	echo js_libreria('eden-ui/js/bootstrap.js');
+	echo css_libreria('eden-ui/css/bootstrap.css');
+	echo css_libreria('eden-ui/skins/eden.css');
 	
 	// Jquery UI
 	echo js_libreria('jquery-ui/jquery-ui.js');
