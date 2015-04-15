@@ -72,6 +72,11 @@
 		}
 		
 		
+		$("#supplier").change(function(){
+			window.location.href = '<?php echo base_url().'index.php/supplier/supplier/pedidos/' ?>'+$("#supplier").val();
+		});
+		
+		
 		$(document).keypress(function(e) {
 		    
 		    if(e.which == 13) {
@@ -101,13 +106,13 @@
 		$('#cantidad').focus(function(){
 			var name = $('#name').val();
 			$.ajax({
-					url: '<?php echo base_url(); ?>' + 'index.php/supplier/supplier/buscar_precio/' + name,
-					type: 'POST',
-					data: $('#form').serialize(),
-					success: function(msj){
-						myString = $.trim(msj);
-						$('#precio').val(myString);
-					}
+				url: '<?php echo base_url(); ?>' + 'index.php/supplier/supplier/buscar_precio/' + name,
+				type: 'POST',
+				data: $('#form').serialize(),
+				success: function(msj){
+					myString = $.trim(msj);
+					$('#precio').val(myString);
+				}
 			});
 		});
 		
@@ -122,18 +127,48 @@
     		$(".title_up").slideToggle();
     	});
     	
-    	 $(function() {
-    		$( "#fecha" ).datepicker({ 
+		$(function() {
+			$( "#fecha" ).datepicker({ 
 				dateFormat: 'dd-mm-yy', 
 				minDate: -20, 
 				maxDate: "+1M +10D" 
 			});
-  		});
- 
+		});
+
 	});
 	</script>
 	
-
+	
+	<?php 
+	if(isset($supplier))
+	{
+	?>
+	<div class='container'>  
+	    <div class="col-md-12">
+			<div class="panel panel-default">
+	  			<div class="panel-heading">
+	  				<?php echo $this->lang->line('pedidos') ?>
+	  			</div>
+	  			<div class="panel-body">
+	  				<div class="row">
+						<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
+						<?php echo select_helper_horizontal('supplier', $supplier, NULL, 7); ?>
+						<div class="col-md-1">
+							<button type="button" class='btn btn-default'  data-toggle="modal" data-target="#myModal">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<?php
+	}
+	else
+	{
+	?>
 	
 	<div class='container'>  
 	    <div class="col-md-12">
@@ -146,7 +181,17 @@
 					
 					<div class="row">
 						<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
-						<?php echo select_helper_horizontal('supplier', $supplier, NULL, 8); ?>
+						<?php
+						foreach ($supplier_id as $row)
+						{
+							echo "<div class='col-md-7'><input name='supplier' value='".$row->name."' class='form-control' readonly></div>";
+						}	
+						?>
+						<div class="col-md-1">
+							<button type="button" class='btn btn-default'  data-toggle="modal" data-target="#myModal">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
 						<div class="col-md-2">
 							<a href='#' class='show_hide btn btn-default form-control'>
 								<div class='title_down'>
@@ -160,7 +205,6 @@
 								</div>
 							</a>
 						</div>
-						
 					</div>
 												
 					<div class='slidingDiv'>
@@ -237,7 +281,7 @@
 						</div> 
 					
 						<div class='col-md-2'>
-							<a href="<?php base_url().'/index.php/supplier/supplier/pedidos'?>" class='btn btn-danger form-control'>
+							<a onclick="return confirm('<?php echo $this->lang->line('confirm_limpiar')?>')" href="<?php echo base_url().'/index.php/supplier/supplier/pedidos/'?>" class='btn btn-danger form-control'>
 								<i class="fa fa-trash-o"></i>
 								<?php echo $this->lang->line('limpiar'); ?>
 							</a>
@@ -258,6 +302,34 @@
 	    </div>
     </div>
     
+    <?php
+    }
+	?>
+ 
+ 
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel"><?php echo $this->lang->line('buscar') ?></h4>
+			</div>
+			<div class="modal-body">
+			...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('cerrar') ?></button>
+			</div>
+		</div>
+	</div>
+</div>    
+
+
+
+
 
 <script type="text/javascript">
 	var config = 
@@ -272,6 +344,4 @@
    	for (var selector in config) {
    		$(selector).chosen(config[selector]);
    	}	
-
-    
 </script>

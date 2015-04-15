@@ -109,13 +109,21 @@ class Supplier extends MY_Controller
 ----------------------------------------------------------------------------------*/
 
 
-	function pedidos()
+	function pedidos($id_supplier = NULL)
 	{
 		$db['products_name']	= $this->m_product->getSelect();
 		$db['products_upc']		= $this->m_product->getSelect('upc');
-		$db['supplier']			= $this->m_supplier->getSelect();
 		$db['taxs']				= $this->m_tax->getSelect();
 		$db['currencys']		= $this->m_currency->getSelect();
+		
+		if($id_supplier === NULL)
+		{
+			$db['supplier']			= $this->m_supplier->getSelect();
+		}
+		else
+		{
+			$db['supplier_id']			= $this->m_supplier->getID($id_supplier);
+		}
 		
 		$this->load->view('head', $db);	
 		$this->load->view('menu');
@@ -144,9 +152,9 @@ class Supplier extends MY_Controller
 			$cadena .= "<div class='col-md-2'>".$upc."</div>";
 			$cadena .= "<div class='col-md-5'>".$name."</div>";
 			$cadena .= "<div class='col-md-1'>
-							<input class='form-control input-sm' min='1' name='product-$id' id='product-$id' type='number' value='".$this->input->post('cantidad')."'>
+							<input class='form-control input-sm' min='1' name='product-$id' id='product-$id' maxlength='6' type='text' value='".$this->input->post('cantidad')."'>
 						</div>";
-			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' min='0' input-sm' name='price-$id' id='price-$id' type='text' value='".$this->input->post('precio')."'></div>";
+			$cadena .= "<div class='col-md-1'><input class='form-control input-sm' min='0' input-sm' name='price-$id' id='price-$id' maxlength='6' type='text' value='".$this->input->post('precio')."'></div>";
 			$cadena .= "<div class='col-md-2'>
 							<div class='input-group'>
       							<div class='input-group-addon addon-sm'>$</div>
