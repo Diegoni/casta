@@ -11,14 +11,15 @@
 
 
 
-body {
-font-family: 'Source Sans Pro', sans-serif;
-  font-size: 15px;
-  line-height: 1.42857143;
-  color: #2c3e50;
-    font-weight: 300;
-  background-image: url('../imgs/concrete_seamless.png');
-  background-color: #ffffff;
+body 
+{
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 15px;
+	line-height: 1.42857143;
+	color: #2c3e50;
+	font-weight: 300;
+	background-image: url('../imgs/concrete_seamless.png');
+	background-color: #ffffff;
 }
 
 /** hyperlink **/
