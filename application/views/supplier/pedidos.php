@@ -42,7 +42,8 @@
 		});
 		
 		
-		function sumar_total(subtotal){
+		function sumar_total(subtotal)
+		{
 			if (typeof subtotal == "undefined")
 			{
 				subtotal = 0;
@@ -127,28 +128,12 @@
 				minDate: -20, 
 				maxDate: "+1M +10D" 
 			});
-			$.datepicker.regional['es'] = {
-		        closeText: 'Cerrar',
-		        prevText: '<Ant',
-		        nextText: 'Sig>',
-		        currentText: 'Hoy',
-		        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-		        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-		        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-		        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-		        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-		        weekHeader: 'Sm',
-		        dateFormat: 'dd/mm/yy',
-		        firstDay: 1,
-		        isRTL: false,
-		        showMonthAfterYear: false,
-		        yearSuffix: ''
-		    };
-    		$.datepicker.setDefaults($.datepicker.regional['es']);
   		});
  
 	});
 	</script>
+	
+
 	
 	<div class='container'>  
 	    <div class="col-md-12">
@@ -161,7 +146,7 @@
 					
 					<div class="row">
 						<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
-						<?php echo select_helper_horizontal('supplier', $supplier, NULL, 6); ?>
+						<?php echo select_helper_horizontal('supplier', $supplier, NULL, 8); ?>
 						<div class="col-md-2">
 							<a href='#' class='show_hide btn btn-default form-control'>
 								<div class='title_down'>
@@ -175,15 +160,30 @@
 								</div>
 							</a>
 						</div>
+						
 					</div>
 												
-					<div class='row slidingDiv'>
-						<?php echo label_helper_horizontal($this->lang->line('impuesto')); ?>
-						<?php echo select_helper_horizontal('taxs', $taxs, 1, 2); ?>
-						<?php echo label_helper_horizontal($this->lang->line('moneda')); ?>
-						<?php echo select_helper_horizontal('currencys', $currencys, 1, 2); ?>
-						<?php echo label_helper_horizontal($this->lang->line('fecha')); ?>
-						<?php echo input_helper_horizontal('fecha', date('d-m-Y'), 2, $this->lang->line('fecha')); ?>
+					<div class='slidingDiv'>
+						<div class="row">
+							<?php echo label_helper_horizontal($this->lang->line('impuesto')); ?>
+							<?php echo select_helper_horizontal('taxs', $taxs, 1, 2); ?>
+							<?php echo label_helper_horizontal($this->lang->line('moneda')); ?>
+							<?php echo select_helper_horizontal('currencys', $currencys, 1, 2); ?>
+							<?php echo label_helper_horizontal($this->lang->line('fecha')); ?>
+							<?php echo input_helper_horizontal('fecha', date('d-m-Y'), 2, $this->lang->line('fecha')); ?>
+						</div>
+						
+						<div class="row">
+							<?php echo label_helper_horizontal($this->lang->line('pago')); ?>
+							<div class="col-md-2">
+								<select class="form-control chosen-select" name="payment" id="payment">
+									<option value="0"><?php echo $this->lang->line('efectivo')?></option>
+									<option value="1"><?php echo $this->lang->line('otro')?></option>
+								</select>
+							</div>
+							<?php echo label_helper_horizontal($this->lang->line('descuento')); ?>
+							<?php echo input_helper_horizontal('descuento', NULL, 2);?>
+						</div>
 					</div>
 					<hr>
 					
@@ -257,3 +257,21 @@
 		    </div>
 	    </div>
     </div>
+    
+
+<script type="text/javascript">
+	var config = 
+	{
+		'.chosen-select'           : {},
+		'.chosen-select-deselect'  : {allow_single_deselect:true},
+		'.chosen-select-no-single' : {disable_search_threshold:10},
+		'.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+		'.chosen-select-width'     : {width:"95%"}
+    }
+    
+   	for (var selector in config) {
+   		$(selector).chosen(config[selector]);
+   	}	
+
+    
+</script>

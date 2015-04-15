@@ -133,7 +133,7 @@ class MY_Model extends CI_Model {
 
 	function getSelect($column=NULL)
 	{
-		if($column==NULL)
+		if($column == NULL)
 		{
 			if(is_array($this->_name))
 			{

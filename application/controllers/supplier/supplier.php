@@ -77,7 +77,6 @@ class Supplier extends MY_Controller
 
 	function crud_supplier()
 	{
-		
 		$crud = new grocery_CRUD();
 		
 		$crud->where('ps_supplier.active = 1');
@@ -100,7 +99,6 @@ class Supplier extends MY_Controller
 		$output = $crud->render();
 		
 		$this->_crud_output($output);
-
 	}
 
 
@@ -125,7 +123,8 @@ class Supplier extends MY_Controller
 		$this->load->view('footer');
 	}
 	
-	function buscar(){
+	function buscar()
+	{
 		if(!$this->input->is_ajax_request())
 		{
 			redirect('404');
@@ -222,7 +221,8 @@ class Supplier extends MY_Controller
 		}
 	}
 
-	function buscar_precio($id){
+	function buscar_precio($id)
+	{
 		if(!$this->input->is_ajax_request())
 		{
 			redirect('404');
@@ -247,10 +247,10 @@ class Supplier extends MY_Controller
 
 	function pedido_pago()
 	{
-		
 		$array_post = $this->input->post();
 		
-		$array_insert_remito = array(
+		$array_insert_remito = array
+		(
 			'id_supplier'	=> $array_post['supplier'],
 			'id_tax'		=> $array_post['taxs'],
 			'id_currency'	=> $array_post['currencys'],
@@ -264,7 +264,8 @@ class Supplier extends MY_Controller
 		
 		$array_insert['id_remito'] = $this->db->insert_id();
 		
-		foreach ($array_post as $key => $value) {
+		foreach ($array_post as $key => $value) 
+		{
 			$array_key = explode("-", $key);
 			if($array_key[0] == 'product')
 			{
@@ -283,7 +284,7 @@ class Supplier extends MY_Controller
 			}	
 		}
 		
-		$db['remitos']		= $this->m_remito_entrada->getID();
+		$db['remitos']		= $this->m_remito_entrada->getID($array_insert['id_remito']);
 		
 		$this->load->view('head');	
 		$this->load->view('menu');

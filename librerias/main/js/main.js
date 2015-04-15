@@ -4,22 +4,22 @@
 //------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------->
   
-  $(function() {
-    $( "#dialog-message-ok" ).dialog({
-      	modal: true,
-     	show: "blind",
-    	hide: "clip",
-    	dialogClass: "dialog-message-ok",    	
-    	open: function(event, ui) {
-        	setTimeout(function(){
-            	$('#dialog-message-ok').dialog('close');                
-        	}, 1500);
-    	}
+$(function() {
+	$( "#dialog-message-ok" ).dialog({
+		modal: true,
+		show: "blind",
+		hide: "clip",
+		dialogClass: "dialog-message-ok",    	
+		open: function(event, ui) {
+			setTimeout(function(){
+				$('#dialog-message-ok').dialog('close');                
+			}, 1500);
+		}
     });
-  });
+});
   
 
-  $(function() {
+$(function() {
     $( "#dialog-message-error" ).dialog({
       	modal: true,
      	show: "blind",
@@ -31,7 +31,7 @@
 	        }
       	}
     });
-  });
+});
   
   
 //------------------------------------------------------------------------------------
@@ -49,31 +49,45 @@ $(document).ready(function() {
 			$icon = $addon.find('span'),
 			state = false;
             
-    	if (!$group.data('validate')) {
+    	if (!$group.data('validate')) 
+    	{
 			state = $(this).val() ? true : false;
-		}else if ($group.data('validate') == "email") {
-			state = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(this).val())
-		}else if($group.data('validate') == 'phone') {
-			state = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/.test($(this).val())
-		}else if ($group.data('validate') == "length") {
+		}
+		else if ($group.data('validate') == "email") 
+		{
+			state = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(this).val());
+		}
+		else if($group.data('validate') == 'phone') 
+		{
+			state = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/.test($(this).val());
+		}
+		else if ($group.data('validate') == "length") 
+		{
 			state = $(this).val().length >= $group.data('length') ? true : false;
-		}else if ($group.data('validate') == "number") {
+		}else if ($group.data('validate') == "number") 
+		{
 			state = !isNaN(parseFloat($(this).val())) && isFinite($(this).val());
 		}
 
-		if (state) {
+		if (state) 
+		{
 				$addon.removeClass('danger');
 				$addon.addClass('success');
 				$icon.attr('class', 'glyphicon glyphicon-ok');
-		}else{
+		}
+		else
+		{
 				$addon.removeClass('success');
 				$addon.addClass('danger');
 				$icon.attr('class', 'glyphicon glyphicon-remove');
 		}
         
-        if ($form.find('.input-group-addon.danger').length == 0) {
+        if ($form.find('.input-group-addon.danger').length == 0) 
+        {
             $form.find('[type="submit"]').prop('disabled', false);
-        }else{
+        }
+        else
+        {
             $form.find('[type="submit"]').prop('disabled', true);
         }
 	});
@@ -90,16 +104,45 @@ $(document).ready(function() {
 
 
 function carga_ajax(ruta,id,div) 
+{
+	var id=$("#"+id+"").val();
+	var arr = div;
+		
+	$.post(ruta,{id:id,},function(resp)
 	{
-		var id=$("#"+id+"").val();
-		var arr = div;
-		
-		$.post(ruta,{id:id,},function(resp)
+		for (var i in arr)
 		{
-			for (var i in arr)
-			{
-				$("#"+arr[i]+"").val(resp);
-			}
-		});
+			$("#"+arr[i]+"").val(resp);
+		}
+	});
 		
-	}
+}
+	
+  
+  
+//------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+//			Calendarios en castellano
+//------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------> 
+
+
+$.datepicker.regional['es'] = 
+{
+	closeText: 'Cerrar',
+	prevText: '<Ant',
+	nextText: 'Sig>',
+	currentText: 'Hoy',
+	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+	dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+	dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+	dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+	weekHeader: 'Sm',
+	dateFormat: 'dd/mm/yy',
+	firstDay: 1,
+	isRTL: false,
+	showMonthAfterYear: false,
+	yearSuffix: ''
+};
+$.datepicker.setDefaults($.datepicker.regional['es']);

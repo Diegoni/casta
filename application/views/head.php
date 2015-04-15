@@ -62,7 +62,15 @@
 	
 	//CKEditor
 	echo js_libreria('ckeditor/ckeditor.js');
-	
+
+	//Bootstrap Switch, ver como cambiar tamaño
+	/*
+	echo css_libreria('bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css');
+	echo js_libreria('bootstrap-switch-master/dist/js/bootstrap-switch.js');
+	echo js_libreria('bootstrap-switch-master/docs/js/highlight.js');
+	echo js_libreria('bootstrap-switch-master/docs/js/main.js');
+	*/
+			
   	// Librerias del controlador
   	if(isset($js_libreria))
   	{
