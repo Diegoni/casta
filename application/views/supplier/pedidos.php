@@ -128,7 +128,7 @@
     	});
     	
 		$(function() {
-			$( "#fecha" ).datepicker({ 
+			$( "#fecha_pre_entrega" ).datepicker({ 
 				dateFormat: 'dd-mm-yy', 
 				minDate: -20, 
 				maxDate: "+1M +10D" 
@@ -140,7 +140,7 @@
 	
 	
 	<?php 
-	if(isset($supplier))
+	if(!isset($supplier_id))
 	{
 		if(isset($mensaje))
 		{
@@ -217,20 +217,28 @@
 							<?php echo select_helper_horizontal('taxs', $taxs, 1, 2); ?>
 							<?php echo label_helper_horizontal($this->lang->line('moneda')); ?>
 							<?php echo select_helper_horizontal('currencys', $currencys, 1, 2); ?>
-							<?php echo label_helper_horizontal($this->lang->line('fecha')); ?>
-							<?php echo input_helper_horizontal('fecha', date('d-m-Y'), 2, $this->lang->line('fecha')); ?>
+							<?php echo label_helper_horizontal($this->lang->line('fecha_pre_entrega')); ?>
+							<?php echo input_helper_horizontal('fecha_pre_entrega', date('d-m-Y'), 2, $this->lang->line('fecha_pre_entrega')); ?>
 						</div>
 						
 						<div class="row">
-							<?php echo label_helper_horizontal($this->lang->line('pago')); ?>
-							<div class="col-md-2">
-								<select class="form-control chosen-select" name="payment" id="payment">
-									<option value="0"><?php echo $this->lang->line('efectivo')?></option>
-									<option value="1"><?php echo $this->lang->line('otro')?></option>
-								</select>
-							</div>
+							<?php echo label_helper_horizontal($this->lang->line('forma_pago')); ?>
+							<?php echo select_helper_horizontal('forma_pago', $formas_pago, NULL, 2); ?>
+							<?php echo label_helper_horizontal($this->lang->line('condicion_pago')); ?>
+							<?php echo select_helper_horizontal('condicion_pago', $condiciones_pago, NULL, 2); ?>
 							<?php echo label_helper_horizontal($this->lang->line('descuento')); ?>
 							<?php echo input_helper_horizontal('descuento', NULL, 2);?>
+							
+						</div>
+						
+						<div class="row">
+							<?php echo label_helper_horizontal($this->lang->line('nota_publica')); ?>
+							<?php echo textarea_helper_horizontal('nota_publica', NULL, 10, 5, NULL) ?>
+						</div>	
+						
+						<div class="row">
+							<?php echo label_helper_horizontal($this->lang->line('nota_privada')); ?>
+							<?php echo textarea_helper_horizontal('nota_privada', NULL, 10, 5, NULL) ?>
 						</div>
 					</div>
 					<hr>
@@ -322,7 +330,15 @@
 				<h4 class="modal-title" id="myModalLabel"><?php echo $this->lang->line('buscar') ?></h4>
 			</div>
 			<div class="modal-body">
-			...
+				<div class="row">
+					<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
+					<?php echo select_helper_horizontal('supplier', $supplier, NULL, 7); ?>
+					<div class="col-md-1">
+						<button type="button" class='btn btn-default'  data-toggle="modal" data-target="#myModal">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('cerrar') ?></button>

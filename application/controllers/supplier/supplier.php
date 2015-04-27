@@ -28,6 +28,8 @@ class Supplier extends MY_Controller
 		$this->load->model('general/m_tax');
 		$this->load->model('general/m_currency');
 		$this->load->model('general/m_bank');
+		$this->load->model('general/m_condicion_pago');
+		$this->load->model('general/m_forma_pago');
 		$this->load->model('remitos/m_remito_entrada');
 	}
 	
@@ -116,6 +118,8 @@ class Supplier extends MY_Controller
 		$db['products_upc']		= $this->m_product->getSelect('upc');
 		$db['taxs']				= $this->m_tax->getSelect();
 		$db['currencys']		= $this->m_currency->getSelect();
+		$db['formas_pago']		= $this->m_forma_pago->getSelect();
+		$db['condiciones_pago']	= $this->m_condicion_pago->getSelect();
 		
 		if($id_supplier === NULL || $id_supplier == 0)
 		{
@@ -123,12 +127,13 @@ class Supplier extends MY_Controller
 			
 			if($id_supplier == 0)
 			{
-				$db['mensaje']			= 'insert_ok';
+				//$db['mensaje']			= 'insert_ok';
 			}
 		}
 		else
 		{
-			$db['supplier_id']			= $this->m_supplier->getID($id_supplier);
+			$db['supplier']			= $this->m_supplier->getSelect();
+			$db['supplier_id']		= $this->m_supplier->getID($id_supplier);
 		}
 		
 		$this->load->view('head', $db);	

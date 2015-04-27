@@ -338,18 +338,22 @@ function select_helper_horizontal($id, $options=NULL, $value=NULL, $tamaño=NULL
 	}
 	
 	$select	.=	"<option value=''></option>";
-	foreach ($options as $row) {
-		if(isset($row->descripcion)){
-			$select .= "<option value='".$row->id_tabla."'";
-			if($row->id_tabla==$value && $value!=NULL)
-			{
-				 $select .= "selected";
+	if(is_array($options))
+	{
+		foreach ($options as $row) {
+			if(isset($row->descripcion)){
+				$select .= "<option value='".$row->id_tabla."'";
+				if($row->id_tabla==$value && $value!=NULL)
+				{
+					 $select .= "selected";
+				}
+				$select .=">";
+				$select .= $row->descripcion."</option>";	
 			}
-			$select .=">";
-			$select .= $row->descripcion."</option>";	
-		}
-		
-	}  
+			
+		}	
+	}
+	
 	$select	.= "</select>";
 	
 	if(isset($required))

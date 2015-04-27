@@ -19,15 +19,16 @@ $lang['busqueda']			= 'Busqueda';
 $lang['cambio']				= 'Cambio';		
 $lang['cantidad']			= 'Cantidad';			
 $lang['caracteristicas']	= 'Características';					
-$lang['catalogo']			= "Catálogo";			
+$lang['catalogo']			= 'Catálogo';			
 $lang['categoria']			= 'Categoría';	
 $lang['cerrar']				= 'Cerrar';
 $lang['cheques']			= 'Cheques';		
 $lang['cliente']			= 'Cliente';			
-$lang['clientes']			= "Clientes";			
+$lang['clientes']			= 'Clientes';			
 $lang['codigo']				= 'Código';		
 $lang['compra']				= 'Compra';		
-$lang['compras']			= "Compras";
+$lang['compras']			= 'Compras';
+$lang['condicion_pago']		= 'Condición pago';
 $lang['confirm_limpiar']	= 'Se perderan los datos, confirma limpiar?';			
 $lang['contactos']			= 'Contactos';			
 $lang['corta']				= 'Corta';		
@@ -39,7 +40,8 @@ $lang['cuil']				= 'Cuil';
 $lang['cumpleaños']			= 'Cumpleaños';			
 
 // D
-$lang['datos']				= "Datos";		
+$lang['datos']				= 'Datos';		
+$lang['decimales']			= 'Decimales';
 $lang['desactivado']		= 'Desactivado';				
 $lang['descripcion']		= 'Descripción';
 $lang['descuento']			= 'Descuento';				
@@ -61,8 +63,12 @@ $lang['exento']				= 'Exento Iva';
 
 // F
 $lang['fabricante']			= 'Fabricante';			
-$lang['fecha']				= 'Fecha';		
-$lang['finalizar']			= 'Terminar';			
+$lang['fecha']				= 'Fecha';
+$lang['fecha_pedido']		= 'Fecha Pedido';
+$lang['fecha_pre_entrega']	= 'Fecha prevista entrega';		
+$lang['finalizar']			= 'Terminar';
+$lang['forma_pago']			= 'Forma pago';
+$lang['formato']			= 'Formato';		
 
 // G
 $lang['general']			= 'General';			
@@ -86,7 +92,7 @@ $lang['limpiar']			= 'Limpiar';
 $lang['login']				= 'Login';		
 
 // M
-$lang['maestros']			= "Maestros";			
+$lang['maestros']			= 'Maestros';			
 $lang['maximo']				= 'Máximo';		
 $lang['mayor']				= 'Mayor';		
 $lang['menos']				= 'Menos';		
@@ -96,7 +102,9 @@ $lang['moneda']				= 'Moneda';
 
 // N
 $lang['nombre']				= 'Nombre';		
-$lang['nota']				= 'Nota';		
+$lang['nota']				= 'Nota';
+$lang['nota_publica']		= 'Nota pública';		
+$lang['nota_privada']		= 'Nota privada';
 $lang['notas']				= 'Notas';		
 $lang['numero']				= 'Número';
 
@@ -111,18 +119,19 @@ $lang['otro']				= 'Otro';
 $lang['pago']				= 'Pago';
 $lang['pago_parcial']		= 'Pago Parcial';		
 $lang['pass']				= 'Password';		
-$lang['pedidos']			= "Pedidos";			
+$lang['pedidos']			= 'Pedidos';			
 $lang['pendiente']			= 'Pendiente';			
 $lang['perfiles']			= 'Perfiles';			
 $lang['posicion']			= 'Posición';			
 $lang['precio']				= 'Precio';		
 $lang['print']				= 'Imprimir';		
-$lang['producto']			= "Producto";			
-$lang['productos']			= "Productos";			
-$lang['proveedor']			= "Proveedor";			
-$lang['proveedores']		= "Proveedores";				
+$lang['producto']			= 'Producto';			
+$lang['productos']			= 'Productos';			
+$lang['proveedor']			= 'Proveedor';			
+$lang['proveedores']		= 'Proveedores';				
 
 // R
+$lang['rango_conversion']	= 'Rango de conversión';
 $lang['recargo']			= 'Recargo';			
 $lang['referencia']			= 'Referencia';			
 $lang['refresh']			= 'Refresh';			
@@ -132,9 +141,10 @@ $lang['riesgo']				= 'Riesgo';
 // S
 $lang['saldo']				= 'Saldo';		
 $lang['save']				= 'Guardar';		
-$lang['seleccione']			= 'Seleccione';			
+$lang['seleccione']			= 'Seleccione';
+$lang['signo']				= 'Signo';			
 $lang['solo']				= 'Solo';		
-$lang['stock']				= "Stock";		
+$lang['stock']				= 'Stock';		
 $lang['subtotal']			= 'Subtotal';			
 
 // T
@@ -146,7 +156,7 @@ $lang['tipo']				= 'Tipo';
 $lang['total']				= 'Total';		
 $lang['traduccion']			= 'Traducción';
 $lang['transferencia']		= 'Transferencia bancaria';
-$lang['tratamientos']		= "Tratamientos";				
+$lang['tratamientos']		= 'Tratamientos';				
 
 // U
 $lang['ultimo']				= 'Último';		
@@ -158,5 +168,5 @@ $lang['usuarios']			= 'Usuarios';
 // V
 $lang['valor']				= 'Valor';		
 $lang['venta']				= 'Venta';		
-$lang['ventas']				= "Ventas";		
+$lang['ventas']				= 'Ventas';		
 ?>	

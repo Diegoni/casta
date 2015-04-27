@@ -39,7 +39,10 @@
 						<li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->lang->line('datos')." ".$this->lang->line('maestros') ?></a>
                             <ul class="dropdown-menu">
-								<?php echo item_menu('customer/datos_maestros/crud_cli_tiposcliente', $this->lang->line('tipo'));?>
+                            	<?php echo item_menu('general/datos_maestros/tax', $this->lang->line('impuesto'));?>
+                            	<?php echo item_menu('general/datos_maestros/currencys', $this->lang->line('moneda'));?>
+								<?php echo item_menu('general/datos_maestros/forma_pago', $this->lang->line('forma_pago'));?>
+								<?php echo item_menu('general/datos_maestros/condicion_pago', $this->lang->line('condicion_pago'));?>
 							</ul>
                         </li>
                     </ul>
