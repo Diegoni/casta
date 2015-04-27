@@ -9,6 +9,7 @@ $lang['anuncios']			= 'Anuncios';
 $lang['apellido']			= 'Apellido';			
 
 // B
+$lang['banco']				= 'Banco';
 $lang['boletin']			= 'Boletín';			
 $lang['boletin']			= 'Boletín';			
 $lang['buscar']				= 'Buscar';		
@@ -20,7 +21,8 @@ $lang['cantidad']			= 'Cantidad';
 $lang['caracteristicas']	= 'Características';					
 $lang['catalogo']			= "Catálogo";			
 $lang['categoria']			= 'Categoría';	
-$lang['cerrar']				= 'Cerrar';		
+$lang['cerrar']				= 'Cerrar';
+$lang['cheques']			= 'Cheques';		
 $lang['cliente']			= 'Cliente';			
 $lang['clientes']			= "Clientes";			
 $lang['codigo']				= 'Código';		
@@ -30,7 +32,8 @@ $lang['confirm_limpiar']	= 'Se perderan los datos, confirma limpiar?';
 $lang['contactos']			= 'Contactos';			
 $lang['corta']				= 'Corta';		
 $lang['costo']				= 'Costo';		
-$lang['credito']			= 'Crédito';			
+$lang['credito']			= 'Crédito';
+$lang['ctacte']				= 'Cuenta Corriente';				
 $lang['cuenta']				= 'Cuenta';		
 $lang['cuil']				= 'Cuil';		
 $lang['cumpleaños']			= 'Cumpleaños';			
@@ -45,6 +48,7 @@ $lang['destalles']			= 'Destalles';
 $lang['detalles']			= 'Detalles';			
 $lang['dias']				= 'Días';		
 $lang['direcciones']		= 'Direcciones';				
+$lang['documentos']			= 'Documentos';
 
 // E
 $lang['efectivo']			= 'Efectivo';
@@ -70,9 +74,11 @@ $lang['historico']			= 'Historico';
 
 // I
 $lang['idioma']				= 'Idioma';		
+$lang['importe']			= 'Importe';
 $lang['impuesto']			= 'Impuesto';			
 $lang['incorrecto']			= 'incorrecto';			
-$lang['ingrese']			= 'Ingrese';			
+$lang['ingrese']			= 'Ingrese';
+$lang['insert_ok']			= 'El registro se ingreso con éxito';			
 
 // L
 $lang['lenguaje']			= 'Lenguaje';			
@@ -92,6 +98,7 @@ $lang['moneda']				= 'Moneda';
 $lang['nombre']				= 'Nombre';		
 $lang['nota']				= 'Nota';		
 $lang['notas']				= 'Notas';		
+$lang['numero']				= 'Número';
 
 // O
 $lang['online']				= 'On-line';		
@@ -101,7 +108,8 @@ $lang['optar_en']			= 'Optar en';
 $lang['otro']				= 'Otro';			
 
 // P
-$lang['pago']				= 'Pago';		
+$lang['pago']				= 'Pago';
+$lang['pago_parcial']		= 'Pago Parcial';		
 $lang['pass']				= 'Password';		
 $lang['pedidos']			= "Pedidos";			
 $lang['pendiente']			= 'Pendiente';			
@@ -136,7 +144,8 @@ $lang['temas']				= 'Temas';
 $lang['tiene']				= 'Tiene';		
 $lang['tipo']				= 'Tipo';		
 $lang['total']				= 'Total';		
-$lang['traduccion']			= 'Traducción';			
+$lang['traduccion']			= 'Traducción';
+$lang['transferencia']		= 'Transferencia bancaria';
 $lang['tratamientos']		= "Tratamientos";				
 
 // U

@@ -68,7 +68,8 @@ function single_button($texto=NULL, $id=NULL, $icono=NULL, $class=NULL, $type=NU
 
 function add_button($texto=NULL)
 {
-	if(!isset($texto)){
+	if(!isset($texto))
+	{
 		$texto = 'Nuevo';
 	}
 	return "<button class='btn btn-default'>
@@ -78,7 +79,8 @@ function add_button($texto=NULL)
 
 function save_button($texto=NULL)
 {
-	if(!isset($texto)){
+	if(!isset($texto))
+	{
 		$texto = 'Guardar';
 	}
 	return "<button class='btn btn-default' type='submit' name='guardar' value='1'>
@@ -88,7 +90,8 @@ function save_button($texto=NULL)
 
 function refresh_button($texto=NULL)
 {
-	if(!isset($texto)){
+	if(!isset($texto))
+	{
 		$texto = 'Refresh';
 	}
 	return "<button class='btn btn-default'>
@@ -98,7 +101,8 @@ function refresh_button($texto=NULL)
 
 function print_button($texto=NULL)
 {
-	if(!isset($texto)){
+	if(!isset($texto))
+	{
 		$texto = 'Imprimir';
 	}
 	return "<div class='btn-group'>
@@ -114,7 +118,8 @@ function print_button($texto=NULL)
 
 function action_button($texto=NULL)
 {
-	if(!isset($texto)){
+	if(!isset($texto))
+	{
 		$texto = 'Acciones';
 	}
 	return "<div class='btn-group'>
@@ -137,7 +142,8 @@ function action_button($texto=NULL)
  **********************************************************************************/
  
  
-function setTipo($type){
+function setTipo($type)
+{
 		//verifica el tipo, las validaciones se hacen en librerias/main/js/main.js -> Validación de formularios
 		if($type=='email')
 		{
@@ -468,6 +474,32 @@ function autocomplete($array, $input, $valor, $id_array = NULL, $id_input = NULL
 	</script>";
 	
 	return $autocomplete;
+}
+
+
+
+function set_alert($mensaje, $type = NULL)
+{
+	if($type ==  NULL)
+	{
+		$type = 'success';
+	}
+	else
+	if(	$type != 'success' && 
+		$type != 'info' && 
+		$type != 'warning' && 
+		$type != 'default' && 
+		$type != 'danger')
+	{
+		$type = 'success';
+	}
+	
+	$alert	=  "<div class='alert alert-$type alert-dismissible' role='alert'>";
+	$alert	.= "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+	$alert	.= $mensaje;
+	$alert	.= "</div>";
+	
+	return $alert; 
 }
 
 

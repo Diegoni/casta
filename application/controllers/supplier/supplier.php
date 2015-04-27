@@ -27,6 +27,7 @@ class Supplier extends MY_Controller
 		$this->load->model('product/m_product_lang');
 		$this->load->model('general/m_tax');
 		$this->load->model('general/m_currency');
+		$this->load->model('general/m_bank');
 		$this->load->model('remitos/m_remito_entrada');
 	}
 	
@@ -116,9 +117,14 @@ class Supplier extends MY_Controller
 		$db['taxs']				= $this->m_tax->getSelect();
 		$db['currencys']		= $this->m_currency->getSelect();
 		
-		if($id_supplier === NULL)
+		if($id_supplier === NULL || $id_supplier == 0)
 		{
 			$db['supplier']			= $this->m_supplier->getSelect();
+			
+			if($id_supplier == 0)
+			{
+				$db['mensaje']			= 'insert_ok';
+			}
 		}
 		else
 		{
@@ -292,16 +298,25 @@ class Supplier extends MY_Controller
 			}	
 		}
 		
-		$db['remitos']		= $this->m_remito_entrada->getID($array_insert['id_remito']);
+		if($this->input->post('payment') == 1)
+		{
+			redirect($this->view.'/supplier/pedido_pago_vista/'.$array_insert['id_remito']);
+		}
+		else
+		{
+			redirect($this->view.'/supplier/pedidos/0');	
+		}
+	}
+
+	function pedido_pago_vista($id_remito)
+	{
+		$db['remitos']		= $this->m_remito_entrada->getID($id_remito);
+		$db['bank']			= $this->m_bank->getSelect();
 		
 		$this->load->view('head');	
 		$this->load->view('menu');
 		$this->load->view($this->view.'/pedido_pago');
 		$this->load->view('footer');
 	}
-	
-
-	
-	
 }
 

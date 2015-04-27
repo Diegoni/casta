@@ -142,6 +142,10 @@
 	<?php 
 	if(isset($supplier))
 	{
+		if(isset($mensaje))
+		{
+			echo set_alert($this->lang->line($mensaje));
+		}
 	?>
 	<div class='container'>  
 	    <div class="col-md-12">
