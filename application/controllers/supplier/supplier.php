@@ -34,9 +34,7 @@ class Supplier extends MY_Controller
 	}
 	
 /*----------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 			Crud de proveedores
-------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------*/
 
 	function crud_supplier_faster()
@@ -72,9 +70,7 @@ class Supplier extends MY_Controller
 
 
 /*----------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 			Crud de productos
-------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------*/
 
 
@@ -89,9 +85,9 @@ class Supplier extends MY_Controller
 				
 		$crud->columns('name');
 				
-		$crud->display_as('date_add',	$this->lang->line("fecha")." ".$this->lang->line("alta"))
-			 ->display_as('name',		$this->lang->line("nombre"))
-			 ->display_as('date_upd',	$this->lang->line("fecha")." ".$this->lang->line("modificacion"));
+		$crud->display_as('date_add',	$this->lang->line('fecha')." ".$this->lang->line('alta'))
+			 ->display_as('name',		$this->lang->line('nombre'))
+			 ->display_as('date_upd',	$this->lang->line('fecha')." ".$this->lang->line('modificacion'));
 		
 		$crud->field_type('date_add', 'readonly');
 		$crud->field_type('date_upd', 'readonly');
@@ -106,9 +102,7 @@ class Supplier extends MY_Controller
 
 
 /*----------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 			Pedidos
-------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------*/
 
 
@@ -141,6 +135,12 @@ class Supplier extends MY_Controller
 		$this->load->view($this->view.'/pedidos');
 		$this->load->view('footer');
 	}
+	
+	
+/*----------------------------------------------------------------------------------
+		Función de carga detalle remito entrada con ajax
+-----------------------------------------------------------------------------------*/
+
 	
 	function buscar()
 	{
@@ -239,6 +239,12 @@ class Supplier extends MY_Controller
 			echo $cadena;
 		}
 	}
+	
+	
+/*----------------------------------------------------------------------------------
+		Función de busqueda de precios con ajax
+-----------------------------------------------------------------------------------*/
+
 
 	function buscar_precio($id)
 	{
@@ -250,7 +256,8 @@ class Supplier extends MY_Controller
 		{
 			$product	= $this->m_product->getRegistros('id_product = '.$id);
 			
-			foreach ($product as $row) {
+			foreach ($product as $row) 
+			{
 				echo round($row->price, 2);
 			}
 		}
@@ -258,31 +265,56 @@ class Supplier extends MY_Controller
 	
 	
 /*----------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 			Pago de Pedidos
-------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------*/
+-----------------------------------------------------------------------------------*/
 
 
 	function pedido_pago()
 	{
 		$array_post = $this->input->post();
 		
-		$array_insert_remito = array
-		(
-			'id_supplier'	=> $array_post['supplier'],
-			'id_tax'		=> $array_post['taxs'],
-			'id_currency'	=> $array_post['currencys'],
-			'date'			=> $array_post['fecha'],
-			'date_add'		=> date('Y-d-m H:i:s'),
-			'active'		=> 1,
-			'id_status'		=> 1,
+		$array_insert_remito = array(
+			'id_supplier'		=> $array_post['supplier'],
+			'id_factura'		=> 0,
+			'id_employee'		=> 1,
+			'id_status'			=> 1,
+			'id_forma_pago'		=> $array_post['forma_pago'],
+			'id_condicion_pago'	=> $array_post['condicion_pago'],
+			'id_tax'			=> $array_post['taxs'],
+			'id_currency'		=> $array_post['currencys'],
+			'precio_cambio'		=> 1,
+			'monto'				=> $array_post['total'],
+			'descuento'			=> $array_post['descuento'],
+			'numero_remito'		=> 1,
+			'fecha_pre_entrega'	=> $array_post['fecha_pre_entrega'],
+			'date_add'			=> date('Y-d-m H:i:s'),
+			'active'			=> 1,
 		);
 		
 		$this->db->insert('tms_remito_entrada', $array_insert_remito);
 		
 		$array_insert['id_remito'] = $this->db->insert_id();
 		
+		carga_detalle_remito($array_post);
+		
+		if($this->input->post('payment') == 1)
+		{
+			redirect($this->view.'/supplier/pedido_pago_vista/'.$array_insert['id_remito']);
+		}
+		else
+		{
+			redirect($this->view.'/supplier/pedidos/0');	
+		}
+	}
+	
+	
+/*----------------------------------------------------------------------------------
+		Carga el detalle de los remitos, separa los campos del id
+-----------------------------------------------------------------------------------*/
+
+
+	function carga_detalle_remito($array_post)
+	{
 		foreach ($array_post as $key => $value) 
 		{
 			$array_key = explode("-", $key);
@@ -299,19 +331,19 @@ class Supplier extends MY_Controller
 			if($array_key[0] == 'subtotal')
 			{
 				$array_insert['id_product'] = $array_key[1];
-				$this->db->insert('tms_detalle_remito_entrada', $array_insert); 
+				if(isset($array_insert['id_product']))
+				{
+					$this->db->insert('tms_detalle_remito_entrada', $array_insert);	
+				} 
 			}	
 		}
-		
-		if($this->input->post('payment') == 1)
-		{
-			redirect($this->view.'/supplier/pedido_pago_vista/'.$array_insert['id_remito']);
-		}
-		else
-		{
-			redirect($this->view.'/supplier/pedidos/0');	
-		}
 	}
+	
+	
+/*----------------------------------------------------------------------------------
+		Redirección despues de hacer el pago del remito
+-----------------------------------------------------------------------------------*/
+
 
 	function pedido_pago_vista($id_remito)
 	{

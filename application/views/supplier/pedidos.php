@@ -296,7 +296,7 @@
 						<div class="col-md-2">
 							<div class="input-group">
       							<div class="input-group-addon">$</div>
-      							<input id='subtotal' class='form-control' readonly>
+      							<input id='subtotal' name='subtotal' class='form-control' readonly>
       						</div>
       					</div>
 						<div class="col-md-2">
@@ -307,14 +307,14 @@
 						<div class="col-md-2">
 							<div class="input-group">
       							<div class="input-group-addon">$</div>
-      							<input id='impuesto' class='form-control' readonly>
+      							<input id='impuesto' name='impuesto' class='form-control' readonly>
       						</div>
       					</div>
 						<div class="col-md-2"><b class="pull-right"><?php echo $this->lang->line('total') ?></b></div>
 						<div class="col-md-2">
 							<div class="input-group">
       							<div class="input-group-addon">$</div>
-      							<input id='total' class='form-control' readonly>
+      							<input id='total' name='total' class='form-control' readonly>
       						</div>
       					</div>
 					</div>
