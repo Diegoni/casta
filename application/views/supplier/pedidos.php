@@ -147,6 +147,11 @@
 			echo set_alert($this->lang->line($mensaje));
 		}
 	?>
+					
+<!----------------------------------------------------------------------------
+		Seleccion del proveedor
+----------------------------------------------------------------------------->
+
 	<div class='container'>  
 	    <div class="col-md-12">
 			<div class="panel panel-default">
@@ -183,6 +188,10 @@
 	  			<div class="panel-body">
 	  				<form class='form-horizontal' method="post" id="form" action="<?php echo base_url().'index.php/supplier/supplier/pedido_pago'?>">
 					
+<!----------------------------------------------------------------------------
+		Cabecera del Pedido
+----------------------------------------------------------------------------->
+
 					<div class="row">
 						<?php echo label_helper_horizontal($this->lang->line('proveedor')); ?>
 						<?php
@@ -210,6 +219,10 @@
 							</a>
 						</div>
 					</div>
+
+<!----------------------------------------------------------------------------
+		Detalles de la cabecera del Pedido
+----------------------------------------------------------------------------->
 												
 					<div class='slidingDiv'>
 						<div class="row">
@@ -228,7 +241,6 @@
 							<?php echo select_helper_horizontal('condicion_pago', $condiciones_pago, NULL, 2); ?>
 							<?php echo label_helper_horizontal($this->lang->line('descuento')); ?>
 							<?php echo input_helper_horizontal('descuento', NULL, 2);?>
-							
 						</div>
 						
 						<div class="row">
@@ -253,6 +265,10 @@
 						</div> 
 					</div>
 					<hr>
+
+<!----------------------------------------------------------------------------
+		Detalles del Pedido
+----------------------------------------------------------------------------->
 				
 					<div class="row hide test">
 						<div class="col-md-2 cabecera"><?php echo $this->lang->line('codigo') ?></div>
@@ -262,17 +278,32 @@
 						<div class="col-md-2 cabecera"><?php echo $this->lang->line('subtotal') ?></div>
 						<div class="col-md-1 cabecera"><?php echo $this->lang->line('opciones') ?></div>
 					</div>
-					<div class="cloundcontainer"></div>
+					<div class="cloundcontainer">
+						<!-- En este div se carga ajax -->
+					</div>
 					<hr>
+					
+<!----------------------------------------------------------------------------
+		Sumas totales del pedido
+----------------------------------------------------------------------------->
+					
 					<div class="row hide test">
-						<div class="col-md-2"><b class="pull-right"><?php echo $this->lang->line('subtotal') ?></b></div>
+						<div class="col-md-2">
+							<b class="pull-right">
+								<?php echo $this->lang->line('subtotal') ?>
+							</b>
+						</div>
 						<div class="col-md-2">
 							<div class="input-group">
       							<div class="input-group-addon">$</div>
       							<input id='subtotal' class='form-control' readonly>
       						</div>
       					</div>
-						<div class="col-md-2"><b class="pull-right"><?php echo $this->lang->line('impuesto') ?></b></div>
+						<div class="col-md-2">
+							<b class="pull-right">
+								<?php echo $this->lang->line('impuesto') ?>
+							</b>
+						</div>
 						<div class="col-md-2">
 							<div class="input-group">
       							<div class="input-group-addon">$</div>
@@ -317,17 +348,19 @@
     <?php
     }
 	?>
- 
- 
- 
+					
+<!----------------------------------------------------------------------------
+		Modal del pedido
+----------------------------------------------------------------------------->
 
-<!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"><?php echo $this->lang->line('buscar') ?></h4>
+				<h4 class="modal-title" id="myModalLabel">
+					<?php echo $this->lang->line('buscar') ?>
+				</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
