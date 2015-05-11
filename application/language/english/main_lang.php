@@ -71,6 +71,7 @@ $lang['forma_pago']			= 'Forma pago';
 $lang['formato']			= 'Formato';		
 
 // G
+$lang['gain']				= 'Ganancia';
 $lang['general']			= 'General';			
 $lang['genero']				= 'Género';		 
 $lang['grupo']				= 'Grupo';		
@@ -124,7 +125,8 @@ $lang['pendiente']			= 'Pendiente';
 $lang['perfiles']			= 'Perfiles';			
 $lang['posicion']			= 'Posición';			
 $lang['precio']				= 'Precio';		
-$lang['print']				= 'Imprimir';		
+$lang['print']				= 'Imprimir';	
+$lang['price_display']		= 'Método de visualización Precio';	
 $lang['producto']			= 'Producto';			
 $lang['productos']			= 'Productos';			
 $lang['proveedor']			= 'Proveedor';			
@@ -133,6 +135,7 @@ $lang['proveedores']		= 'Proveedores';
 // R
 $lang['rango_conversion']	= 'Rango de conversión';
 $lang['recargo']			= 'Recargo';			
+$lang['reduccion']			= 'Reducción';
 $lang['referencia']			= 'Referencia';			
 $lang['refresh']			= 'Refresh';			
 $lang['reglas']				= 'Reglas';		

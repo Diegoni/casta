@@ -41,7 +41,15 @@ class Group extends MY_Controller
 		
 		$crud->set_subject($this->title);
 				
-		$crud->columns('id_group', 'descripcion');
+		$crud->columns('id_group', 'descripcion', 'reduction', 'gain');
+		
+		$crud->fields('descripcion', 'reduction', 'gain');
+		
+		$crud->display_as('id_group','ID')
+			 ->display_as('descripcion', $this->lang->line('descripcion'))
+			 ->display_as('reduction', $this->lang->line('reduccion'))
+			 ->display_as('gain', $this->lang->line('gain'))
+			 ->display_as('price_display_method', $this->lang->line('price_display'));
 		
 		$crud->field_type('date_add', 'readonly');
 		$crud->field_type('date_upd', 'readonly');

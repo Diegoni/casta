@@ -115,13 +115,13 @@ class Supplier extends MY_Controller
 		$db['formas_pago']		= $this->m_forma_pago->getSelect();
 		$db['condiciones_pago']	= $this->m_condicion_pago->getSelect();
 		
-		if($id_supplier === NULL || $id_supplier == 0)
+		if($id_supplier === NULL || $id_supplier == 0 || $id_supplier == -1)
 		{
 			$db['supplier']			= $this->m_supplier->getSelect();
 			
-			if($id_supplier == 0)
+			if($id_supplier == -1)
 			{
-				//$db['mensaje']			= 'insert_ok';
+				$db['mensaje']			= 'insert_ok';
 			}
 		}
 		else
@@ -295,16 +295,9 @@ class Supplier extends MY_Controller
 		
 		$array_insert['id_remito'] = $this->db->insert_id();
 		
-		carga_detalle_remito($array_post);
+		$this->carga_detalle_remito($array_post);
 		
-		if($this->input->post('payment') == 1)
-		{
-			redirect($this->view.'/supplier/pedido_pago_vista/'.$array_insert['id_remito']);
-		}
-		else
-		{
-			redirect($this->view.'/supplier/pedidos/0');	
-		}
+		redirect($this->view.'/supplier/pedidos/-1');	
 	}
 	
 	
@@ -338,22 +331,6 @@ class Supplier extends MY_Controller
 			}	
 		}
 	}
-	
-	
-/*----------------------------------------------------------------------------------
-		Redirección despues de hacer el pago del remito
------------------------------------------------------------------------------------*/
 
-
-	function pedido_pago_vista($id_remito)
-	{
-		$db['remitos']		= $this->m_remito_entrada->getID($id_remito);
-		$db['bank']			= $this->m_bank->getSelect();
-		
-		$this->load->view('head');	
-		$this->load->view('menu');
-		$this->load->view($this->view.'/pedido_pago');
-		$this->load->view('footer');
-	}
 }
 
