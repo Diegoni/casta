@@ -1,0 +1,13 @@
+# Dolibarr language file - Source file is en_US - users
+SALARIES_ACCOUNTING_ACCOUNT_PAYMENT=Accountancy code for salaries payments
+SALARIES_ACCOUNTING_ACCOUNT_CHARGE=Accountancy code for financial charge
+Salary=Sou
+Salaries=Sous
+Employee=Empleat
+NewSalaryPayment=Nou pagament de sous
+SalaryPayment=Pagament de sous
+SalariesPayments=Pagaments de sous
+ShowSalaryPayment=Veure pagament de sous
+THM=Average hourly price
+TJM=Average daily price
+CurrentSalary=Current salary

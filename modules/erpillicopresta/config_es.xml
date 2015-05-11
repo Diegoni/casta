@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>erpillicopresta</name>
+	<displayName><![CDATA[1 Click ERP Illicopresta]]></displayName>
+	<version><![CDATA[3.0.2]]></version>
+	<description><![CDATA[Gane hasta 2h/d&iacute;a gracias a este pack ERP completo y evolutivo gestionando r&aacute;pida y eficazmente su tienda (env&iacute;os, inventario, gesti&oacute;n y exportaci&oacute;n de stock, pedidos proveedores&hellip;)]]></description>
+	<author><![CDATA[illicopresta]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>
