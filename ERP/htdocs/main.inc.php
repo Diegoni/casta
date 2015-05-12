@@ -976,13 +976,13 @@ function top_htmlhead($head, $title='', $disablejs=0, $disablehead=0, $arrayofjs
 		if (GETPOST('dol_basehref')) print '<base href="'.dol_escape_htmltag(GETPOST('dol_basehref')).'">'."\n";
         // Displays meta
         print '<meta name="robots" content="noindex,nofollow">'."\n";      // Evite indexation par robots
-        print '<meta name="author" content="Dolibarr Development Team">'."\n";
+        //print '<meta name="author" content="Dolibarr Development Team">'."\n";
         $favicon=dol_buildpath('/theme/'.$conf->theme.'/img/favicon.ico',1);
         if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
         print '<link rel="shortcut icon" type="image/x-icon" href="'.$favicon.'"/>'."\n";
         if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) print '<link rel="top" title="'.$langs->trans("Home").'" href="'.(DOL_URL_ROOT?DOL_URL_ROOT:'/').'">'."\n";
         if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) print '<link rel="copyright" title="GNU General Public License" href="http://www.gnu.org/copyleft/gpl.html#SEC1">'."\n";
-        if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) print '<link rel="author" title="Development Team" href="http://www.dolibarr.org">'."\n";
+        //if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) print '<link rel="author" title="Development Team" href="http://www.dolibarr.org">'."\n";
 
         // Displays title
         $appli='ERP';
@@ -1035,7 +1035,7 @@ function top_htmlhead($head, $title='', $disablejs=0, $disablehead=0, $arrayofjs
 
         }
 
-        print '<!-- Includes CSS for Dolibarr theme -->'."\n";
+        print '<!-- Includes CSS -->'."\n";
         // Output style sheets (optioncss='print' or ''). Note: $conf->css looks like '/theme/eldy/style.css.php'
         //$themepath=dol_buildpath((empty($conf->global->MAIN_FORCETHEMEDIR)?'':$conf->global->MAIN_FORCETHEMEDIR).$conf->css,1);
         $themepath=dol_buildpath($conf->css,1);
@@ -1237,7 +1237,7 @@ function top_htmlhead($head, $title='', $disablejs=0, $disablehead=0, $arrayofjs
             }
 
             // Global js function
-            print '<!-- Includes JS of Dolibarr -->'."\n";
+            print '<!-- Includes JS -->'."\n";
             print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/lib_head.js'.($ext?'?'.$ext:'').'"></script>'."\n";
 
             // Add datepicker default options
@@ -1434,7 +1434,7 @@ function top_menu($head, $title='', $target='', $disablejs=0, $disablehead=0, $a
 	    if (! empty($conf->browser->phone)) $loginhtmltext.='<br><b>'.$langs->trans("Phone").'</b>: '.$conf->browser->phone;
 	    if (! empty($_SESSION["disablemodules"])) $loginhtmltext.='<br><b>'.$langs->trans("DisabledModules").'</b>: <br>'.join(', ',explode(',',$_SESSION["disablemodules"]));
 
-	    $appli='Dolibarr';
+	    $appli='ERP';
 	    if (! empty($conf->global->MAIN_APPLICATION_TITLE))
 	    {
 	    	$appli=$conf->global->MAIN_APPLICATION_TITLE;
@@ -1444,7 +1444,7 @@ function top_menu($head, $title='', $target='', $disablejs=0, $disablehead=0, $a
 	    	}
 	    	else $appli.=" ".DOL_VERSION;
 	    }
-	    else $appli.=" ".DOL_VERSION;
+	    //else $appli.=" ".DOL_VERSION;
 		if (! empty($conf->global->MAIN_FEATURES_LEVEL)) $appli.="<br>".$langs->trans("LevelOfFeature").': '.$conf->global->MAIN_FEATURES_LEVEL;
 
 	    $logouttext='';
@@ -1635,8 +1635,8 @@ function left_menu($menu_array_before, $helppagename='', $moresearchform='', $me
         print "<!-- Begin Help Block-->\n";
         print '<div id="blockvmenuhelp" class="blockvmenuhelp">'."\n";
 
-        //Dolibarr version
-        $doliurl='http://www.dolibarr.org';
+        //TMS: Dolibarr version
+        $doliurl='http://www.tmsgroup.com.ar';
 		//local communities
 		if (preg_match('/fr/i',$langs->defaultlang)) $doliurl='http://www.dolibarr.fr';
 		if (preg_match('/es/i',$langs->defaultlang)) $doliurl='http://www.dolibarr.es';

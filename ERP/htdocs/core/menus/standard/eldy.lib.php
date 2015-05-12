@@ -495,7 +495,7 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 					$newmenu->add("/admin/dict.php?mainmenu=home", $langs->trans("Dictionary"),1);
 					$newmenu->add("/admin/const.php?mainmenu=home", $langs->trans("OtherSetup"),1);
 				}
-
+/* TMS: menú utilidades del sistema
 				// System tools
 				$newmenu->add("/admin/tools/index.php?mainmenu=home&amp;leftmenu=admintools", $langs->trans("SystemTools"), 0, 1, '', $mainmenu, 'admintools');
 				if (empty($leftmenu) || preg_match('/^admintools/',$leftmenu))
@@ -520,7 +520,7 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 					$newmenu->add('/admin/system/about.php?mainmenu=home&amp;leftmenu=admintools', $langs->trans('About'), 1);
 					$newmenu->add("/support/index.php?mainmenu=home&amp;leftmenu=admintools", $langs->trans("HelpCenter"),1,1,'targethelp');
 				}
-
+*/
 				// Modules system tools
 				if (! empty($conf->product->enabled) || ! empty($conf->service->enabled) || ! empty($conf->barcode->enabled)	// TODO We should enabled module system tools entry without hardcoded test, but when at least one modules bringing such entries are on
 					|| ! empty($conf->global->MAIN_MENU_ENABLE_MODULETOOLS))	// Some external modules may need to force to have this entry on.

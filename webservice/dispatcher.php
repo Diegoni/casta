@@ -55,7 +55,7 @@ elseif (isset($_GET['ws_key']))
 else
 {
 	header($_SERVER['SERVER_PROTOCOL'].' 401 Unauthorized');
-	header('WWW-Authenticate: Basic realm="Welcome to PrestaShop Webservice, please enter the authentication key as the login. No password required."');
+	//header('WWW-Authenticate: Basic realm="Welcome to PrestaShop Webservice, please enter the authentication key as the login. No password required."');
 	die;
 }
 

@@ -272,14 +272,14 @@ if (! empty($categ[$categidx]))
     $head[$h][2] = 'expdev';
     $h++;
 }
-
+/*
+ *TMS: modulos de DOLIBAR
 $categidx='marketplace';
 $head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
 $head[$h][1] = $langs->trans("ModulesMarketPlaces");
 $head[$h][2] = 'marketplace';
 $h++;
-
-
+*/
 print "<br>\n";
 
 

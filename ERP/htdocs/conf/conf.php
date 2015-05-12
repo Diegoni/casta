@@ -5,11 +5,11 @@
 // Take a look at conf.php.example file for an example of conf.php file
 // and explanations for all possibles parameters.
 //
-$dolibarr_main_url_root='http://localhost/dolibarr-3.7.0/dolibarr-3.7.0/htdocs';
-$dolibarr_main_document_root='C:/xampp2/htdocs/dolibarr-3.7.0/dolibarr-3.7.0/htdocs';
+$dolibarr_main_url_root='http://localhost/casta/ERP/htdocs/';
+$dolibarr_main_document_root='C:/xampp2/htdocs/casta/ERP/htdocs';
 //$dolibarr_main_url_root_alt='/custom';
 //$dolibarr_main_document_root_alt='C:/xampp2/htdocs/dolibarr-3.7.0/dolibarr-3.7.0/htdocs/custom';
-$dolibarr_main_data_root='C:/xampp2/htdocs/dolibarr-3.7.0/dolibarr-3.7.0/documents';
+$dolibarr_main_data_root='C:/xampp2/htdocs/casta/ERP/documents';
 $dolibarr_main_db_host='localhost';
 $dolibarr_main_db_port='';
 $dolibarr_main_db_name='prestashop';

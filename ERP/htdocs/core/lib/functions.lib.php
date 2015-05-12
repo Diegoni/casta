@@ -666,7 +666,7 @@ function dol_get_fiche_head($links=array(), $active='0', $title='', $notab=0, $p
 {
 	global $conf;
 
-	$out="\n".'<div class="tabs" data-role="controlgroup" data-type="horizontal">'."\n";
+	//$out="\n".'<div class="tabs" data-role="controlgroup" data-type="horizontal">'."\n";
 
 	// Show title
 	$showtitle=1;

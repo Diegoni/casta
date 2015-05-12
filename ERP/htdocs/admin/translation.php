@@ -57,11 +57,12 @@ print_fiche_titre($langs->trans("TranslationSetup"),'','setup');
 print $langs->trans("TranslationDesc")."<br>\n";
 print "<br>\n";
 
-print $langs->trans("CurrentUserLanguage").': <strong>'.$langs->defaultlang.'</strong><br>';
-print img_warning().' '.$langs->trans("SomeTranslationAreUncomplete").'<br>';
+//TMS: mensaje en traducción
+//print $langs->trans("CurrentUserLanguage").': <strong>'.$langs->defaultlang.'</strong><br>';
+//print img_warning().' '.$langs->trans("SomeTranslationAreUncomplete").'<br>';
 
-$urlwikitranslatordoc='http://wiki.dolibarr.org/index.php/Translator_documentation';
-print $langs->trans("SeeAlso").': <a href="'.$urlwikitranslatordoc.'" target="_blank">'.$urlwikitranslatordoc.'</a><br>';
+//$urlwikitranslatordoc='http://wiki.dolibarr.org/index.php/Translator_documentation';
+//print $langs->trans("SeeAlso").': <a href="'.$urlwikitranslatordoc.'" target="_blank">'.$urlwikitranslatordoc.'</a><br>';
 
 
 llxFooter();
