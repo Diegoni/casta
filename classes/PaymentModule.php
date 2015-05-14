@@ -192,6 +192,7 @@ abstract class PaymentModuleCore extends Module
 				PrestaShopLogger::addLog('PaymentModule::validateOrder - Secure key does not match', 3, null, 'Cart', (int)$id_cart, true);
 				die(Tools::displayError());
 			}
+			 
 
 			// For each package, generate an order
 			$delivery_option_list = $this->context->cart->getDeliveryOptionList();

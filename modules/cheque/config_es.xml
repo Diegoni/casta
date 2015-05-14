@@ -2,7 +2,7 @@
 <module>
 	<name>cheque</name>
 	<displayName><![CDATA[Cheque]]></displayName>
-	<version><![CDATA[2.5.6]]></version>
+	<version><![CDATA[2.5.7]]></version>
 	<description><![CDATA[Este m&oacute;dulo le permite aceptar pagos por cheque]]></description>
 	<author><![CDATA[PrestaShop]]></author>
 	<tab><![CDATA[payments_gateways]]></tab>
