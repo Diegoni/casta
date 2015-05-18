@@ -12,12 +12,19 @@ class Actualizar extends CommonObject
 	var $system_dolibar		= 'dolibar';
 	var $system_prestashop	= 'prestashop';
 	
-	// tablas en base de datos
-	var $table_log_clientes	= 'tms_log_clientes';
-	var $table_clientes_sin = 'tms_clientes_sin';
-	var $table_mod_clientes	= 'tms_mod_clientes';
+	// tablas en base de datos para CLIENTES
+	var $table_log_clientes	= 'tms_log_clientes'; //Guarda los cambios
+	var $table_clientes_sin = 'tms_clientes_sin'; //Tabla de cruces 
 	var $table_clientes_dol	= 'llx_societe';
 	var $table_clientes_pre	= 'ps_customer';
+	
+	// tablas en base de datos para DIRECCIONES
+	var $table_log_dir	= 'tms_log_direccion'; //Guarda los cambios
+	var $table_dir_sin	= 'tms_direccion_sin'; //Tabla de cruces 
+	var $table_dir_dol	= 'llx_socpeople';
+	var $table_dir_pre	= 'ps_address';
+		
+	var $table_mod_clientes	= 'tms_mod_clientes';
 	
 	function __construct($db)
 	{
@@ -46,9 +53,9 @@ class Actualizar extends CommonObject
 			{
 				$objp = $this->db->fetch_object($resql);
 				
-	/*----------------------------------------------------------------
-			INSERT desde PRESTASHOP 
-	----------------------------------------------------------------*/
+		/*----------------------------------------------------------------
+				INSERT desde PRESTASHOP actualizo DOLIBAR
+		----------------------------------------------------------------*/
 	 			
 				if($objp->action == $this->action_insert)
 				{
@@ -100,9 +107,9 @@ class Actualizar extends CommonObject
 						$this->db->query($sql_update);
 					}
 					
-	/*----------------------------------------------------------------
-			INSERT desde DOLIBAR 
-	----------------------------------------------------------------*/
+		/*----------------------------------------------------------------
+				INSERT desde DOLIBAR actualizo PRESTASHOP
+		----------------------------------------------------------------*/
 	 				
 					else	
 					if($objp->system == $this->system_dolibar)					
@@ -196,9 +203,9 @@ class Actualizar extends CommonObject
 					}
 				}
 				
-	/*----------------------------------------------------------------
-			UPDATE desde PRESTASHOP 
-	----------------------------------------------------------------*/
+		/*----------------------------------------------------------------
+				UPDATE desde PRESTASHOP actualizo DOLIBAR
+		----------------------------------------------------------------*/
 	 
 				else 
 				if($objp->action == $this->action_update)	
@@ -238,9 +245,10 @@ class Actualizar extends CommonObject
 						 
 					}
 								
-	/*----------------------------------------------------------------
-			UPDATE desde DOLIBAR 
-	----------------------------------------------------------------*/
+		/*----------------------------------------------------------------
+				UPDATE desde DOLIBAR actualizo PRESTASHOP
+		----------------------------------------------------------------*/
+		
 	 				else	
 					if($objp->system == $this->system_dolibar)					
 					{
@@ -353,6 +361,73 @@ class Actualizar extends CommonObject
 	
 	function actualizar_direcciones()
 	{
+		$sql = "SELECT * FROM `$this->table_log_dir` WHERE id_estado = 0";
+	
+		$resql = $this->db->query($sql);
+		$numr = $this->db->num_rows($resql);
+		$i = 0;
+		
+		if($numr > 0)
+		{				
+			while ($i < $numr)
+			{
+				$objp = $this->db->fetch_object($resql);
+				
+		/*----------------------------------------------------------------
+				INSERT desde PRESTASHOP actualizo DOLIBAR
+		----------------------------------------------------------------*/
+	 			
+				if($objp->action == $this->action_insert)
+				{
+					if($objp->system == $this->system_prestashop)
+					{
+						
+					}
+		/*----------------------------------------------------------------
+				INSERT desde DOLIBAR actualizo PRESTASHOP
+		----------------------------------------------------------------*/
+	 				
+					else	
+					if($objp->system == $this->system_dolibar)					
+					{
+					
+					}
+				}
+				
+		/*----------------------------------------------------------------
+				UPDATE desde PRESTASHOP actualizo DOLIBAR
+		----------------------------------------------------------------*/
+	 			
+				else 
+				if($objp->action == $this->action_update)	
+				{
+					if($objp->system == $this->system_prestashop)
+					{
+						
+					}
+								
+		/*----------------------------------------------------------------
+				UPDATE desde DOLIBAR actualizo PRESTASHOP
+		----------------------------------------------------------------*/
+		
+	 				else	
+					if($objp->system == $this->system_dolibar)					
+					{
+					
+					}
+				}
+				
+				$i++;
+			}
+		}
+	
+		$sql = "DELETE FROM `$this->table_log_dir` WHERE id_estado = 0";
+	
+		$resql = $this->db->query($sql);	
+		
+		$sql = "UPDATE `$this->table_mod_clientes` SET direcciones_dolibar = 0, direcciones_prestashop = 0 WHERE id_row = 1";
+	
+		$resql = $this->db->query($sql);
 		
 	}
 
