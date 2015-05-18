@@ -24,6 +24,7 @@
  *  \brief		Library for file eldy menus
  */
 require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/actualizar_terceros.php';
 
 
 /**
@@ -563,6 +564,32 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 				if ($user->rights->societe->creer)
 				{
 					$newmenu->add("/societe/soc.php?action=create", $langs->trans("MenuNewThirdParty"),1);
+					//TMS: actualizar terceros
+					$sql = "SELECT * FROM `tms_mod_clientes` WHERE id_row = 1";
+
+					$resql = $db->query($sql);
+					$numr = $db->num_rows($resql);
+					$i = 0;
+					
+					while ($i < $numr)
+					{
+						$objp = $db->fetch_object($resql);
+						
+						$terceros_dolibar = $objp->clientes_dolibar; 
+						if($objp->clientes_dolibar > 0 || $objp->clientes_prestashop > 0)
+						{
+							actualizar_terceros($db);
+						} 
+						$i++;
+					}
+					
+					/* TMS:Hacer una función que force la actualización en caso de error
+					if($terceros_dolibar > 0)
+					{
+						$newmenu->add("/societe/actualizar.php", 'Actualizar terceros <span class="badge">'.$terceros_dolibar.'</span>',1);	
+					}
+					*/
+					 
 					if (! $conf->use_javascript_ajax) $newmenu->add("/societe/soc.php?action=create&amp;private=1",$langs->trans("MenuNewPrivateIndividual"),1);
 				}
 			}

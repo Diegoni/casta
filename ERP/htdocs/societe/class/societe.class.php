@@ -356,8 +356,8 @@ class Societe extends CommonObject
      * To contains a clone of this when we need to save old properties of object
      */
     var $oldcopy;
-
-    /**
+	
+	/**
      *    Constructor
      *
      *    @param	DoliDB		$db		Database handler
@@ -424,7 +424,9 @@ class Societe extends CommonObject
 
         if ($result >= 0)
         {
-            $sql = "INSERT INTO ".MAIN_DB_PREFIX."societe (nom, entity, datec, fk_user_creat, canvas, status, ref_int, ref_ext, fk_stcomm, import_key)";
+        	$secure_key            = md5(uniqid(rand(), true));
+			
+            $sql = "INSERT INTO ".MAIN_DB_PREFIX."societe (nom, entity, datec, fk_user_creat, canvas, status, ref_int, ref_ext, fk_stcomm, import_key, secure_key, id_sin)";
             $sql.= " VALUES ('".$this->db->escape($this->name)."', ".$conf->entity.", '".$this->db->idate($now)."'";
             $sql.= ", ".(! empty($user->id) ? "'".$user->id."'":"null");
             $sql.= ", ".(! empty($this->canvas) ? "'".$this->canvas."'":"null");
@@ -432,7 +434,9 @@ class Societe extends CommonObject
             $sql.= ", ".(! empty($this->ref_int) ? "'".$this->ref_int."'":"null");
             $sql.= ", ".(! empty($this->ref_ext) ? "'".$this->ref_ext."'":"null");
             $sql.= ", 0";
-            $sql.= ", ".(! empty($this->import_key) ? "'".$this->import_key."'":"null").")";
+            $sql.= ", ".(! empty($this->import_key) ? "'".$this->import_key."'":"null");
+			$sql.= ", '".$secure_key."'";	
+			$sql.= ", -1 )";
 
             dol_syslog(get_class($this)."::create", LOG_DEBUG);
             $result=$this->db->query($sql);
