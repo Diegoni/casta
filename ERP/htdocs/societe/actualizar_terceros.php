@@ -401,11 +401,11 @@ class Actualizar extends CommonObject
 					if($objp->system == $this->system_prestashop)
 					{
 						$sql_sin = "SELECT * FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_cliente";
-	
-						$resql_sin = $this->db->query($sql_sin);
-						$numr_sin = $this->db->num_rows($resql_sin);
 						
-						if($numr_sin != 0)
+						$resql_sin = $this->db->query($sql_sin);
+						$objp_id_row = $this->db->fetch_array($resql_sin);
+																		
+						if($objp_id_row['id_ps_address'] != 0)
 						{
 							$sql_id_row = "SELECT `id_llx_societe` FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_cliente";
 							
@@ -470,12 +470,10 @@ class Actualizar extends CommonObject
 						}
 						else
 						{
-							$objp_id_row = $this->db->fetch_array($resql_sin);	
-							
 							$sql_insert =
 							"UPDATE `$this->table_clientes_dol`
 								SET 
-									`address`	= '$objp->address1',
+									`address`	= '$objp->address',
 									`zip`		= '$objp->postcode',
 									`town`		= '$objp->city',
 									`phone`		= '$objp->phone',
@@ -491,6 +489,7 @@ class Actualizar extends CommonObject
 									`id_ps_address` = $objp->id_row
 								WHERE
 									`id_llx_societe` = $objp_id_row[id_llx_societe];";
+
 							
 							$this->db->query($sql_insert);
 							
@@ -500,6 +499,8 @@ class Actualizar extends CommonObject
 									`id_estado` = 1
 								WHERE 
 									`$this->table_log_dir`.`id_log` = $objp->id_log;";
+									
+							echo $sql_update."<br>";			
 								
 							$this->db->query($sql_update);							
 						}

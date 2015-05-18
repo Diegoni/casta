@@ -581,8 +581,6 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 					
 					$actualizar = new Actualizar($db);
 					
-					$actualizar->mostrar();
-					
 					while ($i < $numr)
 					{
 						$objp = $db->fetch_object($resql);
