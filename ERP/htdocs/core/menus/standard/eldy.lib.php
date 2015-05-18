@@ -24,6 +24,10 @@
  *  \brief		Library for file eldy menus
  */
 require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
+
+/*----------------------------------------------------------------
+		TMS: importar funciones 
+----------------------------------------------------------------*/
 require_once DOL_DOCUMENT_ROOT.'/societe/actualizar_terceros.php';
 
 
@@ -564,22 +568,35 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 				if ($user->rights->societe->creer)
 				{
 					$newmenu->add("/societe/soc.php?action=create", $langs->trans("MenuNewThirdParty"),1);
-					//TMS: actualizar terceros
+
+/*----------------------------------------------------------------
+		TMS: actualizar registros 
+----------------------------------------------------------------*/
+					
 					$sql = "SELECT * FROM `tms_mod_clientes` WHERE id_row = 1";
 
 					$resql = $db->query($sql);
 					$numr = $db->num_rows($resql);
 					$i = 0;
 					
+					$actualizar = new Actualizar($db);
+					
+					$actualizar->mostrar();
+					
 					while ($i < $numr)
 					{
 						$objp = $db->fetch_object($resql);
-						
-						$terceros_dolibar = $objp->clientes_dolibar; 
+					 
 						if($objp->clientes_dolibar > 0 || $objp->clientes_prestashop > 0)
 						{
-							actualizar_terceros($db);
+							$actualizar->actualizar_terceros();
 						} 
+						
+						if($objp->direcciones_dolibar > 0 || $objp->direcciones_prestashop > 0)
+						{
+							$actualizar->actualizar_direcciones();
+						}
+						
 						$i++;
 					}
 					
@@ -589,6 +606,10 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 						$newmenu->add("/societe/actualizar.php", 'Actualizar terceros <span class="badge">'.$terceros_dolibar.'</span>',1);	
 					}
 					*/
+					
+/*----------------------------------------------------------------
+		FIN: actualizar registros 
+----------------------------------------------------------------*/					
 					 
 					if (! $conf->use_javascript_ajax) $newmenu->add("/societe/soc.php?action=create&amp;private=1",$langs->trans("MenuNewPrivateIndividual"),1);
 				}

@@ -6,4 +6,5 @@ application/cache/*
 
 application/logs/*
 !application/logs/index.html
-!application/logs/.htaccess
+!application/logs/.htaccesscache
+cache
