@@ -100,9 +100,11 @@ class Actualizar extends CommonObject
 						$this->db->query($sql_insert);
 						
 						$sql_update = 
-						"UPDATE `$this->table_log_clientes` SET 
-							`id_estado` = 1
-						WHERE `$this->table_log_clientes`.`id_row` = $objp->id_row;";
+						"UPDATE `$this->table_log_clientes` 
+							SET 
+								`id_estado` = 1
+							WHERE 
+								`$this->table_log_clientes`.`id_log` = $objp->id_log;";
 							
 						$this->db->query($sql_update);
 					}
@@ -195,9 +197,11 @@ class Actualizar extends CommonObject
 						$this->db->query($sql_insert);
 						
 						$sql_update = 
-						"UPDATE `$this->table_log_clientes` SET 
-							`id_estado` = 1
-						WHERE `$this->table_log_clientes`.`id_row` = $objp->id_row;";
+						"UPDATE `$this->table_log_clientes` 
+							SET 
+								`id_estado` = 1
+							WHERE 
+								`$this->table_log_clientes`.`id_log` = $objp->id_log;";
 							
 						$this->db->query($sql_update);
 					}
@@ -212,7 +216,7 @@ class Actualizar extends CommonObject
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_update = "SELECT id_llx_societe FROM `$this->table_clientes_sin` WHERE id_ps_customer = $objp->id_row";
+						$sql_update = "SELECT `id_llx_societe` FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_row";
 						$resql_update = $this->db->query($sql_update);
 						
 						$numr_update = $this->db->num_rows($resql_update);
@@ -222,23 +226,27 @@ class Actualizar extends CommonObject
 							$objp_update = $this->db->fetch_array($resql_update);
 							
 							$sql_update = 
-							"UPDATE `$this->table_clientes_dol` SET 
-								`email` 	= '$objp->email',
-								`url` 		= '$objp->website',
-								`note_private` 	= '$objp->note',
-								`siren` 	= '$objp->cuil',
-								`nom`		= '$objp->nombre',
-								`datec` 	= '$objp->date_upd',
-								`status` 	= $objp->active,
-								`id_sin` 	= $objp->id_row
-							WHERE `$this->table_clientes_dol`.`rowid` = $objp_update[id_llx_societe];";
+							"UPDATE `$this->table_clientes_dol` 
+								SET 
+									`email` 	= '$objp->email',
+									`url` 		= '$objp->website',
+									`note_private` 	= '$objp->note',
+									`siren` 	= '$objp->cuil',
+									`nom`		= '$objp->nombre',
+									`datec` 	= '$objp->date_upd',
+									`status` 	= $objp->active,
+									`id_sin` 	= $objp->id_row
+								WHERE 
+									`$this->table_clientes_dol`.`rowid` = $objp_update[id_llx_societe];";
 							
 							$this->db->query($sql_update);
 							
 							$sql_update = 
-							"UPDATE `$this->table_log_clientes` SET 
-								`id_estado` = 1
-							WHERE `$this->table_log_clientes`.`id_row` = $objp->id_row;";
+							"UPDATE `$this->table_log_clientes` 
+								SET 
+									`id_estado` = 1
+								WHERE 
+									`$this->table_log_clientes`.`id_log` = $objp->id_log;";
 							
 							$this->db->query($sql_update);
 						}
@@ -252,7 +260,7 @@ class Actualizar extends CommonObject
 	 				else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$sql_update = "SELECT * FROM `$this->table_clientes_sin` WHERE id_llx_societe = $objp->id_row";
+						$sql_update = "SELECT * FROM `$this->table_clientes_sin` WHERE `id_llx_societe` = $objp->id_row";
 						$resql_update = $this->db->query($sql_update);
 						
 						$numr_update = $this->db->num_rows($resql_update);
@@ -262,16 +270,18 @@ class Actualizar extends CommonObject
 							$objp_update = $this->db->fetch_array($resql_update);
 							
 							$sql_registro = 
-							"UPDATE `$this->table_clientes_pre` SET 
-								`email` 	= '$objp->email' ,
-								`website` 	= '$objp->website',
-								`note` 		= '$objp->note',
-								`cuil` 		= '$objp->cuil',
-								`firstname` = '$objp->nombre',
-								`date_upd` 	= '$objp->date_upd',
-								`active` 	= $objp->active,
-								`id_sin` 	= $objp->id_row
-							WHERE `id_customer` = $objp_update[id_ps_customer];";
+							"UPDATE `$this->table_clientes_pre` 
+								SET 
+									`email` 	= '$objp->email' ,
+									`website` 	= '$objp->website',
+									`note` 		= '$objp->note',
+									`cuil` 		= '$objp->cuil',
+									`firstname` = '$objp->nombre',
+									`date_upd` 	= '$objp->date_upd',
+									`active` 	= $objp->active,
+									`id_sin` 	= $objp->id_row
+								WHERE 
+									`id_customer` = $objp_update[id_ps_customer];";
 							
 							$this->db->query($sql_registro);
 							
@@ -314,9 +324,10 @@ class Actualizar extends CommonObject
 									
 									$sql_clientes_sin = 
 									"UPDATE `$this->table_clientes_sin`
-									SET  id_ps_address = $id_address
-									WHERE 
-									id_llx_societe = $objp->id_row";
+										SET  
+											id_ps_address = $id_address
+										WHERE 
+											id_llx_societe = $objp->id_row";
 									
 									$this->db->query($sql_clientes_sin);
 									
@@ -327,9 +338,11 @@ class Actualizar extends CommonObject
 							}
 							
 							$sql_update = 
-							"UPDATE `$this->table_log_clientes` SET 
-								`id_estado` = 1
-							WHERE `$this->table_log_clientes`.`id_row` = $objp->id_row;";
+							"UPDATE `$this->table_log_clientes` 
+								SET 
+									`id_estado` = 1
+								WHERE 
+									`$this->table_log_clientes`.`id_log` = $objp->id_log;";
 							
 							$this->db->query($sql_update);
 						}	
@@ -341,13 +354,19 @@ class Actualizar extends CommonObject
 			}
 		}
 	
-		$sql = "DELETE FROM `$this->table_log_clientes` WHERE id_estado = 0";
+		$sql = "DELETE FROM `$this->table_log_clientes` WHERE `id_estado` = 0";
 	
-		$resql = $this->db->query($sql);	
+		$this->db->query($sql);	
 		
-		$sql = "UPDATE `$this->table_mod_clientes` SET clientes_dolibar = 0, clientes_prestashop = 0 WHERE id_row = 1";
+		$sql = 
+		"UPDATE `$this->table_mod_clientes` 
+			SET 
+				`clientes_dolibar` = 0, 
+				`clientes_prestashop` = 0 
+			WHERE 
+				`id_row` = 1";
 	
-		$resql = $this->db->query($sql);
+		$this->db->query($sql);
 	}
 	
 	
@@ -361,7 +380,7 @@ class Actualizar extends CommonObject
 	
 	function actualizar_direcciones()
 	{
-		$sql = "SELECT * FROM `$this->table_log_dir` WHERE id_estado = 0";
+		$sql = "SELECT * FROM `$this->table_log_dir` WHERE `id_estado` = 0";
 	
 		$resql = $this->db->query($sql);
 		$numr = $this->db->num_rows($resql);
@@ -381,8 +400,111 @@ class Actualizar extends CommonObject
 				{
 					if($objp->system == $this->system_prestashop)
 					{
+						$sql_sin = "SELECT * FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_cliente";
+	
+						$resql_sin = $this->db->query($sql_sin);
+						$numr_sin = $this->db->num_rows($resql_sin);
 						
+						if($numr_sin != 0)
+						{
+							$sql_id_row = "SELECT `id_llx_societe` FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_cliente";
+							
+							$resql_id_row = $this->db->query($sql_id_row);
+							
+							$objp_id_row = $this->db->fetch_array($resql_id_row);
+							
+							$sql_insert =
+							"INSERT INTO `$this->table_dir_dol`(
+								`fk_soc`,
+								`id_sin`, 
+								`firstname`, 
+								`lastname`, 
+								`address`, 
+								`zip`, 
+								`town`, 
+								`phone`, 
+								`phone_mobile`, 
+								`datec`, 
+								`poste`, 
+								`statut`,
+								`fk_user_creat`
+							)VALUES(
+								$objp_id_row[id_llx_societe],
+								$objp->id_row,
+								'$objp->firstname',
+								'$objp->lastname',
+								'$objp->address',
+								'$objp->postcode',
+								'$objp->city',
+								'$objp->phone',
+								'$objp->phone_mobile',
+								'$objp->date_add',
+								'$objp->alias',
+								$objp->active,
+								1
+							);";
+							
+							$this->db->query($sql_insert);
+							
+							$id_registro = $this->db->last_insert_id("$this->table_dir_dol");	
+														
+							$sql_insert = 
+							"INSERT INTO `$this->table_dir_sin` (
+								`id_ps_address`,
+								`id_llx_socpeople`
+							)VALUES(
+								$objp->id_row,
+								$id_registro
+							);";
+							
+							$this->db->query($sql_insert);
+							
+							$sql_update = 
+							"UPDATE `$this->table_log_dir` 
+								SET 
+									`id_estado` = 1
+								WHERE 
+									`$this->table_log_dir`.`id_log` = $objp->id_log;";
+								
+							$this->db->query($sql_update);
+						}
+						else
+						{
+							$objp_id_row = $this->db->fetch_array($resql_sin);	
+							
+							$sql_insert =
+							"UPDATE `$this->table_clientes_dol`
+								SET 
+									`address`	= '$objp->address1',
+									`zip`		= '$objp->postcode',
+									`town`		= '$objp->city',
+									`phone`		= '$objp->phone',
+									`id_sin`	= $objp->id_row
+								WHERE 
+									`rowid` 	= $objp_id_row[id_llx_societe];";
+							
+							$this->db->query($sql_insert);
+							
+							$sql_insert = 
+							"UPDATE `$this->table_clientes_sin`
+								SET 
+									`id_ps_address` = $objp->id_row
+								WHERE
+									`id_llx_societe` = $objp_id_row[id_llx_societe];";
+							
+							$this->db->query($sql_insert);
+							
+							$sql_update = 
+							"UPDATE `$this->table_log_dir` 
+								SET 
+									`id_estado` = 1
+								WHERE 
+									`$this->table_log_dir`.`id_log` = $objp->id_log;";
+								
+							$this->db->query($sql_update);							
+						}
 					}
+					
 		/*----------------------------------------------------------------
 				INSERT desde DOLIBAR actualizo PRESTASHOP
 		----------------------------------------------------------------*/
@@ -421,13 +543,19 @@ class Actualizar extends CommonObject
 			}
 		}
 	
-		$sql = "DELETE FROM `$this->table_log_dir` WHERE id_estado = 0";
+		$sql = "DELETE FROM `$this->table_log_dir` WHERE `id_estado` = 0";
 	
-		$resql = $this->db->query($sql);	
+		$this->db->query($sql);	
 		
-		$sql = "UPDATE `$this->table_mod_clientes` SET direcciones_dolibar = 0, direcciones_prestashop = 0 WHERE id_row = 1";
+		$sql = 
+		"UPDATE `$this->table_mod_clientes` 
+			SET 
+				`direcciones_dolibar` = 0, 
+				`direcciones_prestashop` = 0 
+			WHERE 
+				`id_row` = 1";
 	
-		$resql = $this->db->query($sql);
+		$this->db->query($sql);
 		
 	}
 
