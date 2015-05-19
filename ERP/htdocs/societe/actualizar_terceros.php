@@ -513,7 +513,59 @@ class Actualizar extends CommonObject
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
-					
+						$sql_id_row = "SELECT `id_ps_customer` FROM `$this->table_clientes_sin` WHERE `id_llx_societe` = $objp->id_cliente";
+							
+						$resql_id_row = $this->db->query($sql_id_row);
+							
+						$objp_id_row = $this->db->fetch_array($resql_id_row);
+						
+						$sql_insert =
+						"INSERT INTO `$this->table_dir_pre`(
+							`id_customer`,
+							`id_sin`, 
+							`firstname`, 
+							`lastname`,
+							`id_country`, 
+							`id_state`,
+							`address1`, 
+							`postcode`, 
+							`city`, 
+							`phone`, 
+							`phone_mobile`, 
+							`date_add`, 
+							`alias`, 
+							`active` 
+						)VALUES(
+							$objp_id_row[id_ps_customer],
+							$objp->id_row,
+							'$objp->firstname',
+							'$objp->lastname',
+							44,
+							111,
+							'-',
+							'$objp->postcode',
+							'$objp->city',
+							'$objp->phone',
+							'$objp->phone_mobile',
+							'$objp->date_add',
+							'-',
+							$objp->active
+						);";
+						
+						$this->db->query($sql_insert);
+						
+						$id_registro = $this->db->last_insert_id("$this->table_dir_pre");
+						
+						$sql_insert =
+						"INSERT INTO `$this->table_dir_sin` (
+							`id_ps_address`,
+							`id_llx_socpeople`
+						)VALUES(
+							$id_registro,
+							$objp->id_row
+						);";
+						
+						$this->db->query($sql_insert);
 					}
 				}
 				
