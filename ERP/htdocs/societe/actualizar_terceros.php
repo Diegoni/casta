@@ -150,7 +150,7 @@ class Actualizar extends CommonObject
 							$ciudad = 'Mendoza'; //Mejorar esta parte
 							
 							$sql_insert = 
-							"INSERT INTO `ps_address` (
+							"INSERT INTO `$this->table_dir_pre` (
 								`id_country`, 
 								`id_state`, 
 								`id_customer`, 
@@ -261,6 +261,7 @@ class Actualizar extends CommonObject
 					if($objp->system == $this->system_dolibar)					
 					{
 						$sql_update = "SELECT * FROM `$this->table_clientes_sin` WHERE `id_llx_societe` = $objp->id_row";
+						
 						$resql_update = $this->db->query($sql_update);
 						
 						$numr_update = $this->db->num_rows($resql_update);
@@ -286,8 +287,8 @@ class Actualizar extends CommonObject
 							$this->db->query($sql_registro);
 							
 							if($objp->address != NULL)
-							{
-								if($sql_update['id_ps_address'] == 0)
+							{	
+								if($objp_update['id_ps_address'] == 0)
 								{
 									$ciudad = 'Mendoza'; //Mejorar esta parte
 								
@@ -330,8 +331,21 @@ class Actualizar extends CommonObject
 											id_llx_societe = $objp->id_row";
 									
 									$this->db->query($sql_clientes_sin);
+								}
+								else
+								{
+									$sql_update =
+									"UPDATE `$this->table_dir_pre`
+										SET 
+											`address1`	= '$objp->address',
+											`postcode`	= '$objp->postcode',
+											`city`		= '$objp->city',
+											`phone`		= '$objp->phone',
+											`id_sin`	= '$objp->id_cliente'
+										WHERE 
+											`id_address` = $objp_update[id_ps_address];";
 									
-									echo "<br>".$sql_clientes_sin;
+									$this->db->query($sql_update);	
 								}
 							
 								
@@ -500,8 +514,6 @@ class Actualizar extends CommonObject
 								WHERE 
 									`$this->table_log_dir`.`id_log` = $objp->id_log;";
 									
-							echo $sql_update."<br>";			
-								
 							$this->db->query($sql_update);							
 						}
 					}
@@ -566,6 +578,15 @@ class Actualizar extends CommonObject
 						);";
 						
 						$this->db->query($sql_insert);
+						
+						$sql_update = 
+						"UPDATE `$this->table_log_dir` 
+							SET 
+								`id_estado` = 1
+							WHERE 
+								`$this->table_log_dir`.`id_log` = $objp->id_log;";
+									
+						$this->db->query($sql_update);	
 					}
 				}
 				
@@ -578,7 +599,77 @@ class Actualizar extends CommonObject
 				{
 					if($objp->system == $this->system_prestashop)
 					{
+						$sql_id_row = "SELECT `id_llx_societe` FROM `$this->table_clientes_sin` WHERE `id_ps_address` = $objp->id_row";
+													
+						$resql_id_row = $this->db->query($sql_id_row);
+						$numr_id_row = $this->db->num_rows($resql_id_row);
 						
+						if($numr_id_row > 0)
+						{
+							$objp_id_row = $this->db->fetch_array($resql_id_row);	
+							
+							$sql_update =
+							"UPDATE `$this->table_clientes_dol`
+								SET 
+									`address`	= '$objp->address',
+									`zip`		= '$objp->postcode',
+									`town`		= '$objp->city',
+									`phone`		= '$objp->phone',
+									`id_sin`	= '$objp->id_cliente'
+								WHERE 
+									`rowid` 	= $objp_id_row[id_llx_societe];";
+							
+							$this->db->query($sql_update);	
+							
+							$sql_update = 
+							"UPDATE `$this->table_log_dir` 
+								SET 
+									`id_estado` = 1
+								WHERE 
+									`$this->table_log_dir`.`id_log` = $objp->id_log;";
+										
+							$this->db->query($sql_update);		
+						}
+						else
+						{
+							$sql_row = "SELECT `id_llx_socpeople` FROM `$this->table_dir_sin` WHERE `id_ps_address` = $objp->id_row";
+																					
+							$resql_row = $this->db->query($sql_row);
+							$numr_row = $this->db->num_rows($resql_row);
+																					
+							if($numr_row > 0)
+							{
+								$objp_row = $this->db->fetch_array($resql_row);
+								
+								$sql_update =
+								"UPDATE `$this->table_dir_dol`
+									SET
+										`id_sin`	= $objp->id_row, 
+										`firstname`	= '$objp->firstname', 
+										`lastname`	= '$objp->lastname', 
+										`address`	= '$objp->address', 
+										`zip`		= '$objp->postcode', 
+										`town`		= '$objp->city', 
+										`phone`		= '$objp->phone', 
+										`phone_mobile` = '$objp->phone_mobile', 
+										`datec`		= '$objp->date_add', 
+										`poste`		= '$objp->alias', 
+										`statut`	= $objp->active
+									WHERE
+										`rowid` 	= $objp_row[id_llx_socpeople];";	
+								
+								$this->db->query($sql_update);	
+								
+								$sql_update = 
+								"UPDATE `$this->table_log_dir` 
+									SET 
+										`id_estado` = 1
+									WHERE 
+										`$this->table_log_dir`.`id_log` = $objp->id_log;";
+											
+								$this->db->query($sql_update);		
+							}	
+						}	
 					}
 								
 		/*----------------------------------------------------------------
@@ -588,7 +679,45 @@ class Actualizar extends CommonObject
 	 				else	
 					if($objp->system == $this->system_dolibar)					
 					{
-					
+						$sql_row = "SELECT `id_ps_address` FROM `$this->table_dir_sin` WHERE `id_llx_socpeople` = $objp->id_row";
+																					
+						$resql_row = $this->db->query($sql_row);
+						$numr_row = $this->db->num_rows($resql_row);
+						
+						if($numr_row > 0)
+						{
+							$objp_row = $this->db->fetch_array($resql_row);
+								
+							$sql_update =
+							"UPDATE `$this->table_dir_pre`
+								SET	
+									`id_sin`		= $objp->id_row, 
+									`firstname`		= '$objp->firstname', 
+									`lastname`		= '$objp->lastname',
+									`id_country`	= 44, 
+									`id_state`		= 111,
+									`address1`		= '$objp->address', 
+									`postcode`		= '$objp->postcode',
+									`city`			= '$objp->city', 
+									`phone`			= '$objp->phone', 
+									`phone_mobile`	= '$objp->phone_mobile', 
+									`date_add`		= '$objp->date_add', 
+									`alias`			= '$objp->alias', 
+									`active`		= $objp->active 
+								WHERE
+									`id_address` 	= $objp_row[id_ps_address];";
+								
+							$this->db->query($sql_update);	
+								
+							$sql_update = 
+							"UPDATE `$this->table_log_dir` 
+								SET 
+									`id_estado` = 1
+								WHERE 
+									`$this->table_log_dir`.`id_log` = $objp->id_log;";
+											
+							$this->db->query($sql_update);		
+						}	
 					}
 				}
 				
