@@ -3,6 +3,7 @@ require_once DOL_DOCUMENT_ROOT.'/sincronizar/class_actualizar.php';
 
 class Actualizar_clientes extends Actualizar
 {
+	var $db;
 	var $subject		= 'clientes'; 
 	
 	// tablas en base de datos para CLIENTES
@@ -20,6 +21,7 @@ class Actualizar_clientes extends Actualizar
 	
 	// tablas en base de datos para DIRECCIONES
 	var $table_dir_pre	= 'ps_address';
+		
 	
 	function __construct($db)
 	{

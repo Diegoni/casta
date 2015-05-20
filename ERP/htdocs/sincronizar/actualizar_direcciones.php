@@ -12,6 +12,12 @@ class Actualizar_direcciones extends Actualizar
 	var $table_pre		= 'ps_address';
 	var $table_mod		= 'tms_mod_clientes';
 	
+	// campos en tablas
+	var $id_sin_dol		= 'id_llx_socpeople';
+	var $id_sin_pre		= 'id_ps_address';
+	var $id_table_dol	= 'rowid';
+	var $id_table_pre	= 'id_address';
+	
 	// tablas en base de datos para CLIENTES
 	var $table_clientes_sin = 'tms_clientes_sin'; //Tabla de cruces 
 	var $table_clientes_dol	= 'llx_societe';

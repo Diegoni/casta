@@ -8,8 +8,12 @@ require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_productos.php';
 class Actualizar_menu extends CommonObject
 {
 	// Opciones de menú	
-	var $productos	= 'products';
-	var $terceros	= 'companies';
+	var $productos		= 'products';
+	var $terceros		= 'companies';
+	
+	// Tablas de menú	
+	var $productos_mod	= 'tms_mod_productos';
+	var $terceros_mod	= 'tms_mod_clientes';
 	
 	function __construct($db)
 	{
@@ -20,13 +24,61 @@ class Actualizar_menu extends CommonObject
 	{
 		if($mainmenu == $this->productos)
 		{
-			echo $mainmenu;
+			$sql	= "SELECT * FROM `$productos_mod` WHERE id_row = 1";
+
+			$resql	= $this->db->query($sql);
+			$numr	= $this->db->num_rows($resql);
+			$i		= 0;
+					
+			$productos = new Actualizar_productos($this->db);
+					
+			while ($i < $numr)
+			{
+				$objp = $this->db->fetch_object($resql);
+					 
+				if($objp->productos_dolibar > 0 || $objp->productos_prestashop > 0)
+				{
+					$productos->actualizar();
+				} 
+												
+				$i++;
+			}
 		}
 		else
 		if($mainmenu == $this->terceros)	
 		{
-			echo $mainmenu;
-		}
-			
+			$sql	= "SELECT * FROM `$terceros_mod` WHERE id_row = 1";
+
+			$resql	= $this->db->query($sql);
+			$numr	= $this->db->num_rows($resql);
+			$i		= 0;
+					
+			$clientes = new Actualizar_clientes($this->db);
+			$direcciones = new Actualizar_direcciones($this->db);
+					
+			while ($i < $numr)
+			{
+				$objp = $this->db->fetch_object($resql);
+					 
+				if($objp->clientes_dolibar > 0 || $objp->clientes_prestashop > 0)
+				{
+					$clientes->actualizar();
+				} 
+						
+				if($objp->direcciones_dolibar > 0 || $objp->direcciones_prestashop > 0)
+				{
+					$direcciones->actualizar();
+				}
+						
+				$i++;
+			}
+					
+			/* TMS:Hacer una función que force la actualización en caso de error
+			if($terceros_dolibar > 0)
+			{
+				$newmenu->add("/societe/actualizar.php", 'Actualizar terceros <span class="badge">'.$terceros_dolibar.'</span>',1);	
+			}
+			*/
+		}		
 	}
 }
