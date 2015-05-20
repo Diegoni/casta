@@ -146,9 +146,7 @@ class Actualizar_productos extends Actualizar
 							'$objp->tva',
 							'$objp->date_add'
 						);";
-						
-						echo $sql_insert."<br>";
-						
+												
 						$this->db->query($sql_insert);
 	
 						$id_registro = $this->db->last_insert_id("$this->table_pre");
@@ -168,7 +166,7 @@ class Actualizar_productos extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$id_registro = $this->get_id_sin($objp->id_row, 'dolibar');
+						$id_registro = $this->get_id_sin($objp->id_row, $this->system_dolibar);
 						
 						if($id_registro != 0)
 						{				
@@ -193,8 +191,6 @@ class Actualizar_productos extends Actualizar
 									`datec`		= '$objp->date_add'
 							WHERE 
 									`$this->table_dol`.`$this->id_table_dol` = $id_registro";
-									
-							echo $sql_update."<br>";
 								
 							$this->db->query($sql_update);
 							
@@ -209,7 +205,7 @@ class Actualizar_productos extends Actualizar
 	 				else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$id_registro = $this->get_id_sin($objp->id_row, 'prestashop');
+						$id_registro = $this->get_id_sin($objp->id_row, $this->system_prestashop);
 						
 						if($id_registro > 0)
 						{				
@@ -231,8 +227,6 @@ class Actualizar_productos extends Actualizar
 									`date_upd`	= '$objp->date_add' 
 							WHERE 
 									`$this->table_dol`.`$this->id_table_pre` = $objp->id_log;";
-									
-							echo $sql_update."<br>";
 								
 							$this->db->query($sql_update);
 							

@@ -21,6 +21,9 @@ class Actualizar_clientes extends Actualizar
 	// tablas en base de datos para DIRECCIONES
 	var $table_dir_pre	= 'ps_address';
 	
+	// campos en tablas
+	var $id_sin_dir_pre	= 'id_ps_address';
+	
 	function __construct($db)
 	{
 		$this->db = $db;
@@ -172,7 +175,7 @@ class Actualizar_clientes extends Actualizar
 							$id_address = 0;
 						}
 						
-						$extra_field['id_ps_address'] = $id_address;
+						$extra_field[$this->id_sin_dir_pre] = $id_address;
 						
 						$this->insert_sin($id_registro, $objp->id_row , $extra_field);
 						
@@ -189,7 +192,7 @@ class Actualizar_clientes extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$id_registro = $this->get_id_sin($objp->id_row, 'dolibar');
+						$id_registro = $this->get_id_sin($objp->id_row, $this->system_dolibar);
 						
 						if($id_registro != 0)
 						{				
@@ -198,14 +201,14 @@ class Actualizar_clientes extends Actualizar
 								SET 
 									`email` 	= '$objp->email',
 									`url` 		= '$objp->website',
-									`note_private` 	= '$objp->note',
+									`note_private` = '$objp->note',
 									`siren` 	= '$objp->cuil',
 									`nom`		= '$objp->nombre',
 									`datec` 	= '$objp->date_upd',
 									`status` 	= $objp->active,
 									`id_sin` 	= $objp->id_row
 								WHERE 
-									`$this->table_dol`.`rowid` = $id_registro;";
+									`$this->table_dol`.`$this->id_table_dol` = $id_registro;";
 							
 							$this->db->query($sql_update);
 							
@@ -221,7 +224,7 @@ class Actualizar_clientes extends Actualizar
 	 				else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$id_registro = $this->get_id_sin($objp->id_row, 'prestashop', 'id_ps_address');
+						$id_registro = $this->get_id_sin($objp->id_row, $this->system_prestashop, $this->id_sin_dir_pre);
 						
 						if(is_array($id_registro))
 						{
@@ -239,13 +242,13 @@ class Actualizar_clientes extends Actualizar
 									`active` 	= $objp->active,
 									`id_sin` 	= $objp->id_row
 								WHERE 
-									`id_customer` = $id_cliente;";
+									`$this->table_pre`.`$this->id_table_pre` = $id_cliente;";
 							
 							$this->db->query($sql_registro);
 							
 							if($objp->address != NULL)
 							{	
-								if($id_registro['id_ps_address'] == 0)
+								if($id_registro[$this->id_sin_dir_pre] == 0)
 								{
 									$ciudad = 'Mendoza'; //Mejorar esta parte
 								
@@ -278,14 +281,14 @@ class Actualizar_clientes extends Actualizar
 										
 									$this->db->query($sql_insert);	
 										
-									$id_address = $this->db->last_insert_id("ps_address");
+									$id_address = $this->db->last_insert_id("$this->table_dir_pre");
 									
 									$sql_clientes_sin = 
 									"UPDATE `$this->table_sin`
 										SET  
-											id_ps_address = $id_address
+											`$this->id_sin_dir_pre` = $id_address
 										WHERE 
-											id_llx_societe = $objp->id_row";
+											`$this->id_sin_dol` = $objp->id_row";
 									
 									$this->db->query($sql_clientes_sin);
 								}
@@ -311,8 +314,7 @@ class Actualizar_clientes extends Actualizar
 						}	
 					}
 				}
-							
-				 
+
 				$i++;
 			}
 		}

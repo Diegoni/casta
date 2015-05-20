@@ -28,7 +28,12 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
 /*----------------------------------------------------------------
 		TMS paso 1 de 2: importar clase  
 ----------------------------------------------------------------*/
+
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/Actualizar_menu.php';
+
+/*----------------------------------------------------------------
+		FIN Paso 1  
+----------------------------------------------------------------*/
 
 
 /**
@@ -564,7 +569,7 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 		$actualizar->buscar_actualizacion($mainmenu);
 					
 /*----------------------------------------------------------------
-		FIN: actualizar clientes 
+		FIN: actualizar registros 
 ----------------------------------------------------------------*/					
 		
 

@@ -22,7 +22,11 @@ class Actualizar_direcciones extends Actualizar
 	var $table_clientes_sin = 'tms_clientes_sin'; //Tabla de cruces 
 	var $table_clientes_dol	= 'llx_societe';
 	var $table_clientes_pre	= 'ps_customer';
-		
+	
+	// campos en tablas
+	var $id_sin_cliente_dol	= 'id_llx_societe';
+	var $id_sin_cliente_pre	= 'id_ps_customer';
+			
 	function __construct($db)
 	{
 		$this->db = $db;
@@ -68,14 +72,14 @@ class Actualizar_direcciones extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_sin = "SELECT * FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_cliente";
+						$sql_sin = "SELECT * FROM `$this->table_clientes_sin` WHERE `$this->id_sin_cliente_pre` = $objp->id_cliente";
 						
 						$resql_sin = $this->db->query($sql_sin);
 						$objp_id_row = $this->db->fetch_array($resql_sin);
 																		
-						if($objp_id_row['id_ps_address'] != 0)
+						if($objp_id_row[$this->id_sin_pre] != 0)
 						{
-							$sql_id_row = "SELECT `id_llx_societe` FROM `$this->table_clientes_sin` WHERE `id_ps_customer` = $objp->id_cliente";
+							$sql_id_row = "SELECT `$this->id_sin_cliente_dol` FROM `$this->table_clientes_sin` WHERE `$this->id_sin_cliente_pre` = $objp->id_cliente";
 							
 							$resql_id_row = $this->db->query($sql_id_row);
 							
@@ -138,9 +142,9 @@ class Actualizar_direcciones extends Actualizar
 							$sql_insert_sin = 
 							"UPDATE `$this->table_clientes_sin`
 								SET 
-									`id_ps_address` = $objp->id_row
+									`$this->id_sin_pre` = $objp->id_row
 								WHERE
-									`id_llx_societe` = $objp_id_row[id_llx_societe];";
+									`$this->id_sin_cliente_dol` = $objp_id_row[id_llx_societe];";
 														
 							$this->db->query($sql_insert_sin);
 							
@@ -155,7 +159,7 @@ class Actualizar_direcciones extends Actualizar
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$sql_id_row = "SELECT `id_ps_customer` FROM `$this->table_clientes_sin` WHERE `id_llx_societe` = $objp->id_cliente";
+						$sql_id_row = "SELECT `$this->id_sin_cliente_pre` FROM `$this->table_clientes_sin` WHERE `$this->id_sin_cliente_dol` = $objp->id_cliente";
 							
 						$resql_id_row = $this->db->query($sql_id_row);
 							
@@ -213,7 +217,7 @@ class Actualizar_direcciones extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_id_row = "SELECT `id_llx_societe` FROM `$this->table_clientes_sin` WHERE `id_ps_address` = $objp->id_row";
+						$sql_id_row = "SELECT `$this->id_sin_cliente_dol` FROM `$this->table_clientes_sin` WHERE `$this->id_sin_pre` = $objp->id_row";
 													
 						$resql_id_row = $this->db->query($sql_id_row);
 						$numr_id_row = $this->db->num_rows($resql_id_row);
