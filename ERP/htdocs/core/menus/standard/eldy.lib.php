@@ -28,7 +28,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
 /*----------------------------------------------------------------
 		TMS: importar funciones 
 ----------------------------------------------------------------*/
-require_once DOL_DOCUMENT_ROOT.'/societe/actualizar_terceros.php';
+require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_clientes.php';
+require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_productos.php';
 
 
 /**
@@ -570,7 +571,7 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 					$newmenu->add("/societe/soc.php?action=create", $langs->trans("MenuNewThirdParty"),1);
 
 /*----------------------------------------------------------------
-		TMS: actualizar registros 
+		TMS: actualizar clientes 
 ----------------------------------------------------------------*/
 					
 					$sql = "SELECT * FROM `tms_mod_clientes` WHERE id_row = 1";
@@ -579,7 +580,7 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 					$numr = $db->num_rows($resql);
 					$i = 0;
 					
-					$actualizar = new Actualizar($db);
+					$actualizar = new Actualizar_clientes($db);
 					
 					while ($i < $numr)
 					{
@@ -606,7 +607,7 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 					*/
 					
 /*----------------------------------------------------------------
-		FIN: actualizar registros 
+		FIN: actualizar clientes 
 ----------------------------------------------------------------*/					
 					 
 					if (! $conf->use_javascript_ajax) $newmenu->add("/societe/soc.php?action=create&amp;private=1",$langs->trans("MenuNewPrivateIndividual"),1);
@@ -1062,6 +1063,44 @@ function print_left_eldy_menu($db,$menu_array_before,$menu_array_after,&$tabMenu
 		 */
 		if ($mainmenu == 'products')
 		{
+
+/*----------------------------------------------------------------
+		TMS: actualizar productos 
+----------------------------------------------------------------*/
+
+					$sql = "SELECT * FROM `tms_mod_productos` WHERE id_row = 1";
+
+					$resql = $db->query($sql);
+					$numr = $db->num_rows($resql);
+					$i = 0;
+					
+					$actualizar = new Actualizar_productos($db);
+					
+					while ($i < $numr)
+					{
+						$objp = $db->fetch_object($resql);
+					 
+						if($objp->productos_dolibar > 0 || $objp->productos_prestashop > 0)
+						{
+							$actualizar->actualizar_productos();
+						} 
+												
+						$i++;
+					}
+					
+					/* TMS:Hacer una función que force la actualización en caso de error
+					if($terceros_dolibar > 0)
+					{
+						$newmenu->add("/societe/actualizar.php", 'Actualizar terceros <span class="badge">'.$terceros_dolibar.'</span>',1);	
+					}
+					*/
+					
+/*----------------------------------------------------------------
+		FIN: actualizar productos 
+----------------------------------------------------------------*/	
+
+				
+			
 			// Products
 			if (! empty($conf->product->enabled))
 			{

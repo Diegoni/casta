@@ -1,7 +1,7 @@
 <?php
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 
-class Actualizar extends CommonObject
+class Actualizar_clientes extends CommonObject
 {
 	var $db;
 	// acciones
@@ -176,7 +176,7 @@ class Actualizar extends CommonObject
 								0
 							);";
 							
-							$id_address = $this->db->last_insert_id("ps_address");
+							$id_address = $this->db->last_insert_id("$this->table_dir_pre");
 						}
 						else
 						{
@@ -293,7 +293,7 @@ class Actualizar extends CommonObject
 									$ciudad = 'Mendoza'; //Mejorar esta parte
 								
 									$sql_insert = 
-									"INSERT INTO `ps_address` (
+									"INSERT INTO `$this->table_dir_pre` (
 										`id_country`, 
 										`id_state`, 
 										`id_customer`, 
