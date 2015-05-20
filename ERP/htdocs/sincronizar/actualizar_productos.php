@@ -1,32 +1,36 @@
 <?php
-require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
+require_once DOL_DOCUMENT_ROOT.'/sincronizar/class_actualizar.php';
 
-class Actualizar_productos extends CommonObject
+class Actualizar_productos extends Actualizar
 {
-	var $db;
-	// acciones
-	var $action_insert		= 'insert';
-	var $action_update		= 'update';
-	
-	// sistemas
-	var $system_dolibar		= 'dolibar';
-	var $system_prestashop	= 'prestashop';
+	var $subject		= 'productos'; 
 	
 	// tablas en base de datos para PRODUCTOS
-	var $table_log	= 'tms_log_productos'; //Guarda los cambios
-	var $table_sin	= 'tms_productos_sin'; //Tabla de cruces 
-	var $table_dol	= 'llx_societe';
-	var $table_pre	= 'ps_customer';
+	var $table_log		= 'tms_log_productos'; //Guarda los cambios
+	var $table_sin		= 'tms_productos_sin'; //Tabla de cruces 
+	var $table_dol		= 'llx_product';
+	var $table_pre		= 'ps_product';
+	var $table_mod		= 'tms_mod_productos';
 	
-	var $table_mod	= 'tms_mod_pro';
-	
-	// campos en las tablas
-	var $id_sin_dol = 'id_llx_societe';
-	var $id_sin_pre = 'id_ps_customer';
+	// campos en tablas
+	var $id_sin_dol		= 'id_llx_product';
+	var $id_sin_pre		= 'id_ps_product';
+	var $id_table_dol	= 'rowid';
+	var $id_table_pre	= 'id_product';
 	
 	function __construct($db)
 	{
 		$this->db = $db;
+		
+		parent::__construct(
+				$db				= $this->db, 
+				$table_log		= $this->table_log,
+				$table_sin		= $this->table_sin,
+				$id_sin_pre		= $this->id_sin_pre,
+				$id_sin_dol		= $this->id_sin_dol,
+				$table_mod		= $this->table_mod, 
+				$subject		= $this->subject
+		);
 	}
 		
 	/*----------------------------------------------------------------
@@ -37,7 +41,7 @@ class Actualizar_productos extends CommonObject
 	------------------------------------------------------------------
 	----------------------------------------------------------------*/
 	
-	function actualizar_productos()
+	function actualizar()
 	{
 		$sql = "SELECT * FROM `$this->table_log` WHERE id_estado = 0";
 	
@@ -61,7 +65,8 @@ class Actualizar_productos extends CommonObject
 					{
 						$sql_insert = 
 						"INSERT INTO `$this->table_dol`(  
-							`is_sin`,
+							`id_sin`,
+							`ref`,
 							`label`,
 							`description`,
 							`price`,
@@ -78,6 +83,7 @@ class Actualizar_productos extends CommonObject
 							`datec`
 						)VALUES	(
 							$objp->id_row,
+							'$objp->ref',
 							'$objp->name',
 							'$objp->description_short',
 							'$objp->price',
@@ -91,36 +97,16 @@ class Actualizar_productos extends CommonObject
 							'$objp->depth',
 							'$objp->active',
 							'$objp->tva',
-							'$objp->date_add',
+							'$objp->date_add'
 						);";
-						
-						echo $sql_insert."<br>";
 						
 						$this->db->query($sql_insert);
 	
 						$id_registro = $this->db->last_insert_id("$this->table_dol");
 						
-						$sql_insert = 
-						"INSERT INTO `$this->table_sin` (
-							`$this->id_sin_pre`,
-							`$this->id_sin_dol`
-						)VALUES(
-							$objp->id_row,
-							$id_registro
-						);";
+						$this->insert_sin($objp->id_row, $id_registro);
 						
-						echo $sql_insert."<br>";
-						
-						$this->db->query($sql_insert);
-						
-						$sql_update = 
-						"UPDATE `$this->table_log` 
-							SET 
-								`id_estado` = 1
-							WHERE 
-								`$this->table_log`.`id_log` = $objp->id_log;";
-							
-						$this->db->query($sql_update);
+						$this->update_log($objp->id_log);
 					}
 					
 		/*----------------------------------------------------------------
@@ -133,10 +119,10 @@ class Actualizar_productos extends CommonObject
 						$sql_insert = 
 						"INSERT INTO `$this->table_pre`(  
 							`id_sin`,
+							`reference`,
 							`price`,
 							`wholesale_price`,
 							`ean13`,
-							`upc`,
 							`upc`,
 							`weight`,
 							`width`,
@@ -147,10 +133,10 @@ class Actualizar_productos extends CommonObject
 							`date_upd`
 						)VALUES	(
 							$objp->id_row,
+							'$objp->ref',
 							'$objp->price',
 							'$objp->price_min',
 							'$objp->code_sell',
-							'$objp->code_buy',
 							'$objp->barcode',
 							'$objp->weight',
 							'$objp->width',
@@ -158,13 +144,8 @@ class Actualizar_productos extends CommonObject
 							'$objp->depth',
 							'$objp->active',
 							'$objp->tva',
-							'$objp->date_add',
+							'$objp->date_add'
 						);";
-						
-						/*
-						'$objp->name',
-						'$objp->description_short',
-						*/	
 						
 						echo $sql_insert."<br>";
 						
@@ -172,27 +153,9 @@ class Actualizar_productos extends CommonObject
 	
 						$id_registro = $this->db->last_insert_id("$this->table_pre");
 						
-						$sql_insert = 
-						"INSERT INTO `$this->table_sin` (
-							`$this->id_sin_pre`,
-							`$this->id_sin_dol`
-						)VALUES(
-							$id_registro,
-							$objp->id_row
-						);";
+						$this->insert_sin($id_registro, $objp->id_row);
 						
-						echo $sql_insert."<br>";
-						
-						$this->db->query($sql_insert);
-						
-						$sql_update = 
-						"UPDATE `$this->table_log` 
-							SET 
-								`id_estado` = 1
-							WHERE 
-								`$this->table_log`.`id_log` = $objp->id_log;";
-							
-						$this->db->query($sql_update);						
+						$this->update_log($objp->id_log);						
 					}						
 				}
 				
@@ -205,7 +168,38 @@ class Actualizar_productos extends CommonObject
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						 
+						$id_registro = $this->get_id_sin($objp->id_row, 'dolibar');
+						
+						if($id_registro != 0)
+						{				
+							$sql_update = 
+							"UPDATE `$this->table_dol`  
+								SET
+									`id_sin`	= $objp->id_row,
+									`ref`		= '$objp->ref',
+									`label`		= '$objp->name',
+									`description` = '$objp->description_short',
+									`price`		= '$objp->price',
+									`price_min`	= '$objp->price_min',
+									`accountancy_code_sell` = '$objp->code_sell',
+									`accountancy_code_buy` = '$objp->code_buy',
+									`barcode`	= '$objp->barcode',
+									`weight`	= '$objp->weight',
+									`length`	= '$objp->width',
+									`surface`	= '$objp->height',
+									`volume`	= '$objp->depth',
+									`tosell`	= '$objp->active',
+									`tva_tx`	= '$objp->tva',
+									`datec`		= '$objp->date_add'
+							WHERE 
+									`$this->table_dol`.`$this->id_table_dol` = $id_registro";
+									
+							echo $sql_update."<br>";
+								
+							$this->db->query($sql_update);
+							
+							$this->update_log($objp->id_log);
+						}
 					}
 								
 		/*----------------------------------------------------------------
@@ -215,7 +209,36 @@ class Actualizar_productos extends CommonObject
 	 				else	
 					if($objp->system == $this->system_dolibar)					
 					{
+						$id_registro = $this->get_id_sin($objp->id_row, 'prestashop');
 						
+						if($id_registro > 0)
+						{				
+							$sql_update = 
+							"UPDATE `$this->table_pre`  
+								SET
+									`id_sin`	= $objp->id_row,
+									`reference`	= '$objp->ref',
+									`price`		= '$objp->price',
+									`wholesale_price` = '$objp->price_min',
+									`ean13`		= '$objp->code_sell',
+									`upc`		= '$objp->barcode',
+									`weight`	= '$objp->weight',
+									`width`		= '$objp->width',
+									`height`	= '$objp->height',
+									`depth`		= '$objp->depth',
+									`active`	= '$objp->active',
+									`id_tax_rules_group` = '$objp->tva',
+									`date_upd`	= '$objp->date_add' 
+							WHERE 
+									`$this->table_dol`.`$this->id_table_pre` = $objp->id_log;";
+									
+							echo $sql_update."<br>";
+								
+							$this->db->query($sql_update);
+							
+							$this->update_log($objp->id_log);
+						}
+		
 					}
 				}
 							
@@ -223,22 +246,10 @@ class Actualizar_productos extends CommonObject
 				$i++;
 			}
 		}
-	/*
-		$sql = "DELETE FROM `$this->table_log` WHERE `id_estado` = 0";
 	
-		$this->db->query($sql);	
-		
-		$sql = 
-		"UPDATE `$this->table_mod` 
-			SET 
-				`productos_dolibar`		= 0, 
-				`productos_prestashop`	= 0 
-			WHERE 
-				`id_row` = 1";
-	
-		$this->db->query($sql);
-	  
-	*/
+		$this->delete_log();
+			
+		$this->reset_mod();
 	}
-	
+		
 }
