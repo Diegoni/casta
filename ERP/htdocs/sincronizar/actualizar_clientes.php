@@ -20,6 +20,7 @@ class Actualizar_clientes extends Actualizar
 	
 	// tablas en base de datos para DIRECCIONES
 	var $table_dir_pre	= 'ps_address';
+	var $table_log_dir	= 'tms_log_direccion'; //Guarda los cambios direcciones
 	
 	// campos en tablas
 	var $id_sin_dir_pre	= 'id_ps_address';
@@ -320,6 +321,7 @@ class Actualizar_clientes extends Actualizar
 		}
 	
 		$this->delete_log();
+		$this->delete_log($this->tms_log_direccion);
 			
 		$this->reset_mod();
 	}	

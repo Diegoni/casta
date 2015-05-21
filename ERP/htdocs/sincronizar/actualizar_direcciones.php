@@ -19,7 +19,8 @@ class Actualizar_direcciones extends Actualizar
 	var $id_table_pre	= 'id_address';
 	
 	// tablas en base de datos para CLIENTES
-	var $table_clientes_sin = 'tms_clientes_sin'; //Tabla de cruces 
+	var $table_clientes_sin = 'tms_clientes_sin'; //Tabla de cruces
+	var $table_log_clientes	= 'tms_log_clientes'; //Guarda los cambios direcciones 
 	var $table_clientes_dol	= 'llx_societe';
 	var $table_clientes_pre	= 'ps_customer';
 	
@@ -236,7 +237,7 @@ class Actualizar_direcciones extends Actualizar
 									`id_sin`	= '$objp->id_cliente'
 								WHERE 
 									`rowid` 	= $objp_id_row[id_llx_societe];";
-							
+														
 							$this->db->query($sql_update);	
 							
 							$this->update_log($objp->id_log);
@@ -313,7 +314,8 @@ class Actualizar_direcciones extends Actualizar
 		}
 	
 		$this->delete_log();
-			
+		$this->delete_log($this->table_log_clientes);
+					
 		$this->reset_mod();
 	}
 

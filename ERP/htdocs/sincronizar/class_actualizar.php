@@ -76,15 +76,15 @@ class Actualizar extends CommonObject
 			if(is_array($extra_field))
 			{
 				$campos = "`".$this->id_sin_pre."`,";
-				$valores = "`".$id_presta."`,";
+				$valores = $id_presta." ,";
 				
 				foreach ($extra_field as $key => $value) {
 					$campos .= "`".$key."`,";
-					$valores .= "`".$value."`,";
+					$valores .= $value." ,";
 				}
 				
 				$campos .= "`".$this->id_sin_dol."`";
-				$valores .= "`".$id_doli."`";
+				$valores .= $id_doli;
 				
 				$sql_insert = 
 				"INSERT INTO `$this->table_sin` (
@@ -106,16 +106,18 @@ class Actualizar extends CommonObject
 	------------------------------------------------------------------
 	----------------------------------------------------------------*/
 	
-	function get_id_sin($id, $system = NULL, $extra_field = NULL)
+	function get_id_sin($id, $system, $extra_field = NULL)
 	{
-		if($system = 'dolibar' || $system = 'dol' || $system = 'doli')
+		if($system == 'dolibar' || $system == 'dol' || $system == 'doli')
 		{
 			$id_referencia	= $this->id_sin_pre;
+			$id_buscado		= $this->id_sin_dol;
 		}
 		else
-		if($system = 'prestashop' || $system = 'presta' || $system = 'pre')
+		if($system == 'prestashop' || $system == 'presta' || $system == 'pre')
 		{
 			$id_referencia	= $this->id_sin_dol;
+			$id_buscado		= $this->id_sin_pre;
 		}
 		
 		if($extra_field == NULL)
@@ -130,10 +132,9 @@ class Actualizar extends CommonObject
 			}
 			else
 			{
-				$sql_update = "SELECT `$id_buscado`, $extra_field FROM `$this->table_sin` WHERE `$id_referencia` = $id;";
+				$sql_update = "SELECT `$id_buscado`, `$extra_field` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";
 			}			
 		}
-		
 		
 		$resql_update = $this->db->query($sql_update);
 		
@@ -169,10 +170,17 @@ class Actualizar extends CommonObject
 	------------------------------------------------------------------
 	----------------------------------------------------------------*/
 	
-	function delete_log()
+	function delete_log($table = NULL)
 	{
-		$sql = "DELETE FROM `$this->table_log` WHERE `id_estado` = 0";
-	
+		if($table == NULL)
+		{
+			$sql = "DELETE FROM `$this->table_log` WHERE `id_estado` = 0";	
+		}
+		else
+		{
+			$sql = "DELETE FROM `$table` WHERE `id_estado` = 0";	
+		}
+			
 		$this->db->query($sql);	
 	}
 	
@@ -183,6 +191,7 @@ class Actualizar extends CommonObject
 	 
 	------------------------------------------------------------------
 	----------------------------------------------------------------*/
+	
 	function reset_mod()
 	{
 		$dolibar = $this->subject.'_dolibar';
@@ -198,6 +207,5 @@ class Actualizar extends CommonObject
 	
 		$this->db->query($sql);	
 	}	
-	
-	
+
 }

@@ -24,7 +24,7 @@ class Actualizar_menu extends CommonObject
 	{
 		if($mainmenu == $this->productos)
 		{
-			$sql	= "SELECT * FROM `$productos_mod` WHERE id_row = 1";
+			$sql	= "SELECT * FROM `$this->productos_mod` WHERE id_row = 1";
 
 			$resql	= $this->db->query($sql);
 			$numr	= $this->db->num_rows($resql);
@@ -47,8 +47,8 @@ class Actualizar_menu extends CommonObject
 		else
 		if($mainmenu == $this->terceros)	
 		{
-			$sql	= "SELECT * FROM `$terceros_mod` WHERE id_row = 1";
-
+			$sql	= "SELECT * FROM `$this->terceros_mod` WHERE id_row = 1";
+			
 			$resql	= $this->db->query($sql);
 			$numr	= $this->db->num_rows($resql);
 			$i		= 0;
