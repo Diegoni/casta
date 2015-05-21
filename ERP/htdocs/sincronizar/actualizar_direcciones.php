@@ -263,7 +263,7 @@ class Actualizar_direcciones extends Actualizar
 										`poste`		= '$objp->alias', 
 										`statut`	= $objp->active
 									WHERE
-										`rowid` 	= $id_registro;";
+										`$this->id_table_dol` 	= $id_registro;";
 								
 								$this->db->query($sql_update);	
 								
@@ -300,7 +300,7 @@ class Actualizar_direcciones extends Actualizar
 									`alias`			= '$objp->alias', 
 									`active`		= $objp->active 
 								WHERE
-									`id_address` 	= $id_registro;";
+									`$this->id_table_pre` 	= $id_registro;";
 								
 							$this->db->query($sql_update);	
 								

@@ -11,6 +11,7 @@ class Actualizar_productos extends Actualizar
 	var $table_dol		= 'llx_product';
 	var $table_pre		= 'ps_product';
 	var $table_mod		= 'tms_mod_productos';
+	var $table_lag		= 'ps_product_lang';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_product';
@@ -49,6 +50,8 @@ class Actualizar_productos extends Actualizar
 		$numr = $this->db->num_rows($resql);
 		$i = 0;
 		
+		
+		echo $numr;
 		if($numr > 0)
 		{				
 			while ($i < $numr)
@@ -119,6 +122,9 @@ class Actualizar_productos extends Actualizar
 						$sql_insert = 
 						"INSERT INTO `$this->table_pre`(  
 							`id_sin`,
+							id_supplier,
+							id_manufacturer,
+							id_category_default,
 							`reference`,
 							`price`,
 							`wholesale_price`,
@@ -133,6 +139,7 @@ class Actualizar_productos extends Actualizar
 							`date_upd`
 						)VALUES	(
 							$objp->id_row,
+							1,1,1,
 							'$objp->ref',
 							'$objp->price',
 							'$objp->price_min',
@@ -153,6 +160,29 @@ class Actualizar_productos extends Actualizar
 						
 						$this->insert_sin($id_registro, $objp->id_row);
 						
+						
+						for ($i = 1; $i < 3; $i++)
+						{ 
+							$sql_lag =
+							"INSERT INTO `$this->table_lag`(
+								id_product,
+								id_shop,
+								id_lang,
+								name,
+								description_short
+							)VALUES	(
+								$id_registro,
+								1,
+								$i,
+								'$objp->name',
+								'$objp->description_short'
+							);";
+							
+							echo $sql_lag;
+							
+							$this->db->query($sql_lag);	
+						}
+						
 						$this->update_log($objp->id_log);						
 					}						
 				}
@@ -169,14 +199,30 @@ class Actualizar_productos extends Actualizar
 						$id_registro = $this->get_id_sin($objp->id_row, $this->system_dolibar);
 						
 						if($id_registro != 0)
-						{				
+						{
+							$sql_lag =
+							"SELECT `name`, `description_short` FROM `$this->table_lag`
+								WHERE
+									`id_product`	= $id_registro AND
+									`id_shop`		= 1 AND
+									`id_lang`		= 1
+							;";
+							
+							echo $sql_lag."<br>";
+							
+							$resql_lag = $this->db->query($sql_lag);	
+							
+							$array_lag = $this->db->fetch_array($resql_lag);
+							
+							echo $array_lag['name']."<br>";
+											
 							$sql_update = 
 							"UPDATE `$this->table_dol`  
 								SET
 									`id_sin`	= $objp->id_row,
 									`ref`		= '$objp->ref',
-									`label`		= '$objp->name',
-									`description` = '$objp->description_short',
+									`label`		= '$array_lag[name]',
+									`description` = '$array_lag[description_short]',
 									`price`		= '$objp->price',
 									`price_min`	= '$objp->price_min',
 									`accountancy_code_sell` = '$objp->code_sell',
@@ -191,10 +237,14 @@ class Actualizar_productos extends Actualizar
 									`datec`		= '$objp->date_add'
 							WHERE 
 									`$this->table_dol`.`$this->id_table_dol` = $id_registro";
+							
+							echo $sql_update."<br><br>";		
 								
 							$this->db->query($sql_update);
 							
 							$this->update_log($objp->id_log);
+							
+							//
 						}
 					}
 								
@@ -225,10 +275,27 @@ class Actualizar_productos extends Actualizar
 									`active`	= '$objp->active',
 									`id_tax_rules_group` = '$objp->tva',
 									`date_upd`	= '$objp->date_add' 
-							WHERE 
-									`$this->table_dol`.`$this->id_table_pre` = $objp->id_log;";
+								WHERE 
+									`$this->table_dol`.`$this->id_table_pre` = $id_registro;";
+							
+							echo $sql_update."<br>";
 								
 							$this->db->query($sql_update);
+							
+							$sql_lag =
+							"UPDATE `$this->table_lag`
+								SET
+									`name`			= '$objp->name',
+									`description_short` = '$objp->description_short'
+								WHERE
+									`id_product`	= $id_registro AND
+									`id_shop`		= 1 AND
+									`id_lang`		= 1
+							;";
+							
+							echo $sql_lag."<br>";
+							
+							$this->db->query($sql_lag);	
 							
 							$this->update_log($objp->id_log);
 						}

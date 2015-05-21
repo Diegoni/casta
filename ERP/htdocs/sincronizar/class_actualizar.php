@@ -46,6 +46,8 @@ class Actualizar extends CommonObject
 					`id_estado` = 1
 				WHERE 
 					`$this->table_log`.`id_log` = $id;";
+		
+		echo $sql_update."<br><hr>";			
 							
 		$this->db->query($sql_update);
 	}
