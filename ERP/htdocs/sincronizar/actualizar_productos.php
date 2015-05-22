@@ -11,7 +11,9 @@ class Actualizar_productos extends Actualizar
 	var $table_dol		= 'llx_product';
 	var $table_pre		= 'ps_product';
 	var $table_mod		= 'tms_mod_productos';
+	
 	var $table_lag		= 'ps_product_lang';
+	var $table_shop		= 'ps_product_shop';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_product';
@@ -24,13 +26,13 @@ class Actualizar_productos extends Actualizar
 		$this->db = $db;
 		
 		parent::__construct(
-				$db				= $this->db, 
-				$table_log		= $this->table_log,
-				$table_sin		= $this->table_sin,
-				$id_sin_pre		= $this->id_sin_pre,
-				$id_sin_dol		= $this->id_sin_dol,
-				$table_mod		= $this->table_mod, 
-				$subject		= $this->subject
+			$db				= $this->db, 
+			$table_log		= $this->table_log,
+			$table_sin		= $this->table_sin,
+			$id_sin_pre		= $this->id_sin_pre,
+			$id_sin_dol		= $this->id_sin_dol,
+			$table_mod		= $this->table_mod, 
+			$subject		= $this->subject
 		);
 	}
 		
@@ -50,8 +52,6 @@ class Actualizar_productos extends Actualizar
 		$numr = $this->db->num_rows($resql);
 		$i = 0;
 		
-		
-		echo $numr;
 		if($numr > 0)
 		{				
 			while ($i < $numr)
@@ -66,46 +66,26 @@ class Actualizar_productos extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_insert = 
-						"INSERT INTO `$this->table_dol`(  
-							`id_sin`,
-							`ref`,
-							`label`,
-							`description`,
-							`price`,
-							`price_min`,
-							`accountancy_code_sell`,
-							`accountancy_code_buy`,
-							`barcode`,
-							`weight`,
-							`length`,
-							`surface`,
-							`volume`,
-							`tosell`,
-							`tva_tx`,
-							`datec`
-						)VALUES	(
-							$objp->id_row,
-							'$objp->ref',
-							'$objp->name',
-							'$objp->description_short',
-							'$objp->price',
-							'$objp->price_min',
-							'$objp->code_sell',
-							'$objp->code_buy',
-							'$objp->barcode',
-							'$objp->weight',
-							'$objp->width',
-							'$objp->height',
-							'$objp->depth',
-							'$objp->active',
-							'$objp->tva',
-							'$objp->date_add'
-						);";
-						
-						$this->db->query($sql_insert);
+						$registro = array(
+							'id_sin'				=> $objp->id_row,
+							'ref'					=> "'".$objp->ref."'",
+							'label'					=> "'".$objp->name."'",
+							'description'			=> "'".$objp->description_short."'",
+							'price'					=> "'".$objp->price."'",
+							'price_min'				=> "'".$objp->price_min."'",
+							'accountancy_code_sell'	=> "'".$objp->code_sell."'",
+							'accountancy_code_buy'	=> "'".$objp->code_buy."'",
+							'barcode'				=> "'".$objp->barcode."'",
+							'weight'				=> "'".$objp->weight."'",
+							'length'				=> "'".$objp->width."'",
+							'surface'				=> "'".$objp->height."'",
+							'volume'				=> "'".$objp->depth."'",
+							'tosell'				=> "'".$objp->active."'",
+							'tva_tx'				=> "'".$objp->tva."'",
+							'datec'					=> "'".$objp->date_add."'",
+						);
 	
-						$id_registro = $this->db->last_insert_id("$this->table_dol");
+						$id_registro = $this->insert_registro($this->table_dol, $registro);
 						
 						$this->insert_sin($objp->id_row, $id_registro);
 						
@@ -119,69 +99,52 @@ class Actualizar_productos extends Actualizar
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$sql_insert = 
-						"INSERT INTO `$this->table_pre`(  
-							`id_sin`,
-							id_supplier,
-							id_manufacturer,
-							id_category_default,
-							`reference`,
-							`price`,
-							`wholesale_price`,
-							`ean13`,
-							`upc`,
-							`weight`,
-							`width`,
-							`height`,
-							`depth`,
-							`active`,
-							`id_tax_rules_group`,
-							`date_upd`
-						)VALUES	(
-							$objp->id_row,
-							1,1,1,
-							'$objp->ref',
-							'$objp->price',
-							'$objp->price_min',
-							'$objp->code_sell',
-							'$objp->barcode',
-							'$objp->weight',
-							'$objp->width',
-							'$objp->height',
-							'$objp->depth',
-							'$objp->active',
-							'$objp->tva',
-							'$objp->date_add'
-						);";
-												
-						$this->db->query($sql_insert);
-	
-						$id_registro = $this->db->last_insert_id("$this->table_pre");
+						$registro = array(
+							'id_sin'				=> $objp->id_row,
+							'id_supplier'			=> 1,
+							'id_manufacturer'		=> 1,
+							'id_category_default'	=> 1,
+							'reference'				=> "'".$objp->ref."'",
+							'price'					=> "'".$objp->price."'",
+							'wholesale_price'		=> "'".$objp->price_min."'",
+							'ean13'					=> "'".$objp->code_sell."'",
+							'upc'					=> "'".$objp->barcode."'",
+							'weight'				=> "'".$objp->weight."'",
+							'width'					=> "'".$objp->width."'",
+							'height'				=> "'".$objp->height."'",
+							'depth'					=> "'".$objp->depth."'",
+							'active'				=> "'".$objp->active."'",
+							'id_tax_rules_group'	=> "'".$objp->tva."'",
+							'date_upd'				=> "'".$objp->date_add."'",
+						);
+							
+						$id_registro = $this->insert_registro($this->table_pre, $registro);
 						
 						$this->insert_sin($id_registro, $objp->id_row);
-						
-						
+												
 						for ($i = 1; $i < 3; $i++)
 						{ 
-							$sql_lag =
-							"INSERT INTO `$this->table_lag`(
-								id_product,
-								id_shop,
-								id_lang,
-								name,
-								description_short
-							)VALUES	(
-								$id_registro,
-								1,
-								$i,
-								'$objp->name',
-								'$objp->description_short'
-							);";
+							$registro = array(
+								'id_product'		=> $id_registro,
+								'id_shop'			=> 1,
+								'id_lang'			=> $i,
+								'name'				=> "'".$objp->name."'",
+								'description_short'	=> "'".$objp->description_short."'"
+							);
 							
-							echo $sql_lag;
-							
-							$this->db->query($sql_lag);	
+							$this->insert_registro($this->table_lag, $registro);
 						}
+						
+						$registro = array(
+							'id_product' 			=> $id_registro,
+							'id_shop' 				=> 1,
+							'id_category_default'	=> 2,
+							'id_tax_rules_group'	=> 1,
+							'active'				=> 0,
+							'redirect_type'			=> "'404'"
+						);
+						
+						$this->insert_registro($this->table_shop, $registro);
 						
 						$this->update_log($objp->id_log);						
 					}						
@@ -208,43 +171,34 @@ class Actualizar_productos extends Actualizar
 									`id_lang`		= 1
 							;";
 							
-							echo $sql_lag."<br>";
-							
 							$resql_lag = $this->db->query($sql_lag);	
 							
 							$array_lag = $this->db->fetch_array($resql_lag);
 							
-							echo $array_lag['name']."<br>";
-											
-							$sql_update = 
-							"UPDATE `$this->table_dol`  
-								SET
-									`id_sin`	= $objp->id_row,
-									`ref`		= '$objp->ref',
-									`label`		= '$array_lag[name]',
-									`description` = '$array_lag[description_short]',
-									`price`		= '$objp->price',
-									`price_min`	= '$objp->price_min',
-									`accountancy_code_sell` = '$objp->code_sell',
-									`accountancy_code_buy` = '$objp->code_buy',
-									`barcode`	= '$objp->barcode',
-									`weight`	= '$objp->weight',
-									`length`	= '$objp->width',
-									`surface`	= '$objp->height',
-									`volume`	= '$objp->depth',
-									`tosell`	= '$objp->active',
-									`tva_tx`	= '$objp->tva',
-									`datec`		= '$objp->date_add'
-							WHERE 
-									`$this->table_dol`.`$this->id_table_dol` = $id_registro";
+							$registro =  array(
+								'id_sin'		=> $objp->id_row,
+								'ref'			=> "'".$objp->ref."'",
+								'label'			=> "'".$array_lag['name']."'",
+								'description'	=> "'".$array_lag['description_short']."'",
+								'price'			=> "'".$objp->price."'",
+								'price_min'		=> "'".$objp->price_min."'",
+								'accountancy_code_sell' => "'".$objp->code_sell."'",
+								'accountancy_code_buy' => "'".$objp->code_buy."'",
+								'barcode'		=> "'".$objp->barcode."'",
+								'weight'		=> "'".$objp->weight."'",
+								'length'		=> "'".$objp->width."'",
+								'surface'		=> "'".$objp->height."'",
+								'volume'		=> "'".$objp->depth."'",
+								'tosell'		=> "'".$objp->active."'",
+								'tva_tx'		=> "'".$objp->tva."'",
+								'datec'			=> "'".$objp->date_add."'"
+							);
 							
-							echo $sql_update."<br><br>";		
-								
-							$this->db->query($sql_update);
+							$where = $this->id_table_dol." = ".$id_registro;
+							
+							$this->update_registro($this->table_dol, $registro, $where);
 							
 							$this->update_log($objp->id_log);
-							
-							//
 						}
 					}
 								
@@ -258,51 +212,43 @@ class Actualizar_productos extends Actualizar
 						$id_registro = $this->get_id_sin($objp->id_row, $this->system_prestashop);
 						
 						if($id_registro > 0)
-						{				
-							$sql_update = 
-							"UPDATE `$this->table_pre`  
-								SET
-									`id_sin`	= $objp->id_row,
-									`reference`	= '$objp->ref',
-									`price`		= '$objp->price',
-									`wholesale_price` = '$objp->price_min',
-									`ean13`		= '$objp->code_sell',
-									`upc`		= '$objp->barcode',
-									`weight`	= '$objp->weight',
-									`width`		= '$objp->width',
-									`height`	= '$objp->height',
-									`depth`		= '$objp->depth',
-									`active`	= '$objp->active',
-									`id_tax_rules_group` = '$objp->tva',
-									`date_upd`	= '$objp->date_add' 
-								WHERE 
-									`$this->table_dol`.`$this->id_table_pre` = $id_registro;";
+						{
+							$registro =  array(
+								'id_sin'			=> $objp->id_row,
+								'reference'			=> "'".$objp->ref."'",
+								'price'				=> "'".$objp->price."'",
+								'wholesale_price'	=> "'".$objp->price_min."'",
+								'ean13'				=> "'".$objp->code_sell."'",
+								'upc'				=> "'".$objp->barcode."'",
+								'weight'			=> "'".$objp->weight."'",
+								'width'				=> "'".$objp->width."'",
+								'height'			=> "'".$objp->height."'",
+								'depth'				=> "'".$objp->depth."'",
+								'active'			=> "'".$objp->active."'",
+								'id_tax_rules_group'=> "'".$objp->tva."'",
+								'date_upd'			=> "'".$objp->date_add."'" 
+							);	
 							
-							echo $sql_update."<br>";
-								
-							$this->db->query($sql_update);
+							$where = $this->id_table_pre." = ".$id_registro; 
 							
-							$sql_lag =
-							"UPDATE `$this->table_lag`
-								SET
-									`name`			= '$objp->name',
-									`description_short` = '$objp->description_short'
-								WHERE
-									`id_product`	= $id_registro AND
-									`id_shop`		= 1 AND
-									`id_lang`		= 1
-							;";
+							$this->update_registro($this->table_pre, $registro, $where);
+														
+							$registro =  array(
+								'name'				=> "'".$objp->name."'",
+								'description_short'	=> "'".$objp->description_short."'"
+							);
 							
-							echo $sql_lag."<br>";
+							$where = "id_product = ".$id_registro;
+							$where .= " AND id_shop = 1";
+							$where .= " AND id_lang = 1";
 							
-							$this->db->query($sql_lag);	
+							$this->update_registro($this->table_lag, $registro, $where);
 							
 							$this->update_log($objp->id_log);
 						}
 		
 					}
-				}
-							
+				}							
 				 
 				$i++;
 			}

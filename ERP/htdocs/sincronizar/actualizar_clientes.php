@@ -30,13 +30,13 @@ class Actualizar_clientes extends Actualizar
 		$this->db = $db;
 		
 		parent::__construct(
-				$db				= $this->db, 
-				$table_log		= $this->table_log,
-				$table_sin		= $this->table_sin,
-				$id_sin_pre		= $this->id_sin_pre,
-				$id_sin_dol		= $this->id_sin_dol,
-				$table_mod		= $this->table_mod, 
-				$subject		= $this->subject
+			$db				= $this->db, 
+			$table_log		= $this->table_log,
+			$table_sin		= $this->table_sin,
+			$id_sin_pre		= $this->id_sin_pre,
+			$id_sin_dol		= $this->id_sin_dol,
+			$table_mod		= $this->table_mod, 
+			$subject		= $this->subject
 		);
 	}
 		
@@ -70,32 +70,19 @@ class Actualizar_clientes extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_insert = 
-						"INSERT INTO `$this->table_dol`(  
-							`email`,
-							`url`,
-							`note_private`,
-							`siren`,
-							`nom`,
-							`datec`,
-							`status`,
-							`client`,
-							`id_sin`
-						)VALUES	(
-							'$objp->email',
-							'$objp->website',
-							'$objp->note',
-							'$objp->cuil',
-							'$objp->nombre',
-							'$objp->date_upd',
-							$objp->active,
-							1,
-							$objp->id_row
-						);";
+						$registro = array(
+							'email'			=> "'".$objp->email."'",
+							'url'			=> "'".$objp->website."'",
+							'note_private'	=> "'".$objp->note."'",
+							'siren'			=> "'".$objp->cuil."'",
+							'nom'			=> "'".$objp->nombre."'",
+							'datec'			=> "'".$objp->date_upd."'",
+							'status'		=> $objp->active,
+							'client'		=> 1,
+							'id_sin'		=> $objp->id_row
+						);
 						
-						$this->db->query($sql_insert);
-	
-						$id_registro = $this->db->last_insert_id("$this->table_dol");
+						$id_registro = $this->insert_registro($this->table_dol, $registro);
 						
 						$this->insert_sin($objp->id_row, $id_registro);
 						
@@ -109,67 +96,40 @@ class Actualizar_clientes extends Actualizar
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$sql_insert = 
-						"INSERT INTO `$this->table_pre`(  
-							`email`,
-							`website`,
-							`note`,
-							`cuil`,
-							`firstname`,
-							`secure_key`,
-							`date_add`,
-							`date_upd`,
-							`active`,
-							`id_sin`
-						)VALUES	(
-							'-',
-							'$objp->website',
-							'$objp->note',
-							'-',
-							'$objp->nombre',
-							'$objp->secure_key',
-							'$objp->date_upd',
-							'$objp->date_upd',
-							'$objp->active',
-							'$objp->id_row'
-						);";
+						$registro = array(
+							'email'			=> "'-'",
+							'website'		=> "'".$objp->website."'",
+							'note'			=> "'".$objp->note."'",
+							'cuil'			=> "'-'",
+							'firstname'		=> "'".$objp->nombre."'",
+							'secure_key'	=> "'".$objp->secure_key."'",
+							'date_add'		=> "'".$objp->date_upd."'",
+							'date_upd'		=> "'".$objp->date_upd."'",
+							'active'		=> "'".$objp->active."'",
+							'id_sin'		=> "'".$objp->id_row."'"
+						);
 						
-						$this->db->query($sql_insert);
-	
-						$id_registro = $this->db->last_insert_id("$this->table_pre");
+						$id_registro = $this->db->insert_registro($this->table_pre, $registro);
 						
 						if($objp->address != '')
 						{
 							$ciudad = 'Mendoza'; //Mejorar esta parte
 							
-							$sql_insert = 
-							"INSERT INTO `$this->table_dir_pre` (
-								`id_country`, 
-								`id_state`, 
-								`id_customer`, 
-								`address1`, 
-								`postcode`, 
-								`city`, 
-								`phone`, 
-								`date_add`, 
-								`date_upd`, 
-								`active`, 
-								`deleted`
-							) VALUES (
-								44, 
-								111, 
-								$id_registro, 
-								'$objp->address',
-								'$objp->postcode',
-								$ciudad,
-								'$objp->phone',
-								'$objp->date_upd',
-								'$objp->date_upd',
-								1,
-								0
-							);";
+							$registro = array(
+								'id_country'	=> 44,
+								'id_state'		=> 111,
+								'id_customer'	=> $id_registro, 
+								'address1'		=> "'".$objp->address."'",
+								'postcode'		=> "'".$objp->postcode."'",
+								'city'			=> $ciudad,
+								'phone'			=> "'".$objp->phone."'",
+								'date_add'		=> "'".$objp->date_upd."'",
+								'date_upd'		=> "'".$objp->date_upd."'",
+								'active'		=> 1,
+								'deleted'		=> 0
+							);
 							
-							$id_address = $this->db->last_insert_id("$this->table_dir_pre");
+							$id_address = $this->insert_registro($this->table_dir_pre, $registro);
 						}
 						else
 						{
@@ -229,88 +189,67 @@ class Actualizar_clientes extends Actualizar
 						
 						if(is_array($id_registro))
 						{
-							$id_cliente = $id_registro[$this->id_sin_pre];
+							$registro = array(
+								'email' 	=> "'".$objp->email."'",
+								'website' 	=> "'".$objp->website."'",
+								'note' 		=> "'".$objp->note."'",
+								'cuil' 		=> "'".$objp->cuil."'",
+								'firstname' => "'".$objp->nombre."'",
+								'date_upd' 	=> "'".$objp->date_upd."'",
+								'active' 	=> $objp->active,
+								'id_sin' 	=> $objp->id_row
+							);
 							
-							$sql_registro = 
-							"UPDATE `$this->table_pre` 
-								SET 
-									`email` 	= '$objp->email' ,
-									`website` 	= '$objp->website',
-									`note` 		= '$objp->note',
-									`cuil` 		= '$objp->cuil',
-									`firstname` = '$objp->nombre',
-									`date_upd` 	= '$objp->date_upd',
-									`active` 	= $objp->active,
-									`id_sin` 	= $objp->id_row
-								WHERE 
-									`$this->table_pre`.`$this->id_table_pre` = $id_cliente;";
+							$where = $this->id_table_pre." = ".$id_registro[$this->id_sin_pre];
 							
-							$this->db->query($sql_registro);
+							$this->update_registro($this->table_pre, $registro, $where);
 							
 							if($objp->address != NULL)
 							{	
 								if($id_registro[$this->id_sin_dir_pre] == 0)
 								{
 									$ciudad = 'Mendoza'; //Mejorar esta parte
+									
+									$registro = array(
+										'id_country'	=> 44,
+										'id_state'		=> 111,
+										'id_customer'	=> $id_registro,
+										'address1'		=> "'".$objp->address."'",
+										'postcode'		=> "'".$objp->postcode."'",
+										'city'			=> "'".$ciudad."'",
+										'phone'			=> "'".$objp->phone."'",
+										'date_add'		=> "'".$objp->date_upd."'",
+										'date_upd'		=> "'".$objp->date_upd."'",
+										'active'		=> 1,
+										'deleted'		=> 0
+									);
 								
-									$sql_insert = 
-									"INSERT INTO `$this->table_dir_pre` (
-										`id_country`, 
-										`id_state`, 
-										`id_customer`, 
-										`address1`, 
-										`postcode`, 
-										`city`, 
-										`phone`, 
-										`date_add`, 
-										`date_upd`, 
-										`active`, 
-										`deleted`
-									) VALUES (
-										44, 
-										111, 
-										$id_registro, 
-										'$objp->address',
-										'$objp->postcode',
-										'$ciudad',
-										'$objp->phone',
-										'$objp->date_upd',
-										'$objp->date_upd',
-										1,
-										0
-									);";
-										
-									$this->db->query($sql_insert);	
-										
-									$id_address = $this->db->last_insert_id("$this->table_dir_pre");
+									$id_address = $this->insert_registro($this->table_dir_pre, $registro);
 									
-									$sql_clientes_sin = 
-									"UPDATE `$this->table_sin`
-										SET  
-											`$this->id_sin_dir_pre` = $id_address
-										WHERE 
-											`$this->id_sin_dol` = $objp->id_row";
+									$registro = array(
+										$this->id_sin_dir_pre => $id_address
+									);
 									
-									$this->db->query($sql_clientes_sin);
+									$where = $this->id_sin_dol." = ".$objp->id_row; 
+										
+									$this->insert_registro($this->table_sin, $registro, $where);		
 								}
 								else
 								{
-									$sql_update =
-									"UPDATE `$this->table_dir_pre`
-										SET 
-											`address1`	= '$objp->address',
-											`postcode`	= '$objp->postcode',
-											`city`		= '$objp->city',
-											`phone`		= '$objp->phone',
-											`id_sin`	= '$objp->id_cliente'
-										WHERE 
-											`id_address` = $id_registro[id_ps_address];";
+									$registro = array(
+										'address1'	=> "'".$objp->address."'",
+										'postcode'	=> "'".$objp->postcode."'",
+										'city'		=> "'".$objp->city."'",
+										'phone'		=> "'".$objp->phone."'",
+										'id_sin'	=> "'".$objp->id_cliente."'"
+									);
 									
-									$this->db->query($sql_update);	
+									$where = "id_address = ".$id_registro['id_ps_address'];
+									
+									$this->update_registro($this->table_dir_pre, $registro, $where);
 								}
-								
 							}
-							
+
 							$this->update_log($objp->id_log);
 						}	
 					}

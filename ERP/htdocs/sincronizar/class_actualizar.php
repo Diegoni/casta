@@ -19,7 +19,7 @@ class Actualizar extends CommonObject
 		$id_sin_dol,
 		$table_mod,
 		$subject
-		)
+	)
 	{
 		$this->db			= $db;
 		$this->table_log	= $table_log;
@@ -30,6 +30,81 @@ class Actualizar extends CommonObject
 		$this->subject		= $subject;
 	}
 		
+	/*----------------------------------------------------------------
+	------------------------------------------------------------------
+	
+	 		Funcion para hacer insert
+	 
+	------------------------------------------------------------------
+	----------------------------------------------------------------*/
+		
+	function insert_registro($table, $registro)
+	{
+		$campos		= "";
+		$valores	= "";
+		
+		foreach ($registro as $key => $value) {
+			$campos		.= "`".$key."` ,"; 
+			$valores	.= $value." ,";		
+		}
+		
+		$campos		= substr($campos, 0, -1);
+		$valores	= substr($valores, 0, -1);
+		
+		$sql_insert = 
+		"INSERT INTO `$table`(
+			$campos
+		)VALUES	(
+			$valores
+		);";
+		
+		echo $sql_insert."<br><hr>";			
+							
+		$this->db->query($sql_insert);
+		
+		$id_insert = $this->db->last_insert_id($table);
+		
+		return $id_insert;
+	}
+	
+	/*----------------------------------------------------------------
+	------------------------------------------------------------------
+	
+	 		Funcion para hacer update
+	 
+	------------------------------------------------------------------
+	----------------------------------------------------------------*/
+		
+	function update_registro($table, $registro, $where = NULL)
+	{
+		echo "entro update_registro<br>";
+		
+		$updates	= "";
+		
+		foreach ($registro as $key => $value) {
+			$updates		.= "`".$key."` = ".$value." ,"; 
+		}
+		
+		$updates	= substr($updates, 0, -1);
+		
+		if($where == NULL)
+		{
+			$where = 1;
+		}
+		
+		$sql_update = 
+			"UPDATE `$table` 
+				SET 
+					$updates
+				WHERE 
+					$where";
+		
+		echo $sql_update."<br><hr>";			
+							
+		$this->db->query($sql_update);
+	}
+	
+			
 	/*----------------------------------------------------------------
 	------------------------------------------------------------------
 	
