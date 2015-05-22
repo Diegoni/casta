@@ -109,7 +109,7 @@ class Actualizar_clientes extends Actualizar
 							'id_sin'		=> "'".$objp->id_row."'"
 						);
 						
-						$id_registro = $this->db->insert_registro($this->table_pre, $registro);
+						$id_registro = $this->insert_registro($this->table_pre, $registro);
 						
 						if($objp->address != '')
 						{
@@ -156,22 +156,21 @@ class Actualizar_clientes extends Actualizar
 						$id_registro = $this->get_id_sin($objp->id_row, $this->system_dolibar);
 						
 						if($id_registro != 0)
-						{				
-							$sql_update = 
-							"UPDATE `$this->table_dol` 
-								SET 
-									`email` 	= '$objp->email',
-									`url` 		= '$objp->website',
-									`note_private` = '$objp->note',
-									`siren` 	= '$objp->cuil',
-									`nom`		= '$objp->nombre',
-									`datec` 	= '$objp->date_upd',
-									`status` 	= $objp->active,
-									`id_sin` 	= $objp->id_row
-								WHERE 
-									`$this->table_dol`.`$this->id_table_dol` = $id_registro;";
+						{
+							$registro = array(
+								'email' 	=> "'".$objp->email."'",
+								'url' 		=> "'".$objp->website."'",
+								'note_private' => "'".$objp->note."'",
+								'siren' 	=> "'".$objp->cuil."'",
+								'nom'		=> "'".$objp->nombre."'",
+								'datec' 	=> "'".$objp->date_upd."'",
+								'status' 	=> $objp->active,
+								'id_sin' 	=> $objp->id_row
+							);
 							
-							$this->db->query($sql_update);
+							$where = $this->id_table_dol." = ".$id_registro;
+							
+							$this->update_registro($this->table_dol, $registro, $where);
 							
 							$this->update_log($objp->id_log);
 						}
@@ -213,7 +212,7 @@ class Actualizar_clientes extends Actualizar
 									$registro = array(
 										'id_country'	=> 44,
 										'id_state'		=> 111,
-										'id_customer'	=> $id_registro,
+										'id_customer'	=> $id_registro[$this->id_sin_pre],
 										'address1'		=> "'".$objp->address."'",
 										'postcode'		=> "'".$objp->postcode."'",
 										'city'			=> "'".$ciudad."'",
@@ -232,7 +231,7 @@ class Actualizar_clientes extends Actualizar
 									
 									$where = $this->id_sin_dol." = ".$objp->id_row; 
 										
-									$this->insert_registro($this->table_sin, $registro, $where);		
+									$this->update_registro($this->table_sin, $registro, $where);		
 								}
 								else
 								{
@@ -258,9 +257,9 @@ class Actualizar_clientes extends Actualizar
 				$i++;
 			}
 		}
-	
+		
 		$this->delete_log();
-		$this->delete_log($this->tms_log_direccion);
+		$this->delete_log($this->table_log_dir);
 			
 		$this->reset_mod();
 	}	

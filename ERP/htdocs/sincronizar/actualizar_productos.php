@@ -163,25 +163,26 @@ class Actualizar_productos extends Actualizar
 						
 						if($id_registro != 0)
 						{
-							$sql_lag =
-							"SELECT `name`, `description_short` FROM `$this->table_lag`
-								WHERE
-									`id_product`	= $id_registro AND
-									`id_shop`		= 1 AND
-									`id_lang`		= 1
-							;";
+							$where = 
+							"`id_product`	= $id_registro AND
+							 `id_shop`		= 1 AND
+							 `id_lang`		= 1";
 							
-							$resql_lag = $this->db->query($sql_lag);	
+							$array_lag = $this->get_registros($this->table_lag, $where);
 							
-							$array_lag = $this->db->fetch_array($resql_lag);
+							$where = 
+							"`id_product`	= $id_registro AND
+							 `id_shop`		= 1";
+							
+							$array_shop = $this->get_registros($this->table_shop, $where);
 							
 							$registro =  array(
 								'id_sin'		=> $objp->id_row,
 								'ref'			=> "'".$objp->ref."'",
 								'label'			=> "'".$array_lag['name']."'",
 								'description'	=> "'".$array_lag['description_short']."'",
-								'price'			=> "'".$objp->price."'",
-								'price_min'		=> "'".$objp->price_min."'",
+								'price'			=> "'".$array_shop['price']."'",
+								'price_min'		=> "'".$array_shop['price_min']."'",
 								'accountancy_code_sell' => "'".$objp->code_sell."'",
 								'accountancy_code_buy' => "'".$objp->code_buy."'",
 								'barcode'		=> "'".$objp->barcode."'",
@@ -189,7 +190,7 @@ class Actualizar_productos extends Actualizar
 								'length'		=> "'".$objp->width."'",
 								'surface'		=> "'".$objp->height."'",
 								'volume'		=> "'".$objp->depth."'",
-								'tosell'		=> "'".$objp->active."'",
+								//'tosell'		=> "'".$objp->active."'",
 								'tva_tx'		=> "'".$objp->tva."'",
 								'datec'			=> "'".$objp->date_add."'"
 							);
@@ -243,6 +244,22 @@ class Actualizar_productos extends Actualizar
 							$where .= " AND id_lang = 1";
 							
 							$this->update_registro($this->table_lag, $registro, $where);
+							
+							$registro = array(
+								'id_product' 			=> $id_registro,
+								'id_shop' 				=> 1,
+								'id_category_default'	=> 2,
+								'id_tax_rules_group'	=> 1,
+								'active'				=> 0,
+								'redirect_type'			=> "'404'",
+								'price'					=> "'".$objp->price."'",
+								'wholesale_price'		=> "'".$objp->price_min."'"
+							);
+							
+							$where = "id_product = ".$id_registro;
+							$where .= " AND id_shop = 1";
+							
+							$this->update_registro($this->table_shop, $registro, $where);
 							
 							$this->update_log($objp->id_log);
 						}

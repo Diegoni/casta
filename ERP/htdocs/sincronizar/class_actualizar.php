@@ -62,10 +62,7 @@ class Actualizar extends CommonObject
 			$valores
 		);";
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";	
-		}			
+		$this->view_sql($sql);
 							
 		$this->db->query($sql);
 		
@@ -84,7 +81,7 @@ class Actualizar extends CommonObject
 		
 	function update_registro($table, $registro, $where = NULL)
 	{
-		$updates	= "";
+		$updates	= " ";
 		
 		foreach ($registro as $key => $value) {
 			$updates		.= "`".$key."` = ".$value." ,"; 
@@ -104,15 +101,77 @@ class Actualizar extends CommonObject
 				WHERE 
 					$where";
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";
-		}			
+		$this->view_sql($sql);		
 							
 		$this->db->query($sql);
 	}
 	
+	/*----------------------------------------------------------------
+	------------------------------------------------------------------
+	
+	 		Funcion para hacer select
+	 
+	------------------------------------------------------------------
+	----------------------------------------------------------------*/
+		
+	function get_registros($table, $where = NULL, $campos = NULL)
+	{
+		if($campos == NULL)
+		{
+			$campo_sql = '*';
+		}
+		else
+		{
+			if(is_array($campos))
+			{
+				$campo_sql = ' ';
+				
+				foreach ($campos as $value) {
+					$campo_sql = "`".$value."` ,";					
+				}
+				
+				$campo_sql = substr($campo_sql, 0, -1);
+			}
+			else
+			{
+				$campo_sql = $campos;
+			}
 			
+		}
+		
+		if($where == NULL)
+		{
+			$where_sql = 1;
+		}
+		else
+		{
+			$where_sql = $where;
+		}
+		
+		
+		$sql =
+		"SELECT $campo_sql FROM `$table`
+			WHERE
+				$where_sql
+		;";
+		
+		$this->view_sql($sql);
+							
+		$resql = $this->db->query($sql);	
+		$numr = $this->db->num_rows($resql);					
+		
+		if($numr > 0)
+		{
+			$registros = $this->db->fetch_array($resql);	
+		}
+		else
+		{
+			$registros = 0;
+		}
+		
+		return $registros;
+	}
+				
 	/*----------------------------------------------------------------
 	------------------------------------------------------------------
 	
@@ -130,10 +189,7 @@ class Actualizar extends CommonObject
 				WHERE 
 					`$this->table_log`.`id_log` = $id;";
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";
-		}			
+		$this->view_sql($sql);		
 							
 		$this->db->query($sql);
 	}
@@ -184,10 +240,7 @@ class Actualizar extends CommonObject
 			}
 		}
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";
-		}	
+		$this->view_sql($sql);
 						
 		$this->db->query($sql);
 	}
@@ -230,10 +283,7 @@ class Actualizar extends CommonObject
 			}			
 		}
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";
-		}
+		$this->view_sql($sql);
 		
 		$resql_update = $this->db->query($sql);
 		
@@ -280,10 +330,7 @@ class Actualizar extends CommonObject
 			$sql = "DELETE FROM `$table` WHERE `id_estado` = 0";	
 		}
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";
-		}		
+		$this->view_sql($sql);	
 			
 		$this->db->query($sql);	
 	}
@@ -298,8 +345,8 @@ class Actualizar extends CommonObject
 	
 	function reset_mod()
 	{
-		$dolibar = $this->subject.'_dolibar';
-		$prestashop = $this->subject.'_prestashop';
+		$dolibar	= $this->subject.'_'.$this->system_dolibar;
+		$prestashop	= $this->subject.'_'.$this->system_prestashop;
 		
 		$sql = 
 		"UPDATE `$this->table_mod` 
@@ -309,12 +356,25 @@ class Actualizar extends CommonObject
 			WHERE 
 				`id_row` = 1";
 		
-		if($this->environment == 'development')
-		{
-			echo $sql."<br><hr>";
-		}	
+		$this->view_sql($sql);
 	
 		$this->db->query($sql);	
 	}	
+		
+	/*----------------------------------------------------------------
+	------------------------------------------------------------------
+	
+	 		Funcion para insertar la sincronización
+	 
+	------------------------------------------------------------------
+	----------------------------------------------------------------*/
+	
+	function view_sql($sql)
+	{
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}
+	}
 
 }

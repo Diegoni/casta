@@ -73,21 +73,14 @@ class Actualizar_direcciones extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_sin = "SELECT * FROM `$this->table_clientes_sin` WHERE `$this->id_sin_cliente_pre` = $objp->id_cliente";
-						
-						$resql_sin = $this->db->query($sql_sin);
-						$objp_id_row = $this->db->fetch_array($resql_sin);
-																		
+						$where = $this->id_sin_cliente_pre." = ".$objp->id_cliente;
+							
+						$objp_id_row = $this->get_registros($this->table_clientes_sin, $where);
+																			
 						if($objp_id_row[$this->id_sin_pre] != 0)
 						{
-							$sql_id_row = "SELECT `$this->id_sin_cliente_dol` FROM `$this->table_clientes_sin` WHERE `$this->id_sin_cliente_pre` = $objp->id_cliente";
-							
-							$resql_id_row = $this->db->query($sql_id_row);
-							
-							$objp_id_row = $this->db->fetch_array($resql_id_row);
-							
 							$registro = array(
-								'fk_soc'		=> $objp_id_row['id_llx_societe'],
+								'fk_soc'		=> $objp_id_row[$this->id_sin_cliente_dol],
 								'id_sin'		=> $objp->id_row,
 								'firstname'		=> "'".$objp->firstname."'",
 								'lastname'		=> "'".$objp->lastname."'",
@@ -139,14 +132,12 @@ class Actualizar_direcciones extends Actualizar
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$sql_id_row = "SELECT `$this->id_sin_cliente_pre` FROM `$this->table_clientes_sin` WHERE `$this->id_sin_cliente_dol` = $objp->id_cliente";
-							
-						$resql_id_row = $this->db->query($sql_id_row);
-							
-						$objp_id_row = $this->db->fetch_array($resql_id_row);
+						$where = $this->id_sin_cliente_dol." = ".$objp->id_cliente;
+						
+						$objp_id_row = $this->get_registros($this->table_clientes_sin, $where);
 						
 						$registro = array(
-							'id_customer'	=> $objp_id_row['id_ps_customer'],
+							'id_customer'	=> $objp_id_row[$this->id_sin_cliente_pre],
 							'id_sin'		=> $objp->id_row,
 							'firstname'		=> "'".$objp->firstname."'",
 							'lastname'		=> "'".$objp->lastname."'",
@@ -179,15 +170,12 @@ class Actualizar_direcciones extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$sql_id_row = "SELECT `$this->id_sin_cliente_dol` FROM `$this->table_clientes_sin` WHERE `$this->id_sin_pre` = $objp->id_row";
-													
-						$resql_id_row = $this->db->query($sql_id_row);
-						$numr_id_row = $this->db->num_rows($resql_id_row);
+						$where = $this->id_sin_pre." = ".$objp->id_row;
+												
+						$objp_id_row = $this->get_registros($this->table_clientes_sin, $where);
 						
-						if($numr_id_row > 0)
+						if(is_array($objp_id_row))
 						{
-							$objp_id_row = $this->db->fetch_array($resql_id_row);
-							
 							$registro = array(
 								'address'	=> "'".$objp->address."'",
 								'zip'		=> "'".$objp->postcode."'",
@@ -196,7 +184,7 @@ class Actualizar_direcciones extends Actualizar
 								'id_sin'	=> "'".$objp->id_cliente."'"
 							);
 							
-							$where = "rowid	= ".$objp_id_row['id_llx_societe'];	
+							$where = "rowid	= ".$objp_id_row[$this->id_sin_cliente_dol];	
 							
 							$this->update_registro($this->table_clientes_dol, $registro, $where);							
 							
