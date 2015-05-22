@@ -82,7 +82,7 @@ class Actualizar_productos extends Actualizar
 							'volume'				=> "'".$objp->depth."'",
 							'tosell'				=> "'".$objp->active."'",
 							'tva_tx'				=> "'".$objp->tva."'",
-							'datec'					=> "'".$objp->date_add."'",
+							'datec'					=> "'".$objp->date_upd."'",
 						);
 	
 						$id_registro = $this->insert_registro($this->table_dol, $registro);
@@ -117,7 +117,8 @@ class Actualizar_productos extends Actualizar
 							'depth'					=> "'".$objp->depth."'",
 							'active'				=> "'".$objp->active."'",
 							'id_tax_rules_group'	=> "'".$objp->tva."'",
-							'date_upd'				=> "'".$objp->date_add."'",
+							'date_add'				=> "'".$objp->date_upd."'",
+							'date_upd'				=> "'".$objp->date_upd."'",
 						);
 							
 						$id_registro = $this->insert_registro($this->table_pre, $registro);
@@ -144,7 +145,7 @@ class Actualizar_productos extends Actualizar
 						$registro = array(
 							'id_product' 			=> $id_registro,
 							'id_shop' 				=> 1,
-							'id_category_default'	=> 2,
+							'id_category_default'	=> 1,
 							'id_tax_rules_group'	=> 1,
 							'active'				=> 0,
 							'redirect_type'			=> "'404'"
@@ -204,7 +205,7 @@ class Actualizar_productos extends Actualizar
 								'volume'		=> "'".$objp->depth."'",
 								//'tosell'		=> "'".$objp->active."'",
 								'tva_tx'		=> "'".$objp->tva."'",
-								'datec'			=> "'".$objp->date_add."'"
+								'datec'			=> "'".$objp->date_upd."'"
 							);
 							
 							$where = $this->id_table_dol." = ".$id_registro;
@@ -241,7 +242,7 @@ class Actualizar_productos extends Actualizar
 								'depth'				=> "'".$objp->depth."'",
 								'active'			=> "'".$objp->active."'",
 								'id_tax_rules_group'=> "'".$objp->tva."'",
-								'date_upd'			=> "'".$objp->date_add."'" 
+								'date_upd'			=> "'".$objp->date_upd."'" 
 							);	
 							
 							$where = $this->id_table_pre." = ".$id_registro; 

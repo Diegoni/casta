@@ -89,7 +89,7 @@ class Actualizar_direcciones extends Actualizar
 								'town'			=> "'".$objp->city."'",
 								'phone'			=> "'".$objp->phone."'",
 								'phone_mobile'	=> "'".$objp->phone_mobile."'",
-								'datec'			=> "'".$objp->date_add."'",
+								'datec'			=> "'".$objp->date_udp."'",
 								'poste'			=> "'".$objp->alias."'",
 								'statut'		=> $objp->active,
 								'fk_user_creat'	=> 1
@@ -148,7 +148,8 @@ class Actualizar_direcciones extends Actualizar
 							'city'			=> "'".$objp->city."'",
 							'phone' 		=> "'".$objp->phone."'",
 							'phone_mobile'	=> "'".$objp->phone_mobile."'", 
-							'date_add'		=> "'".$objp->date_add."'",
+							'date_add'		=> "'".$objp->date_udp."'",
+							'date_udp'		=> "'".$objp->date_udp."'",
 							'alias'			=> "'-'",
 							'active' 		=> "'".$objp->active
 						);
@@ -205,7 +206,7 @@ class Actualizar_direcciones extends Actualizar
 									'town'		=> "'".$objp->city."'", 
 									'phone'		=> "'".$objp->phone."'", 
 									'phone_mobile'	=> "'".$objp->phone_mobile."'", 
-									'datec'		=> "'".$objp->date_add."'",
+									'datec'		=> "'".$objp->date_udp."'",
 									'poste'		=> "'".$objp->alias."'",
 									'statut'	=> $objp->active
 								);
@@ -241,7 +242,7 @@ class Actualizar_direcciones extends Actualizar
 								'city'			=> "'".$objp->city."'",
 								'phone'			=> "'".$objp->phone."'",
 								'phone_mobile'	=> "'".$objp->phone_mobile."'", 
-								'date_add'		=> "'".$objp->date_add."'",
+								'date_udp'		=> "'".$objp->date_udp."'",
 								'alias'			=> "'".$objp->alias."'",
 								'active'		=> $objp->active 								
 							);
