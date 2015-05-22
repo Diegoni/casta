@@ -99,6 +99,8 @@ class Actualizar_productos extends Actualizar
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
+						// 1 - Hacemos insert del producto en la tabla ps_product
+						
 						$registro = array(
 							'id_sin'				=> $objp->id_row,
 							'id_supplier'			=> 1,
@@ -121,6 +123,8 @@ class Actualizar_productos extends Actualizar
 						$id_registro = $this->insert_registro($this->table_pre, $registro);
 						
 						$this->insert_sin($id_registro, $objp->id_row);
+						
+						// 2 - Hacemos insert de las cadenas del producto en la tabla ps_product_lang
 												
 						for ($i = 1; $i < 3; $i++)
 						{ 
@@ -134,6 +138,8 @@ class Actualizar_productos extends Actualizar
 							
 							$this->insert_registro($this->table_lag, $registro);
 						}
+						
+						// 3 - Hacemos insert de los precios del producto en la tabla ps_product_shop
 						
 						$registro = array(
 							'id_product' 			=> $id_registro,
@@ -163,6 +169,8 @@ class Actualizar_productos extends Actualizar
 						
 						if($id_registro != 0)
 						{
+							// 1 - Obtenemos cadenas, tabla ps_product_lag
+							
 							$where = 
 							"`id_product`	= $id_registro AND
 							 `id_shop`		= 1 AND
@@ -170,11 +178,15 @@ class Actualizar_productos extends Actualizar
 							
 							$array_lag = $this->get_registros($this->table_lag, $where);
 							
+							// 2 - Obtenemos precios, tabla ps_product_shop
+							
 							$where = 
 							"`id_product`	= $id_registro AND
 							 `id_shop`		= 1";
 							
 							$array_shop = $this->get_registros($this->table_shop, $where);
+							
+							// 3 - Hacemos el update de la tabla llx_product
 							
 							$registro =  array(
 								'id_sin'		=> $objp->id_row,
@@ -184,7 +196,7 @@ class Actualizar_productos extends Actualizar
 								'price'			=> "'".$array_shop['price']."'",
 								'price_min'		=> "'".$array_shop['price_min']."'",
 								'accountancy_code_sell' => "'".$objp->code_sell."'",
-								'accountancy_code_buy' => "'".$objp->code_buy."'",
+								'accountancy_code_buy'	=> "'".$objp->code_buy."'",
 								'barcode'		=> "'".$objp->barcode."'",
 								'weight'		=> "'".$objp->weight."'",
 								'length'		=> "'".$objp->width."'",
@@ -214,6 +226,8 @@ class Actualizar_productos extends Actualizar
 						
 						if($id_registro > 0)
 						{
+							// 1 - Update productos, tabla ps_product
+							
 							$registro =  array(
 								'id_sin'			=> $objp->id_row,
 								'reference'			=> "'".$objp->ref."'",
@@ -233,6 +247,8 @@ class Actualizar_productos extends Actualizar
 							$where = $this->id_table_pre." = ".$id_registro; 
 							
 							$this->update_registro($this->table_pre, $registro, $where);
+							
+							// 2 - Update cadenas, tabla ps_product_lang
 														
 							$registro =  array(
 								'name'				=> "'".$objp->name."'",
@@ -244,6 +260,8 @@ class Actualizar_productos extends Actualizar
 							$where .= " AND id_lang = 1";
 							
 							$this->update_registro($this->table_lag, $registro, $where);
+							
+							// 3 - Update precios, tabla ps_product_shop
 							
 							$registro = array(
 								'id_product' 			=> $id_registro,
