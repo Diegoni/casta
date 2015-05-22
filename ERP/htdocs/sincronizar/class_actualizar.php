@@ -10,6 +10,10 @@ class Actualizar extends CommonObject
 	// sistemas
 	var $system_dolibar	= 'dolibar';
 	var $system_prestashop	= 'prestashop';
+	
+	// ambientes
+	var $environment		= 'development';
+	//var $environment		= 'production';
 		
 	function __construct(
 		$db, 
@@ -51,16 +55,19 @@ class Actualizar extends CommonObject
 		$campos		= substr($campos, 0, -1);
 		$valores	= substr($valores, 0, -1);
 		
-		$sql_insert = 
+		$sql = 
 		"INSERT INTO `$table`(
 			$campos
 		)VALUES	(
 			$valores
 		);";
 		
-		echo $sql_insert."<br><hr>";			
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";	
+		}			
 							
-		$this->db->query($sql_insert);
+		$this->db->query($sql);
 		
 		$id_insert = $this->db->last_insert_id($table);
 		
@@ -77,31 +84,32 @@ class Actualizar extends CommonObject
 		
 	function update_registro($table, $registro, $where = NULL)
 	{
-		echo "entro update_registro<br>";
-		
 		$updates	= "";
 		
 		foreach ($registro as $key => $value) {
 			$updates		.= "`".$key."` = ".$value." ,"; 
 		}
 		
-		$updates	= substr($updates, 0, -1);
+		$updates = substr($updates, 0, -1);
 		
 		if($where == NULL)
 		{
 			$where = 1;
 		}
 		
-		$sql_update = 
+		$sql = 
 			"UPDATE `$table` 
 				SET 
 					$updates
 				WHERE 
 					$where";
 		
-		echo $sql_update."<br><hr>";			
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}			
 							
-		$this->db->query($sql_update);
+		$this->db->query($sql);
 	}
 	
 			
@@ -115,16 +123,19 @@ class Actualizar extends CommonObject
 		
 	function update_log($id)
 	{
-		$sql_update = 
+		$sql = 
 			"UPDATE `$this->table_log` 
 				SET 
 					`id_estado` = 1
 				WHERE 
 					`$this->table_log`.`id_log` = $id;";
 		
-		echo $sql_update."<br><hr>";			
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}			
 							
-		$this->db->query($sql_update);
+		$this->db->query($sql);
 	}
 	
 	/*----------------------------------------------------------------
@@ -139,7 +150,7 @@ class Actualizar extends CommonObject
 	{
 		if($extra_field == NULL)
 		{
-			$sql_insert = 
+			$sql = 
 			"INSERT INTO `$this->table_sin` (
 				`$this->id_sin_pre`,
 				`$this->id_sin_dol`
@@ -155,7 +166,8 @@ class Actualizar extends CommonObject
 				$campos = "`".$this->id_sin_pre."`,";
 				$valores = $id_presta." ,";
 				
-				foreach ($extra_field as $key => $value) {
+				foreach ($extra_field as $key => $value)
+				{
 					$campos .= "`".$key."`,";
 					$valores .= $value." ,";
 				}
@@ -163,7 +175,7 @@ class Actualizar extends CommonObject
 				$campos .= "`".$this->id_sin_dol."`";
 				$valores .= $id_doli;
 				
-				$sql_insert = 
+				$sql = 
 				"INSERT INTO `$this->table_sin` (
 					$campos
 				)VALUES(
@@ -171,8 +183,13 @@ class Actualizar extends CommonObject
 				);";	
 			}
 		}
+		
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}	
 						
-		$this->db->query($sql_insert);
+		$this->db->query($sql);
 	}
 	
 	/*----------------------------------------------------------------
@@ -199,7 +216,7 @@ class Actualizar extends CommonObject
 		
 		if($extra_field == NULL)
 		{
-			$sql_update = "SELECT `$id_buscado` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";	
+			$sql = "SELECT `$id_buscado` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";	
 		}
 		else
 		{
@@ -209,11 +226,16 @@ class Actualizar extends CommonObject
 			}
 			else
 			{
-				$sql_update = "SELECT `$id_buscado`, `$extra_field` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";
+				$sql = "SELECT `$id_buscado`, `$extra_field` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";
 			}			
 		}
 		
-		$resql_update = $this->db->query($sql_update);
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}
+		
+		$resql_update = $this->db->query($sql);
 		
 		$numr_update = $this->db->num_rows($resql_update);
 						
@@ -257,6 +279,11 @@ class Actualizar extends CommonObject
 		{
 			$sql = "DELETE FROM `$table` WHERE `id_estado` = 0";	
 		}
+		
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}		
 			
 		$this->db->query($sql);	
 	}
@@ -281,6 +308,11 @@ class Actualizar extends CommonObject
 				`$prestashop`	= 0 
 			WHERE 
 				`id_row` = 1";
+		
+		if($this->environment == 'development')
+		{
+			echo $sql."<br><hr>";
+		}	
 	
 		$this->db->query($sql);	
 	}	
