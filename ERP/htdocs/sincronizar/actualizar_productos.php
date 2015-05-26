@@ -46,11 +46,11 @@ class Actualizar_productos extends Actualizar
 	
 	function actualizar()
 	{
-		$sql = "SELECT * FROM `$this->table_log` WHERE id_estado = 0";
+		$sql	= "SELECT * FROM `$this->table_log` WHERE id_estado = 0";
 	
-		$resql = $this->db->query($sql);
-		$numr = $this->db->num_rows($resql);
-		$i = 0;
+		$resql	= $this->db->query($sql);
+		$numr	= $this->db->num_rows($resql);
+		$i		= 0;
 		
 		if($numr > 0)
 		{				
@@ -66,6 +66,10 @@ class Actualizar_productos extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
+						$length		= $objp->width;
+						$surface	= $objp->height * $length;
+						$volume		= $objp->depth * $surface;
+						
 						$registro = array(
 							'id_sin'				=> $objp->id_row,
 							'ref'					=> "'".$objp->ref."'",
@@ -77,9 +81,9 @@ class Actualizar_productos extends Actualizar
 							'accountancy_code_buy'	=> "'".$objp->code_buy."'",
 							'barcode'				=> "'".$objp->barcode."'",
 							'weight'				=> "'".$objp->weight."'",
-							'length'				=> "'".$objp->width."'",
-							'surface'				=> "'".$objp->height."'",
-							'volume'				=> "'".$objp->depth."'",
+							'length'				=> "'".$length."'",
+							'surface'				=> "'".$surface."'",
+							'volume'				=> "'".$volume."'",
 							'tosell'				=> "'".$objp->active."'",
 							'tva_tx'				=> "'".$objp->tva."'",
 							'datec'					=> "'".$objp->date_upd."'",
@@ -101,6 +105,10 @@ class Actualizar_productos extends Actualizar
 					{
 						// 1 - Hacemos insert del producto en la tabla ps_product
 						
+						$length		= $objp->width;
+						$height		= $objp->height / $length ;
+						$depth		= $objp->depth / $height;
+						
 						$registro = array(
 							'id_sin'				=> $objp->id_row,
 							'id_supplier'			=> 1,
@@ -112,9 +120,9 @@ class Actualizar_productos extends Actualizar
 							'ean13'					=> "'".$objp->code_sell."'",
 							'upc'					=> "'".$objp->barcode."'",
 							'weight'				=> "'".$objp->weight."'",
-							'width'					=> "'".$objp->width."'",
-							'height'				=> "'".$objp->height."'",
-							'depth'					=> "'".$objp->depth."'",
+							'width'					=> "'".$length."'",
+							'height'				=> "'".$width."'",
+							'depth'					=> "'".$depth."'",
 							'active'				=> "'".$objp->active."'",
 							'id_tax_rules_group'	=> "'".$objp->tva."'",
 							'date_add'				=> "'".$objp->date_upd."'",
@@ -189,6 +197,10 @@ class Actualizar_productos extends Actualizar
 							
 							// 3 - Hacemos el update de la tabla llx_product
 							
+							$length		= $objp->width;
+							$surface	= $objp->height * $length;
+							$volume		= $objp->depth * $surface;
+							
 							$registro =  array(
 								'id_sin'		=> $objp->id_row,
 								'ref'			=> "'".$objp->ref."'",
@@ -200,9 +212,9 @@ class Actualizar_productos extends Actualizar
 								'accountancy_code_buy'	=> "'".$objp->code_buy."'",
 								'barcode'		=> "'".$objp->barcode."'",
 								'weight'		=> "'".$objp->weight."'",
-								'length'		=> "'".$objp->width."'",
-								'surface'		=> "'".$objp->height."'",
-								'volume'		=> "'".$objp->depth."'",
+								'length'		=> "'".$length."'",
+								'surface'		=> "'".$surface."'",
+								'volume'		=> "'".$volume."'",
 								//'tosell'		=> "'".$objp->active."'",
 								'tva_tx'		=> "'".$objp->tva."'",
 								'datec'			=> "'".$objp->date_upd."'"
@@ -229,6 +241,10 @@ class Actualizar_productos extends Actualizar
 						{
 							// 1 - Update productos, tabla ps_product
 							
+							$length		= $objp->width;
+							$height		= $objp->height / $length ;
+							$depth		= $objp->depth / $height;
+							
 							$registro =  array(
 								'id_sin'			=> $objp->id_row,
 								'reference'			=> "'".$objp->ref."'",
@@ -237,9 +253,9 @@ class Actualizar_productos extends Actualizar
 								'ean13'				=> "'".$objp->code_sell."'",
 								'upc'				=> "'".$objp->barcode."'",
 								'weight'			=> "'".$objp->weight."'",
-								'width'				=> "'".$objp->width."'",
-								'height'			=> "'".$objp->height."'",
-								'depth'				=> "'".$objp->depth."'",
+								'width'				=> "'".$length."'",
+								'height'			=> "'".$height."'",
+								'depth'				=> "'".$depth."'",
 								'active'			=> "'".$objp->active."'",
 								'id_tax_rules_group'=> "'".$objp->tva."'",
 								'date_upd'			=> "'".$objp->date_upd."'" 

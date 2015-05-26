@@ -53,11 +53,11 @@ class Actualizar_direcciones extends Actualizar
 	
 	function actualizar()
 	{
-		$sql = "SELECT * FROM `$this->table_log` WHERE `id_estado` = 0";
+		$sql	= "SELECT * FROM `$this->table_log` WHERE `id_estado` = 0";
 	
-		$resql = $this->db->query($sql);
-		$numr = $this->db->num_rows($resql);
-		$i = 0;
+		$resql	= $this->db->query($sql);
+		$numr	= $this->db->num_rows($resql);
+		$i		= 0;
 		
 		if($numr > 0)
 		{				

@@ -1,0 +1,21 @@
+# Dolibarr language file - Source file is en_US - paypal
+SincronizarSetup=Configuración del módulo de Sincronización
+SincronizarParametros=Parametros
+SincronizarAutomatica=Sincronización automática
+SincronizarClientes=Clientes
+SincronizarConfigDesc=Este módulo permite sincronizar el ERP con el carro de compras
+SincronizarNombre=Nombre
+SincronizarEmail=Email
+SincronizarUltimos=Últimos 10 registros modificados
+SincronizarPhone=Teléfono
+SincronizarSystem=Sistema
+SincronizarAction=Acción
+SincronizarFecha=Fecha
+SincronizarEstado=Estado
+Sincronizardolibar=ERP
+Sincronizarprestashop=Carro de compras
+Sincronizarupdate=Modificar
+Sincronizarinsert=Alta
+SincronizarEstado1=Actualizado
+SincronizarEstado0=Sin actualizar
+SincronizarDetalle=Detalle
