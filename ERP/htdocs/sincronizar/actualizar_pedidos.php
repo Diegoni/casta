@@ -126,7 +126,6 @@ class Actualizar_pedidos extends Actualizar
 						{
 							$registro =  array(
 								'id_sin'				=> $objp->id_row,
-								'fk_soc'				=> $array_sin_cliente['id_llx_societe'],
 								'ref'					=> "'".$objp->reference."'",
 								'total_ttc'				=> "'".$objp->total_paid."'",
 								'date_creation'			=> "'".$objp->date_upd."'"
@@ -153,7 +152,6 @@ class Actualizar_pedidos extends Actualizar
 						{
 							$registro =  array(
 								'id_sin'				=> $objp->id_row,
-								'id_customer'			=> $array_sin_cliente['id_ps_customer'],
 								'reference'				=> "'".$objp->reference."'",
 								'total_paid'			=> "'".$objp->total_paid."'",
 								'date_add'				=> "'".$objp->date_upd."'"

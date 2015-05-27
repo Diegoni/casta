@@ -1,9 +1,15 @@
 <?php
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
+
+/*----------------------------------------------------------------
+		Cargamos las clases para hacer la sincronizacion
+----------------------------------------------------------------*/
+
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_clientes.php';
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_direcciones.php';
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_productos.php';
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_pedidos.php';
+require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_pedidos_detalle.php';
 
 
 class Actualizar_menu extends CommonObject
@@ -25,6 +31,10 @@ class Actualizar_menu extends CommonObject
 	
 	function buscar_actualizacion($mainmenu)
 	{
+		/*----------------------------------------------------------------
+				Sincronizacion de PRODUCTOS
+		----------------------------------------------------------------*/
+		
 		if($mainmenu == $this->productos)
 		{
 			$sql	= "SELECT * FROM `$this->productos_mod` WHERE id_row = 1";
@@ -47,6 +57,11 @@ class Actualizar_menu extends CommonObject
 				$i++;
 			}
 		}
+		
+		/*----------------------------------------------------------------
+				Sincronizacion de CLIENTES
+		----------------------------------------------------------------*/
+		
 		else
 		if($mainmenu == $this->terceros)	
 		{
@@ -83,6 +98,11 @@ class Actualizar_menu extends CommonObject
 			}
 			*/
 		}
+		
+		/*----------------------------------------------------------------
+				Sincronizacion de PEDIDOS
+		----------------------------------------------------------------*/
+				
 		else
 		if($mainmenu == $this->comercial)
 		{
@@ -93,6 +113,7 @@ class Actualizar_menu extends CommonObject
 			$i		= 0;
 					
 			$pedidos = new Actualizar_pedidos($this->db);
+			$pedidos_detalle = new Actualizar_pedidos_detalle($this->db);
 					
 			while ($i < $numr)
 			{
@@ -101,7 +122,12 @@ class Actualizar_menu extends CommonObject
 				if($objp->pedidos_dolibar > 0 || $objp->pedidos_prestashop > 0)
 				{
 					$pedidos->actualizar();
-				} 
+				}
+				
+				if($objp->pedidos_detalle_dolibar > 0 || $objp->pedidos_detalle_prestashop > 0)
+				{
+					$pedidos_detalle->actualizar();
+				}  
 												
 				$i++;
 			}

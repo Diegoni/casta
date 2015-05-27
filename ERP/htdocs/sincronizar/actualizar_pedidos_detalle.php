@@ -12,6 +12,8 @@ class Actualizar_pedidos_detalle extends Actualizar
 	var $table_pre		= 'ps_order_detail';
 	var $table_mod		= 'tms_mod_pedidos';
 	
+	var $table_sin_ped	= 'tms_pedidos_sin';
+	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_commandedet';
 	var $id_sin_pre		= 'id_ps_order_detail';
@@ -63,16 +65,17 @@ class Actualizar_pedidos_detalle extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$where = "`id_ps_customer`	= $objp->id_cliente";
+						$where = "`id_ps_order`	= $objp->id_order";
 							
-						$array_sin_cliente = $this->get_registros($this->table_sin_cli, $where);
+						$array_sin_pedido = $this->get_registros($this->table_sin_ped, $where);
 												
 						$registro = array(
-							'id_sin'				=> $objp->id_row,
-							'fk_soc'				=> $array_sin_cliente['id_llx_societe'],
-							'ref'					=> "'".$objp->reference."'",
-							'total_ttc'				=> "'".$objp->total_paid."'",
-							'date_creation'			=> "'".$objp->date_upd."'"
+							'id_sin'		=> $objp->id_row,
+							'fk_commande'	=> $array_sin_pedido['id_llx_commande'],
+							'fk_product'	=> "'".$objp->product_id."'",
+							'qty'			=> "'".$objp->product_quantity."'",
+							'description'	=> "'".$objp->product_name."'",
+							'price'			=> "'".$objp->product_price."'"
 						);
 	
 						$id_registro = $this->insert_registro($this->table_dol, $registro);
@@ -89,16 +92,17 @@ class Actualizar_pedidos_detalle extends Actualizar
 					else	
 					if($objp->system == $this->system_dolibar)					
 					{
-						$where = "`id_llx_societe`	= $objp->id_cliente";
+						$where = "`id_llx_commande`	= $objp->id_order";
 							
-						$array_sin_cliente = $this->get_registros($this->table_sin_cli, $where);
+						$array_sin_pedido = $this->get_registros($this->table_sin_ped, $where);
 						
 						$registro = array(
-							'id_sin'				=> $objp->id_row,
-							'id_customer'			=> $array_sin_cliente['id_ps_customer'],
-							'reference'				=> "'".$objp->reference."'",
-							'total_paid'			=> "'".$objp->total_paid."'",
-							'date_add'				=> "'".$objp->date_upd."'"
+							'id_sin'			=> $objp->id_row,
+							'id_order'			=> $array_sin_pedido['id_ps_order'],
+							'product_id'		=> "'".$objp->product_id."'",
+							'product_quantity'	=> "'".$objp->product_quantity."'",
+							'product_name'		=> "'".$objp->product_name."'",
+							'product_price'		=> "'".$objp->product_price."'"
 						);
 							
 						$id_registro = $this->insert_registro($this->table_pre, $registro);
@@ -122,12 +126,12 @@ class Actualizar_pedidos_detalle extends Actualizar
 						
 						if($id_registro != 0)
 						{
-							$registro =  array(
-								'id_sin'				=> $objp->id_row,
-								'fk_soc'				=> $array_sin_cliente['id_llx_societe'],
-								'ref'					=> "'".$objp->reference."'",
-								'total_ttc'				=> "'".$objp->total_paid."'",
-								'date_creation'			=> "'".$objp->date_upd."'"
+							$registro = array(
+								'id_sin'		=> $objp->id_row,
+								'fk_product'	=> "'".$objp->product_id."'",
+								'qty'			=> "'".$objp->product_quantity."'",
+								'description'	=> "'".$objp->product_name."'",
+								'price'			=> "'".$objp->product_price."'"
 							);
 							
 							$where = $this->id_table_dol." = ".$id_registro;
@@ -149,13 +153,13 @@ class Actualizar_pedidos_detalle extends Actualizar
 						
 						if($id_registro > 0)
 						{
-							$registro =  array(
-								'id_sin'				=> $objp->id_row,
-								'id_customer'			=> $array_sin_cliente['id_ps_customer'],
-								'reference'				=> "'".$objp->reference."'",
-								'total_paid'			=> "'".$objp->total_paid."'",
-								'date_add'				=> "'".$objp->date_upd."'"
-							);	
+							$registro = array(
+								'id_sin'			=> $objp->id_row,
+								'product_id'		=> "'".$objp->product_id."'",
+								'product_quantity'	=> "'".$objp->product_quantity."'",
+								'product_name'		=> "'".$objp->product_name."'",
+								'product_price'		=> "'".$objp->product_price."'"
+							);
 							
 							$where = $this->id_table_pre." = ".$id_registro; 
 							
