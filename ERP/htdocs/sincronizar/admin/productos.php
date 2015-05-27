@@ -39,36 +39,14 @@ $action = GETPOST('action');
 
 if ($action == 'setvalue' && $user->admin)
 {
-	if(GETPOST('SincronizarAutomatica') == 'yes')
-	{
-		$automatica = 1;
-	}
-	else
-	{
-		$automatica = 0;
-	}
-	
-	$sql = 
-	"UPDATE `tms_config_sincronizacion` 
-		SET 
-			`automatica`	= $automatica
-		WHERE 
-			`id_config`		= 1";
-	
-	$db->query($sql);
-	
-	setEventMessage($langs->trans("SetupSaved"));
+
 }
 
-$sql	= "SELECT * FROM `tms_config_sincronizacion`";
+$sql	= "SELECT * FROM `tms_log_productos` ORDER BY id_log DESC LIMIT 0, 10";
 $resql	= $db->query($sql);	
 	
 $numr	= $db->num_rows($resql);					
-		
-if($numr > 0)
-{
-	$registros = $db->fetch_array($resql);	
-}
+$i		= 0;
 
 
 /*
@@ -86,8 +64,8 @@ print '<br>';
 
 $head = paypaladmin_prepare_head();
 
-//dol_fiche_head($head, 'paypalaccount', '');
 dol_fiche_head($head, 'productos', 'Sincronización', 0, 'sincronizar');
+print $langs->trans("SincronizarUltimos")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -97,15 +75,58 @@ print '<table class="noborder" width="100%">';
 
 $var=true;
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("SincronizarParametros").'</td>';
-print '<td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("SincronizarRef").'</a></td>';
+print '<td>'.$langs->trans("SincronizarNombre").'</td>';
+print '<td>'.$langs->trans("SincronizarPrice").'</td>';
+print '<td>'.$langs->trans("SincronizarSystem").'</td>';
+print '<td>'.$langs->trans("SincronizarAction").'</td>';
+print '<td>'.$langs->trans("SincronizarFecha").'</td>';
+print '<td>'.$langs->trans("SincronizarEstado").'</td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("SincronizarAutomatica").'</td><td>';
-print $form->selectyesno("SincronizarAutomatica", $registros['automatica']);
-print '</td></tr>';
+if($numr > 0)
+{	
+	while ($i < $numr)
+	{
+		$registro = $db->fetch_object($resql);
+		
+		if($registro->system == 'dolibar')
+		{
+			$id_row = $registro->id_row;
+		}
+		else
+		{
+			$sql_sin	= "SELECT * FROM `tms_productos_sin` WHERE `id_ps_product` = $registro->id_row";
+			
+			$resql_sin	= $db->query($sql_sin);	
+				
+			$numr_sin	= $db->num_rows($resql_sin);	
+			
+			if($numr > 0)
+			{
+				$array_sin = $db->fetch_array($resql_sin);
+				
+				$id_row = $array_sin['id_llx_product'];
+			}	
+		}
+	
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print '<a href="'.DOL_URL_ROOT.'/product/card.php?id='.$id_row.'" title="'.$langs->trans("SincronizarDetalle").'">';
+		print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/object_product.png" border="0" alt=""> ';
+		print $registro->ref.'</a></td><td>';
+		print $registro->name.'</td><td>';
+		print $registro->price.'</td><td>';
+		print $langs->trans('Sincronizar'.$registro->system).'</td><td>';
+		print $langs->trans('Sincronizar'.$registro->action).'</td><td>';
+		print date('d-m-Y', strtotime($registro->date_upd)).'</td><td>';
+		print$langs->trans('SincronizarEstado'. $registro->id_estado);
+		print '</td></tr>';
+		
+		$i++;	
+	}
+}
+
 /*
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
@@ -121,9 +142,6 @@ $doleditor->Create();
 print '</td></tr>';
 */
 print '</table>';
-
-print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
-
 print '</form>';
 
 llxFooter();

@@ -113,6 +113,7 @@ if($numr > 0)
 		$var=!$var;
 		print '<tr '.$bc[$var].'><td>';
 		print '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$id_cliente.'" title="'.$langs->trans("SincronizarDetalle").'">';
+		print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/object_company.png" border="0" alt=""> ';
 		print $clientes->nombre.'</a></td><td>';
 		print $clientes->email.'</td><td>';
 		print $clientes->phone.'</td><td>';

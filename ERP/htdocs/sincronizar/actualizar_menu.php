@@ -3,6 +3,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_clientes.php';
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_direcciones.php';
 require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_productos.php';
+require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_pedidos.php';
 
 
 class Actualizar_menu extends CommonObject
@@ -10,10 +11,12 @@ class Actualizar_menu extends CommonObject
 	// Opciones de menú	
 	var $productos		= 'products';
 	var $terceros		= 'companies';
+	var $comercial		= 'commercial';	
 	
 	// Tablas de menú	
 	var $productos_mod	= 'tms_mod_productos';
 	var $terceros_mod	= 'tms_mod_clientes';
+	var $comercial_mod	= 'tms_mod_pedidos';
 	
 	function __construct($db)
 	{
@@ -79,6 +82,29 @@ class Actualizar_menu extends CommonObject
 				$newmenu->add("/societe/actualizar.php", 'Actualizar terceros <span class="badge">'.$terceros_dolibar.'</span>',1);	
 			}
 			*/
-		}		
+		}
+		else
+		if($mainmenu == $this->comercial)
+		{
+			$sql	= "SELECT * FROM `$this->comercial_mod` WHERE id_row = 1";
+
+			$resql	= $this->db->query($sql);
+			$numr	= $this->db->num_rows($resql);
+			$i		= 0;
+					
+			$pedidos = new Actualizar_pedidos($this->db);
+					
+			while ($i < $numr)
+			{
+				$objp = $this->db->fetch_object($resql);
+					 
+				if($objp->pedidos_dolibar > 0 || $objp->pedidos_prestashop > 0)
+				{
+					$pedidos->actualizar();
+				} 
+												
+				$i++;
+			}
+		}	
 	}
 }
