@@ -65,7 +65,7 @@ class Actualizar_pedidos_detalle extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
-						$where = "`id_ps_order`	= $objp->id_order";
+						$where = "`id_ps_orders` = $objp->id_order";
 							
 						$array_sin_pedido = $this->get_registros($this->table_sin_ped, $where);
 												
@@ -75,7 +75,8 @@ class Actualizar_pedidos_detalle extends Actualizar
 							'fk_product'	=> "'".$objp->product_id."'",
 							'qty'			=> "'".$objp->product_quantity."'",
 							'description'	=> "'".$objp->product_name."'",
-							'price'			=> "'".$objp->product_price."'"
+							'subprice'		=> "'".$objp->product_price."'",
+							'total_ht'		=> "'".$objp->product_price."'"
 						);
 	
 						$id_registro = $this->insert_registro($this->table_dol, $registro);
@@ -131,7 +132,8 @@ class Actualizar_pedidos_detalle extends Actualizar
 								'fk_product'	=> "'".$objp->product_id."'",
 								'qty'			=> "'".$objp->product_quantity."'",
 								'description'	=> "'".$objp->product_name."'",
-								'price'			=> "'".$objp->product_price."'"
+								'subprice'		=> "'".$objp->product_price."'",
+								'total_ht'		=> "'".$objp->product_price."'"
 							);
 							
 							$where = $this->id_table_dol." = ".$id_registro;

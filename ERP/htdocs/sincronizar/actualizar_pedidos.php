@@ -74,7 +74,8 @@ class Actualizar_pedidos extends Actualizar
 							'fk_soc'				=> $array_sin_cliente['id_llx_societe'],
 							'ref'					=> "'".$objp->reference."'",
 							'total_ttc'				=> "'".$objp->total_paid."'",
-							'date_creation'			=> "'".$objp->date_upd."'"
+							'date_creation'			=> "'".$objp->date_upd."'",
+							'date_commande'			=> "'".date('Y-m-d', strtotime($objp->date_upd))."'"
 						);
 	
 						$id_registro = $this->insert_registro($this->table_dol, $registro);

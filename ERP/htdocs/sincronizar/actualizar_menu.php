@@ -32,7 +32,7 @@ class Actualizar_menu extends CommonObject
 	function buscar_actualizacion($mainmenu)
 	{
 		/*----------------------------------------------------------------
-				Sincronizacion de PRODUCTOS
+				Sincronización de PRODUCTOS
 		----------------------------------------------------------------*/
 		
 		if($mainmenu == $this->productos)
@@ -59,7 +59,7 @@ class Actualizar_menu extends CommonObject
 		}
 		
 		/*----------------------------------------------------------------
-				Sincronizacion de CLIENTES
+				Sincronización de CLIENTES
 		----------------------------------------------------------------*/
 		
 		else
@@ -89,18 +89,11 @@ class Actualizar_menu extends CommonObject
 				}
 						
 				$i++;
-			}
-					
-			/* TMS:Hacer una función que force la actualización en caso de error
-			if($terceros_dolibar > 0)
-			{
-				$newmenu->add("/societe/actualizar.php", 'Actualizar terceros <span class="badge">'.$terceros_dolibar.'</span>',1);	
-			}
-			*/
+			}				
 		}
 		
 		/*----------------------------------------------------------------
-				Sincronizacion de PEDIDOS
+				Sincronización de PEDIDOS
 		----------------------------------------------------------------*/
 				
 		else
