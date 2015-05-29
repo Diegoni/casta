@@ -9,3 +9,4 @@ application/logs/*
 !application/logs/.htaccesscache
 cache
 cache
+cache

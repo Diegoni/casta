@@ -13,6 +13,8 @@ class Actualizar_pedidos_detalle extends Actualizar
 	var $table_mod		= 'tms_mod_pedidos';
 	
 	var $table_sin_ped	= 'tms_pedidos_sin';
+	var $table_sin_pro	= 'tms_productos_sin';
+	var $table_tax		= 'tms_productos_sin';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_commandedet';
@@ -65,18 +67,61 @@ class Actualizar_pedidos_detalle extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
+						// 1 - Buscar en la tabla tms_pedidos_sin para ver que id corresponde
+						
 						$where = "`id_ps_orders` = $objp->id_order";
-							
+						
 						$array_sin_pedido = $this->get_registros($this->table_sin_ped, $where);
+						
+						
+						// 2 - Buscar en la tabla tms_productos_sin para ver que id corresponde
+						
+						$where = "`id_ps_product` = $objp->product_id";
+						
+						$array_sin_producto = $this->get_registros($this->table_sin_pro, $where);
+						
+						
+						// 3 - Buscar en ps_tax el porcentaje que corresponde 
+						
+						$where = "`id_tax` = $objp->id_tax_rules_group";
+						
+						$array_tax = $this->get_registros($this->table_tax, $where);
+						
+						
+						// 4 - Calculamos descuento
+						
+						if($objp->reduction_amount == 0)
+						{
+							$remise_percent = $objp->reduction_percent;				
+						}
+						else
+						{
+							$remise_percent = $objp->reduction_amount_tax_excl * 100 / $objp->product_price; //Controlar este calculo
+						}
+						
+						
+						// 5 - Calculo total del IVA
+						
+						$total_tva =  $objp->total_price_tax_incl - $objp->total_price_tax_excl;
 												
+						
+						// Ingreso del registro
+						
 						$registro = array(
 							'id_sin'		=> $objp->id_row,
 							'fk_commande'	=> $array_sin_pedido['id_llx_commande'],
-							'fk_product'	=> "'".$objp->product_id."'",
-							'qty'			=> "'".$objp->product_quantity."'",
-							'description'	=> "'".$objp->product_name."'",
-							'subprice'		=> "'".$objp->product_price."'",
-							'total_ht'		=> "'".$objp->product_price."'"
+							'fk_product'	=> $array_sin_producto['id_llx_product'],
+							'description'	=> $objp->product_name,
+							'qty'			=> $objp->product_quantity,
+							'buy_price_ht'	=> $objp->purchase_supplier_price,
+							'tva_tx'		=> $array_tax['rate'],
+							'subprice'		=> $objp->product_price,
+							'price'			=> $objp->unit_price_tax_excl,
+							'total_tva'		=> $total_tva,
+							'total_ht'		=> $objp->total_price_tax_incl,
+							'total_ttc'		=> $objp->total_price_tax_excl,
+							'remise_percent'=> $remise_percent,
+							'remise'		=> $objp->reduction_amount,
 						);
 	
 						$id_registro = $this->insert_registro($this->table_dol, $registro);
