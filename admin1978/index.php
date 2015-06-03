@@ -25,7 +25,7 @@ ini_set("display_errors", 1);
 *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 */
-echo "test";
+
 
 $timer_start = microtime(true);
 if (!defined('_PS_ADMIN_DIR_'))
@@ -55,3 +55,5 @@ if (!isset($_REQUEST['controller']) && isset($_REQUEST['tab']))
 
 // Prepare and trigger admin dispatcher
 Dispatcher::getInstance()->dispatch();
+
+echo "test";

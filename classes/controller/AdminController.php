@@ -582,6 +582,7 @@ class AdminControllerCore extends Controller
 	 */
 	public function checkToken()
 	{
+		//TMS: ver
 		$token = Tools::getValue('token');
 		if (!empty($token) && $token === $this->token)
 			return true;

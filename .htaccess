@@ -51,4 +51,10 @@ AddType application/x-font-woff .woff
 #If rewrite mod isn't enabled
 ErrorDocument 404 /casta/index.php?controller=404
 
+
+php_value upload_max_filesize 1024M
+php_value post_max_size 1024M
+php_value max_execution_time 1000
+php_value max_input_time 1000
+
 # ~~end~~ Do not remove this comment, Casta will keep automatically the code outside this comment when .htaccess will be generated again
