@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2015 a las 14:36:01
+-- Tiempo de generación: 05-06-2015 a las 21:40:20
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -2802,14 +2802,15 @@ CREATE TABLE IF NOT EXISTS `llx_categorie` (
   UNIQUE KEY `uk_categorie_ref` (`entity`,`fk_parent`,`label`,`type`),
   KEY `idx_categorie_type` (`type`),
   KEY `idx_categorie_label` (`label`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `llx_categorie`
 --
 
 INSERT INTO `llx_categorie` (`rowid`, `entity`, `fk_parent`, `label`, `type`, `description`, `fk_soc`, `visible`, `import_key`) VALUES
-(1, 1, 0, 'Clientes Nuevos', 2, '', NULL, 0, NULL);
+(1, 1, 0, 'Clientes Nuevos', 2, '', NULL, 0, NULL),
+(2, 1, 0, '2030', 0, 'Nueva Categoria', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -2900,6 +2901,13 @@ CREATE TABLE IF NOT EXISTS `llx_categorie_product` (
   KEY `idx_categorie_product_fk_categorie` (`fk_categorie`),
   KEY `idx_categorie_product_fk_product` (`fk_product`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `llx_categorie_product`
+--
+
+INSERT INTO `llx_categorie_product` (`fk_categorie`, `fk_product`, `import_key`) VALUES
+(2, 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -2997,7 +3005,7 @@ CREATE TABLE IF NOT EXISTS `llx_commande` (
   KEY `idx_commande_fk_projet` (`fk_projet`),
   KEY `idx_commande_fk_account` (`fk_account`),
   KEY `idx_commande_fk_currency` (`fk_currency`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Volcado de datos para la tabla `llx_commande`
@@ -3006,7 +3014,18 @@ CREATE TABLE IF NOT EXISTS `llx_commande` (
 INSERT INTO `llx_commande` (`rowid`, `id_sin`, `ref`, `entity`, `ref_ext`, `ref_int`, `ref_client`, `fk_soc`, `fk_projet`, `tms`, `date_creation`, `date_valid`, `date_cloture`, `date_commande`, `fk_user_author`, `fk_user_modif`, `fk_user_valid`, `fk_user_cloture`, `source`, `fk_statut`, `amount_ht`, `remise_percent`, `remise_absolue`, `remise`, `tva`, `localtax1`, `localtax2`, `total_ht`, `total_ttc`, `note_private`, `note_public`, `model_pdf`, `facture`, `fk_account`, `fk_currency`, `fk_cond_reglement`, `fk_mode_reglement`, `date_livraison`, `fk_shipping_method`, `fk_availability`, `fk_input_reason`, `fk_delivery_address`, `import_key`, `extraparams`) VALUES
 (1, 0, '(PROV1)', 1, NULL, NULL, NULL, 205, NULL, '2015-05-26 16:22:07', '2015-05-26 17:56:45', NULL, NULL, '2015-05-26', 1, NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0.00000000, 0.00000000, 0.00000000, 41.00000000, 41.00000000, '', '', 'einstein', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 0, '', 1, NULL, NULL, NULL, 104, NULL, '2015-05-26 16:03:31', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 9, 'UGIOKSYBK', 1, NULL, NULL, NULL, 137, NULL, '2015-05-26 18:27:37', '2015-05-13 15:06:10', NULL, NULL, '2015-05-26', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 418.43000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(6, 9, 'UGIOKSYBK', 1, NULL, NULL, NULL, 137, NULL, '2015-05-26 18:27:37', '2015-05-13 15:06:10', NULL, NULL, '2015-05-26', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 418.43000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 13, 'GEIHCDOGY', 1, NULL, NULL, NULL, 217, NULL, '2015-05-27 15:37:47', '2015-05-27 12:33:58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 324.77000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 14, 'UABUOCMAE', 1, NULL, NULL, NULL, 217, NULL, '2015-05-27 15:44:15', '2015-05-27 12:42:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 369.05000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 15, 'SJNJKJKJM', 1, NULL, NULL, NULL, 217, NULL, '2015-05-27 16:06:38', '2015-05-27 12:48:35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 18.90000000, 0.00000000, 0.00000000, 90.00000000, 108.90000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 16, 'KOWSTYITW', 1, NULL, NULL, NULL, 217, NULL, '2015-05-27 16:14:21', '2015-05-27 13:14:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 369.05000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 17, 'OKBNMDZRP', 1, NULL, NULL, NULL, 217, NULL, '2015-05-27 16:35:52', '2015-05-27 13:16:21', NULL, NULL, '2015-05-27', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 369.05000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 18, 'ENUTFSBCY', 1, NULL, NULL, NULL, 217, NULL, '2015-05-28 12:41:29', '2015-05-28 09:35:29', NULL, NULL, '2015-05-28', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 1191.45000000, NULL, 'Nota del pedido', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 0, '(PROV14)', 1, NULL, NULL, NULL, 199, NULL, '2015-05-28 12:45:07', '2015-05-28 14:44:00', NULL, NULL, '2015-05-28', 1, NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 256.20000000, 0.00000000, 0.00000000, 1220.00000000, 1476.20000000, '', 'Nota publica', 'einstein', 0, NULL, NULL, 1, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL),
+(15, 0, '(PROV15)', 1, NULL, NULL, NULL, 199, NULL, '2015-05-28 14:24:00', '2015-05-28 14:50:55', NULL, NULL, '2015-05-28', 1, NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 60.90000000, 0.00000000, 0.00000000, 290.00000000, 350.90000000, '', '', 'einstein', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 19, 'IIUHVWFVP', 1, NULL, NULL, NULL, 217, NULL, '2015-05-28 16:02:09', '2015-05-28 11:31:08', NULL, NULL, '2015-05-28', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 297.82000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 20, 'JBUVERGJX', 1, NULL, NULL, NULL, 217, NULL, '2015-05-28 16:02:09', '2015-05-28 12:26:11', NULL, NULL, '2015-05-28', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 306.74000000, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 0, '(PROV18)', 1, NULL, NULL, NULL, 199, NULL, '2015-06-01 19:36:52', '2015-05-28 18:02:32', NULL, NULL, '2015-05-28', 1, NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 1488.06000000, 0.00000000, 0.00000000, 7086.00000000, 8574.06000000, '', 'Nota', 'einstein', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3016,6 +3035,7 @@ INSERT INTO `llx_commande` (`rowid`, `id_sin`, `ref`, `entity`, `ref_ext`, `ref_
 
 CREATE TABLE IF NOT EXISTS `llx_commandedet` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sin` int(11) NOT NULL,
   `fk_commande` int(11) NOT NULL,
   `fk_parent_line` int(11) DEFAULT NULL,
   `fk_product` int(11) DEFAULT NULL,
@@ -3049,16 +3069,43 @@ CREATE TABLE IF NOT EXISTS `llx_commandedet` (
   PRIMARY KEY (`rowid`),
   KEY `idx_commandedet_fk_commande` (`fk_commande`),
   KEY `idx_commandedet_fk_product` (`fk_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Volcado de datos para la tabla `llx_commandedet`
 --
 
-INSERT INTO `llx_commandedet` (`rowid`, `fk_commande`, `fk_parent_line`, `fk_product`, `label`, `description`, `tva_tx`, `localtax1_tx`, `localtax1_type`, `localtax2_tx`, `localtax2_type`, `qty`, `remise_percent`, `remise`, `fk_remise_except`, `price`, `subprice`, `total_ht`, `total_tva`, `total_localtax1`, `total_localtax2`, `total_ttc`, `product_type`, `date_start`, `date_end`, `info_bits`, `buy_price_ht`, `fk_product_fournisseur_price`, `special_code`, `rang`, `import_key`) VALUES
-(1, 1, NULL, 11, NULL, '', 0.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 20, 20.00000000, 20.00000000, 0.00000000, 0.00000000, 0.00000000, 20.00000000, 0, NULL, NULL, 0, 1.00000000, NULL, 0, 1, NULL),
-(2, 1, NULL, 14, NULL, '', 0.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 20, 20.00000000, 20.00000000, 0.00000000, 0.00000000, 0.00000000, 20.00000000, 0, NULL, NULL, 0, 5.00000000, NULL, 0, 2, NULL),
-(3, 1, NULL, NULL, NULL, 'Test de servicio', 0.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 1, 1.00000000, 1.00000000, 0.00000000, 0.00000000, 0.00000000, 1.00000000, 1, NULL, NULL, 0, 5.00000000, NULL, 0, 3, NULL);
+INSERT INTO `llx_commandedet` (`rowid`, `id_sin`, `fk_commande`, `fk_parent_line`, `fk_product`, `label`, `description`, `tva_tx`, `localtax1_tx`, `localtax1_type`, `localtax2_tx`, `localtax2_type`, `qty`, `remise_percent`, `remise`, `fk_remise_except`, `price`, `subprice`, `total_ht`, `total_tva`, `total_localtax1`, `total_localtax2`, `total_ttc`, `product_type`, `date_start`, `date_end`, `info_bits`, `buy_price_ht`, `fk_product_fournisseur_price`, `special_code`, `rang`, `import_key`) VALUES
+(1, 0, 1, NULL, 11, NULL, '', 0.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 20, 20.00000000, 20.00000000, 0.00000000, 0.00000000, 0.00000000, 20.00000000, 0, NULL, NULL, 0, 1.00000000, NULL, 0, 1, NULL),
+(2, 0, 1, NULL, 14, NULL, '', 0.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 20, 20.00000000, 20.00000000, 0.00000000, 0.00000000, 0.00000000, 20.00000000, 0, NULL, NULL, 0, 5.00000000, NULL, 0, 2, NULL),
+(3, 0, 1, NULL, NULL, NULL, 'Test de servicio', 0.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 1, 1.00000000, 1.00000000, 0.00000000, 0.00000000, 0.00000000, 1.00000000, 1, NULL, NULL, 0, 5.00000000, NULL, 0, 3, NULL),
+(4, 31, 10, NULL, 1, NULL, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, 250, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(5, 32, 10, NULL, 2, NULL, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, 26.999852, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(6, 33, 10, NULL, 3, NULL, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 21.000, 0.000, '0', 0.000, '0', 1, 10, 10, NULL, 90, 100.00000000, 90.00000000, 18.90000000, 0.00000000, 0.00000000, 108.90000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(7, 34, 11, NULL, 1, NULL, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 0.00000000, 250.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(8, 35, 11, NULL, 2, NULL, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 0.00000000, 26.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(9, 36, 11, NULL, 3, NULL, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 0.00000000, 25.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(10, 37, 12, NULL, 1, NULL, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 250.00000000, 250.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(11, 38, 12, NULL, 2, NULL, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 26.99985200, 26.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(12, 39, 12, NULL, 3, NULL, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 25.99985200, 25.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(13, 40, 13, NULL, 1, NULL, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 3, 0, 0, NULL, NULL, 250.00000000, 250.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(14, 41, 13, NULL, 2, NULL, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', NULL, 0.000, NULL, 0.000, NULL, 3, 0, 0, NULL, NULL, 26.99985200, 26.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(15, 42, 13, NULL, 3, NULL, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 3, 0, 0, NULL, NULL, 25.99985200, 25.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(16, 43, 13, NULL, 4, NULL, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', NULL, 0.000, NULL, 0.000, NULL, 3, 0, 0, NULL, NULL, 50.99415300, 50.99415300, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(17, 0, 14, NULL, 20, NULL, 'cinco doli<br />\r\n(C&oacute;digo aduanero: 2030)', 21.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 100, 100.00000000, 100.00000000, 21.00000000, 0.00000000, 0.00000000, 121.00000000, 0, NULL, NULL, 0, 50.00000000, NULL, 0, 1, NULL),
+(18, 0, 14, NULL, 29, NULL, 'molotov<br />\r\n(C&oacute;digo aduanero: 2030 - Pa&iacute;s de origen: Albania)', 21.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 100, 100.00000000, 100.00000000, 21.00000000, 0.00000000, 0.00000000, 121.00000000, 0, NULL, NULL, 0, 50.00000000, NULL, 0, 2, NULL),
+(19, 0, 14, NULL, 23, NULL, 'ocho doli descripcion<br />\r\n(C&oacute;digo aduanero: 2030 - Pa&iacute;s de origen: Afganist&aacute;n)', 21.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 1020, 1020.00000000, 1020.00000000, 214.20000000, 0.00000000, 0.00000000, 1234.20000000, 0, NULL, NULL, 0, 500.00000000, NULL, 0, 3, NULL),
+(20, 0, 15, NULL, 26, NULL, 'aaa producto\nNota en la linea\n(Código aduanero: 2030 - País de origen: Afganistán)', 21.000, 0.000, '0', 0.000, '0', 1, 0, 0, NULL, 100, 100.00000000, 100.00000000, 21.00000000, 0.00000000, 0.00000000, 121.00000000, 0, NULL, NULL, 0, 80.00000000, NULL, 0, 1, NULL),
+(21, 0, 15, NULL, 26, NULL, 'aaa producto\n(Código aduanero: 2030 - País de origen: Afganistán)', 21.000, 0.000, '0', 0.000, '0', 2, 5, 5, NULL, 95, 100.00000000, 190.00000000, 39.90000000, 0.00000000, 0.00000000, 229.90000000, 0, NULL, NULL, 0, 80.00000000, NULL, 0, 2, NULL),
+(22, 44, 16, NULL, 1, NULL, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 250.00000000, 250.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(23, 45, 16, NULL, 5, NULL, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 30.50632100, 30.50632100, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(24, 46, 16, NULL, 4, NULL, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 50.99415300, 50.99415300, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(25, 47, 16, NULL, 3, NULL, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 25.99985200, 25.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(26, 48, 16, NULL, 2, NULL, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', NULL, 0.000, NULL, 0.000, NULL, 1, 0, 0, NULL, NULL, 26.99985200, 26.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(27, 49, 17, NULL, 3, NULL, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', NULL, 0.000, NULL, 0.000, NULL, 11, 0, 0, NULL, NULL, 25.99985200, 25.99985200, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 0, NULL, NULL, 0, 0.00000000, NULL, 0, 0, NULL),
+(28, 0, 18, NULL, 26, NULL, 'aaa producto\n(Código aduanero: 2030 - País de origen: Afganistán)', 21.000, 0.000, '0', 0.000, '0', 1, 15, 18, NULL, 102, 120.00000000, 102.00000000, 21.42000000, 0.00000000, 0.00000000, 123.42000000, 0, NULL, NULL, 0, 80.00000000, NULL, 0, 1, NULL),
+(29, 0, 18, NULL, 26, NULL, 'aaa producto\n(Código aduanero: 2030 - País de origen: Afganistán)', 21.000, 0.000, '0', 0.000, '0', 30, 0, 0, NULL, 120, 120.00000000, 3600.00000000, 756.00000000, 0.00000000, 0.00000000, 4356.00000000, 0, NULL, NULL, 0, 80.00000000, NULL, 0, 2, NULL),
+(30, 0, 18, NULL, 26, NULL, 'aaa producto\n(Código aduanero: 2030 - País de origen: Afganistán)', 21.000, 0.000, '0', 0.000, '0', 30, 6, 7.2, NULL, 112.8, 120.00000000, 3384.00000000, 710.64000000, 0.00000000, 0.00000000, 4094.64000000, 0, NULL, NULL, 0, 80.00000000, NULL, 0, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -3241,7 +3288,7 @@ CREATE TABLE IF NOT EXISTS `llx_const` (
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_const` (`name`,`entity`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=154 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=161 ;
 
 --
 -- Volcado de datos para la tabla `llx_const`
@@ -3278,13 +3325,6 @@ INSERT INTO `llx_const` (`rowid`, `name`, `entity`, `value`, `type`, `visible`, 
 (30, 'MAILING_EMAIL_FROM', 1, 'dolibarr@domain.com', 'chaine', 0, 'EMail emmetteur pour les envois d emailings', '2015-05-05 12:35:56'),
 (31, 'MAIN_MODULE_USER', 0, '1', NULL, 0, NULL, '2015-05-05 12:36:36'),
 (32, 'MAIN_VERSION_LAST_INSTALL', 0, '3.7.0', 'chaine', 0, 'Dolibarr version when install', '2015-05-05 12:36:38'),
-(40, 'MAIN_INFO_SOCIETE_COUNTRY', 1, '23:AR:Argentina', 'chaine', 0, '', '2015-05-05 12:37:30'),
-(41, 'MAIN_INFO_SOCIETE_NOM', 1, 'Casta Test', 'chaine', 0, '', '2015-05-05 12:37:30'),
-(42, 'MAIN_INFO_SOCIETE_STATE', 1, '0', 'chaine', 0, '', '2015-05-05 12:37:31'),
-(43, 'MAIN_MONNAIE', 1, 'EUR', 'chaine', 0, '', '2015-05-05 12:37:31'),
-(44, 'MAIN_INFO_SOCIETE_FORME_JURIDIQUE', 1, '0', 'chaine', 0, '', '2015-05-05 12:37:31'),
-(45, 'SOCIETE_FISCAL_MONTH_START', 1, '0', 'chaine', 0, '', '2015-05-05 12:37:31'),
-(46, 'FACTURE_TVAOPTION', 1, '1', 'chaine', 0, '', '2015-05-05 12:37:31'),
 (48, 'SOCIETE_CODECLIENT_ADDON', 1, 'mod_codeclient_leopard', 'chaine', 0, 'Module to control third parties codes', '2015-05-05 12:37:37'),
 (49, 'SOCIETE_CODECOMPTA_ADDON', 1, 'mod_codecompta_panicum', 'chaine', 0, 'Module to control third parties codes', '2015-05-05 12:37:37'),
 (52, 'COMPANY_ADDON_PDF_ODT_PATH', 1, 'DOL_DATA_ROOT/doctemplates/thirdparties', 'chaine', 0, NULL, '2015-05-05 12:37:37'),
@@ -3353,7 +3393,14 @@ INSERT INTO `llx_const` (`rowid`, `name`, `entity`, `value`, `type`, `visible`, 
 (148, 'MAIN_UPLOAD_DOC', 1, '2048', 'chaine', 0, '', '2015-05-12 12:14:23'),
 (149, 'MAIN_UMASK', 1, '0664', 'chaine', 0, '', '2015-05-12 12:14:23'),
 (150, 'MAIN_MODULE_SINCRONIZAR', 1, '1', NULL, 0, NULL, '2015-05-26 12:11:39'),
-(153, 'MAIN_MODULE_SOCIETE', 1, '1', NULL, 0, NULL, '2015-05-26 13:38:01');
+(153, 'MAIN_MODULE_SOCIETE', 1, '1', NULL, 0, NULL, '2015-05-26 13:38:01'),
+(154, 'MAIN_INFO_SOCIETE_COUNTRY', 1, '23:AR:Argentina', 'chaine', 0, '', '2015-05-27 16:07:38'),
+(155, 'MAIN_INFO_SOCIETE_NOM', 1, 'Casta Test', 'chaine', 0, '', '2015-05-27 16:07:38'),
+(156, 'MAIN_INFO_SOCIETE_STATE', 1, '0', 'chaine', 0, '', '2015-05-27 16:07:38'),
+(157, 'MAIN_MONNAIE', 1, 'ARS', 'chaine', 0, '', '2015-05-27 16:07:38'),
+(158, 'MAIN_INFO_SOCIETE_FORME_JURIDIQUE', 1, '0', 'chaine', 0, '', '2015-05-27 16:07:38'),
+(159, 'SOCIETE_FISCAL_MONTH_START', 1, '0', 'chaine', 0, '', '2015-05-27 16:07:38'),
+(160, 'FACTURE_TVAOPTION', 1, '1', 'chaine', 0, '', '2015-05-27 16:07:38');
 
 -- --------------------------------------------------------
 
@@ -8011,7 +8058,7 @@ CREATE TABLE IF NOT EXISTS `llx_product` (
   KEY `idx_product_fk_country` (`fk_country`),
   KEY `idx_product_fk_user_author` (`fk_user_author`),
   KEY `idx_product_fk_barcode_type` (`fk_barcode_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Volcado de datos para la tabla `llx_product`
@@ -8028,18 +8075,24 @@ INSERT INTO `llx_product` (`rowid`, `id_sin`, `ref`, `entity`, `ref_ext`, `datec
 (14, 14, '1020.000000', 1, NULL, '0000-00-00 00:00:00', '2015-05-20 13:21:12', 0, 0, '', '', NULL, NULL, NULL, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 'HT', 0.000, 0, 0.000, 0.000, NULL, NULL, 1, 1, 0, 0, NULL, 0, NULL, '', NULL, '', '', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, NULL, 0.00000000, NULL, NULL, 0, NULL, 0),
 (16, 16, '0.000000', 1, NULL, '0000-00-00 00:00:00', '2015-05-20 13:21:32', 0, 0, '', '', NULL, NULL, NULL, 1020.00000000, 0.00000000, 1020.00000000, 0.00000000, 'HT', 0.000, 0, 0.000, 0.000, NULL, NULL, 1, 1, 0, 0, NULL, 0, NULL, '', NULL, '', '', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, NULL, 0.00000000, NULL, NULL, 0, NULL, 0),
 (18, 18, 'cinco presta', 1, NULL, '2015-05-20 10:35:54', '2015-05-20 13:38:27', 0, 0, '', '', NULL, NULL, NULL, 20.00000000, 0.00000000, 20.00000000, 0.00000000, 'HT', 1.000, 0, 0.000, 0.000, NULL, NULL, 1, 1, 0, 0, NULL, 0, NULL, '5555555555', NULL, '5555555555', '5555555555', NULL, 40, NULL, 10, NULL, 20, NULL, 30, NULL, NULL, 0.00000000, NULL, NULL, 0, NULL, 0),
-(20, 0, 'cinco_doli', 1, NULL, '2015-05-20 15:40:21', '2015-05-20 13:40:24', 0, 0, 'cinco doli', 'cinco doli', 'cinco doli', '2030', NULL, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', NULL, NULL, '', '', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
+(20, 0, 'cinco_doli', 1, NULL, '2015-05-20 15:40:21', '2015-06-04 15:20:29', 0, 0, 'cinco doli', 'cinco dolia', 'cinco doli', '2030', NULL, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', NULL, NULL, '', '', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
 (21, 0, 'seis_doli', 1, NULL, '2015-05-20 16:01:37', '2015-05-20 14:01:38', 0, 0, 'seis doli', 'seis doli descripcion', 'seis doli nota', '203030', 41, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'seis doli', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 30),
 (22, 0, 'siete_doli', 1, NULL, '2015-05-20 16:04:30', '2015-05-20 14:04:30', 0, 0, 'siete doli', 'siete doli descripcion', 'siete doli nota', '203030', NULL, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'siete doli', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
 (23, 0, 'ocho_doli', 1, NULL, '2015-05-20 16:05:41', '2015-05-20 14:05:44', 0, 0, 'ocho doli', 'ocho doli descripcion', 'ocho doli nota', '2030', 30, 1020.00000000, 1234.20000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, NULL, NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 0, 0, NULL, 20),
 (24, 0, 'nueve_doli', 1, NULL, '2015-05-20 16:23:08', '2015-05-20 14:23:08', 0, 0, 'nueve doli', 'nueve doli descripcion', 'nueve doli', '2030', 26, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'nueve doli', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 0, 0, NULL, 20),
 (25, 0, 'diez_doli', 1, NULL, '2015-05-20 16:31:16', '2015-05-20 14:31:16', 0, 0, 'diez doli', 'diez doli', 'diez doli nota', '2030', 39, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'diez doli', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
-(26, 0, 'aaa_producto', 1, NULL, '2015-05-21 17:25:52', '2015-05-21 15:25:55', 0, 0, 'aaa producto', 'aaa producto', 'aaa producto', '2030', 30, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
+(26, 0, 'aaa_producto', 1, NULL, '2015-05-21 17:25:52', '2015-06-01 13:58:06', 0, 0, 'aaa producto', 'aaa producto', 'aaa producto', '2030', 30, 99.17355000, 120.00000000, 74.38017000, 90.00000000, 'TTC', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
 (27, 0, 'bbb_producto', 1, NULL, '2015-05-21 17:47:38', '2015-05-21 15:47:39', 0, 0, 'bbb producto', 'bbb producto', '', '', NULL, 0.00000000, 0.00000000, 0.00000000, 0.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', NULL, NULL, '', '', NULL, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.00000000, '', NULL, 0, NULL, 20),
-(28, 28, 'ccc_producto', 1, NULL, '0000-00-00 00:00:00', '2015-05-22 12:08:21', 0, 0, 'Diegaaaaxxxx', '', '', '', NULL, 20.00000000, 0.00000000, 20.00000000, 0.00000000, 'HT', 1.000, 0, 0.000, 0.000, 1, NULL, 0, 1, 0, 0, '', NULL, NULL, '', NULL, '', '', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
-(29, 0, 'molotov', 1, NULL, '2015-05-22 14:09:50', '2015-05-22 12:09:50', 0, 0, 'molotov', 'molotov', 'molotov', '2030', 32, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', NULL, NULL, '2030', '3010', NULL, 10, 0, 20, 0, 30, 0, 40, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
+(28, 28, 'ccc_producto', 1, NULL, '0000-00-00 00:00:00', '2015-06-04 18:20:35', 0, 0, 'Diegaaaaxxxx', '', '', '', NULL, 20.00000000, 0.00000000, 12.00000000, 12.00000000, 'HT', 1.000, 0, 0.000, 0.000, 1, NULL, 0, 1, 0, 0, '', NULL, NULL, '', NULL, '', '', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
+(29, 29, 'molotov', 1, NULL, '0000-00-00 00:00:00', '2015-06-02 12:05:46', 0, 0, 'molotov', '', 'molotov', '2030', 32, 300.00000000, 121.00000000, 0.00000000, 96.80000000, 'HT', 1.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', 10, 'cuarentaicuatro@doli.com', '', NULL, '', '', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
 (30, 30, 'abab_producto', 1, NULL, '0000-00-00 00:00:00', '2015-05-22 13:30:49', 0, 0, 'ababa producto', '', 'abab producto', '2030', NULL, 0.00000000, 121.00000000, 0.00000000, 96.80000000, 'HT', 1.000, 0, 0.000, 0.000, 1, NULL, 0, 1, 0, 0, '', 10, NULL, '', NULL, '', '', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0.00000000, '', 1, 0, NULL, 20),
-(31, 31, 'dire_doli', 1, NULL, '0000-00-00 00:00:00', '2015-05-26 15:28:17', 0, 0, 'Fuera de ventasa', '', '', '', NULL, 666.00000000, 805.86000000, 555.00000000, 671.55000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, NULL, NULL, '', '', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL);
+(31, 31, 'dire_doli', 1, NULL, '0000-00-00 00:00:00', '2015-05-26 15:28:17', 0, 0, 'Fuera de ventasa', '', '', '', NULL, 666.00000000, 805.86000000, 555.00000000, 671.55000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, NULL, NULL, '', '', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
+(32, 32, 'prueba_precios', 1, NULL, '2015-06-04 12:59:13', '2015-06-04 18:17:41', 0, 0, 'prueba_precios', '<p>Descripción del articulo</p>', NULL, NULL, NULL, 20.00000000, 24.20000000, 17.00000000, 17.00000000, 'HT', 1.000, 0, 0.000, 0.000, NULL, NULL, 1, 1, 0, 0, NULL, 0, NULL, '161513513513', NULL, '161513513513', '161513513513', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, NULL, 0.00000000, NULL, NULL, 0, NULL, 0),
+(33, 33, '2030', 1, NULL, '0000-00-00 00:00:00', '2015-06-05 16:13:00', 0, 0, 'deDolibar', '', '', '', 13, 220.00000000, 266.20000000, 150.00000000, 150.00000000, 'HT', 1.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, '3020', NULL, '3020', '3020', NULL, 10, 0, 30, 0, 20, 0, 36000, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
+(34, 0, 'deDolibar2', 1, NULL, '2015-06-05 18:13:30', '2015-06-05 16:13:31', 0, 0, 'deDolibar2', '', '', '', NULL, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
+(35, 0, 'deDolibar3', 1, NULL, '2015-06-05 18:14:52', '2015-06-05 16:14:52', 0, 0, 'deDolibar3', '', '', '', NULL, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
+(36, 0, 'deDolibar4', 1, NULL, '2015-06-05 18:17:03', '2015-06-05 16:17:03', 0, 0, 'deDolibar4', '', '', '', NULL, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL),
+(37, 0, 'deDolibar5', 1, NULL, '2015-06-05 18:18:31', '2015-06-05 16:32:06', 0, 0, 'deDolibar5', '', '', '', NULL, 108.59729000, 120.00000000, 81.44796000, 90.00000000, 'TTC', 10.500, 0, 0.000, 0.000, 1, NULL, 1, 1, 0, 0, '', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.00000000, '', NULL, 0, NULL, NULL);
 
 --
 -- Disparadores `llx_product`
@@ -8056,7 +8109,9 @@ CREATE TRIGGER `llx_product_AINS` AFTER INSERT ON `llx_product`
 		`name`,
 		`description_short`,
 		`price`,
+		`price_ttc`,
 		`price_min`,
+		`price_min_ttc`,
 		`code_sell`,
 		`code_buy`,
 		`barcode`,
@@ -8079,7 +8134,9 @@ CREATE TRIGGER `llx_product_AINS` AFTER INSERT ON `llx_product`
 		NEW.label,
 		NEW.description,
 		NEW.price,
+		NEW.price_ttc,
 		NEW.price_min,
+		NEW.price_min_ttc,
 		NEW.accountancy_code_sell,
 		NEW.accountancy_code_buy,
 		NEW.barcode,
@@ -8109,7 +8166,9 @@ CREATE TRIGGER `llx_product_AUPD` AFTER UPDATE ON `llx_product`
 		`name`,
 		`description_short`,
 		`price`,
+		`price_ttc`,
 		`price_min`,
+		`price_min_ttc`,
 		`code_sell`,
 		`code_buy`,
 		`barcode`,
@@ -8132,7 +8191,9 @@ CREATE TRIGGER `llx_product_AUPD` AFTER UPDATE ON `llx_product`
 		NEW.label,
 		NEW.description,
 		NEW.price,
+		NEW.price_ttc,
 		NEW.price_min,
+		NEW.price_min_ttc,
 		NEW.accountancy_code_sell,
 		NEW.accountancy_code_buy,
 		NEW.barcode,
@@ -8288,7 +8349,14 @@ CREATE TABLE IF NOT EXISTS `llx_product_fournisseur_price` (
   KEY `idx_product_fournisseur_price_fk_user` (`fk_user`),
   KEY `idx_product_fourn_price_fk_product` (`fk_product`,`entity`),
   KEY `idx_product_fourn_price_fk_soc` (`fk_soc`,`entity`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `llx_product_fournisseur_price`
+--
+
+INSERT INTO `llx_product_fournisseur_price` (`rowid`, `entity`, `datec`, `tms`, `fk_product`, `fk_soc`, `ref_fourn`, `fk_availability`, `price`, `quantity`, `remise_percent`, `remise`, `unitprice`, `charges`, `unitcharges`, `tva_tx`, `info_bits`, `fk_user`, `import_key`) VALUES
+(1, 1, '2015-05-28 14:50:39', '2015-05-28 12:50:39', 26, 218, '2060', 0, 80.00000000, 1, 0, 0, 80.00000000, 0.00000000, 0.00000000, 21.000, 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -8352,7 +8420,7 @@ CREATE TABLE IF NOT EXISTS `llx_product_price` (
   PRIMARY KEY (`rowid`),
   KEY `idx_product_price_fk_user_author` (`fk_user_author`),
   KEY `idx_product_price_fk_product` (`fk_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=79 ;
 
 --
 -- Volcado de datos para la tabla `llx_product_price`
@@ -8381,7 +8449,62 @@ INSERT INTO `llx_product_price` (`rowid`, `entity`, `tms`, `fk_product`, `date_p
 (20, 1, '2015-05-22 16:07:24', 31, '2015-05-22 18:07:24', 1, 666.00000000, 666.00000000, 555.00000000, 555.00000000, 'HT', 0.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
 (21, 1, '2015-05-22 16:09:22', 31, '2015-05-22 18:09:22', 1, 6666.00000000, 6666.00000000, 5555.00000000, 5555.00000000, 'HT', 0.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
 (22, 1, '2015-05-22 16:10:04', 31, '2015-05-22 18:10:04', 1, 666.00000000, 666.00000000, 555.00000000, 555.00000000, 'HT', 0.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
-(23, 1, '2015-05-22 16:10:48', 31, '2015-05-22 18:10:48', 1, 666.00000000, 805.86000000, 555.00000000, 671.55000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL);
+(23, 1, '2015-05-22 16:10:48', 31, '2015-05-22 18:10:48', 1, 666.00000000, 805.86000000, 555.00000000, 671.55000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(24, 1, '2015-05-28 16:01:51', 26, '2015-05-28 18:01:51', 1, 120.00000000, 145.20000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(25, 1, '2015-05-28 16:02:04', 26, '2015-05-28 18:02:04', 1, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(26, 1, '2015-06-01 13:58:06', 26, '2015-06-01 15:58:06', 1, 99.17355000, 120.00000000, 74.38017000, 90.00000000, 'TTC', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(27, 1, '2015-06-04 15:59:58', 32, '2015-06-04 17:59:58', 1, 20.00000000, 20.20000000, 0.00000000, 0.00000000, 'HT', 1.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(28, 1, '2015-06-04 16:12:37', 32, '2015-06-04 18:12:37', 1, 20.00000000, 24.20000000, 8.00000000, 9.68000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(29, 1, '2015-06-04 16:15:18', 32, '2015-06-04 18:15:18', 1, 20.00000000, 24.20000000, 8.00000000, 9.68000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(30, 1, '2015-06-04 16:15:32', 32, '2015-06-04 18:15:32', 1, 20.00000000, 24.20000000, 8.00000000, 9.68000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(31, 1, '2015-06-04 16:15:38', 32, '2015-06-04 18:15:38', 1, 20.00000000, 24.20000000, 8.00000000, 9.68000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(32, 1, '2015-06-04 16:15:41', 32, '2015-06-04 18:15:41', 1, 20.00000000, 24.20000000, 8.00000000, 9.68000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(33, 1, '2015-06-04 16:15:43', 32, '2015-06-04 18:15:43', 1, 20.00000000, 24.20000000, 8.00000000, 9.68000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(34, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 5.00000000, 5.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(35, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 5.00000000, 5.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(36, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 5.00000000, 5.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(37, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 5.00000000, 5.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(38, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 5.00000000, 5.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(39, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 5.00000000, 5.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(40, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 4.00000000, 4.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(41, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 4.00000000, 4.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(42, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 4.00000000, 4.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(43, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 4.00000000, 4.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(44, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 4.00000000, 4.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(45, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 4.00000000, 4.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(46, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 22.00000000, 22.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(47, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 22.00000000, 22.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(48, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 22.00000000, 22.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(49, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 22.00000000, 22.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(50, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 22.00000000, 22.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(51, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 22.00000000, 22.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(52, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 21.00000000, 21.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(53, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 21.00000000, 21.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(54, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 21.00000000, 21.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(55, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 21.00000000, 21.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(56, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 21.00000000, 21.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(57, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 21.00000000, 21.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(58, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 19.00000000, 19.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(59, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 18.00000000, 18.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(60, 1, '2015-06-04 15:59:13', 32, '2015-06-04 12:59:13', 1, 20.00000000, 20.00000000, 17.00000000, 17.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(61, 1, '0000-00-00 00:00:00', 28, '0000-00-00 00:00:00', 1, 20.00000000, 20.00000000, 11.00000000, 11.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(62, 1, '0000-00-00 00:00:00', 28, '0000-00-00 00:00:00', 1, 20.00000000, 20.00000000, 12.00000000, 12.00000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(63, 1, '2015-06-05 15:35:46', 33, '2015-06-05 17:35:46', 1, 200.00000000, 242.00000000, 150.00000000, 181.50000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(64, 1, '2015-06-05 15:46:11', 33, '2015-06-05 17:46:11', 1, 210.00000000, 254.10000000, 140.00000000, 169.40000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(65, 1, '2015-06-05 15:59:04', 33, '2015-06-05 17:59:04', 1, 220.00000000, 266.20000000, 150.00000000, 181.50000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(66, 1, '2015-06-05 16:13:30', 34, '2015-06-05 18:13:30', 1, 100.00000000, 121.00000000, 80.00000000, 96.80000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(67, 1, '2015-06-05 16:14:52', 35, '2015-06-05 18:14:52', 1, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(68, 1, '2015-06-05 16:17:03', 36, '2015-06-05 18:17:03', 1, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(69, 1, '2015-06-05 16:18:32', 37, '2015-06-05 18:18:32', 1, 90.00000000, 108.90000000, 120.00000000, 145.20000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(70, 1, '2015-06-05 16:19:15', 37, '2015-06-05 18:19:15', 1, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(71, 1, '2015-06-05 16:19:38', 37, '2015-06-05 18:19:38', 1, 99.17355000, 120.00000000, 74.38017000, 90.00000000, 'TTC', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(72, 1, '2015-06-05 16:20:08', 37, '2015-06-05 18:20:08', 1, 108.59729000, 120.00000000, 81.44796000, 90.00000000, 'TTC', 10.500, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(73, 1, '2015-06-05 16:28:31', 37, '2015-06-05 18:28:31', 1, 99.17355000, 120.00000000, 74.38017000, 90.00000000, 'TTC', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(74, 1, '2015-06-05 16:29:05', 37, '2015-06-05 18:29:05', 1, 99.17355000, 120.00000000, 74.38017000, 90.00000000, 'TTC', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(75, 1, '2015-06-05 16:30:15', 37, '2015-06-05 18:30:15', 1, 108.59729000, 120.00000000, 81.44796000, 90.00000000, 'TTC', 10.500, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(76, 1, '2015-06-05 16:31:15', 37, '2015-06-05 18:31:15', 1, 120.00000000, 145.20000000, 90.00000000, 108.90000000, 'HT', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(77, 1, '2015-06-05 16:31:43', 37, '2015-06-05 18:31:43', 1, 99.17355000, 120.00000000, 74.38017000, 90.00000000, 'TTC', 21.000, 0, 0.000, 0.000, 1, 1, 0, NULL),
+(78, 1, '2015-06-05 16:32:06', 37, '2015-06-05 18:32:06', 1, 108.59729000, 120.00000000, 81.44796000, 90.00000000, 'TTC', 10.500, 0, 0.000, 0.000, 1, 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -8819,8 +8942,8 @@ INSERT INTO `llx_rights_def` (`id`, `libelle`, `module`, `entity`, `perms`, `sub
 
 CREATE TABLE IF NOT EXISTS `llx_societe` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
-  `secure_key` varchar(32) NOT NULL,
   `id_sin` int(11) NOT NULL,
+  `secure_key` varchar(32) NOT NULL,
   `nom` varchar(128) DEFAULT NULL,
   `entity` int(11) NOT NULL DEFAULT '1',
   `ref_ext` varchar(128) DEFAULT NULL,
@@ -8896,102 +9019,104 @@ CREATE TABLE IF NOT EXISTS `llx_societe` (
   UNIQUE KEY `uk_societe_barcode` (`barcode`,`fk_barcode_type`,`entity`),
   KEY `idx_societe_user_creat` (`fk_user_creat`),
   KEY `idx_societe_user_modif` (`fk_user_modif`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=218 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=220 ;
 
 --
 -- Volcado de datos para la tabla `llx_societe`
 --
 
-INSERT INTO `llx_societe` (`rowid`, `secure_key`, `id_sin`, `nom`, `entity`, `ref_ext`, `ref_int`, `statut`, `parent`, `tms`, `datec`, `status`, `code_client`, `code_fournisseur`, `code_compta`, `code_compta_fournisseur`, `address`, `zip`, `town`, `fk_departement`, `fk_pays`, `phone`, `fax`, `url`, `email`, `skype`, `fk_effectif`, `fk_typent`, `fk_forme_juridique`, `fk_currency`, `siren`, `siret`, `ape`, `idprof4`, `idprof5`, `idprof6`, `tva_intra`, `capital`, `fk_stcomm`, `note_private`, `note_public`, `prefix_comm`, `client`, `fournisseur`, `supplier_account`, `fk_prospectlevel`, `customer_bad`, `customer_rate`, `supplier_rate`, `fk_user_creat`, `fk_user_modif`, `remise_client`, `mode_reglement`, `cond_reglement`, `mode_reglement_supplier`, `cond_reglement_supplier`, `tva_assuj`, `localtax1_assuj`, `localtax1_value`, `localtax2_assuj`, `localtax2_value`, `barcode`, `fk_barcode_type`, `price_level`, `outstanding_limit`, `default_lang`, `logo`, `canvas`, `import_key`, `webservices_url`, `webservices_key`) VALUES
-(99, '', 1, 'dolibar', 1, NULL, NULL, 0, NULL, '2015-05-06 18:18:14', '2015-05-06 15:18:14', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'dolibar8@dolibar.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(100, '', 2, 'Prestashop', 1, NULL, NULL, 0, NULL, '2015-05-06 17:00:36', '2015-05-06 14:00:36', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'corbata@test.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(101, '', 3, 'Prestashop', 1, NULL, NULL, 0, NULL, '2015-05-06 18:04:33', '2015-05-06 15:04:33', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'diego.nieto2@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(102, '', 0, 'Nuevo dolibarr', 1, NULL, NULL, 0, NULL, '2015-05-06 18:20:53', '2015-05-06 20:05:09', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'dolibar10@dolibar.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(103, '', 0, 'tercer dolibar', 1, NULL, NULL, 0, NULL, '2015-05-06 18:42:35', '2015-05-06 20:42:35', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'doli@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(104, '', 6, 'tercer presta', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:59', '2015-05-15 15:13:06', 1, NULL, NULL, NULL, NULL, 'Juan José Paso 33', 'A5501', 'Mendoza', 0, 0, '0261-55555555', NULL, '', 'tercer@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(105, '', 0, 'cuarto doli', 1, NULL, NULL, 0, NULL, '2015-05-07 12:17:34', '2015-05-06 21:01:03', 1, NULL, NULL, NULL, NULL, 'Ricardo Videla', 'A5500', 'Mendoza', 606, 23, '4396721', NULL, 'www.cuarto.doli.com', 'cuarto@doli.com', NULL, NULL, 5, 2301, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(109, '', 11, 'quinto dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 11:51:52', '2015-05-06 16:19:41', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'quinto_666@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, 'Nueva nota privada', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(110, '', 12, 'quinto presta', 1, NULL, NULL, 0, NULL, '2015-05-07 14:04:55', '2015-05-07 08:50:02', 1, NULL, NULL, NULL, NULL, 'CostaneraSSS', 'A5501', 'Mendoza', 0, 0, '4396721', NULL, NULL, 'presta_5@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, 'Cambiamos nota privada', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(116, '', 0, 'octavo dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 14:27:30', '2015-05-07 16:27:30', 1, NULL, NULL, NULL, NULL, 'Juan Carlos 2013', '5507', 'Luján de cuyo', 606, 23, '4396721', NULL, 'ww.bolistone.com', 'octavo@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(117, '', 0, 'noveno dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 14:30:40', '2015-05-07 16:30:40', 1, NULL, NULL, NULL, NULL, 'Costanera  1948', 'A5501', 'Mendoza', 606, 23, '0261', NULL, 'noveno', 'noveno@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(121, '', -1, 'decimo dolibar', 1, NULL, NULL, 0, NULL, '2015-05-12 15:56:45', '2015-05-07 16:50:55', 1, NULL, NULL, NULL, NULL, 'San Martin 2016', 'A5501', 'Mendoza', 606, 23, '4666777', NULL, 'www.mendoza.com', 'mendoza@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(122, '', -1, 'diez prestashop', 1, NULL, NULL, 0, NULL, '2015-05-07 16:34:31', '2015-05-07 11:55:33', 1, NULL, NULL, NULL, NULL, 'San Martín 201615', 'A5507', 'Luján de cuyo', 0, 0, '4202020', NULL, NULL, 'ppaa@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(123, '', 0, 'once dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 14:58:32', '2015-05-07 16:58:31', 1, NULL, NULL, NULL, NULL, 'San Martín 2015', '5507', 'Luján de cuyo', 606, 23, '241613245', NULL, 'www.dolibar.com', 'once@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(125, '', 0, 'doce dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 15:02:16', '2015-05-07 17:02:16', 1, NULL, NULL, NULL, NULL, 'doce dolibar', 'A5501', 'Mendoza', 606, 23, '0261-5132824', NULL, 'www.doce.com', 'doce@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(130, '', 0, 'trece dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 15:10:30', '2015-05-07 17:10:30', 1, NULL, NULL, NULL, NULL, 'trece dolibar', 'A5501', 'Mendoza', 606, 23, '0261-5132824', NULL, 'www.trece.dolibar', 'trece@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(134, '', 36, 'catorcezzzz dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:58', '2015-05-07 17:21:47', 1, NULL, NULL, NULL, NULL, 'catorce dolibar', '5507', 'Luján de cuyo', 606, 23, '0261-5132824', NULL, 'catorce.dolibar.com', 'catorce@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(135, '', 37, 'Pedro', 1, NULL, NULL, 0, NULL, '2015-05-12 15:49:06', '2015-05-12 12:49:06', 1, NULL, NULL, NULL, NULL, 'quince dolibar', 'A5501', 'Mendoza', 596, 23, '0261-5132824', NULL, 'quince.dolibar.com', 'pedrog@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(136, '', 38, 'Maria', 1, NULL, NULL, 0, NULL, '2015-05-12 15:48:12', '2015-05-12 12:48:12', 1, NULL, NULL, NULL, NULL, 'dieciseis dolibar', '5507', 'Luján de cuyo', 606, 23, '0261-5132824', NULL, 'dieciseisdolibar', 'mariagomez@gmail.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(137, '', 39, 'Juan ', 1, NULL, NULL, 0, NULL, '2015-05-12 16:37:01', '2015-05-12 13:37:01', 1, NULL, NULL, NULL, NULL, 'diecisiete dolibar', '5507', 'Luján de cuyo', 606, 23, '0261-5132824', NULL, 'www.cuarto.doli.com', 'juanperez@hotmail.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(138, '', 40, 'Perro', 1, NULL, NULL, 0, NULL, '2015-05-13 19:14:30', '2015-05-13 16:14:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'perro@perro.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(139, '', 41, 'Nombre', 1, NULL, NULL, 0, NULL, '2015-05-18 13:21:22', '2015-05-15 09:42:03', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'nombre_apellido@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Nota privada para nombre', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(144, '', 0, 'secury sin pass', 1, NULL, NULL, 0, NULL, '2015-05-14 13:53:52', '2015-05-14 15:53:52', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'se@hotmail.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(145, '54fb745af35fe172322df5ba63c5fa2f', 0, 'A verte', 1, NULL, NULL, 0, NULL, '2015-05-14 14:12:36', '2015-05-14 16:12:36', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'aver@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(146, '24504c9444b75d9ad4e10eb27a8e20d1', 0, 'seguridad policial', 1, NULL, NULL, 0, NULL, '2015-05-15 12:42:37', '2015-05-14 16:14:06', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'secure_key@codl.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(149, 'af720c935ed2e6e5620910f98a5c3de9', 0, 'veinte dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 14:51:06', '2015-05-14 16:51:06', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(150, '765def10fc38f1467a4e21a708cc730e', -1, 'veintiuno dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 15:04:16', '2015-05-14 17:04:15', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'veintiuno@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(151, '6bd92f6bef6aee6eca04cce707f65282', -1, 'veintidos dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 15:08:26', '2015-05-14 17:08:26', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'veinteidos@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(152, '9042aa7106b9983d491766bf59e9a785', -1, 'veinteitres dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 15:12:16', '2015-05-14 17:12:16', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, 'veinteitres@dolibar.com', NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(153, '30d8d89810529065eb4cdf952cb2f6b1', 48, 'veinticuatro ', 1, NULL, NULL, 0, NULL, '2015-05-14 15:18:06', '2015-05-14 12:17:18', 1, NULL, NULL, NULL, NULL, 'Costanera 1948', 'A5501', 'Mendoza', 0, 23, '0261-5132824', NULL, NULL, 'veinticuatro@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(154, '', 49, 'Veinte presta', 1, NULL, NULL, 0, NULL, '2015-05-14 15:29:32', '2015-05-14 12:29:32', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'Veinte@presta.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(155, '', 50, 'edit presta', 1, NULL, NULL, 0, NULL, '2015-05-14 16:19:31', '2015-05-14 13:19:31', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'insert@presta.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(156, '024d0f062121fb78150fc817f2b97a95', 51, 'Insertsss dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 16:31:50', '2015-05-14 13:31:50', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'Inserto@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(160, '0c92db934fddacc31919f854c94cd120', -1, 'Inserts dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 16:28:18', '2015-05-14 18:28:17', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'juanperez2@hotmail.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(163, '51866b22b7150a61560c4990e4259ba0', 58, 'zzzzzz', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:58', '2015-05-15 09:11:26', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'rrr@tmsgrorrup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(164, '79e5b3869d1bfaec105c46df5432a50d', 59, 'treintas dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:59', '2015-05-15 09:46:16', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'treinta@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(165, 'ba5e624dc0ab8ca2c1540106c63f5c57', 60, 'treintaiunos dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 14:12:18', '2015-05-18 11:11:42', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'treintaiuno@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(166, '', 61, 'treintas presta', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:59', '2015-05-15 09:45:51', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'treinta@presta.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(167, '', 63, 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:29:34', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(168, '', 63, 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:29:59', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(169, '', 64, 'cuarentaidos', 1, NULL, NULL, 0, NULL, '2015-05-18 14:29:59', '2015-05-18 11:27:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaidos@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(170, '', 65, 'cuarentaitreszz', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:29:53', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaitres@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(171, '', 63, 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:30:40', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(172, '', 64, 'cuarentaidos', 1, NULL, NULL, 0, NULL, '2015-05-18 14:30:40', '2015-05-18 11:27:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaidos@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(173, '', 65, 'cuarentaitres', 1, NULL, NULL, 0, NULL, '2015-05-18 14:30:41', '2015-05-18 11:29:53', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaitres@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(174, '', 63, 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(175, '', 64, 'cuarentaidos', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:27:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaidos@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(176, '', 65, 'cuarentaitres', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:29:53', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaitres@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(177, '', 66, 'cuarentaicuatroxx', 1, NULL, NULL, 0, NULL, '2015-05-18 14:33:05', '2015-05-18 11:33:01', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaicuatro@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(178, 'b7043a6db9346528e05df37614fc20bc', -1, 'cuarenta doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:38:44', '2015-05-18 16:38:44', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'cuarenta@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(179, '4595fc30bcdada13fe8491c78fbca903', 67, 'cuarentaiuno doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:42:13', '2015-05-18 16:39:59', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'cuarentaiuno@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(180, 'd16272ea75d0df7d33190644f56ef01f', 68, 'cuarentaidos ahora dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 14:43:20', '2015-05-18 11:43:00', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'cuarentaidos@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(181, '', 67, 'cuarentaiuno doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:42:12', '2015-05-18 16:39:59', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(182, '6da34d6df4569e0ea401cba8805404a2', -1, 'cuarentaicuatros doli', 1, NULL, NULL, 0, NULL, '2015-05-19 11:56:40', '2015-05-18 16:54:17', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, 'cuarentaicuatro@doli.com', NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(183, '2f698b695b2ea8e731b9841e7d55356c', -1, 'cuarentaicinco doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:56:25', '2015-05-18 16:56:25', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'cuarentaicinco@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(184, '26758b9157f842f340516ee0945bfcb9', 68, 'cuarentaiseis doli', 1, NULL, NULL, 0, NULL, '2015-05-18 20:01:18', '2015-05-18 16:57:50', 1, NULL, NULL, NULL, NULL, 'cuarentaiocho ', 'A5500', 'Mendoza', 0, 23, '4396721', NULL, NULL, 'cuarentaiseis@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(185, 'db2d918fd2ada1cf1f391421d15dea26', 67, 'cuarentaisiete doli', 1, NULL, NULL, 0, NULL, '2015-05-18 19:57:19', '2015-05-18 16:40:03', 1, NULL, NULL, NULL, NULL, '', 'A5500', 'Mendoza', 0, 23, '4396721', NULL, '', 'cuarentaisiete@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(186, 'e2327506f08cb2b9d81c2d02bc7c00e2', -1, 'cuarentaiocho doli', 1, NULL, NULL, 0, NULL, '2015-05-18 15:00:18', '2015-05-18 17:00:18', 1, NULL, NULL, NULL, NULL, 'Costanera 1948', 'A5501', 'Mendoza', 605, 23, '4396721', '4396721', NULL, 'cuarentaiocho@doli.com', NULL, 2, 5, 2311, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(187, 'fc83ebdfff1e6ac7f7d4bbf977b80407', 74, 'cuarentainueve doli', 1, NULL, NULL, 0, NULL, '2015-05-20 18:59:35', '2015-05-18 17:06:43', 1, NULL, NULL, NULL, NULL, 'Costanera 1993', 'A5501', 'Mendoza', 606, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cuarentainueve@doli.com', NULL, 1, 5, NULL, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(188, 'a17ed4f7fbfcba3e914a255db6aa7fbb', 75, 'cincuenta doli', 1, NULL, NULL, 0, NULL, '2015-05-19 14:00:18', '2015-05-18 17:17:51', 1, NULL, NULL, NULL, NULL, 'San Martin tan lejos', 'A5501', 'Mendoza', 0, 23, '4396721', NULL, NULL, 'cincuenta@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(189, 'c5cf587a1473040fb25cb6e16779b931', -1, 'sesenta doli', 1, NULL, NULL, 0, NULL, '2015-05-19 11:57:18', '2015-05-19 13:57:17', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'sesenta@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(190, '359e3fe027deaa42d18a4830ccb173c4', -1, 'cien doli', 1, NULL, NULL, 0, NULL, '2015-05-21 11:54:18', '2015-05-21 13:54:16', 1, NULL, NULL, NULL, NULL, 'Cien dirección 2030', 'A5501', 'Mendoza', 609, 23, '4396721', '4396721', NULL, 'cien@doli.com', NULL, 2, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(191, 'b98106e34eafb1354a95c36299fb942f', -1, 'cientouno doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:01:36', '2015-05-21 14:01:36', 1, NULL, NULL, NULL, NULL, 'cientouno doli', 'A5501', 'Mendoza', 595, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cientouno@doli.com', NULL, 1, 5, 2309, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(192, 'cf988a217862f32696fd4cb2a7250e24', -1, 'cientodos doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:11:27', '2015-05-21 14:03:58', 1, NULL, NULL, NULL, NULL, 'cientodos doli', 'A5501', 'Mendoza', 595, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cientodos@doli.com', NULL, 1, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(193, '', 79, 'cientodos doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:30:49', '2015-05-21 14:03:58', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'cientodos@doli.com', NULL, NULL, 0, NULL, NULL, '-', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(194, '2aa21e4a772cadd2bac1f0e9de739e2f', -1, 'cientocuatro doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:32:32', '2015-05-21 14:32:32', 1, NULL, NULL, NULL, NULL, 'cientocuatro doli', 'A5501', 'Mendoza', 595, 23, '4396721', '4396721', 'urlpublica', 'cientocuatro@doli.com', NULL, 1, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(195, 'e46a345bf02381d8ce979683faa15f7d', -1, 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:34:11', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, 'cientocinco doli', 'A5501', 'Mendoza', 596, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cientocinco@doli.com', NULL, 1, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(196, '', 81, 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:41:03', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(197, '', 82, 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:54:02', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(198, '', 83, 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:55:20', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(199, '14208679cc20f6d05a110029d23de322', -1, 'aaa doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:55:50', '2015-05-21 14:55:50', 1, NULL, NULL, NULL, NULL, 'aaa doli', 'A5501', 'Mendoza', 0, 23, NULL, NULL, NULL, 'aaa@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(200, '', 84, 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:55:51', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(201, '6f2c6e2b04c41977335a914d91bd6012', -1, 'bbbt doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:31', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, 'bbb doli', NULL, NULL, 0, 23, NULL, NULL, NULL, 'bbb@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(202, '', 86, 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:11:33', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(203, '', 87, 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:11:39', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(204, '', 88, 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:07', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(205, '', 89, 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:25', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(206, '', 90, 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:32', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(207, 'd3ba2018a795cfa5557e78663be5ce87', -1, 'ccc doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:15:42', '2015-05-21 15:15:42', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'ccc@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(208, '', 91, 'ccc doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:17:17', '2015-05-21 15:15:42', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(209, '0a7e32c6323bf2d7461ab4fffb039ca7', -1, 'ddd doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:17:30', '2015-05-21 15:17:30', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'ddd@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(210, 'd6a10b3f5b4d4557640a568fd4ebbe77', 94, 'eeezz doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:40:39', '2015-05-21 10:40:34', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'eee@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(211, '', 95, 'aaadigoa presta', 1, NULL, NULL, 0, NULL, '2015-05-21 14:36:45', '2015-05-21 11:05:29', 1, NULL, NULL, NULL, NULL, 'cuarentaiocho 4050', 'A5500', 'Mendoza', 0, 0, '4396721', NULL, NULL, 'aaazzjb@presta.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(212, '', 96, 'aaaa', 1, NULL, NULL, 0, NULL, '2015-05-21 14:34:55', '2015-05-21 11:34:24', 1, NULL, NULL, NULL, NULL, 'A verte', 'A5500', 'Mendoza', 0, 0, '4396721', NULL, '', 'aaaapresta@presta.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(213, '6ee076e7dbc91b0e8e3c14c990a766fa', -1, 'aaaa doli', 1, NULL, NULL, 0, NULL, '2015-05-22 15:49:39', '2015-05-22 17:40:19', 1, NULL, NULL, NULL, NULL, 'asdf', NULL, NULL, 0, 23, NULL, NULL, NULL, 'aaaa@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(214, '4db76e7838294d3ac08c3969f660faf0', -1, 'abapapu doli', 1, NULL, NULL, 0, NULL, '2015-05-22 15:47:08', '2015-05-22 17:42:08', 1, NULL, NULL, NULL, NULL, 'Nueva direccion', NULL, NULL, 0, 23, NULL, NULL, NULL, 'abab@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(215, '01c67b1acc1f800b4f704d2f952cc724', -1, 'dire doli', 1, NULL, NULL, 0, NULL, '2015-05-22 15:50:35', '2015-05-22 17:50:12', 1, NULL, NULL, NULL, NULL, 'Costanera', NULL, NULL, 0, 23, NULL, NULL, NULL, 'dire@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(216, 'a6499cea83cdcbd0929196174ba4cb52', -1, 'diredos presta', 1, NULL, NULL, 0, NULL, '2015-05-22 15:52:31', '2015-05-22 17:51:54', 1, NULL, NULL, NULL, NULL, 'costanera', NULL, NULL, 0, 23, NULL, NULL, NULL, 'diredos@presta.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(217, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 100, 'diretres presta', 1, NULL, NULL, 0, NULL, '2015-05-26 14:45:23', '2015-05-26 11:45:16', 1, NULL, NULL, NULL, NULL, 'Nueva direccion', NULL, NULL, 0, 23, NULL, NULL, '', 'diretres@presta.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `llx_societe` (`rowid`, `id_sin`, `secure_key`, `nom`, `entity`, `ref_ext`, `ref_int`, `statut`, `parent`, `tms`, `datec`, `status`, `code_client`, `code_fournisseur`, `code_compta`, `code_compta_fournisseur`, `address`, `zip`, `town`, `fk_departement`, `fk_pays`, `phone`, `fax`, `url`, `email`, `skype`, `fk_effectif`, `fk_typent`, `fk_forme_juridique`, `fk_currency`, `siren`, `siret`, `ape`, `idprof4`, `idprof5`, `idprof6`, `tva_intra`, `capital`, `fk_stcomm`, `note_private`, `note_public`, `prefix_comm`, `client`, `fournisseur`, `supplier_account`, `fk_prospectlevel`, `customer_bad`, `customer_rate`, `supplier_rate`, `fk_user_creat`, `fk_user_modif`, `remise_client`, `mode_reglement`, `cond_reglement`, `mode_reglement_supplier`, `cond_reglement_supplier`, `tva_assuj`, `localtax1_assuj`, `localtax1_value`, `localtax2_assuj`, `localtax2_value`, `barcode`, `fk_barcode_type`, `price_level`, `outstanding_limit`, `default_lang`, `logo`, `canvas`, `import_key`, `webservices_url`, `webservices_key`) VALUES
+(99, 1, '', 'dolibar', 1, NULL, NULL, 0, NULL, '2015-05-06 18:18:14', '2015-05-06 15:18:14', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'dolibar8@dolibar.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(100, 2, '', 'Prestashop', 1, NULL, NULL, 0, NULL, '2015-05-06 17:00:36', '2015-05-06 14:00:36', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'corbata@test.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(101, 3, '', 'Prestashop', 1, NULL, NULL, 0, NULL, '2015-05-06 18:04:33', '2015-05-06 15:04:33', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'diego.nieto2@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(102, 0, '', 'Nuevo dolibarr', 1, NULL, NULL, 0, NULL, '2015-05-06 18:20:53', '2015-05-06 20:05:09', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'dolibar10@dolibar.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(103, 0, '', 'tercer dolibar', 1, NULL, NULL, 0, NULL, '2015-05-06 18:42:35', '2015-05-06 20:42:35', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'doli@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(104, 6, '', 'tercer presta', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:59', '2015-05-15 15:13:06', 1, NULL, NULL, NULL, NULL, 'Juan José Paso 33', 'A5501', 'Mendoza', 0, 0, '0261-55555555', NULL, '', 'tercer@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(105, 0, '', 'cuarto doli', 1, NULL, NULL, 0, NULL, '2015-05-07 12:17:34', '2015-05-06 21:01:03', 1, NULL, NULL, NULL, NULL, 'Ricardo Videla', 'A5500', 'Mendoza', 606, 23, '4396721', NULL, 'www.cuarto.doli.com', 'cuarto@doli.com', NULL, NULL, 5, 2301, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(109, 11, '', 'quinto dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 11:51:52', '2015-05-06 16:19:41', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'quinto_666@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, 'Nueva nota privada', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(110, 12, '', 'quinto presta', 1, NULL, NULL, 0, NULL, '2015-05-07 14:04:55', '2015-05-07 08:50:02', 1, NULL, NULL, NULL, NULL, 'CostaneraSSS', 'A5501', 'Mendoza', 0, 0, '4396721', NULL, NULL, 'presta_5@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, 'Cambiamos nota privada', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(116, 0, '', 'octavo dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 14:27:30', '2015-05-07 16:27:30', 1, NULL, NULL, NULL, NULL, 'Juan Carlos 2013', '5507', 'Luján de cuyo', 606, 23, '4396721', NULL, 'ww.bolistone.com', 'octavo@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(117, 0, '', 'noveno dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 14:30:40', '2015-05-07 16:30:40', 1, NULL, NULL, NULL, NULL, 'Costanera  1948', 'A5501', 'Mendoza', 606, 23, '0261', NULL, 'noveno', 'noveno@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(121, -1, '', 'decimo dolibar', 1, NULL, NULL, 0, NULL, '2015-05-12 15:56:45', '2015-05-07 16:50:55', 1, NULL, NULL, NULL, NULL, 'San Martin 2016', 'A5501', 'Mendoza', 606, 23, '4666777', NULL, 'www.mendoza.com', 'mendoza@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(122, -1, '', 'diez prestashop', 1, NULL, NULL, 0, NULL, '2015-05-07 16:34:31', '2015-05-07 11:55:33', 1, NULL, NULL, NULL, NULL, 'San Martín 201615', 'A5507', 'Luján de cuyo', 0, 0, '4202020', NULL, NULL, 'ppaa@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(123, 0, '', 'once dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 14:58:32', '2015-05-07 16:58:31', 1, NULL, NULL, NULL, NULL, 'San Martín 2015', '5507', 'Luján de cuyo', 606, 23, '241613245', NULL, 'www.dolibar.com', 'once@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(125, 0, '', 'doce dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 15:02:16', '2015-05-07 17:02:16', 1, NULL, NULL, NULL, NULL, 'doce dolibar', 'A5501', 'Mendoza', 606, 23, '0261-5132824', NULL, 'www.doce.com', 'doce@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(130, 0, '', 'trece dolibar', 1, NULL, NULL, 0, NULL, '2015-05-07 15:10:30', '2015-05-07 17:10:30', 1, NULL, NULL, NULL, NULL, 'trece dolibar', 'A5501', 'Mendoza', 606, 23, '0261-5132824', NULL, 'www.trece.dolibar', 'trece@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(134, 36, '', 'catorcezzzz dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:58', '2015-05-07 17:21:47', 1, NULL, NULL, NULL, NULL, 'catorce dolibar', '5507', 'Luján de cuyo', 606, 23, '0261-5132824', NULL, 'catorce.dolibar.com', 'catorce@dolibar.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(135, 37, '', 'Pedro', 1, NULL, NULL, 0, NULL, '2015-05-12 15:49:06', '2015-05-12 12:49:06', 1, NULL, NULL, NULL, NULL, 'quince dolibar', 'A5501', 'Mendoza', 596, 23, '0261-5132824', NULL, 'quince.dolibar.com', 'pedrog@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(136, 38, '', 'Maria', 1, NULL, NULL, 0, NULL, '2015-05-12 15:48:12', '2015-05-12 12:48:12', 1, NULL, NULL, NULL, NULL, 'dieciseis dolibar', '5507', 'Luján de cuyo', 606, 23, '0261-5132824', NULL, 'dieciseisdolibar', 'mariagomez@gmail.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(137, 39, '', 'Juan ', 1, NULL, NULL, 0, NULL, '2015-05-12 16:37:01', '2015-05-12 13:37:01', 1, NULL, NULL, NULL, NULL, 'diecisiete dolibar', '5507', 'Luján de cuyo', 606, 23, '0261-5132824', NULL, 'www.cuarto.doli.com', 'juanperez@hotmail.com', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(138, 40, '', 'Perro', 1, NULL, NULL, 0, NULL, '2015-05-13 19:14:30', '2015-05-13 16:14:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'perro@perro.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(139, 41, '', 'Nombre', 1, NULL, NULL, 0, NULL, '2015-05-18 13:21:22', '2015-05-15 09:42:03', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'nombre_apellido@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Nota privada para nombre', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(144, 0, '', 'secury sin pass', 1, NULL, NULL, 0, NULL, '2015-05-14 13:53:52', '2015-05-14 15:53:52', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'se@hotmail.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(145, 0, '54fb745af35fe172322df5ba63c5fa2f', 'A verte', 1, NULL, NULL, 0, NULL, '2015-06-04 15:01:20', '2015-05-14 16:12:36', 1, NULL, NULL, NULL, NULL, 'asd', NULL, NULL, 0, 23, NULL, NULL, NULL, 'aver@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(146, 0, '24504c9444b75d9ad4e10eb27a8e20d1', 'seguridad policial', 1, NULL, NULL, 0, NULL, '2015-05-15 12:42:37', '2015-05-14 16:14:06', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'secure_key@codl.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(149, 0, 'af720c935ed2e6e5620910f98a5c3de9', 'veinte dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 14:51:06', '2015-05-14 16:51:06', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(150, -1, '765def10fc38f1467a4e21a708cc730e', 'veintiuno dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 15:04:16', '2015-05-14 17:04:15', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'veintiuno@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(151, -1, '6bd92f6bef6aee6eca04cce707f65282', 'veintidos dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 15:08:26', '2015-05-14 17:08:26', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'veinteidos@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(152, -1, '9042aa7106b9983d491766bf59e9a785', 'veinteitres dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 15:12:16', '2015-05-14 17:12:16', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, 'veinteitres@dolibar.com', NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(153, 48, '30d8d89810529065eb4cdf952cb2f6b1', 'veinticuatro ', 1, NULL, NULL, 0, NULL, '2015-05-14 15:18:06', '2015-05-14 12:17:18', 1, NULL, NULL, NULL, NULL, 'Costanera 1948', 'A5501', 'Mendoza', 0, 23, '0261-5132824', NULL, NULL, 'veinticuatro@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(154, 49, '', 'Veinte presta', 1, NULL, NULL, 0, NULL, '2015-05-14 15:29:32', '2015-05-14 12:29:32', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'Veinte@presta.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(155, 50, '', 'edit presta', 1, NULL, NULL, 0, NULL, '2015-05-14 16:19:31', '2015-05-14 13:19:31', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 'insert@presta.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(156, 51, '024d0f062121fb78150fc817f2b97a95', 'Insertsss dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 16:31:50', '2015-05-14 13:31:50', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'Inserto@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(160, -1, '0c92db934fddacc31919f854c94cd120', 'Inserts dolibar', 1, NULL, NULL, 0, NULL, '2015-05-14 16:28:18', '2015-05-14 18:28:17', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'juanperez2@hotmail.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(163, 58, '51866b22b7150a61560c4990e4259ba0', 'zzzzzz', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:58', '2015-05-15 09:11:26', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'rrr@tmsgrorrup.com.ar', NULL, NULL, 0, NULL, NULL, '23-31246501-9', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(164, 59, '79e5b3869d1bfaec105c46df5432a50d', 'treintas dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:59', '2015-05-15 09:46:16', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'treinta@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(165, 60, 'ba5e624dc0ab8ca2c1540106c63f5c57', 'treintaiunos dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 14:12:18', '2015-05-18 11:11:42', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'treintaiuno@dolibar.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(166, 61, '', 'treintas presta', 1, NULL, NULL, 0, NULL, '2015-05-18 13:50:59', '2015-05-15 09:45:51', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'treinta@presta.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(167, 63, '', 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:29:34', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(168, 63, '', 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:29:59', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(169, 64, '', 'cuarentaidos', 1, NULL, NULL, 0, NULL, '2015-05-18 14:29:59', '2015-05-18 11:27:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaidos@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(170, 65, '', 'cuarentaitreszz', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:29:53', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaitres@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(171, 63, '', 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:30:40', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(172, 64, '', 'cuarentaidos', 1, NULL, NULL, 0, NULL, '2015-05-18 14:30:40', '2015-05-18 11:27:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaidos@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(173, 65, '', 'cuarentaitres', 1, NULL, NULL, 0, NULL, '2015-05-18 14:30:41', '2015-05-18 11:29:53', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaitres@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(174, 63, '', 'cuarentaiuno', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:25:23', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaiuno@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(175, 64, '', 'cuarentaidos', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:27:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaidos@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(176, 65, '', 'cuarentaitres', 1, NULL, NULL, 0, NULL, '2015-05-18 14:32:09', '2015-05-18 11:29:53', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaitres@tmsgroup.com.ar', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(177, 66, '', 'cuarentaicuatroxx', 1, NULL, NULL, 0, NULL, '2015-05-18 14:33:05', '2015-05-18 11:33:01', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'cuarentaicuatro@tmsgroup.com.ar', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(178, -1, 'b7043a6db9346528e05df37614fc20bc', 'cuarenta doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:38:44', '2015-05-18 16:38:44', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'cuarenta@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(179, 67, '4595fc30bcdada13fe8491c78fbca903', 'cuarentaiuno doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:42:13', '2015-05-18 16:39:59', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'cuarentaiuno@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(180, 68, 'd16272ea75d0df7d33190644f56ef01f', 'cuarentaidos ahora dolibar', 1, NULL, NULL, 0, NULL, '2015-05-18 14:43:20', '2015-05-18 11:43:00', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'cuarentaidos@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(181, 67, '', 'cuarentaiuno doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:42:12', '2015-05-18 16:39:59', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(182, -1, '6da34d6df4569e0ea401cba8805404a2', 'cuarentaicuatros doli', 1, NULL, NULL, 0, NULL, '2015-05-19 11:56:40', '2015-05-18 16:54:17', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, 'cuarentaicuatro@doli.com', NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(183, -1, '2f698b695b2ea8e731b9841e7d55356c', 'cuarentaicinco doli', 1, NULL, NULL, 0, NULL, '2015-05-18 14:56:25', '2015-05-18 16:56:25', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'cuarentaicinco@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(184, 68, '26758b9157f842f340516ee0945bfcb9', 'cuarentaiseis doli', 1, NULL, NULL, 0, NULL, '2015-05-18 20:01:18', '2015-05-18 16:57:50', 1, NULL, NULL, NULL, NULL, 'cuarentaiocho ', 'A5500', 'Mendoza', 0, 23, '4396721', NULL, NULL, 'cuarentaiseis@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(185, 67, 'db2d918fd2ada1cf1f391421d15dea26', 'cuarentaisiete doli', 1, NULL, NULL, 0, NULL, '2015-05-18 19:57:19', '2015-05-18 16:40:03', 1, NULL, NULL, NULL, NULL, '', 'A5500', 'Mendoza', 0, 23, '4396721', NULL, '', 'cuarentaisiete@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(186, -1, 'e2327506f08cb2b9d81c2d02bc7c00e2', 'cuarentaiocho doli', 1, NULL, NULL, 0, NULL, '2015-05-18 15:00:18', '2015-05-18 17:00:18', 1, NULL, NULL, NULL, NULL, 'Costanera 1948', 'A5501', 'Mendoza', 605, 23, '4396721', '4396721', NULL, 'cuarentaiocho@doli.com', NULL, 2, 5, 2311, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(187, 74, 'fc83ebdfff1e6ac7f7d4bbf977b80407', 'cuarentainueve doli', 1, NULL, NULL, 0, NULL, '2015-05-20 18:59:35', '2015-05-18 17:06:43', 1, NULL, NULL, NULL, NULL, 'Costanera 1993', 'A5501', 'Mendoza', 606, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cuarentainueve@doli.com', NULL, 1, 5, NULL, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(188, 75, 'a17ed4f7fbfcba3e914a255db6aa7fbb', 'cincuenta doli', 1, NULL, NULL, 0, NULL, '2015-05-19 14:00:18', '2015-05-18 17:17:51', 1, NULL, NULL, NULL, NULL, 'San Martin tan lejos', 'A5501', 'Mendoza', 0, 23, '4396721', NULL, NULL, 'cincuenta@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(189, -1, 'c5cf587a1473040fb25cb6e16779b931', 'sesenta doli', 1, NULL, NULL, 0, NULL, '2015-05-19 11:57:18', '2015-05-19 13:57:17', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'sesenta@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(190, -1, '359e3fe027deaa42d18a4830ccb173c4', 'cien doli', 1, NULL, NULL, 0, NULL, '2015-05-21 11:54:18', '2015-05-21 13:54:16', 1, NULL, NULL, NULL, NULL, 'Cien dirección 2030', 'A5501', 'Mendoza', 609, 23, '4396721', '4396721', NULL, 'cien@doli.com', NULL, 2, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(191, -1, 'b98106e34eafb1354a95c36299fb942f', 'cientouno doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:01:36', '2015-05-21 14:01:36', 1, NULL, NULL, NULL, NULL, 'cientouno doli', 'A5501', 'Mendoza', 595, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cientouno@doli.com', NULL, 1, 5, 2309, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(192, -1, 'cf988a217862f32696fd4cb2a7250e24', 'cientodos doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:11:27', '2015-05-21 14:03:58', 1, NULL, NULL, NULL, NULL, 'cientodos doli', 'A5501', 'Mendoza', 595, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cientodos@doli.com', NULL, 1, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(193, 79, '', 'cientodos doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:30:49', '2015-05-21 14:03:58', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 0, NULL, NULL, '', 'cientodos@doli.com', NULL, NULL, 0, NULL, NULL, '-', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(194, -1, '2aa21e4a772cadd2bac1f0e9de739e2f', 'cientocuatro doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:32:32', '2015-05-21 14:32:32', 1, NULL, NULL, NULL, NULL, 'cientocuatro doli', 'A5501', 'Mendoza', 595, 23, '4396721', '4396721', 'urlpublica', 'cientocuatro@doli.com', NULL, 1, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(195, -1, 'e46a345bf02381d8ce979683faa15f7d', 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:34:11', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, 'cientocinco doli', 'A5501', 'Mendoza', 596, 23, '4396721', '4396721', 'cuarentaicuatro@doli.com', 'cientocinco@doli.com', NULL, 1, 5, 2301, NULL, '4396721', '4396721', '', '', '', '', '4396721', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(196, 81, '', 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:41:03', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(197, 82, '', 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:54:02', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(198, 83, '', 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:55:20', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(199, -1, '14208679cc20f6d05a110029d23de322', 'aaa doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:55:50', '2015-05-21 14:55:50', 1, NULL, NULL, NULL, NULL, 'aaa doli', 'A5501', 'Mendoza', 0, 23, NULL, NULL, NULL, 'aaa@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(200, 84, '', 'cientocinco doli', 1, NULL, NULL, 0, NULL, '2015-05-21 12:55:51', '2015-05-21 14:34:11', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(201, -1, '6f2c6e2b04c41977335a914d91bd6012', 'bbbt doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:31', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, 'bbb doli', NULL, NULL, 0, 23, NULL, NULL, NULL, 'bbb@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(202, 86, '', 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:11:33', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(203, 87, '', 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:11:39', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(204, 88, '', 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:07', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(205, 89, '', 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:25', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(206, 90, '', 'bbb doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:13:32', '2015-05-21 15:11:12', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(207, -1, 'd3ba2018a795cfa5557e78663be5ce87', 'ccc doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:15:42', '2015-05-21 15:15:42', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'ccc@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(208, 91, '', 'ccc doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:17:17', '2015-05-21 15:15:42', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '', '-', NULL, 0, 0, 0, NULL, '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(209, -1, '0a7e32c6323bf2d7461ab4fffb039ca7', 'ddd doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:17:30', '2015-05-21 15:17:30', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, 'ddd@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(210, 94, 'd6a10b3f5b4d4557640a568fd4ebbe77', 'eeezz doli', 1, NULL, NULL, 0, NULL, '2015-05-21 13:40:39', '2015-05-21 10:40:34', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, '', 'eee@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(211, 95, '', 'aaadigoa presta', 1, NULL, NULL, 0, NULL, '2015-05-21 14:36:45', '2015-05-21 11:05:29', 1, NULL, NULL, NULL, NULL, 'cuarentaiocho 4050', 'A5500', 'Mendoza', 0, 0, '4396721', NULL, NULL, 'aaazzjb@presta.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(212, 96, '', 'aaaa', 1, NULL, NULL, 0, NULL, '2015-05-21 14:34:55', '2015-05-21 11:34:24', 1, NULL, NULL, NULL, NULL, 'A verte', 'A5500', 'Mendoza', 0, 0, '4396721', NULL, '', 'aaaapresta@presta.com', NULL, 0, 0, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(213, -1, '6ee076e7dbc91b0e8e3c14c990a766fa', 'aaaa doli', 1, NULL, NULL, 0, NULL, '2015-05-22 15:49:39', '2015-05-22 17:40:19', 1, NULL, NULL, NULL, NULL, 'asdf', NULL, NULL, 0, 23, NULL, NULL, NULL, 'aaaa@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(214, -1, '4db76e7838294d3ac08c3969f660faf0', 'abapapu doli', 1, NULL, NULL, 0, NULL, '2015-05-22 15:47:08', '2015-05-22 17:42:08', 1, NULL, NULL, NULL, NULL, 'Nueva direccion', NULL, NULL, 0, 23, NULL, NULL, NULL, 'abab@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(215, -1, '01c67b1acc1f800b4f704d2f952cc724', 'dire doli', 1, NULL, NULL, 0, NULL, '2015-05-22 15:50:35', '2015-05-22 17:50:12', 1, NULL, NULL, NULL, NULL, 'Costanera', NULL, NULL, 0, 23, NULL, NULL, NULL, 'dire@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(216, -1, 'a6499cea83cdcbd0929196174ba4cb52', 'diredos presta', 1, NULL, NULL, 0, NULL, '2015-05-22 15:52:31', '2015-05-22 17:51:54', 1, NULL, NULL, NULL, NULL, 'costanera', NULL, NULL, 0, 23, NULL, NULL, NULL, 'diredos@presta.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(217, 100, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 'diretres presta', 1, NULL, NULL, 0, NULL, '2015-05-29 15:20:01', '2015-05-28 12:02:54', 1, NULL, NULL, NULL, NULL, 'Nueva direccion', NULL, NULL, 0, 23, NULL, NULL, '', 'diretres@presta.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, '', NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(218, -1, 'd313768703cbdef9380234e1d0dc7001', 'Proveedor uno doli', 1, NULL, NULL, 0, NULL, '2015-05-28 12:48:13', '2015-05-28 14:48:13', 1, NULL, NULL, NULL, NULL, '', NULL, NULL, 0, 23, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 0, 1, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(219, -1, '4cb4f0cc4f7eab521c67fa9e5400e9f1', 'cliente prueba', 1, NULL, NULL, 0, NULL, '2015-06-04 12:25:41', '2015-06-04 14:25:41', 1, NULL, NULL, NULL, NULL, 'Vistalba', 'A 5550', 'Luján de Cuyo', 606, 23, NULL, NULL, NULL, 'cliente@doli.com', NULL, NULL, 0, NULL, NULL, '', '', '', '', '', '', '', 0, 0, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, 0, 0, 1, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, 0.000, NULL, 0.000, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Disparadores `llx_societe`
@@ -9013,6 +9138,7 @@ CREATE TRIGGER `llx_societe_AINS` AFTER INSERT ON `llx_societe`
 			`city`,
 			`phone`,
 			`secure_key`,
+			`is_client`,
 			`active`,
 			`date_upd`,
 			`system`,
@@ -9031,6 +9157,7 @@ CREATE TRIGGER `llx_societe_AINS` AFTER INSERT ON `llx_societe`
 			NEW.town,
 			NEW.phone,
 			NEW.secure_key,
+			NEW.client,
 			NEW.status,
 			NEW.datec,
 			'dolibar',
@@ -9057,6 +9184,7 @@ CREATE TRIGGER `llx_societe_AUPD` AFTER UPDATE ON `llx_societe`
 				`postcode`,
 				`city`,
 				`phone`,
+				`is_client`,
 				`active`,
 				`date_upd`,
 				`system`,
@@ -9074,6 +9202,7 @@ CREATE TRIGGER `llx_societe_AUPD` AFTER UPDATE ON `llx_societe`
 				NEW.zip,
 				NEW.town,
 				NEW.phone,
+				NEW.client,
 				NEW.status,
 				NEW.datec,
 				'dolibar',
@@ -9121,7 +9250,7 @@ CREATE TABLE IF NOT EXISTS `llx_societe_commerciaux` (
   `fk_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_societe_commerciaux` (`fk_soc`,`fk_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=95 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=97 ;
 
 --
 -- Volcado de datos para la tabla `llx_societe_commerciaux`
@@ -9203,7 +9332,9 @@ INSERT INTO `llx_societe_commerciaux` (`rowid`, `fk_soc`, `fk_user`) VALUES
 (91, 214, 1),
 (92, 215, 1),
 (93, 216, 1),
-(94, 217, 1);
+(94, 217, 1),
+(95, 218, 1),
+(96, 219, 1);
 
 -- --------------------------------------------------------
 
@@ -9346,6 +9477,7 @@ INSERT INTO `llx_societe_rib` (`rowid`, `fk_soc`, `datec`, `tms`, `label`, `bank
 
 CREATE TABLE IF NOT EXISTS `llx_socpeople` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sin` int(11) NOT NULL,
   `datec` datetime DEFAULT NULL,
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fk_soc` int(11) DEFAULT NULL,
@@ -9378,87 +9510,51 @@ CREATE TABLE IF NOT EXISTS `llx_socpeople` (
   `canvas` varchar(32) DEFAULT NULL,
   `import_key` varchar(14) DEFAULT NULL,
   `statut` tinyint(4) NOT NULL DEFAULT '1',
-  `id_sin` int(11) NOT NULL,
   PRIMARY KEY (`rowid`),
   KEY `idx_socpeople_fk_soc` (`fk_soc`),
   KEY `idx_socpeople_fk_user_creat` (`fk_user_creat`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Volcado de datos para la tabla `llx_socpeople`
 --
 
-INSERT INTO `llx_socpeople` (`rowid`, `datec`, `tms`, `fk_soc`, `entity`, `ref_ext`, `civility`, `lastname`, `firstname`, `address`, `zip`, `town`, `fk_departement`, `fk_pays`, `birthday`, `poste`, `phone`, `phone_perso`, `phone_mobile`, `fax`, `email`, `jabberid`, `skype`, `no_email`, `priv`, `fk_user_creat`, `fk_user_modif`, `note_private`, `note_public`, `default_lang`, `canvas`, `import_key`, `statut`, `id_sin`) VALUES
-(1, '2015-05-07 18:27:12', '2015-05-07 16:27:12', 134, 1, '', '', 'Nieto', '', '', '', '', NULL, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(2, '2015-05-15 14:52:48', '2015-05-15 12:52:48', 166, 1, '', 'MR', 'facildeencontrar', '', 'San Martin ', 'A5501', 'Mendoza', 606, 23, '1984-09-15', 'Desarrollador ', '666', '', '666', '', 'facildeencontrar@facildeencontrar.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(4, '2015-05-15 16:18:17', '2015-05-15 14:18:17', 166, 1, '', 'MR', 'Apellido etiqueta', 'Nombre', 'direccion', 'A5501', 'Mendoza', 606, 23, NULL, 'Puesto funcion', 'tel traba', 'part', 'movil', 'fax', 'email@dominio.com', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(5, '2015-05-15 16:20:57', '2015-05-15 14:20:57', 166, 1, '', '', 'apellido', 'nombre', 'direccion', 'A5501', 'Mendoza', 604, 23, NULL, 'Puesto funcion', 'tel trabajo', 'part', 'movil', 'fax', 'juanperez@hotmail.com', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(13, '2015-05-15 16:44:17', '2015-05-15 14:44:17', 105, 1, '', 'MR', 'Apellido', 'TMS', 'direccion', 'A5501', 'Mendoza', 596, 23, NULL, 'Puesto funcion', '666', 'part', '0261-5132824', 'fax', 'diego.nieto@tmsgroup.com.ar', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(14, '2015-05-15 16:57:34', '2015-05-15 14:57:35', 134, 1, '', 'MME', 'Apellido', 'Nombre', 'direccion', 'A5501', 'Mendoza', 598, 23, NULL, 'Puesto funcion', 'tel trabajo', 'part', '0261-5132824', '', 'juanperez@hotmail.com', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(16, '2015-05-15 13:38:33', '2015-05-15 16:38:33', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 19488888', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-5132824', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 54),
-(17, '2015-05-15 13:41:43', '2015-05-15 16:41:43', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 1948', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-51328244', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 55),
-(18, '2015-05-15 13:38:33', '2015-05-18 19:37:41', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 19488888', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-5132824', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 54),
-(19, '2015-05-15 13:41:43', '2015-05-18 19:37:42', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 1948', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-51328244', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 55),
-(20, '2015-05-18 16:37:32', '2015-05-19 13:11:30', 186, 1, NULL, NULL, 'cuarentaiocho ', 'cuarentaiocho doli', 'cuarentaiochoss', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho ', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 61),
-(21, '2015-05-18 16:40:43', '2015-05-18 19:41:02', 185, 1, NULL, NULL, 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho ', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 62),
-(22, '2015-05-18 17:02:08', '2015-05-18 20:02:13', 184, 1, NULL, NULL, 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho ', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho ', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 69),
-(23, '2015-05-18 16:57:50', '2015-05-18 20:02:14', 184, 1, NULL, NULL, '', '', 'cuarentaiocho ', 'A5500', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 70),
-(24, '2015-05-18 17:04:18', '2015-05-18 20:04:22', 184, 1, NULL, NULL, 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho 2', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho  2', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 71),
-(25, '2015-05-19 13:58:48', '2015-05-19 11:58:48', 189, 1, '', 'MR', 'Perez', 'Juan', 'Juan José Paso 1948', 'A5501', 'Mendoza', 606, 23, NULL, 'Administrativo', '4222333', '4444555', '02615132824', '', 'jaun.perez@perez.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(26, '2015-05-19 14:02:43', '2015-05-19 12:02:43', 189, 1, '', '', 'Perez', 'Juan', 'Juan José Paso', 'A5501', 'Mendoza', 606, 23, NULL, 'Administrativo', '4222333', '4444555', '4396721', '4396721', 'jaun.perez@perez.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0),
-(27, '2015-05-19 14:20:56', '2015-05-19 13:08:26', 189, 1, '', '', 'presta', 'Juan', 'Direcciones de los perros 2020', 'A5500', 'Mendoza', 606, 23, NULL, 'Direccion del perro', '4396721', '4444555', '4396721', '4396721', 'jaun.perez2@perez.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 73),
-(28, '2015-05-18 17:17:51', '2015-05-19 13:13:07', 188, 1, NULL, NULL, '', '', 'San Martin', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 74),
-(29, '2015-05-18 17:17:51', '2015-05-19 13:14:56', 188, 1, NULL, NULL, '', '', 'San Martin Lejoss', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 75),
-(30, '2015-05-18 17:17:51', '2015-05-19 13:14:56', 188, 1, NULL, NULL, '', '', 'San Martin Lejoss', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 76),
-(31, '2015-05-18 17:17:51', '2015-05-19 13:25:32', 188, 1, NULL, NULL, '', '', 'San Martin Lejoss', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 77),
-(32, '2015-05-18 17:17:51', '2015-05-19 14:06:56', 188, 1, NULL, '', 'Nietos', 'Diego', 'San Martin Cercas 3', 'A5501', 'Mendoza', 606, 23, NULL, 'Nombre de la dirección', '4396721', '', '0261513282455555', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 78),
-(33, '2015-05-21 15:51:54', '2015-05-21 13:51:54', 211, 1, '', 'MME', 'Nieto', 'Diego', 'San Martin ', 'A5500', 'Mendoza', 595, 23, NULL, 'Administrativo', '4222333', '4444555', '4396721', '4396721', 'cuarentaisiete@doli.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1, 0);
+INSERT INTO `llx_socpeople` (`rowid`, `id_sin`, `datec`, `tms`, `fk_soc`, `entity`, `ref_ext`, `civility`, `lastname`, `firstname`, `address`, `zip`, `town`, `fk_departement`, `fk_pays`, `birthday`, `poste`, `phone`, `phone_perso`, `phone_mobile`, `fax`, `email`, `jabberid`, `skype`, `no_email`, `priv`, `fk_user_creat`, `fk_user_modif`, `note_private`, `note_public`, `default_lang`, `canvas`, `import_key`, `statut`) VALUES
+(1, 0, '2015-05-07 18:27:12', '2015-05-07 16:27:12', 134, 1, '', '', 'Nieto', '', '', '', '', NULL, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(2, 0, '2015-05-15 14:52:48', '2015-05-15 12:52:48', 166, 1, '', 'MR', 'facildeencontrar', '', 'San Martin ', 'A5501', 'Mendoza', 606, 23, '1984-09-15', 'Desarrollador ', '666', '', '666', '', 'facildeencontrar@facildeencontrar.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(4, 0, '2015-05-15 16:18:17', '2015-05-15 14:18:17', 166, 1, '', 'MR', 'Apellido etiqueta', 'Nombre', 'direccion', 'A5501', 'Mendoza', 606, 23, NULL, 'Puesto funcion', 'tel traba', 'part', 'movil', 'fax', 'email@dominio.com', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(5, 0, '2015-05-15 16:20:57', '2015-05-15 14:20:57', 166, 1, '', '', 'apellido', 'nombre', 'direccion', 'A5501', 'Mendoza', 604, 23, NULL, 'Puesto funcion', 'tel trabajo', 'part', 'movil', 'fax', 'juanperez@hotmail.com', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(13, 0, '2015-05-15 16:44:17', '2015-06-03 19:48:53', 105, 1, '', 'MR', 'Apellido', 'TMS', 'direccion 1231', 'A5501', 'Mendoza', 596, 23, NULL, 'Puesto funcion', '666', 'part', '0261-5132824', 'fax', 'diego.nieto@tmsgroup.com.ar', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(14, 39, '0000-00-00 00:00:00', '2015-06-03 20:24:47', 134, 1, '', 'MME', 'Apellido', 'Nombre', 'direccion 1235', 'A5501', 'Mendoza', 608, 23, NULL, 'Puesto funcion', '02616', 'part', '0261-5132824', '', 'juanperez@hotmail.com', 'mensajeria', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(16, 54, '2015-05-15 13:38:33', '2015-05-15 16:38:33', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 19488888', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-5132824', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(17, 55, '2015-05-15 13:41:43', '2015-05-15 16:41:43', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 1948', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-51328244', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(18, 54, '2015-05-15 13:38:33', '2015-05-18 19:37:41', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 19488888', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-5132824', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(19, 55, '2015-05-15 13:41:43', '2015-05-18 19:37:42', 104, 1, NULL, NULL, 'prestashop', 'tercer presta', 'Costanera 1948', 'A5501', 'Mendoza', NULL, 0, NULL, 'Nueva ', '0261-51328244', NULL, '0261-5132824', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(20, 61, '2015-05-18 16:37:32', '2015-05-19 13:11:30', 186, 1, NULL, NULL, 'cuarentaiocho ', 'cuarentaiocho doli', 'cuarentaiochoss', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho ', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(21, 62, '2015-05-18 16:40:43', '2015-05-18 19:41:02', 185, 1, NULL, NULL, 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho ', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(22, 69, '2015-05-18 17:02:08', '2015-05-18 20:02:13', 184, 1, NULL, NULL, 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho ', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho ', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(23, 70, '2015-05-18 16:57:50', '2015-05-18 20:02:14', 184, 1, NULL, NULL, '', '', 'cuarentaiocho ', 'A5500', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(24, 71, '2015-05-18 17:04:18', '2015-05-18 20:04:22', 184, 1, NULL, NULL, 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho 2', 'A5500', 'Mendoza', NULL, 0, NULL, 'cuarentaiocho  2', '4396721', NULL, '4396721', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(25, 0, '2015-05-19 13:58:48', '2015-05-19 11:58:48', 189, 1, '', 'MR', 'Perez', 'Juan', 'Juan José Paso 1948', 'A5501', 'Mendoza', 606, 23, NULL, 'Administrativo', '4222333', '4444555', '02615132824', '', 'jaun.perez@perez.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(26, 0, '2015-05-19 14:02:43', '2015-05-19 12:02:43', 189, 1, '', '', 'Perez', 'Juan', 'Juan José Paso', 'A5501', 'Mendoza', 606, 23, NULL, 'Administrativo', '4222333', '4444555', '4396721', '4396721', 'jaun.perez@perez.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(27, 73, '2015-05-19 14:20:56', '2015-05-19 13:08:26', 189, 1, '', '', 'presta', 'Juan', 'Direcciones de los perros 2020', 'A5500', 'Mendoza', 606, 23, NULL, 'Direccion del perro', '4396721', '4444555', '4396721', '4396721', 'jaun.perez2@perez.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(28, 74, '2015-05-18 17:17:51', '2015-05-19 13:13:07', 188, 1, NULL, NULL, '', '', 'San Martin', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(29, 75, '2015-05-18 17:17:51', '2015-05-19 13:14:56', 188, 1, NULL, NULL, '', '', 'San Martin Lejoss', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(30, 76, '2015-05-18 17:17:51', '2015-05-19 13:14:56', 188, 1, NULL, NULL, '', '', 'San Martin Lejoss', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(31, 77, '2015-05-18 17:17:51', '2015-05-19 13:25:32', 188, 1, NULL, NULL, '', '', 'San Martin Lejoss', 'A5501', 'Mendoza', NULL, 0, NULL, '', '4396721', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(32, 78, '2015-05-18 17:17:51', '2015-05-19 14:06:56', 188, 1, NULL, '', 'Nietos', 'Diego', 'San Martin Cercas 3', 'A5501', 'Mendoza', 606, 23, NULL, 'Nombre de la dirección', '4396721', '', '0261513282455555', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(33, 0, '2015-05-21 15:51:54', '2015-05-21 13:51:54', 211, 1, '', 'MME', 'Nieto', 'Diego', 'San Martin ', 'A5500', 'Mendoza', 595, 23, NULL, 'Administrativo', '4222333', '4444555', '4396721', '4396721', 'cuarentaisiete@doli.com', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(34, 0, '2015-05-29 17:21:37', '2015-06-03 19:38:07', 199, 1, '', '', 'bioha', 'zard', 'Vistalbas', 'A 5550', 'Luján de Cuyo', 606, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(35, 0, '2015-06-03 21:29:17', '2015-06-04 15:37:49', 213, 1, '', '', 'Nieto', 'DIego', 'Vistalba 223', 'A 5550', 'Luján de Cuyo', 597, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(36, 0, '2015-06-04 14:07:00', '2015-06-04 15:38:28', 217, 1, '', 'MME', 'Apellido', 'Nombre', 'Vistalbas', 'A 5550', 'Luján de Cuyo', 606, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(37, 0, '2015-06-04 14:09:14', '2015-06-04 12:09:15', 217, 1, '', '', 'Nieto', 'DIego', 'Vistalba', 'A5507', 'Luján de cuyo', 595, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(38, 0, '2015-06-04 14:10:28', '2015-06-04 15:47:28', 217, 1, '', '', 'Nieto', 'Finca', 'Vistalba', 'A 5550', 'Luján de Cuyo', 597, 201, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1),
+(39, 87, '0000-00-00 00:00:00', '2015-06-04 12:11:23', 217, 1, NULL, NULL, 'Nieto', 'Finca', '-', '', '', NULL, 0, NULL, '-', '', NULL, '', NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(40, 0, '2015-06-04 17:37:17', '2015-06-04 15:37:17', 145, 1, '', '', 'Nuevo', 'aasdf', 'Vistalba', 'A 5550', 'Luján de Cuyo', 606, 23, NULL, '', '', '', '', '', '', '', '', 0, 0, 1, 1, '', '', NULL, NULL, NULL, 1);
 
 --
 -- Disparadores `llx_socpeople`
 --
-DROP TRIGGER IF EXISTS `llx_socpeople_AINS`;
-DELIMITER //
-CREATE TRIGGER `llx_socpeople_AINS` AFTER INSERT ON `llx_socpeople`
- FOR EACH ROW BEGIN
-		INSERT INTO `tms_log_direccion`(
-			`id_row`,
-			`id_sin`,
-			`id_cliente`,
-			`firstname`,
-			`lastname`,
-			`address`,
-			`postcode`,
-			`city`,
-			`phone`,
-			`phone_mobile`,
-			`date_add`,
-			`alias`,
-			`active`,
-			`system`,
-			`action`,
-			`id_estado`
-		)VALUES(
-			NEW.rowid,
-			NEW.id_sin,
-			NEW.fk_soc,
-			NEW.firstname, 
-			NEW.lastname, 
-			NEW.address, 
-			NEW.zip, 
-			NEW.town, 
-			NEW.phone, 
-			NEW.phone_mobile, 
-			NEW.datec, 
-			NEW.poste, 
-			NEW.statut,
-			'dolibar',
-			'insert',
-			0
-		);
-END
-//
-DELIMITER ;
 DROP TRIGGER IF EXISTS `llx_socpeople_AUPD`;
 DELIMITER //
 CREATE TRIGGER `llx_socpeople_AUPD` AFTER UPDATE ON `llx_socpeople`
@@ -9474,8 +9570,10 @@ CREATE TRIGGER `llx_socpeople_AUPD` AFTER UPDATE ON `llx_socpeople`
 			`city`,
 			`phone`,
 			`phone_mobile`,
-			`date_add`,
+			`date_upd`,
 			`alias`,
+			`id_country`,
+			`id_state`,
 			`active`,
 			`system`,
 			`action`,
@@ -9493,6 +9591,8 @@ CREATE TRIGGER `llx_socpeople_AUPD` AFTER UPDATE ON `llx_socpeople`
 			NEW.phone_mobile, 
 			NEW.datec, 
 			NEW.poste, 
+			NEW.fk_pays,
+			NEW.fk_departement,
 			NEW.statut,
 			'dolibar',
 			'update',
@@ -9637,7 +9737,7 @@ CREATE TABLE IF NOT EXISTS `llx_user` (
 --
 
 INSERT INTO `llx_user` (`rowid`, `entity`, `ref_ext`, `ref_int`, `datec`, `tms`, `fk_user_creat`, `fk_user_modif`, `login`, `pass`, `pass_crypted`, `pass_temp`, `civility`, `lastname`, `firstname`, `address`, `zip`, `town`, `fk_state`, `fk_country`, `job`, `skype`, `office_phone`, `office_fax`, `user_mobile`, `email`, `signature`, `admin`, `module_comm`, `module_compta`, `fk_societe`, `fk_socpeople`, `fk_member`, `fk_user`, `note`, `datelastlogin`, `datepreviouslogin`, `egroupware_id`, `ldap_sid`, `openid`, `statut`, `photo`, `lang`, `color`, `barcode`, `fk_barcode_type`, `accountancy_code`, `nb_holiday`, `thm`, `tjm`, `salary`, `salaryextra`, `weeklyhours`) VALUES
-(1, 0, NULL, NULL, '2015-05-05 14:36:37', '2015-05-05 12:36:37', NULL, NULL, 'admin', 'bluepill', 'eb9e461213202a8af5e88506481e5fa6', NULL, NULL, 'SuperAdmin', '', '', '', '', NULL, NULL, '', '', '', '', '', '', '', 1, 1, 1, NULL, NULL, NULL, NULL, '', '2015-05-26 14:02:04', '2015-05-20 13:52:39', NULL, '', NULL, 1, NULL, NULL, '', NULL, 0, '', 0, NULL, NULL, NULL, NULL, NULL);
+(1, 0, NULL, NULL, '2015-05-05 14:36:37', '2015-05-05 12:36:37', NULL, NULL, 'admin', 'bluepill', 'eb9e461213202a8af5e88506481e5fa6', NULL, NULL, 'SuperAdmin', '', '', '', '', NULL, NULL, '', '', '', '', '', '', '', 1, 1, 1, NULL, NULL, NULL, NULL, '', '2015-06-05 17:33:37', '2015-06-02 14:39:37', NULL, '', NULL, 1, NULL, NULL, '', NULL, 0, '', 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -10396,7 +10496,113 @@ INSERT INTO `ps_access` (`id_profile`, `id_tab`, `view`, `add`, `edit`, `delete`
 (5, 103, 1, 1, 1, 1),
 (5, 104, 1, 1, 1, 1),
 (5, 105, 1, 1, 1, 1),
-(5, 106, 1, 1, 1, 1);
+(5, 106, 1, 1, 1, 1),
+(6, 1, 1, 1, 1, 1),
+(6, 2, 1, 0, 0, 0),
+(6, 3, 1, 0, 0, 0),
+(6, 4, 1, 0, 0, 0),
+(6, 5, 1, 0, 0, 0),
+(6, 6, 1, 0, 0, 0),
+(6, 7, 1, 0, 0, 0),
+(6, 8, 1, 0, 0, 0),
+(6, 9, 1, 0, 0, 0),
+(6, 10, 1, 0, 0, 0),
+(6, 11, 1, 0, 0, 0),
+(6, 12, 0, 0, 0, 0),
+(6, 13, 1, 0, 0, 0),
+(6, 14, 1, 0, 0, 0),
+(6, 15, 1, 0, 0, 0),
+(6, 16, 1, 0, 0, 0),
+(6, 17, 1, 0, 0, 0),
+(6, 18, 1, 0, 0, 0),
+(6, 19, 1, 0, 0, 0),
+(6, 20, 1, 0, 0, 0),
+(6, 21, 1, 0, 1, 0),
+(6, 22, 1, 1, 1, 1),
+(6, 23, 1, 1, 1, 1),
+(6, 24, 1, 1, 1, 1),
+(6, 25, 1, 1, 1, 1),
+(6, 26, 1, 0, 1, 0),
+(6, 27, 1, 0, 0, 0),
+(6, 28, 1, 1, 1, 1),
+(6, 29, 0, 0, 0, 0),
+(6, 30, 1, 0, 0, 0),
+(6, 31, 1, 0, 0, 0),
+(6, 32, 0, 0, 0, 0),
+(6, 33, 0, 0, 0, 0),
+(6, 34, 0, 0, 0, 0),
+(6, 35, 0, 0, 0, 0),
+(6, 36, 0, 0, 0, 0),
+(6, 37, 1, 0, 1, 0),
+(6, 38, 1, 1, 1, 0),
+(6, 39, 1, 1, 1, 1),
+(6, 40, 0, 0, 0, 0),
+(6, 41, 1, 0, 0, 0),
+(6, 42, 1, 0, 0, 0),
+(6, 43, 1, 1, 1, 1),
+(6, 44, 1, 0, 0, 0),
+(6, 45, 0, 0, 0, 0),
+(6, 46, 0, 0, 0, 0),
+(6, 47, 0, 0, 0, 0),
+(6, 48, 1, 1, 1, 1),
+(6, 49, 1, 0, 0, 0),
+(6, 50, 1, 1, 1, 1),
+(6, 51, 0, 0, 0, 0),
+(6, 52, 0, 0, 0, 0),
+(6, 53, 0, 0, 0, 0),
+(6, 54, 1, 1, 1, 1),
+(6, 55, 1, 1, 1, 1),
+(6, 56, 1, 0, 0, 0),
+(6, 57, 0, 0, 0, 0),
+(6, 58, 0, 0, 0, 0),
+(6, 59, 0, 0, 0, 0),
+(6, 60, 1, 0, 1, 0),
+(6, 61, 0, 0, 0, 0),
+(6, 62, 0, 0, 0, 0),
+(6, 63, 0, 0, 0, 0),
+(6, 64, 0, 0, 0, 0),
+(6, 65, 0, 0, 0, 0),
+(6, 66, 0, 0, 0, 0),
+(6, 67, 1, 1, 1, 1),
+(6, 68, 0, 0, 0, 0),
+(6, 69, 1, 1, 1, 1),
+(6, 70, 1, 1, 1, 1),
+(6, 71, 1, 1, 1, 1),
+(6, 72, 1, 1, 1, 1),
+(6, 73, 1, 1, 1, 1),
+(6, 74, 1, 1, 1, 1),
+(6, 75, 1, 1, 1, 1),
+(6, 76, 1, 0, 0, 0),
+(6, 77, 1, 0, 0, 0),
+(6, 78, 1, 0, 0, 0),
+(6, 79, 1, 0, 0, 0),
+(6, 80, 1, 0, 0, 0),
+(6, 81, 1, 0, 0, 0),
+(6, 82, 1, 0, 0, 0),
+(6, 83, 1, 0, 0, 0),
+(6, 84, 1, 0, 0, 0),
+(6, 85, 1, 0, 0, 0),
+(6, 86, 1, 0, 0, 0),
+(6, 87, 1, 0, 0, 0),
+(6, 88, 1, 0, 0, 0),
+(6, 89, 1, 0, 0, 0),
+(6, 90, 1, 0, 0, 0),
+(6, 91, 1, 0, 0, 0),
+(6, 92, 1, 0, 0, 0),
+(6, 93, 1, 0, 0, 0),
+(6, 94, 1, 0, 0, 0),
+(6, 95, 1, 0, 0, 0),
+(6, 96, 1, 0, 0, 0),
+(6, 97, 1, 0, 0, 0),
+(6, 98, 1, 0, 0, 0),
+(6, 99, 1, 0, 0, 0),
+(6, 100, 1, 0, 0, 0),
+(6, 101, 1, 0, 0, 0),
+(6, 102, 1, 0, 0, 0),
+(6, 103, 1, 0, 0, 0),
+(6, 104, 1, 0, 0, 0),
+(6, 105, 1, 0, 0, 0),
+(6, 106, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -10418,6 +10624,7 @@ CREATE TABLE IF NOT EXISTS `ps_accessory` (
 
 CREATE TABLE IF NOT EXISTS `ps_address` (
   `id_address` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_sin` int(11) NOT NULL,
   `id_country` int(10) unsigned NOT NULL,
   `id_state` int(10) unsigned DEFAULT NULL,
   `id_customer` int(10) unsigned NOT NULL DEFAULT '0',
@@ -10441,7 +10648,6 @@ CREATE TABLE IF NOT EXISTS `ps_address` (
   `date_upd` datetime NOT NULL,
   `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `id_sin` int(11) NOT NULL,
   PRIMARY KEY (`id_address`),
   KEY `address_customer` (`id_customer`),
   KEY `id_country` (`id_country`),
@@ -10449,64 +10655,68 @@ CREATE TABLE IF NOT EXISTS `ps_address` (
   KEY `id_manufacturer` (`id_manufacturer`),
   KEY `id_supplier` (`id_supplier`),
   KEY `id_warehouse` (`id_warehouse`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
 
 --
 -- Volcado de datos para la tabla `ps_address`
 --
 
-INSERT INTO `ps_address` (`id_address`, `id_country`, `id_state`, `id_customer`, `id_manufacturer`, `id_supplier`, `id_warehouse`, `alias`, `company`, `lastname`, `firstname`, `address1`, `address2`, `postcode`, `city`, `other`, `phone`, `phone_mobile`, `vat_number`, `dni`, `date_add`, `date_upd`, `active`, `deleted`, `id_sin`) VALUES
-(8, 44, 111, 12, 0, 0, 0, 'test', '', 'Perez', 'Juan', 'Costanera 1948', '', 'A5501', 'Mendoza', '', '4396721', '0261-5132824', '', '', '2015-05-07 10:00:11', '2015-05-12 12:56:30', 1, 0, 0),
-(9, 44, 111, 23, 0, 0, 0, 'Empresa', '', 'Gimenez', 'Maria', 'San Martin 2016', '', 'A5501', 'Mendoza', '', '4666777', '4777666', '', '', '2015-05-07 11:52:33', '2015-05-12 12:56:45', 1, 0, 0),
-(10, 44, 103, 23, 0, 0, 0, 'test', '', 'test', 'decimo dolibar', 'test', '', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '', '', '2015-05-07 11:53:32', '2015-05-07 11:53:32', 1, 0, 0),
-(15, 44, 111, 37, 0, 0, 0, 'Dirección dolibar', '', '-', '-', 'quince dolibar', '', 'A5501', 'Mendoza', '', '0261-5132824', '', '', '', '2015-05-07 17:32:48', '2015-05-07 12:35:09', 1, 0, 135),
-(16, 44, 111, 38, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'dieciseis dolibar', '', 'A5507', 'Luján de cuyo', '', '0261-5132824', '-', '', '', '2015-05-07 17:38:22', '2015-05-07 12:42:04', 1, 0, 136),
-(17, 44, 111, 39, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'diecisiete dolibar', NULL, '5507', 'Luján de cuyo', NULL, '0261-5132824', '-', NULL, NULL, '2015-05-07 18:18:27', '2015-05-07 18:18:27', 1, 0, 137),
-(18, 44, 111, 24, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'San Martín 2016', '', 'A5507', 'Luján de cuyo', '', '', '-', '', '', '2015-05-07 11:55:33', '2015-05-07 13:33:31', 1, 0, 122),
-(19, 44, 111, 39, 0, 0, 0, 'Mi dirección', 'Test', 'Perez', 'Juan ', 'Costanera 1948', '', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-13 09:16:02', '2015-05-13 09:16:02', 1, 0, 0),
-(28, 44, 111, 41, 0, 0, 0, 'Mi dirección', 'Empresa', 'Apellido', 'Nombre', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-13 15:55:04', '2015-05-13 15:55:04', 1, 0, 0),
-(29, 44, 111, 36, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'catorce dolibar', NULL, '5507', 'Luján de cuyo', NULL, '0261-5132824', '-', NULL, NULL, '2015-05-07 17:21:47', '2015-05-07 17:21:47', 1, 0, 134),
-(30, 44, 102, 48, 0, 0, 0, 'Mi dirección', 'Empresa', 'dolibar', 'veinticuatro ', 'catorce dolibar', 'asdf', '5507', 'Luján de cuyo', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-14 12:18:06', '2015-05-07 17:21:47', 1, 0, -1),
-(31, 44, 111, 59, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, NULL, NULL, NULL, '-', NULL, NULL, '2015-05-15 14:04:01', '2015-05-15 14:04:01', 1, 0, 164),
-(32, 44, 111, 58, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, 'Mendoza', NULL, NULL, '-', NULL, NULL, '2015-05-15 09:11:26', '2015-05-15 09:11:26', 1, 0, 163),
-(33, 44, 111, 60, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, NULL, NULL, NULL, '-', NULL, NULL, '2015-05-15 14:44:20', '2015-05-15 14:44:20', 1, 0, -1),
-(34, 44, 111, 61, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, 'Mendoza', NULL, NULL, '-', NULL, NULL, '2015-05-15 09:45:51', '2015-05-15 09:45:51', 1, 0, 166),
-(38, 0, NULL, 0, 0, 0, 0, '-', NULL, 'Apellido', 'TMS', '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 1, 0, 13),
-(39, 231, 0, 36, 0, 0, 0, '-', '', 'Apellido', 'Nombre', '-', '', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '', '', '2015-05-15 16:57:34', '2015-05-15 12:00:51', 1, 0, 14),
-(45, 44, 116, 7, 0, 0, 0, 'Nueva ', 'Test', 'Apellido', 'cuarto doli', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 12:23:24', '2015-05-15 12:23:24', 1, 0, 0),
-(48, 44, 114, 7, 0, 0, 0, 'Nueva ', '', 'dolibar', 'cuarto doli', 'Costanera 19484', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-51328244', '23-31246501-9', '', '2015-05-15 12:26:39', '2015-05-15 12:26:39', 1, 0, 0),
-(50, 44, 114, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 12:57:31', '2015-05-15 12:57:31', 1, 0, 0),
-(51, 44, 116, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:01:13', '2015-05-15 13:01:13', 1, 0, 0),
-(54, 44, 114, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 19488888', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:38:33', '2015-05-15 13:38:33', 1, 0, 0),
-(55, 44, 100, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-51328244', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:41:43', '2015-05-15 13:41:43', 1, 0, 0),
-(57, 44, 115, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:58:55', '2015-05-15 13:58:55', 1, 0, 0),
-(58, 44, 107, 6, 0, 0, 0, 'Juan José Paso 33', 'Empresa', 'prestashop', 'tercer presta', 'Juan José Paso 33', 'Juan José Paso 33', 'A5501', 'Mendoza', '', '0261-55555555', '0261-5666666', '23-31246501-9', '01', '2015-05-15 15:04:51', '2015-05-15 15:13:06', 1, 0, -1),
-(59, 44, 111, 74, 0, 0, 0, 'Direccion Dolibar', '', 'Nieto', 'Diego', 'Costanera 1993', '', 'A5501', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-18 17:06:43', '2015-05-19 11:21:01', 1, 0, 0),
-(60, 44, 111, 75, 0, 0, 0, 'Test', '', 'Nieto', 'Diego', 'San Martin No tan cerca', '', 'A5501', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:17:51', '2015-05-19 10:34:19', 1, 0, 0),
-(61, 44, 114, 73, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaiocho ', 'cuarentaiocho doli', 'cuarentaiochoss', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:37:32', '2015-05-19 10:11:25', 1, 0, 0),
-(62, 44, 115, 72, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:40:43', '2015-05-18 16:40:43', 1, 0, 0),
-(63, 44, 112, 72, 0, 0, 0, 'cuarentaiocho 2', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:45:09', '2015-05-18 16:45:09', 1, 0, 0),
-(64, 44, 115, 72, 0, 0, 0, 'cuarentaiocho 3', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:46:34', '2015-05-18 16:46:34', 1, 0, 0),
-(65, 44, 115, 72, 0, 0, 0, 'cuarentaiocho 4', 'd', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', 'd', '', '2015-05-18 16:51:55', '2015-05-18 16:51:55', 1, 0, 0),
-(66, 44, 115, 72, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:55:07', '2015-05-18 16:55:07', 1, 0, 0),
-(67, 44, 114, 72, 0, 0, 0, 'asdf', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', 'asdf', '2015-05-18 16:57:15', '2015-05-18 16:57:15', 1, 0, 0),
-(68, 44, 114, 71, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho ', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:01:14', '2015-05-18 17:01:14', 1, 0, 0),
-(69, 44, 115, 71, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:02:08', '2015-05-18 17:02:08', 1, 0, 0),
-(70, 44, 111, 71, 0, 0, 0, '', NULL, '', '', 'cuarentaiocho ', NULL, 'A5500', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 16:57:50', '2015-05-18 16:57:50', 1, 0, 0),
-(71, 44, 115, 71, 0, 0, 0, 'cuarentaiocho  2', '', 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho 2', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:04:18', '2015-05-18 17:04:18', 1, 0, 0),
-(72, 44, 111, 76, 0, 0, 0, 'Juan Jose Pasó', '', 'Perez', 'Juan', 'Juan Jose Pasó', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-19 14:02:43', '2015-05-19 09:06:07', 1, 0, 26),
-(73, 44, 111, 76, 0, 0, 0, 'Direccion del perro', '', 'presta', 'Juan', 'Direcciones de los perros 2020', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-19 14:20:56', '2015-05-19 10:08:23', 1, 0, 27),
-(74, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0, 0),
-(75, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin Lejoss', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0, 0),
-(76, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin Lejoss', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0, 0),
-(77, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin Lejoss', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0, 0),
-(78, 44, 111, 75, 0, 0, 0, 'Nombre de la dirección', '', 'Nietos', 'Diego', 'San Martin Cercas 3', '', 'A5501', 'Mendoza', '', '4396721', '0261513282455555', '', '', '2015-05-18 17:17:51', '2015-05-21 10:46:54', 1, 0, 32),
-(79, 44, 99, 63, 0, 0, 0, 'Nueva', '', 'cuarentaiuno', 'cuarentaiuno', 'San Martin Lejoss', '', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-21 10:49:09', '2015-05-21 10:49:09', 1, 0, 0),
-(80, 44, 100, 95, 0, 0, 0, 'asdf', '', 'presta', 'aaazz presta', 'cuarentaiocho 4050', '', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-21 10:50:41', '2015-05-21 10:50:41', 1, 0, 0),
-(81, 44, 111, 95, 0, 0, 0, '-', NULL, 'Nieto', 'Diego', '-', NULL, '', '', NULL, '', '', NULL, NULL, '2015-05-21 15:51:54', '0000-00-00 00:00:00', 1, 0, 33),
-(82, 44, 116, 96, 0, 0, 0, 'asdf', '', 'presta', 'aaaa', 'A verte', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-21 11:06:38', '2015-05-21 11:34:32', 1, 0, 0),
-(83, 44, 111, 99, 0, 0, 0, '', NULL, '', '', 'costanera', NULL, '', 'Mendoza', NULL, '', NULL, NULL, NULL, '2015-05-22 17:51:54', '2015-05-22 17:51:54', 1, 0, 0),
-(84, 44, 111, 100, 0, 0, 0, '', NULL, '', '', 'Nueva direccion', NULL, '', 'Mendoza', NULL, '', NULL, NULL, NULL, '2015-05-22 17:55:35', '2015-05-22 17:55:35', 1, 0, 0);
+INSERT INTO `ps_address` (`id_address`, `id_sin`, `id_country`, `id_state`, `id_customer`, `id_manufacturer`, `id_supplier`, `id_warehouse`, `alias`, `company`, `lastname`, `firstname`, `address1`, `address2`, `postcode`, `city`, `other`, `phone`, `phone_mobile`, `vat_number`, `dni`, `date_add`, `date_upd`, `active`, `deleted`) VALUES
+(8, 0, 44, 111, 12, 0, 0, 0, 'test', '', 'Perez', 'Juan', 'Costanera 1948', '', 'A5501', 'Mendoza', '', '4396721', '0261-5132824', '', '', '2015-05-07 10:00:11', '2015-05-12 12:56:30', 1, 0),
+(9, 0, 44, 111, 23, 0, 0, 0, 'Empresa', '', 'Gimenez', 'Maria', 'San Martin 2016', '', 'A5501', 'Mendoza', '', '4666777', '4777666', '', '', '2015-05-07 11:52:33', '2015-05-12 12:56:45', 1, 0),
+(10, 0, 44, 103, 23, 0, 0, 0, 'test', '', 'test', 'decimo dolibar', 'test', '', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '', '', '2015-05-07 11:53:32', '2015-05-07 11:53:32', 1, 0),
+(15, 135, 44, 111, 37, 0, 0, 0, 'Dirección dolibar', '', '-', '-', 'quince dolibar', '', 'A5501', 'Mendoza', '', '0261-5132824', '', '', '', '2015-05-07 17:32:48', '2015-05-07 12:35:09', 1, 0),
+(16, 136, 44, 111, 38, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'dieciseis dolibar', '', 'A5507', 'Luján de cuyo', '', '0261-5132824', '-', '', '', '2015-05-07 17:38:22', '2015-05-07 12:42:04', 1, 0),
+(17, 137, 44, 111, 39, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'diecisiete dolibar', NULL, '5507', 'Luján de cuyo', NULL, '0261-5132824', '-', NULL, NULL, '2015-05-07 18:18:27', '2015-05-07 18:18:27', 1, 0),
+(18, 122, 44, 111, 24, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'San Martín 2016', '', 'A5507', 'Luján de cuyo', '', '', '-', '', '', '2015-05-07 11:55:33', '2015-05-07 13:33:31', 1, 0),
+(19, 0, 44, 111, 39, 0, 0, 0, 'Mi dirección', 'Test', 'Perez', 'Juan ', 'Costanera 1948', '', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-13 09:16:02', '2015-05-13 09:16:02', 1, 0),
+(28, 0, 44, 111, 41, 0, 0, 0, 'Mi dirección', 'Empresa', 'Apellido', 'Nombre', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-13 15:55:04', '2015-05-13 15:55:04', 1, 0),
+(29, 134, 44, 111, 36, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', 'catorce dolibar', NULL, '5507', 'Luján de cuyo', NULL, '0261-5132824', '-', NULL, NULL, '2015-05-07 17:21:47', '2015-05-07 17:21:47', 1, 0),
+(30, -1, 44, 102, 48, 0, 0, 0, 'Mi dirección', 'Empresa', 'dolibar', 'veinticuatro ', 'catorce dolibar', 'asdf', '5507', 'Luján de cuyo', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-14 12:18:06', '2015-05-07 17:21:47', 1, 0),
+(31, 164, 44, 111, 59, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, NULL, NULL, NULL, '-', NULL, NULL, '2015-05-15 14:04:01', '2015-05-15 14:04:01', 1, 0),
+(32, 163, 44, 111, 58, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, 'Mendoza', NULL, NULL, '-', NULL, NULL, '2015-05-15 09:11:26', '2015-05-15 09:11:26', 1, 0),
+(33, -1, 44, 111, 60, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, NULL, NULL, NULL, '-', NULL, NULL, '2015-05-15 14:44:20', '2015-05-15 14:44:20', 1, 0),
+(34, 166, 44, 111, 61, 0, 0, 0, 'Dirección Dolibar', '-', '-', '-', '', NULL, NULL, 'Mendoza', NULL, NULL, '-', NULL, NULL, '2015-05-15 09:45:51', '2015-05-15 09:45:51', 1, 0),
+(38, 13, 0, NULL, 0, 0, 0, 0, '-', NULL, 'Apellido', 'TMS', '-', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 1, 0),
+(39, 14, 44, 117, 36, 0, 0, 0, 'Puesto funcion', '', 'Apellido', 'Nombre', 'direccion 1235', '', 'A5501', 'Mendoza', '', '02616', '0261-5132824', '', '', '2015-05-15 16:57:34', '2015-06-03 17:24:43', 1, 0),
+(45, 0, 44, 116, 7, 0, 0, 0, 'Nueva ', 'Test', 'Apellido', 'cuarto doli', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 12:23:24', '2015-05-15 12:23:24', 1, 0),
+(48, 0, 44, 114, 7, 0, 0, 0, 'Nueva ', '', 'dolibar', 'cuarto doli', 'Costanera 19484', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-51328244', '23-31246501-9', '', '2015-05-15 12:26:39', '2015-05-15 12:26:39', 1, 0),
+(50, 0, 44, 114, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 12:57:31', '2015-05-15 12:57:31', 1, 0),
+(51, 0, 44, 116, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:01:13', '2015-05-15 13:01:13', 1, 0),
+(54, 0, 44, 114, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 19488888', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:38:33', '2015-05-15 13:38:33', 1, 0),
+(55, 0, 44, 100, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-51328244', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:41:43', '2015-05-15 13:41:43', 1, 0),
+(57, 0, 44, 115, 6, 0, 0, 0, 'Nueva ', 'Empresa', 'prestashop', 'tercer presta', 'Costanera 1948', 'asdf', 'A5501', 'Mendoza', '', '0261-5132824', '0261-5132824', '23-31246501-9', '', '2015-05-15 13:58:55', '2015-05-15 13:58:55', 1, 0),
+(58, -1, 44, 107, 6, 0, 0, 0, 'Juan José Paso 33', 'Empresa', 'prestashop', 'tercer presta', 'Juan José Paso 33', 'Juan José Paso 33', 'A5501', 'Mendoza', '', '0261-55555555', '0261-5666666', '23-31246501-9', '01', '2015-05-15 15:04:51', '2015-05-15 15:13:06', 1, 0),
+(59, 0, 44, 111, 74, 0, 0, 0, 'Direccion Dolibar', '', 'Nieto', 'Diego', 'Costanera 1993', '', 'A5501', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-18 17:06:43', '2015-05-19 11:21:01', 1, 0),
+(60, 0, 44, 111, 75, 0, 0, 0, 'Test', '', 'Nieto', 'Diego', 'San Martin No tan cerca', '', 'A5501', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:17:51', '2015-05-19 10:34:19', 1, 0),
+(61, 0, 44, 114, 73, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaiocho ', 'cuarentaiocho doli', 'cuarentaiochoss', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:37:32', '2015-05-19 10:11:25', 1, 0),
+(62, 0, 44, 115, 72, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:40:43', '2015-05-18 16:40:43', 1, 0),
+(63, 0, 44, 112, 72, 0, 0, 0, 'cuarentaiocho 2', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:45:09', '2015-05-18 16:45:09', 1, 0),
+(64, 0, 44, 115, 72, 0, 0, 0, 'cuarentaiocho 3', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:46:34', '2015-05-18 16:46:34', 1, 0),
+(65, 0, 44, 115, 72, 0, 0, 0, 'cuarentaiocho 4', 'd', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', 'd', '', '2015-05-18 16:51:55', '2015-05-18 16:51:55', 1, 0),
+(66, 0, 44, 115, 72, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 16:55:07', '2015-05-18 16:55:07', 1, 0),
+(67, 0, 44, 114, 72, 0, 0, 0, 'asdf', '', 'cuarentaisiete ', 'cuarentaisiete doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', 'asdf', '2015-05-18 16:57:15', '2015-05-18 16:57:15', 1, 0),
+(68, 0, 44, 114, 71, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho ', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:01:14', '2015-05-18 17:01:14', 1, 0),
+(69, 0, 44, 115, 71, 0, 0, 0, 'cuarentaiocho ', '', 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:02:08', '2015-05-18 17:02:08', 1, 0),
+(70, 0, 44, 111, 71, 0, 0, 0, '', NULL, '', '', 'cuarentaiocho ', NULL, 'A5500', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 16:57:50', '2015-05-18 16:57:50', 1, 0),
+(71, 0, 44, 115, 71, 0, 0, 0, 'cuarentaiocho  2', '', 'cuarentaisiete ', 'cuarentaiseis doli', 'cuarentaiocho 2', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-18 17:04:18', '2015-05-18 17:04:18', 1, 0),
+(72, 26, 44, 111, 76, 0, 0, 0, 'Juan Jose Pasó', '', 'Perez', 'Juan', 'Juan Jose Pasó', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-19 14:02:43', '2015-05-19 09:06:07', 1, 0),
+(73, 27, 44, 111, 76, 0, 0, 0, 'Direccion del perro', '', 'presta', 'Juan', 'Direcciones de los perros 2020', '', 'A5500', 'Mendoza', '', '4396721', '4396721', '', '', '2015-05-19 14:20:56', '2015-05-19 10:08:23', 1, 0),
+(74, 0, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0),
+(75, 0, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin Lejoss', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0),
+(76, 0, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin Lejoss', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0),
+(77, 0, 44, 111, 75, 0, 0, 0, '', NULL, '', '', 'San Martin Lejoss', NULL, 'A5501', 'Mendoza', NULL, '4396721', NULL, NULL, NULL, '2015-05-18 17:17:51', '2015-05-18 17:17:51', 1, 0),
+(78, 32, 44, 111, 75, 0, 0, 0, 'Nombre de la dirección', '', 'Nietos', 'Diego', 'San Martin Cercas 3', '', 'A5501', 'Mendoza', '', '4396721', '0261513282455555', '', '', '2015-05-18 17:17:51', '2015-05-21 10:46:54', 1, 0),
+(79, 0, 44, 99, 63, 0, 0, 0, 'Nueva', '', 'cuarentaiuno', 'cuarentaiuno', 'San Martin Lejoss', '', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-21 10:49:09', '2015-05-21 10:49:09', 1, 0),
+(80, 0, 44, 107, 95, 0, 0, 0, 'asdf', '', 'presta', 'aaazz presta', 'cuarentaiocho 4050', '', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-21 10:50:41', '2015-06-03 16:27:17', 1, 0),
+(81, 33, 44, 111, 95, 0, 0, 0, '-', NULL, 'Nieto', 'Diego', '-', NULL, '', '', NULL, '', '', NULL, NULL, '2015-05-21 15:51:54', '0000-00-00 00:00:00', 1, 0),
+(82, 0, 44, 116, 96, 0, 0, 0, 'asdf', '', 'presta', 'aaaa', 'A verte', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-21 11:06:38', '2015-05-21 11:34:32', 1, 0),
+(83, 0, 44, 111, 99, 0, 0, 0, '', NULL, '', '', 'costanera', NULL, '', 'Mendoza', NULL, '', NULL, NULL, NULL, '2015-05-22 17:51:54', '2015-05-22 17:51:54', 1, 0),
+(84, 0, 44, 111, 100, 0, 0, 0, '', NULL, '', '', 'Nueva direccion', NULL, '', 'Mendoza', NULL, '', NULL, NULL, NULL, '2015-05-22 17:55:35', '2015-05-22 17:55:35', 1, 0),
+(85, 0, 44, 100, 3, 0, 0, 0, 'Nueva', '', 'dd', 'Prestashop', 'cuarentaiocho ', 'cuarentaiocho ', 'A5500', 'Mendoza', '', '4396721', '02615132824', '', '', '2015-05-27 12:30:34', '2015-05-29 12:30:04', 1, 0),
+(86, 38, 37, 111, 100, 0, 0, 0, '', NULL, 'Nieto', 'Finca', 'Vistalba', NULL, 'A 5550', 'Luján de Cuyo', NULL, '', '', NULL, NULL, '2015-06-04 14:10:28', '2015-06-04 14:10:28', 1, 0),
+(87, 38, 23, 23, 100, 0, 0, 0, '-', NULL, 'Nieto', 'Finca', '-', NULL, '', '', NULL, '', '', NULL, NULL, '2015-06-04 14:10:28', '2015-06-04 14:10:28', 1, 0),
+(88, 0, 23, 23, 102, 0, 0, 0, '', NULL, '', '', 'Vistalba', NULL, 'A 5550', 'Mendoza', NULL, '', NULL, NULL, NULL, '2015-06-04 14:25:41', '2015-06-04 14:25:41', 1, 0);
 
 --
 -- Disparadores `ps_address`
@@ -10571,6 +10781,8 @@ CREATE TRIGGER `ps_address_AUPD` AFTER UPDATE ON `ps_address`
 				`date_add`,
 				`alias`,
 				`active`,
+				`id_country`, 
+				`id_state`, 
 				`system`,
 				`action`,
 				`id_estado`
@@ -10588,6 +10800,8 @@ CREATE TRIGGER `ps_address_AUPD` AFTER UPDATE ON `ps_address`
 				NEW.date_add, 
 				NEW.alias, 
 				NEW.active, 
+				NEW.id_country, 
+				NEW.id_state, 
 				'prestashop',
 				'update',
 				0
@@ -11966,7 +12180,7 @@ CREATE TABLE IF NOT EXISTS `ps_carrier` (
   PRIMARY KEY (`id_carrier`),
   KEY `deleted` (`deleted`,`active`),
   KEY `id_tax_rules_group` (`id_tax_rules_group`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `ps_carrier`
@@ -11978,8 +12192,9 @@ INSERT INTO `ps_carrier` (`id_carrier`, `id_reference`, `id_tax_rules_group`, `n
 (3, 1, 0, 'Logística Mendoza', '', 1, 0, 0, 0, 0, 1, 0, 0, '', 1, 0, 0, 0, 0, '0.000000', 0),
 (4, 2, 0, 'Transportes Mendoza', '', 1, 1, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0),
 (5, 2, 0, 'Transportes Mendoza', '', 1, 1, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0),
-(6, 2, 0, 'Transportes Mendoza', '', 1, 0, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0),
-(7, 2, 0, 'Transportes Mendoza', '', 1, 1, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0);
+(6, 2, 0, 'Transportes Mendoza', '', 1, 1, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0),
+(7, 2, 0, 'Transportes Mendoza', '', 1, 1, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0),
+(8, 2, 0, 'Transportes Mendoza', '', 1, 0, 1, 0, 0, 0, 0, 0, '', 1, 1, 0, 0, 0, '0.000000', 0);
 
 -- --------------------------------------------------------
 
@@ -12018,7 +12233,10 @@ INSERT INTO `ps_carrier_group` (`id_carrier`, `id_group`) VALUES
 (6, 3),
 (7, 1),
 (7, 2),
-(7, 3);
+(7, 3),
+(8, 1),
+(8, 2),
+(8, 3);
 
 -- --------------------------------------------------------
 
@@ -12046,13 +12264,15 @@ INSERT INTO `ps_carrier_lang` (`id_carrier`, `id_shop`, `id_lang`, `delay`) VALU
 (5, 1, 1, '¡Envío en 24h!'),
 (6, 1, 1, '¡Envío en 24h!'),
 (7, 1, 1, '¡Envío en 24h!'),
+(8, 1, 1, '¡Envío en 24h!'),
 (1, 1, 2, 'Recoger en tienda'),
 (2, 1, 2, 'Delivery next day!'),
 (3, 1, 2, 'Recoger en tienda'),
 (4, 1, 2, 'Delivery next day!'),
 (5, 1, 2, 'Delivery next day!'),
 (6, 1, 2, 'Delivery next day!'),
-(7, 1, 2, 'Delivery next day!');
+(7, 1, 2, 'Delivery next day!'),
+(8, 1, 2, 'Delivery next day!');
 
 -- --------------------------------------------------------
 
@@ -12078,7 +12298,8 @@ INSERT INTO `ps_carrier_shop` (`id_carrier`, `id_shop`) VALUES
 (4, 1),
 (5, 1),
 (6, 1),
-(7, 1);
+(7, 1),
+(8, 1);
 
 -- --------------------------------------------------------
 
@@ -12104,7 +12325,8 @@ INSERT INTO `ps_carrier_tax_rules_group_shop` (`id_carrier`, `id_tax_rules_group
 (4, 1, 1),
 (5, 1, 1),
 (6, 1, 1),
-(7, 1, 1);
+(7, 1, 1),
+(8, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -12146,7 +12368,15 @@ INSERT INTO `ps_carrier_zone` (`id_carrier`, `id_zone`) VALUES
 (7, 5),
 (7, 6),
 (7, 7),
-(7, 8);
+(7, 8),
+(8, 1),
+(8, 2),
+(8, 3),
+(8, 4),
+(8, 5),
+(8, 6),
+(8, 7),
+(8, 8);
 
 -- --------------------------------------------------------
 
@@ -12184,7 +12414,7 @@ CREATE TABLE IF NOT EXISTS `ps_cart` (
   KEY `id_guest` (`id_guest`),
   KEY `id_shop_group` (`id_shop_group`),
   KEY `id_shop` (`id_shop`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Volcado de datos para la tabla `ps_cart`
@@ -12197,19 +12427,33 @@ INSERT INTO `ps_cart` (`id_cart`, `id_shop_group`, `id_shop`, `id_carrier`, `del
 (4, 1, 1, 2, 'a:1:{i:3;s:2:"2,";}', 1, 4, 4, 1, 1, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2015-02-23 12:42:30', '2015-02-23 12:42:30'),
 (5, 1, 1, 2, 'a:1:{i:3;s:2:"2,";}', 1, 4, 4, 1, 1, 1, 'b44a6d9efd7a0076a0fbce6b15eaf3b1', 0, 0, '', 0, 0, '2015-02-23 12:42:30', '2015-02-23 12:42:30'),
 (6, 1, 1, 6, 'a:1:{i:5;s:2:"6,";}', 1, 5, 5, 1, 5, 3, 'b744cd4c327b899b92378501dce34edb', 0, 0, '', 0, 0, '2015-04-29 13:05:43', '2015-04-29 13:09:29'),
-(7, 0, 1, 6, 'a:1:{i:17;s:2:"6,";}', 1, 17, 17, 1, 39, 0, '', 0, 0, '', 0, 0, '2015-05-12 13:23:42', '2015-05-12 13:26:03'),
-(8, 0, 1, 0, '', 1, 17, 17, 1, 39, 0, '', 0, 0, '', 0, 0, '2015-05-12 13:25:37', '2015-05-12 13:25:37'),
+(7, 0, 1, 6, 'a:1:{i:17;s:2:"6,";}', 1, 17, 17, 1, 39, 0, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-12 13:23:42', '2015-06-04 15:46:29'),
+(8, 0, 1, 0, '', 1, 17, 17, 1, 39, 0, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-12 13:25:37', '2015-06-04 15:46:28'),
 (9, 1, 1, 0, '', 1, 0, 0, 1, 0, 10, '', 0, 0, '', 0, 0, '2015-05-12 13:36:11', '2015-05-12 13:36:14'),
-(10, 1, 1, 0, '', 1, 17, 17, 1, 39, 10, '', 0, 0, '', 0, 0, '2015-05-12 13:37:01', '2015-05-12 13:37:01'),
-(11, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 11, '', 0, 0, '', 0, 0, '2015-05-13 09:08:09', '2015-05-13 10:16:01'),
+(10, 1, 1, 0, '', 1, 17, 17, 1, 39, 10, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-12 13:37:01', '2015-06-04 15:46:28'),
+(11, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 11, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-13 09:08:09', '2015-06-04 15:46:28'),
 (12, 1, 1, 0, '', 1, 0, 0, 1, 40, 12, '', 0, 0, '', 0, 0, '2015-05-13 10:21:51', '2015-05-13 10:23:00'),
 (13, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 13, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-13 10:23:09', '2015-05-14 09:57:10'),
-(14, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 10, '-1', 0, 0, '', 0, 0, '2015-05-13 11:30:18', '2015-05-13 11:30:48'),
+(14, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 10, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-13 11:30:18', '2015-06-04 15:46:28'),
 (15, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 10, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-13 15:02:56', '2015-05-14 09:56:41'),
-(16, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 10, '-1', 0, 0, '', 0, 0, '2015-05-13 15:15:52', '2015-05-13 15:40:54'),
+(16, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 10, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-13 15:15:52', '2015-06-04 15:46:28'),
 (17, 1, 1, 6, 'a:1:{i:28;s:2:"6,";}', 1, 28, 28, 1, 41, 14, 'd13928d2ab6e51e0146b38a0e9343108', 0, 0, '', 0, 0, '2015-05-13 15:51:10', '2015-05-13 15:55:14'),
 (18, 1, 1, 6, 'a:1:{i:19;s:2:"6,";}', 1, 19, 19, 1, 39, 15, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-13 16:30:39', '2015-05-13 16:31:38'),
-(19, 1, 1, 6, 'a:1:{i:30;s:2:"6,";}', 1, 30, 30, 1, 48, 16, '30d8d89810529065eb4cdf952cb2f6b1', 0, 0, '', 0, 0, '2015-05-14 12:17:18', '2015-05-14 12:18:35');
+(19, 1, 1, 6, 'a:1:{i:30;s:2:"6,";}', 1, 30, 30, 1, 48, 16, '30d8d89810529065eb4cdf952cb2f6b1', 0, 0, '', 0, 0, '2015-05-14 12:17:18', '2015-05-14 12:18:35'),
+(20, 0, 1, 6, 'a:1:{i:18;s:2:"6,";}', 1, 18, 18, 1, 24, 0, '', 0, 0, '', 0, 0, '2015-05-27 12:27:30', '2015-05-27 12:28:34'),
+(21, 0, 1, 6, 'a:1:{i:0;s:2:"6,";}', 1, 85, 85, 1, 3, 0, '', 0, 0, '', 0, 0, '2015-05-27 12:29:31', '2015-05-27 12:30:36'),
+(22, 1, 1, 0, '', 1, 17, 17, 1, 39, 17, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-27 12:32:16', '2015-05-27 12:32:16'),
+(23, 1, 1, 6, 'a:1:{i:84;s:2:"6,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 12:33:03', '2015-05-27 12:33:50'),
+(24, 1, 1, 6, 'a:1:{i:84;s:2:"6,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 12:41:50', '2015-05-27 12:42:25'),
+(25, 1, 1, 6, 'a:1:{i:84;s:2:"6,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 12:48:17', '2015-05-27 12:48:30'),
+(26, 1, 1, 6, 'a:1:{i:84;s:2:"6,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 13:10:56', '2015-05-27 13:13:55'),
+(27, 1, 1, 6, 'a:1:{i:84;s:2:"6,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 13:16:01', '2015-05-27 13:16:11'),
+(28, 1, 1, 6, 'a:1:{i:84;s:2:"6,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 13:57:05', '2015-05-27 13:57:06'),
+(29, 1, 1, 8, 'a:1:{i:84;s:2:"8,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-27 13:57:07', '2015-05-28 09:34:46'),
+(30, 1, 1, 8, 'a:1:{i:84;s:2:"8,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-28 11:29:05', '2015-05-28 11:30:58'),
+(31, 1, 1, 0, '', 1, 17, 17, 1, 39, 19, 'bb450b08109bf17b817fc93ce9441283', 0, 0, '', 0, 0, '2015-05-28 11:44:28', '2015-05-28 12:00:08'),
+(32, 1, 1, 8, 'a:1:{i:84;s:2:"8,";}', 1, 84, 84, 1, 100, 20, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-28 12:03:02', '2015-05-28 12:26:01'),
+(33, 1, 1, 8, 'a:1:{i:84;s:2:"8,";}', 1, 84, 84, 1, 100, 18, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, 0, '', 0, 0, '2015-05-28 13:26:29', '2015-05-28 13:27:05');
 
 -- --------------------------------------------------------
 
@@ -12223,6 +12467,13 @@ CREATE TABLE IF NOT EXISTS `ps_cart_cart_rule` (
   PRIMARY KEY (`id_cart`,`id_cart_rule`),
   KEY `id_cart_rule` (`id_cart_rule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ps_cart_cart_rule`
+--
+
+INSERT INTO `ps_cart_cart_rule` (`id_cart`, `id_cart_rule`) VALUES
+(30, 1);
 
 -- --------------------------------------------------------
 
@@ -12277,7 +12528,47 @@ INSERT INTO `ps_cart_product` (`id_cart`, `id_product`, `id_address_delivery`, `
 (16, 5, 19, 1, 19, 1, '2015-05-13 15:15:53'),
 (17, 1, 28, 1, 1, 5, '2015-05-13 15:51:29'),
 (18, 5, 19, 1, 19, 1, '2015-05-13 16:31:19'),
-(19, 4, 30, 1, 16, 1, '2015-05-14 12:17:35');
+(19, 4, 30, 1, 16, 1, '2015-05-14 12:17:35'),
+(20, 5, 18, 1, 19, 2, '2015-05-27 12:28:27'),
+(20, 4, 18, 1, 16, 1, '2015-05-27 12:28:23'),
+(20, 2, 18, 1, 7, 1, '2015-05-27 12:28:34'),
+(21, 3, 0, 1, 13, 1, '2015-05-27 12:29:40'),
+(21, 5, 0, 1, 19, 1, '2015-05-27 12:29:43'),
+(21, 1, 0, 1, 1, 1, '2015-05-27 12:29:45'),
+(21, 4, 0, 1, 16, 1, '2015-05-27 12:29:46'),
+(23, 7, 84, 1, 34, 1, '2015-05-27 12:33:26'),
+(23, 1, 84, 1, 1, 1, '2015-05-27 12:33:34'),
+(24, 1, 84, 1, 1, 1, '2015-05-27 12:41:50'),
+(24, 2, 84, 1, 7, 1, '2015-05-27 12:41:54'),
+(24, 3, 84, 1, 13, 1, '2015-05-27 12:41:57'),
+(25, 1, 84, 1, 1, 1, '2015-05-27 12:48:17'),
+(25, 2, 84, 1, 7, 1, '2015-05-27 12:48:18'),
+(25, 3, 84, 1, 13, 1, '2015-05-27 12:48:18'),
+(26, 1, 84, 1, 1, 1, '2015-05-27 13:10:56'),
+(26, 2, 84, 1, 7, 1, '2015-05-27 13:10:59'),
+(26, 3, 84, 1, 13, 1, '2015-05-27 13:10:59'),
+(27, 1, 84, 1, 1, 1, '2015-05-27 13:16:01'),
+(27, 2, 84, 1, 7, 1, '2015-05-27 13:16:02'),
+(27, 3, 84, 1, 13, 1, '2015-05-27 13:16:02'),
+(28, 1, 84, 1, 1, 1, '2015-05-27 13:57:05'),
+(28, 2, 84, 1, 7, 1, '2015-05-27 13:57:06'),
+(28, 3, 84, 1, 13, 1, '2015-05-27 13:57:06'),
+(29, 1, 84, 1, 1, 3, '2015-05-28 09:32:34'),
+(29, 2, 84, 1, 7, 3, '2015-05-28 09:32:40'),
+(29, 3, 84, 1, 13, 3, '2015-05-28 09:32:46'),
+(29, 4, 84, 1, 16, 3, '2015-05-28 09:33:01'),
+(30, 1, 84, 1, 1, 1, '2015-05-28 11:29:05'),
+(30, 5, 84, 1, 19, 1, '2015-05-28 11:29:09'),
+(30, 4, 84, 1, 16, 1, '2015-05-28 11:29:12'),
+(30, 3, 84, 1, 13, 1, '2015-05-28 11:29:17'),
+(30, 2, 84, 1, 7, 1, '2015-05-28 11:29:20'),
+(31, 1, 17, 1, 1, 2, '2015-05-28 12:00:04'),
+(31, 5, 17, 1, 19, 2, '2015-05-28 12:00:05'),
+(31, 4, 17, 1, 16, 2, '2015-05-28 12:00:06'),
+(31, 3, 17, 1, 13, 2, '2015-05-28 12:00:07'),
+(31, 2, 17, 1, 7, 2, '2015-05-28 12:00:08'),
+(32, 3, 84, 1, 13, 11, '2015-05-28 12:25:39'),
+(33, 3, 84, 1, 13, 6, '2015-05-28 13:26:40');
 
 -- --------------------------------------------------------
 
@@ -12319,7 +12610,14 @@ CREATE TABLE IF NOT EXISTS `ps_cart_rule` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   PRIMARY KEY (`id_cart_rule`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `ps_cart_rule`
+--
+
+INSERT INTO `ps_cart_rule` (`id_cart_rule`, `id_customer`, `date_from`, `date_to`, `description`, `quantity`, `quantity_per_user`, `priority`, `partial_use`, `code`, `minimum_amount`, `minimum_amount_tax`, `minimum_amount_currency`, `minimum_amount_shipping`, `country_restriction`, `carrier_restriction`, `group_restriction`, `cart_rule_restriction`, `product_restriction`, `shop_restriction`, `free_shipping`, `reduction_percent`, `reduction_amount`, `reduction_tax`, `reduction_currency`, `reduction_product`, `gift_product`, `gift_product_attribute`, `highlight`, `active`, `date_add`, `date_upd`) VALUES
+(1, 100, '2015-05-28 11:00:00', '2015-06-28 11:00:00', 'Test de vales', 0, 1, 1, 1, '4MFY5AQG', '0.00', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '23.00', '0.00', 0, 1, 0, 0, 0, 0, 1, '2015-05-28 11:28:16', '2015-05-28 11:31:14');
 
 -- --------------------------------------------------------
 
@@ -12383,6 +12681,14 @@ CREATE TABLE IF NOT EXISTS `ps_cart_rule_lang` (
   `name` varchar(254) NOT NULL,
   PRIMARY KEY (`id_cart_rule`,`id_lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ps_cart_rule_lang`
+--
+
+INSERT INTO `ps_cart_rule_lang` (`id_cart_rule`, `id_lang`, `name`) VALUES
+(1, 1, 'Test de vales'),
+(1, 2, 'Test de vales');
 
 -- --------------------------------------------------------
 
@@ -12568,8 +12874,11 @@ INSERT INTO `ps_category_product` (`id_category`, `id_product`, `position`) VALU
 (2, 13, 4),
 (2, 18, 5),
 (2, 28, 6),
+(2, 29, 9),
 (2, 30, 7),
 (2, 31, 8),
+(2, 32, 10),
+(2, 33, 11),
 (12, 1, 0),
 (12, 2, 4),
 (12, 3, 3),
@@ -13567,7 +13876,7 @@ CREATE TABLE IF NOT EXISTS `ps_configuration` (
   KEY `name` (`name`),
   KEY `id_shop` (`id_shop`),
   KEY `id_shop_group` (`id_shop_group`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=455 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=466 ;
 
 --
 -- Volcado de datos para la tabla `ps_configuration`
@@ -13578,7 +13887,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (2, NULL, NULL, 'PS_VERSION_DB', '1.6.0.12', '2015-02-23 12:40:12', '2015-02-23 12:40:12'),
 (3, NULL, NULL, 'PS_INSTALL_VERSION', '1.6.0.12', '2015-02-23 12:40:12', '2015-02-23 12:40:12'),
 (4, NULL, NULL, 'PS_CARRIER_DEFAULT', '3', '2015-02-23 12:40:34', '2015-03-10 08:50:46'),
-(5, NULL, NULL, 'PS_GROUP_FEATURE_ACTIVE', '1', '2015-02-23 12:40:35', '2015-02-23 12:40:35'),
+(5, NULL, NULL, 'PS_GROUP_FEATURE_ACTIVE', NULL, '2015-02-23 12:40:35', '2015-06-05 11:33:54'),
 (6, NULL, NULL, 'PS_SEARCH_INDEXATION', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (7, NULL, NULL, 'PS_ONE_PHONE_AT_LEAST', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (8, NULL, NULL, 'PS_CURRENCY_DEFAULT', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -13659,7 +13968,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (83, NULL, NULL, 'PS_ORDER_PROCESS_TYPE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (84, NULL, NULL, 'PS_SPECIFIC_PRICE_PRIORITIES', 'id_shop;id_currency;id_country;id_group', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (85, NULL, NULL, 'PS_TAX_DISPLAY', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(86, NULL, NULL, 'PS_SMARTY_FORCE_COMPILE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(86, NULL, NULL, 'PS_SMARTY_FORCE_COMPILE', '2', '0000-00-00 00:00:00', '2015-06-05 11:46:52'),
 (87, NULL, NULL, 'PS_DISTANCE_UNIT', 'km', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (88, NULL, NULL, 'PS_STORES_DISPLAY_CMS', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (89, NULL, NULL, 'PS_STORES_DISPLAY_FOOTER', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -13677,7 +13986,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (101, NULL, NULL, 'PS_LOCALE_LANGUAGE', 'es', '0000-00-00 00:00:00', '2015-02-23 12:41:04'),
 (102, NULL, NULL, 'PS_LOCALE_COUNTRY', 'ar', '0000-00-00 00:00:00', '2015-02-23 12:41:04'),
 (103, NULL, NULL, 'PS_ATTACHMENT_MAXIMUM_SIZE', '8', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(104, NULL, NULL, 'PS_SMARTY_CACHE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(104, NULL, NULL, 'PS_SMARTY_CACHE', '1', '0000-00-00 00:00:00', '2015-06-05 11:45:02'),
 (105, NULL, NULL, 'PS_DIMENSION_UNIT', 'cm', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (106, NULL, NULL, 'PS_GUEST_CHECKOUT_ENABLED', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (107, NULL, NULL, 'PS_DISPLAY_SUPPLIERS', '0', '0000-00-00 00:00:00', '2015-05-08 09:42:55'),
@@ -13690,7 +13999,7 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (114, NULL, NULL, 'PS_STORES_CENTER_LONG', '-68.913459777832', '0000-00-00 00:00:00', '2015-05-08 12:11:28'),
 (115, NULL, NULL, 'PS_USE_ECOTAX', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (116, NULL, NULL, 'PS_CANONICAL_REDIRECT', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(117, NULL, NULL, 'PS_IMG_UPDATE_TIME', '1431112852', '0000-00-00 00:00:00', '2015-05-08 16:20:52'),
+(117, NULL, NULL, 'PS_IMG_UPDATE_TIME', '1433515025', '0000-00-00 00:00:00', '2015-06-05 11:37:05'),
 (118, NULL, NULL, 'PS_BACKUP_DROP_TABLE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (119, NULL, NULL, 'PS_OS_CHEQUE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (120, NULL, NULL, 'PS_OS_PAYMENT', '2', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -13717,14 +14026,14 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (141, NULL, NULL, 'PS_SHOW_NEW_ORDERS', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (142, NULL, NULL, 'PS_SHOW_NEW_CUSTOMERS', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (143, NULL, NULL, 'PS_SHOW_NEW_MESSAGES', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(144, NULL, NULL, 'PS_FEATURE_FEATURE_ACTIVE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(144, NULL, NULL, 'PS_FEATURE_FEATURE_ACTIVE', NULL, '0000-00-00 00:00:00', '2015-06-05 11:33:54'),
 (145, NULL, NULL, 'PS_COMBINATION_FEATURE_ACTIVE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (146, NULL, NULL, 'PS_SPECIFIC_PRICE_FEATURE_ACTIVE', '1', '0000-00-00 00:00:00', '2015-05-08 11:01:09'),
 (147, NULL, NULL, 'PS_SCENE_FEATURE_ACTIVE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (148, NULL, NULL, 'PS_VIRTUAL_PROD_FEATURE_ACTIVE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (149, NULL, NULL, 'PS_CUSTOMIZATION_FEATURE_ACTIVE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(150, NULL, NULL, 'PS_CART_RULE_FEATURE_ACTIVE', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(151, NULL, NULL, 'PS_PACK_FEATURE_ACTIVE', NULL, '0000-00-00 00:00:00', '2015-05-22 13:04:23'),
+(150, NULL, NULL, 'PS_CART_RULE_FEATURE_ACTIVE', '1', '0000-00-00 00:00:00', '2015-05-28 11:28:16'),
+(151, NULL, NULL, 'PS_PACK_FEATURE_ACTIVE', NULL, '0000-00-00 00:00:00', '2015-06-05 13:07:55'),
 (152, NULL, NULL, 'PS_ALIAS_FEATURE_ACTIVE', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (153, NULL, NULL, 'PS_TAX_ADDRESS_TYPE', 'id_address_delivery', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (154, NULL, NULL, 'PS_SHOP_DEFAULT', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -13968,10 +14277,10 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (394, NULL, NULL, 'PS_ONBOARDING_STEP_3_COMPLETED', '0', '2015-02-23 12:48:00', '2015-02-23 12:48:00'),
 (395, NULL, NULL, 'PS_ONBOARDING_STEP_4_COMPLETED', '0', '2015-02-23 12:48:00', '2015-02-23 12:48:00'),
 (396, NULL, NULL, 'GF_NOT_VIEWED_BADGE', '134', '2015-02-23 12:50:34', '2015-03-10 08:44:53'),
-(397, NULL, NULL, 'PS_SHOW_CAT_MODULES_1', NULL, '2015-04-15 11:10:53', '2015-05-13 09:36:51'),
+(397, NULL, NULL, 'PS_SHOW_CAT_MODULES_1', NULL, '2015-04-15 11:10:53', '2015-06-05 12:20:02'),
 (398, NULL, NULL, 'PS_SHOW_TYPE_MODULES_1', 'allModules', '2015-04-22 12:04:44', '2015-04-22 12:04:44'),
 (399, NULL, NULL, 'PS_SHOW_INSTALLED_MODULES_1', 'installedUninstalled', '2015-04-22 12:04:44', '2015-04-29 13:03:36'),
-(400, NULL, NULL, 'PS_SHOW_ENABLED_MODULES_1', 'enabledDisabled', '2015-04-22 12:04:44', '2015-04-29 13:00:16'),
+(400, NULL, NULL, 'PS_SHOW_ENABLED_MODULES_1', 'enabledDisabled', '2015-04-22 12:04:44', '2015-06-05 12:19:08'),
 (401, NULL, NULL, 'BLOCKSTORE_TEXT', NULL, '2015-04-22 13:58:12', '2015-04-22 13:58:12'),
 (402, NULL, NULL, 'ERP_ADMIN_PARENT_ORDERS_TAB_ID', '10', '2015-04-29 12:57:00', '2015-04-29 12:57:00'),
 (403, NULL, NULL, 'ERP_RECEPTION_CANCELING_ID', NULL, '2015-04-29 12:57:20', '2015-04-29 12:57:25'),
@@ -14024,7 +14333,18 @@ INSERT INTO `ps_configuration` (`id_configuration`, `id_shop_group`, `id_shop`, 
 (451, NULL, NULL, 'CONF_AUTHORIZEAIM_FIXED', '0.2', '2015-05-13 09:35:47', '2015-05-13 09:35:47'),
 (452, NULL, NULL, 'CONF_AUTHORIZEAIM_VAR', '2', '2015-05-13 09:35:47', '2015-05-13 09:35:47'),
 (453, NULL, NULL, 'CONF_AUTHORIZEAIM_FIXED_FOREIGN', '0.2', '2015-05-13 09:35:47', '2015-05-13 09:35:47'),
-(454, NULL, NULL, 'CONF_AUTHORIZEAIM_VAR_FOREIGN', '2', '2015-05-13 09:35:47', '2015-05-13 09:35:47');
+(454, NULL, NULL, 'CONF_AUTHORIZEAIM_VAR_FOREIGN', '2', '2015-05-13 09:35:47', '2015-05-13 09:35:47'),
+(455, NULL, NULL, 'PS_CSS_THEME_CACHE', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(456, NULL, NULL, 'PS_JS_THEME_CACHE', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(457, NULL, NULL, 'PS_HTML_THEME_COMPRESSION', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(458, NULL, NULL, 'PS_JS_HTML_THEME_COMPRESSION', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(459, NULL, NULL, 'PS_JS_DEFER', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(460, NULL, NULL, 'PS_HTACCESS_CACHE_CONTROL', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(461, NULL, NULL, 'PS_DISABLE_NON_NATIVE_MODULE', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(462, NULL, NULL, 'PS_DISABLE_OVERRIDES', '0', '2015-05-29 11:39:11', '2015-05-29 11:39:11'),
+(463, NULL, NULL, 'PS_CACHEFS_DIRECTORY_DEPTH', '1', '2015-06-05 11:33:30', '2015-06-05 11:33:30'),
+(464, NULL, NULL, 'PS_CCCJS_VERSION', '5', '2015-06-05 11:44:05', '2015-06-05 11:52:03'),
+(465, NULL, NULL, 'PS_CCCCSS_VERSION', '5', '2015-06-05 11:44:05', '2015-06-05 11:52:03');
 
 -- --------------------------------------------------------
 
@@ -14160,7 +14480,7 @@ INSERT INTO `ps_configuration_kpi` (`id_configuration_kpi`, `id_shop_group`, `id
 (107, NULL, NULL, 'PERCENT_PRODUCT_OUT_OF_STOCK_EXP', '1426879683', '2015-03-20 12:28:03', '2015-03-20 12:28:03'),
 (108, NULL, NULL, 'PERCENT_PRODUCT_OUT_OF_STOCK_EXP', '1426879994', '2015-03-20 12:33:14', '2015-03-20 12:33:14'),
 (109, NULL, NULL, 'PERCENT_PRODUCT_OUT_OF_STOCK_EXP', '1426880064', '2015-03-20 12:34:24', '2015-03-20 12:34:24'),
-(110, NULL, NULL, 'UPDATE_MODULES', '3', '2015-03-20 12:41:37', '2015-05-26 08:48:09');
+(110, NULL, NULL, 'UPDATE_MODULES', '4', '2015-03-20 12:41:37', '2015-06-05 12:13:53');
 
 -- --------------------------------------------------------
 
@@ -14240,7 +14560,7 @@ CREATE TABLE IF NOT EXISTS `ps_connections` (
   KEY `id_guest` (`id_guest`),
   KEY `date_add` (`date_add`),
   KEY `id_page` (`id_page`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
 
 --
 -- Volcado de datos para la tabla `ps_connections`
@@ -14297,7 +14617,14 @@ INSERT INTO `ps_connections` (`id_connections`, `id_shop_group`, `id_shop`, `id_
 (48, 1, 1, 10, 1, 0, '2015-05-14 09:01:32', ''),
 (49, 1, 1, 16, 1, 0, '2015-05-14 12:16:32', ''),
 (50, 1, 1, 16, 1, 0, '2015-05-18 09:51:58', ''),
-(51, 1, 1, 17, 9, 0, '2015-05-26 09:11:48', '');
+(51, 1, 1, 10, 9, 0, '2015-05-26 09:11:48', ''),
+(52, 1, 1, 10, 1, 0, '2015-05-27 12:32:02', ''),
+(53, 1, 1, 18, 8, 0, '2015-05-27 12:32:42', ''),
+(54, 1, 1, 10, 8, 0, '2015-05-28 11:44:04', ''),
+(55, 1, 1, 18, 8, 0, '2015-05-28 12:02:21', ''),
+(56, 1, 1, 19, 1, 0, '2015-06-04 13:07:24', ''),
+(57, 1, 1, 20, 10, 0, '2015-06-05 11:08:05', ''),
+(58, 1, 1, 21, 1, 0, '2015-06-05 12:17:59', '');
 
 -- --------------------------------------------------------
 
@@ -15563,7 +15890,7 @@ CREATE TABLE IF NOT EXISTS `ps_customer` (
   KEY `id_gender` (`id_gender`),
   KEY `id_shop_group` (`id_shop_group`),
   KEY `id_shop` (`id_shop`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=103 ;
 
 --
 -- Volcado de datos para la tabla `ps_customer`
@@ -15639,7 +15966,9 @@ INSERT INTO `ps_customer` (`id_customer`, `id_sin`, `id_shop_group`, `id_shop`, 
 (97, 214, 1, 1, 0, 1, NULL, 1, NULL, NULL, NULL, 'abapapu doli', '', 'abab@doli.com', '', '', '2015-05-22 15:42:09', NULL, 0, NULL, NULL, 0, '', '0.000000', 0, 60, '', 1, 0, 0, '2015-05-22 17:42:08', '2015-05-22 17:42:08', '4db76e7838294d3ac08c3969f660faf0'),
 (98, 215, 1, 1, 0, 1, NULL, 1, NULL, NULL, NULL, 'dire doli', '', 'dire@doli.com', '', '', '2015-05-22 15:50:13', NULL, 0, NULL, NULL, 0, '', '0.000000', 0, 60, '', 1, 0, 0, '2015-05-22 17:50:12', '2015-05-22 17:50:12', '01c67b1acc1f800b4f704d2f952cc724'),
 (99, 216, 1, 1, 0, 1, NULL, 1, NULL, NULL, NULL, 'diredos presta', '', 'diredos@presta.com', '', '', '2015-05-22 15:51:54', NULL, 0, NULL, NULL, 0, '', '0.000000', 0, 60, '', 1, 0, 0, '2015-05-22 17:51:54', '2015-05-22 17:51:54', 'a6499cea83cdcbd0929196174ba4cb52'),
-(100, 217, 1, 1, 0, 1, 0, 1, NULL, NULL, NULL, 'diretres presta', 'presta', 'diretres@presta.com', '', 'b4beff7706125c54c7ff2c5561a034f7', '2015-05-22 15:55:35', '0000-00-00', 0, NULL, '0000-00-00 00:00:00', 0, NULL, '0.000000', 0, 60, NULL, 1, 0, 0, '2015-05-22 17:55:35', '2015-05-26 11:45:16', 'b6ca9e2f5b0104a34e7ce6ae74537ac3');
+(100, 217, 1, 1, 0, 1, 1, 1, NULL, NULL, NULL, 'diretres presta', 'presta', 'diretres@presta.com', '', 'b4beff7706125c54c7ff2c5561a034f7', '2015-05-22 15:55:35', '0000-00-00', 0, NULL, '0000-00-00 00:00:00', 0, NULL, '0.000000', 0, 60, NULL, 1, 0, 0, '2015-05-22 17:55:35', '2015-05-28 12:02:54', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(101, 218, 1, 1, 0, 1, NULL, 1, NULL, NULL, NULL, 'Proveedor uno doli', '', '', '', '', '2015-05-28 12:48:14', NULL, 0, NULL, NULL, 0, '', '0.000000', 0, 60, '', 1, 0, 0, '2015-05-28 14:48:13', '2015-05-28 14:48:13', 'd313768703cbdef9380234e1d0dc7001'),
+(102, 219, 1, 1, 0, 1, NULL, 1, NULL, NULL, NULL, 'cliente prueba', '', 'cliente@doli.com', '', '', '2015-06-04 12:25:42', NULL, 0, NULL, NULL, 0, '', '0.000000', 0, 60, '', 1, 0, 0, '2015-06-04 14:25:41', '2015-06-04 14:25:41', '4cb4f0cc4f7eab521c67fa9e5400e9f1');
 
 --
 -- Disparadores `ps_customer`
@@ -15658,6 +15987,7 @@ CREATE TRIGGER `ps_customer_AINS` AFTER INSERT ON `ps_customer`
 			`nombre`,
 			`secure_key`,
 			`active`,
+			`is_client`,
 			`date_upd`,
 			`system`,
 			`action`,
@@ -15672,6 +16002,7 @@ CREATE TRIGGER `ps_customer_AINS` AFTER INSERT ON `ps_customer`
 			NEW.firstname,
 			NEW.secure_key,
 			NEW.active,
+			1,
 			NEW.date_upd,
 			'prestashop',
 			'insert',
@@ -15702,6 +16033,7 @@ CREATE TRIGGER `ps_customer_AUPD` AFTER UPDATE ON `ps_customer`
 			`cuil`,
 			`nombre`,
 			`active`,
+			`is_client`,
 			`date_upd`,
 			`system`,
 			`action`,
@@ -15715,6 +16047,7 @@ CREATE TRIGGER `ps_customer_AUPD` AFTER UPDATE ON `ps_customer`
 			NEW.cuil,
 			NEW.firstname,
 			NEW.active,
+			1,
 			NEW.date_upd,
 			'prestashop',
 			'update',
@@ -15903,7 +16236,7 @@ CREATE TABLE IF NOT EXISTS `ps_customer_message` (
   PRIMARY KEY (`id_customer_message`),
   KEY `id_customer_thread` (`id_customer_thread`),
   KEY `id_employee` (`id_employee`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `ps_customer_message`
@@ -15912,7 +16245,10 @@ CREATE TABLE IF NOT EXISTS `ps_customer_message` (
 INSERT INTO `ps_customer_message` (`id_customer_message`, `id_customer_thread`, `id_employee`, `message`, `file_name`, `ip_address`, `user_agent`, `date_add`, `date_upd`, `private`, `read`) VALUES
 (1, 1, 0, 'Prueba de comentario', '', '', '', '2015-04-29 13:09:40', '2015-04-29 13:09:40', 0, 0),
 (2, 2, 0, 'No vino correcto', '', '0', '', '2015-05-14 09:02:10', '2015-05-14 09:02:10', 0, 0),
-(3, 2, 1, 'Estimado cliente:\r\nEsos vinos no tienen garantia\r\n\r\nSaludos,\r\nServicio de atención al cliente', '', '0', '', '2015-05-14 09:02:52', '2015-05-14 09:02:52', 0, 1);
+(3, 2, 1, 'Estimado cliente:\r\nEsos vinos no tienen garantia\r\n\r\nSaludos,\r\nServicio de atención al cliente', '', '0', '', '2015-05-14 09:02:52', '2015-05-14 09:02:52', 0, 1),
+(4, 3, 0, 'Prueba de Nota', '', '', '', '2015-05-28 09:35:34', '2015-05-28 09:35:34', 0, 0),
+(5, 4, 0, 'Nota del pedido', '', '', '', '2015-05-28 11:31:15', '2015-05-28 11:31:15', 0, 0),
+(6, 5, 0, 'Nota del producto', '', '', '', '2015-05-28 12:26:13', '2015-05-28 12:26:13', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -15951,7 +16287,7 @@ CREATE TABLE IF NOT EXISTS `ps_customer_thread` (
   KEY `id_customer` (`id_customer`),
   KEY `id_order` (`id_order`),
   KEY `id_product` (`id_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `ps_customer_thread`
@@ -15959,7 +16295,10 @@ CREATE TABLE IF NOT EXISTS `ps_customer_thread` (
 
 INSERT INTO `ps_customer_thread` (`id_customer_thread`, `id_shop`, `id_lang`, `id_contact`, `id_customer`, `id_order`, `id_product`, `status`, `email`, `token`, `date_add`, `date_upd`) VALUES
 (1, 1, 1, 0, 5, 6, 0, 'open', 'diego.nieto@tmsgroup.com.ar', 'r1c2mguEoR7B', '2015-04-29 13:09:40', '2015-04-29 13:09:40'),
-(2, 1, 1, 0, 39, 11, 5, 'closed', 'juanperez@hotmail.com', 'i4t6C7Pndyom', '2015-05-14 09:02:09', '2015-05-14 09:02:53');
+(2, 1, 1, 0, 39, 11, 5, 'closed', 'juanperez@hotmail.com', 'i4t6C7Pndyom', '2015-05-14 09:02:09', '2015-05-14 09:02:53'),
+(3, 1, 1, 0, 100, 18, 0, 'open', 'diretres@presta.com', 'U0r7ROzisK0Z', '2015-05-28 09:35:34', '2015-05-28 09:35:34'),
+(4, 1, 1, 0, 100, 19, 0, 'open', 'diretres@presta.com', 'LO24UivxIxHP', '2015-05-28 11:31:15', '2015-05-28 11:31:15'),
+(5, 1, 1, 0, 100, 20, 0, 'open', 'diretres@presta.com', 'mheWrRJFWUtq', '2015-05-28 12:26:12', '2015-05-28 12:26:12');
 
 -- --------------------------------------------------------
 
@@ -16057,7 +16396,7 @@ CREATE TABLE IF NOT EXISTS `ps_delivery` (
   KEY `id_carrier` (`id_carrier`,`id_zone`),
   KEY `id_range_price` (`id_range_price`),
   KEY `id_range_weight` (`id_range_weight`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=113 ;
 
 --
 -- Volcado de datos para la tabla `ps_delivery`
@@ -16107,7 +16446,23 @@ INSERT INTO `ps_delivery` (`id_delivery`, `id_shop`, `id_shop_group`, `id_carrie
 (77, NULL, NULL, 7, NULL, 7, 7, '0.000000'),
 (78, NULL, NULL, 7, NULL, 7, 2, '0.000000'),
 (79, NULL, NULL, 7, NULL, 7, 5, '0.000000'),
-(80, NULL, NULL, 7, NULL, 7, 6, '0.000000');
+(80, NULL, NULL, 7, NULL, 7, 6, '0.000000'),
+(89, NULL, NULL, 8, NULL, 8, 4, '0.000000'),
+(90, NULL, NULL, 8, NULL, 8, 3, '0.000000'),
+(91, NULL, NULL, 8, NULL, 8, 8, '0.000000'),
+(92, NULL, NULL, 8, NULL, 8, 1, '5.000000'),
+(93, NULL, NULL, 8, NULL, 8, 7, '0.000000'),
+(94, NULL, NULL, 8, NULL, 8, 2, '5.000000'),
+(95, NULL, NULL, 8, NULL, 8, 5, '0.000000'),
+(96, NULL, NULL, 8, NULL, 8, 6, '0.000000'),
+(105, NULL, NULL, 8, NULL, 9, 4, '0.000000'),
+(106, NULL, NULL, 8, NULL, 9, 3, '0.000000'),
+(107, NULL, NULL, 8, NULL, 9, 8, '0.000000'),
+(108, NULL, NULL, 8, NULL, 9, 1, '0.000000'),
+(109, NULL, NULL, 8, NULL, 9, 7, '0.000000'),
+(110, NULL, NULL, 8, NULL, 9, 2, '0.000000'),
+(111, NULL, NULL, 8, NULL, 9, 5, '0.000000'),
+(112, NULL, NULL, 8, NULL, 9, 6, '0.000000');
 
 -- --------------------------------------------------------
 
@@ -16146,15 +16501,16 @@ CREATE TABLE IF NOT EXISTS `ps_employee` (
   KEY `employee_login` (`email`,`passwd`),
   KEY `id_employee_passwd` (`id_employee`,`passwd`),
   KEY `id_profile` (`id_profile`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `ps_employee`
 --
 
 INSERT INTO `ps_employee` (`id_employee`, `id_profile`, `id_lang`, `lastname`, `firstname`, `email`, `passwd`, `last_passwd_gen`, `stats_date_from`, `stats_date_to`, `stats_compare_from`, `stats_compare_to`, `stats_compare_option`, `preselect_date_range`, `bo_color`, `bo_theme`, `bo_css`, `default_tab`, `bo_width`, `bo_menu`, `active`, `optin`, `id_last_order`, `id_last_customer_message`, `id_last_customer`, `last_connection_date`) VALUES
-(1, 1, 1, 'Nieto', 'Diego', 'diego.nieto@tmsgroup.com.ar', '4938f632b85230e41595668eee773b24', '2015-02-23 09:42:06', '2015-01-23', '2015-02-23', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 11, 2, 41, '2015-05-26'),
-(2, 5, 1, 'Group', 'TMS', 'tms@tmsgroup.com.ar', '3497dfec8dd20a7d632c19b960fa1240', '2015-05-14 06:47:44', '2015-04-14', '2015-05-14', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 11, 3, 41, '2015-05-14');
+(1, 1, 1, 'Nieto', 'Diego', 'diego.nieto@tmsgroup.com.ar', '4938f632b85230e41595668eee773b24', '2015-02-23 09:42:06', '2015-01-23', '2015-02-23', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 11, 2, 41, '2015-06-05'),
+(2, 5, 1, 'Group', 'TMS', 'tms@tmsgroup.com.ar', '3497dfec8dd20a7d632c19b960fa1240', '2015-05-14 06:47:44', '2015-04-14', '2015-05-14', '0000-00-00', '0000-00-00', 1, '', '', 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 11, 3, 41, '2015-05-14'),
+(3, 6, 1, 'Zapata', 'Patricio', 'patriciozapata@me.com', 'f8535a50b9c7c3dfc17940f9b696e4e7', '2015-06-04 12:38:02', '2015-05-04', '2015-06-04', '0000-00-00', '0000-00-00', 1, NULL, NULL, 'default', 'admin-theme.css', 1, 0, 1, 1, 1, 21, 6, 102, '2015-06-05');
 
 -- --------------------------------------------------------
 
@@ -16175,7 +16531,8 @@ CREATE TABLE IF NOT EXISTS `ps_employee_shop` (
 
 INSERT INTO `ps_employee_shop` (`id_employee`, `id_shop`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -16749,7 +17106,7 @@ CREATE TABLE IF NOT EXISTS `ps_guest` (
   KEY `id_customer` (`id_customer`),
   KEY `id_operating_system` (`id_operating_system`),
   KEY `id_web_browser` (`id_web_browser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Volcado de datos para la tabla `ps_guest`
@@ -16769,7 +17126,10 @@ INSERT INTO `ps_guest` (`id_guest`, `id_operating_system`, `id_web_browser`, `id
 (12, 3, 11, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0),
 (14, 3, 11, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0),
 (16, 3, 11, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0),
-(17, 3, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0);
+(18, 3, 11, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0),
+(19, 3, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0),
+(20, 3, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0),
+(21, 3, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'es', 0);
 
 -- --------------------------------------------------------
 
@@ -18167,9 +18527,9 @@ CREATE TABLE IF NOT EXISTS `ps_layered_price_index` (
 --
 
 INSERT INTO `ps_layered_price_index` (`id_product`, `id_currency`, `id_shop`, `price_min`, `price_max`) VALUES
-(1, 1, 1, 250, 303),
-(2, 1, 1, 26, 33),
-(3, 1, 1, 25, 31),
+(1, 1, 1, 250, 276),
+(2, 1, 1, 26, 27),
+(3, 1, 1, 22, 28),
 (4, 1, 1, 50, 62),
 (5, 1, 1, 28, 35),
 (6, 1, 1, 30, 37),
@@ -18182,8 +18542,11 @@ INSERT INTO `ps_layered_price_index` (`id_product`, `id_currency`, `id_shop`, `p
 (18, 1, 1, 20, 24),
 (27, 1, 1, 0, 0),
 (28, 1, 1, 20, 24),
+(29, 1, 1, 300, 363),
 (30, 1, 1, 0, 0),
-(31, 1, 1, 0, 0);
+(31, 1, 1, 0, 0),
+(32, 1, 1, 20, 24),
+(33, 1, 1, 220, 266);
 
 -- --------------------------------------------------------
 
@@ -18204,10 +18567,6 @@ CREATE TABLE IF NOT EXISTS `ps_layered_product_attribute` (
 --
 
 INSERT INTO `ps_layered_product_attribute` (`id_attribute`, `id_product`, `id_attribute_group`, `id_shop`) VALUES
-(1, 3, 1, 1),
-(2, 3, 1, 1),
-(3, 3, 1, 1),
-(13, 3, 3, 1),
 (1, 4, 1, 1),
 (2, 4, 1, 1),
 (3, 4, 1, 1),
@@ -18230,16 +18589,20 @@ INSERT INTO `ps_layered_product_attribute` (`id_attribute`, `id_product`, `id_at
 (3, 7, 1, 1),
 (15, 7, 3, 1),
 (16, 7, 3, 1),
+(1, 1, 1, 1),
+(2, 1, 1, 1),
+(3, 1, 1, 1),
+(13, 1, 3, 1),
+(14, 1, 3, 1),
 (1, 2, 1, 1),
 (2, 2, 1, 1),
 (3, 2, 1, 1),
 (8, 2, 3, 1),
 (11, 2, 3, 1),
-(1, 1, 1, 1),
-(2, 1, 1, 1),
-(3, 1, 1, 1),
-(13, 1, 3, 1),
-(14, 1, 3, 1);
+(1, 3, 1, 1),
+(2, 3, 1, 1),
+(3, 3, 1, 1),
+(13, 3, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -18305,7 +18668,7 @@ CREATE TABLE IF NOT EXISTS `ps_log` (
   `date_add` datetime NOT NULL,
   `date_upd` datetime NOT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=576 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=679 ;
 
 --
 -- Volcado de datos para la tabla `ps_log`
@@ -18887,7 +19250,110 @@ INSERT INTO `ps_log` (`id_log`, `severity`, `error_code`, `message`, `object_typ
 (572, 1, 0, 'Customer modificación', 'Customer', 100, 1, '2015-05-26 11:45:17', '2015-05-26 11:45:17'),
 (573, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-26 12:47:37', '2015-05-26 12:47:37'),
 (574, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-26 13:34:24', '2015-05-26 13:34:24'),
-(575, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-26 15:23:36', '2015-05-26 15:23:36');
+(575, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-26 15:23:36', '2015-05-26 15:23:36'),
+(576, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-27 12:26:59', '2015-05-27 12:26:59'),
+(577, 3, 0, 'PaymentModule::validateOrder - Order cannot be created', 'Cart', 20, 1, '2015-05-27 12:28:58', '2015-05-27 12:28:58'),
+(578, 1, 0, 'Address añadido', 'Address', 85, 1, '2015-05-27 12:30:35', '2015-05-27 12:30:35'),
+(579, 3, 0, 'PaymentModule::validateOrder - Order cannot be created', 'Cart', 21, 1, '2015-05-27 12:30:45', '2015-05-27 12:30:45'),
+(580, 1, 0, 'Customer modificación', 'Customer', 100, 1, '2015-05-27 12:32:57', '2015-05-27 12:32:57'),
+(581, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-27 13:09:15', '2015-05-27 13:09:15'),
+(582, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-27 13:38:30', '2015-05-27 13:38:30'),
+(583, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-27 13:58:06', '2015-05-27 13:58:06'),
+(584, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-28 09:31:06', '2015-05-28 09:31:06'),
+(585, 1, 0, 'Product modificación', 'Product', 1, 1, '2015-05-28 09:31:36', '2015-05-28 09:31:36'),
+(586, 1, 0, 'Product modificación', 'Product', 2, 1, '2015-05-28 09:32:05', '2015-05-28 09:32:05'),
+(587, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-28 09:48:26', '2015-05-28 09:48:26'),
+(588, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-28 10:27:45', '2015-05-28 10:27:45'),
+(589, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-28 11:24:45', '2015-05-28 11:24:45'),
+(590, 1, 0, 'SpecificPriceRule añadido', 'SpecificPriceRule', 1, 1, '2015-05-28 11:25:42', '2015-05-28 11:25:42'),
+(591, 1, 0, 'SpecificPriceRule modificación', 'SpecificPriceRule', 1, 1, '2015-05-28 11:26:24', '2015-05-28 11:26:24'),
+(592, 1, 0, 'CartRule añadido', 'CartRule', 1, 1, '2015-05-28 11:28:16', '2015-05-28 11:28:16'),
+(593, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-28 12:01:52', '2015-05-28 12:01:52'),
+(594, 1, 0, 'Customer modificación', 'Customer', 100, 1, '2015-05-28 12:02:55', '2015-05-28 12:02:55'),
+(595, 1, 0, 'Product modificación', 'Product', 3, 1, '2015-05-28 12:24:02', '2015-05-28 12:24:02'),
+(596, 1, 0, 'Product modificación', 'Product', 3, 1, '2015-05-28 12:24:41', '2015-05-28 12:24:41'),
+(597, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-28 13:24:58', '2015-05-28 13:24:58'),
+(598, 1, 0, 'SpecificPriceRule modificación', 'SpecificPriceRule', 1, 1, '2015-05-28 13:25:43', '2015-05-28 13:25:43'),
+(599, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 10:40:30', '2015-05-29 10:40:30'),
+(600, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 10:48:18', '2015-05-29 10:48:18'),
+(601, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 10:55:54', '2015-05-29 10:55:54'),
+(602, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 11:17:14', '2015-05-29 11:17:14'),
+(603, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 11:29:33', '2015-05-29 11:29:33'),
+(604, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 12:25:10', '2015-05-29 12:25:10'),
+(605, 1, 0, 'Address modificación', 'Address', 85, 1, '2015-05-29 12:29:29', '2015-05-29 12:29:29'),
+(606, 1, 0, 'Address modificación', 'Address', 85, 1, '2015-05-29 12:30:04', '2015-05-29 12:30:04'),
+(607, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 15:48:27', '2015-05-29 15:48:27'),
+(608, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 16:07:38', '2015-05-29 16:07:38'),
+(609, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-05-29 16:24:03', '2015-05-29 16:24:03'),
+(610, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-01 08:38:44', '2015-06-01 08:38:44'),
+(611, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-01 08:47:51', '2015-06-01 08:47:51'),
+(612, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-01 11:20:52', '2015-06-01 11:20:52'),
+(613, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-01 11:54:35', '2015-06-01 11:54:35'),
+(614, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-01 12:08:21', '2015-06-01 12:08:21'),
+(615, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-01 16:48:08', '2015-06-01 16:48:08'),
+(616, 1, 0, 'Product modificación', 'Product', 29, 1, '2015-06-01 16:49:14', '2015-06-01 16:49:14'),
+(617, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-02 09:47:29', '2015-06-02 09:47:29'),
+(618, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-03 16:05:45', '2015-06-03 16:05:45'),
+(619, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-03 16:27:07', '2015-06-03 16:27:07'),
+(620, 1, 0, 'Address modificación', 'Address', 80, 1, '2015-06-03 16:27:18', '2015-06-03 16:27:18'),
+(621, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-03 16:50:16', '2015-06-03 16:50:16'),
+(622, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:07:14', '2015-06-03 17:07:14'),
+(623, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:08:12', '2015-06-03 17:08:12'),
+(624, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:08:44', '2015-06-03 17:08:44'),
+(625, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:09:55', '2015-06-03 17:09:55'),
+(626, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:10:31', '2015-06-03 17:10:31'),
+(627, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:11:16', '2015-06-03 17:11:16'),
+(628, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:12:03', '2015-06-03 17:12:03'),
+(629, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:12:29', '2015-06-03 17:12:29'),
+(630, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:13:09', '2015-06-03 17:13:09'),
+(631, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:13:46', '2015-06-03 17:13:46'),
+(632, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:15:40', '2015-06-03 17:15:40'),
+(633, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:19:39', '2015-06-03 17:19:39'),
+(634, 1, 0, 'Address modificación', 'Address', 39, 1, '2015-06-03 17:24:44', '2015-06-03 17:24:44'),
+(635, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-04 09:11:34', '2015-06-04 09:11:34'),
+(636, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-04 12:58:21', '2015-06-04 12:58:21'),
+(637, 1, 0, 'Product añadido', 'Product', 32, 1, '2015-06-04 12:59:14', '2015-06-04 12:59:14'),
+(638, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:04:32', '2015-06-04 13:04:32'),
+(639, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:07:00', '2015-06-04 13:07:00'),
+(640, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:08:29', '2015-06-04 13:08:29'),
+(641, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:11:29', '2015-06-04 13:11:29'),
+(642, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:15:10', '2015-06-04 13:15:10'),
+(643, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:18:08', '2015-06-04 13:18:08'),
+(644, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-04 13:36:57', '2015-06-04 13:36:57'),
+(645, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:37:15', '2015-06-04 13:37:15'),
+(646, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:38:52', '2015-06-04 13:38:52'),
+(647, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:40:10', '2015-06-04 13:40:10'),
+(648, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:40:54', '2015-06-04 13:40:54'),
+(649, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 13:41:46', '2015-06-04 13:41:46'),
+(650, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-04 14:02:15', '2015-06-04 14:02:15'),
+(651, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 14:02:33', '2015-06-04 14:02:33'),
+(652, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-04 15:14:06', '2015-06-04 15:14:06'),
+(653, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 15:14:28', '2015-06-04 15:14:28'),
+(654, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 15:16:07', '2015-06-04 15:16:07'),
+(655, 1, 0, 'Product modificación', 'Product', 32, 1, '2015-06-04 15:17:08', '2015-06-04 15:17:08'),
+(656, 1, 0, 'Product modificación', 'Product', 28, 1, '2015-06-04 15:18:34', '2015-06-04 15:18:34'),
+(657, 1, 0, 'Product modificación', 'Product', 28, 1, '2015-06-04 15:20:25', '2015-06-04 15:20:25'),
+(658, 1, 0, 'Profile añadido', 'Profile', 6, 1, '2015-06-04 15:35:22', '2015-06-04 15:35:22'),
+(659, 1, 0, 'Employee añadido', 'Employee', 3, 1, '2015-06-04 15:38:05', '2015-06-04 15:38:05'),
+(660, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 3, '2015-06-04 15:39:22', '2015-06-04 15:39:22'),
+(661, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 08:39:40', '2015-06-05 08:39:40'),
+(662, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 09:01:06', '2015-06-05 09:01:06'),
+(663, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 10:02:05', '2015-06-05 10:02:05'),
+(664, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 10:21:17', '2015-06-05 10:21:17'),
+(665, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 3, '2015-06-05 10:30:25', '2015-06-05 10:30:25'),
+(666, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 10:43:20', '2015-06-05 10:43:20'),
+(667, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 10:44:44', '2015-06-05 10:44:44'),
+(668, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 11:10:25', '2015-06-05 11:10:25'),
+(669, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 11:27:41', '2015-06-05 11:27:41'),
+(670, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 11:37:02', '2015-06-05 11:37:02'),
+(671, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 3, '2015-06-05 12:09:06', '2015-06-05 12:09:06'),
+(672, 1, 0, 'Product modificación', 'Product', 33, 1, '2015-06-05 13:04:41', '2015-06-05 13:04:41'),
+(673, 1, 0, 'Product modificación', 'Product', 33, 1, '2015-06-05 13:05:26', '2015-06-05 13:05:26'),
+(674, 1, 0, 'Product modificación', 'Product', 33, 1, '2015-06-05 13:06:23', '2015-06-05 13:06:23'),
+(675, 1, 0, 'Product modificación', 'Product', 33, 1, '2015-06-05 13:07:19', '2015-06-05 13:07:19'),
+(676, 1, 0, 'Product modificación', 'Product', 33, 1, '2015-06-05 13:07:55', '2015-06-05 13:07:55'),
+(677, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 15:11:45', '2015-06-05 15:11:45'),
+(678, 1, 0, 'Conexión con el Backoffice desde ::1', '', 0, 1, '2015-06-05 16:23:51', '2015-06-05 16:23:51');
 
 -- --------------------------------------------------------
 
@@ -18904,7 +19370,7 @@ CREATE TABLE IF NOT EXISTS `ps_mail` (
   `date_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_mail`),
   KEY `recipient` (`recipient`(10))
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Volcado de datos para la tabla `ps_mail`
@@ -18924,7 +19390,25 @@ INSERT INTO `ps_mail` (`id_mail`, `recipient`, `template`, `subject`, `id_lang`,
 (11, 'nombre_apellido@tmsgroup.com.ar', 'order_canceled', '[casta_web] Cancelado', 1, '2015-05-14 12:52:17'),
 (12, 'veinticuatro@tmsgroup.com.ar', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-14 15:19:08'),
 (13, 'veinticuatro@tmsgroup.com.ar', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-14 15:19:10'),
-(14, 'juanperez@hotmail.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-26 16:35:07');
+(14, 'juanperez@hotmail.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-26 16:35:07'),
+(15, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-27 15:34:09'),
+(16, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-27 15:34:10'),
+(17, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-27 15:42:45'),
+(18, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-27 15:42:51'),
+(19, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-27 15:48:38'),
+(20, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-27 15:48:38'),
+(21, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-27 16:14:10'),
+(22, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-27 16:14:11'),
+(23, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-27 16:16:28'),
+(24, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-27 16:16:28'),
+(25, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-28 12:35:42'),
+(26, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-28 12:35:43'),
+(27, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-28 14:31:22'),
+(28, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-28 14:31:23'),
+(29, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-28 15:26:22'),
+(30, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-28 15:26:22'),
+(31, 'diretres@presta.com', 'cheque', '[casta_web] Pago mediante cheque pendiente', 1, '2015-05-28 16:28:09'),
+(32, 'diretres@presta.com', 'order_conf', '[casta_web] Confirmación de pedido', 1, '2015-05-28 16:28:13');
 
 -- --------------------------------------------------------
 
@@ -19027,7 +19511,7 @@ CREATE TABLE IF NOT EXISTS `ps_message` (
   KEY `id_cart` (`id_cart`),
   KEY `id_customer` (`id_customer`),
   KEY `id_employee` (`id_employee`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `ps_message`
@@ -19037,7 +19521,10 @@ INSERT INTO `ps_message` (`id_message`, `id_cart`, `id_customer`, `id_employee`,
 (1, 6, 5, 0, 6, 'Prueba de comentario', 0, '2015-04-29 13:07:14'),
 (2, 0, 0, 0, 7, 'Advertencia: la clave de seguridad est&aacute; vac&iacute;a, revise su cuenta de pago antes de la validaci&oacute;n', 1, '2015-05-13 11:29:02'),
 (3, 0, 0, 0, 8, 'Advertencia: la clave de seguridad est&aacute; vac&iacute;a, revise su cuenta de pago antes de la validaci&oacute;n', 1, '2015-05-13 11:36:12'),
-(4, 0, 0, 0, 9, 'Advertencia: la clave de seguridad est&aacute; vac&iacute;a, revise su cuenta de pago antes de la validaci&oacute;n', 1, '2015-05-13 15:06:12');
+(4, 0, 0, 0, 9, 'Advertencia: la clave de seguridad est&aacute; vac&iacute;a, revise su cuenta de pago antes de la validaci&oacute;n', 1, '2015-05-13 15:06:12'),
+(5, 29, 100, 0, 18, 'Prueba de Nota', 0, '2015-05-27 13:57:43'),
+(6, 30, 100, 0, 19, 'Nota del pedido', 0, '2015-05-28 11:30:53'),
+(7, 32, 100, 0, 20, 'Nota del producto', 0, '2015-05-28 12:25:56');
 
 -- --------------------------------------------------------
 
@@ -19596,7 +20083,76 @@ INSERT INTO `ps_module_access` (`id_profile`, `id_module`, `view`, `configure`, 
 (5, 67, 1, 0, 0),
 (5, 68, 1, 0, 0),
 (5, 69, 1, 0, 0),
-(5, 71, 1, 0, 0);
+(5, 71, 1, 0, 0),
+(6, 1, 1, 1, 1),
+(6, 2, 1, 1, 1),
+(6, 3, 1, 1, 1),
+(6, 4, 1, 1, 1),
+(6, 5, 1, 1, 1),
+(6, 6, 1, 1, 1),
+(6, 7, 1, 1, 1),
+(6, 8, 1, 1, 1),
+(6, 9, 1, 1, 1),
+(6, 10, 1, 1, 1),
+(6, 11, 1, 1, 1),
+(6, 12, 1, 1, 1),
+(6, 13, 1, 1, 1),
+(6, 14, 1, 1, 1),
+(6, 15, 1, 1, 1),
+(6, 16, 1, 1, 1),
+(6, 17, 1, 1, 1),
+(6, 18, 1, 1, 1),
+(6, 19, 1, 1, 1),
+(6, 20, 1, 1, 1),
+(6, 21, 1, 1, 1),
+(6, 22, 1, 1, 1),
+(6, 23, 1, 1, 1),
+(6, 24, 1, 1, 1),
+(6, 25, 1, 1, 1),
+(6, 26, 1, 1, 1),
+(6, 28, 1, 1, 1),
+(6, 29, 1, 1, 1),
+(6, 30, 1, 1, 1),
+(6, 31, 1, 1, 1),
+(6, 32, 1, 1, 1),
+(6, 33, 1, 1, 1),
+(6, 34, 1, 1, 1),
+(6, 35, 1, 1, 1),
+(6, 36, 1, 1, 1),
+(6, 37, 1, 1, 1),
+(6, 38, 1, 1, 1),
+(6, 39, 1, 1, 1),
+(6, 40, 1, 1, 1),
+(6, 41, 1, 1, 1),
+(6, 42, 1, 1, 1),
+(6, 43, 1, 1, 1),
+(6, 44, 1, 1, 1),
+(6, 45, 1, 1, 1),
+(6, 46, 1, 1, 1),
+(6, 47, 1, 1, 1),
+(6, 48, 1, 1, 1),
+(6, 49, 1, 1, 1),
+(6, 50, 1, 1, 1),
+(6, 51, 1, 1, 1),
+(6, 52, 1, 1, 1),
+(6, 53, 1, 1, 1),
+(6, 54, 1, 1, 1),
+(6, 55, 1, 1, 1),
+(6, 56, 1, 1, 1),
+(6, 57, 1, 1, 1),
+(6, 58, 1, 1, 1),
+(6, 59, 1, 1, 1),
+(6, 60, 1, 1, 1),
+(6, 61, 1, 1, 1),
+(6, 62, 1, 1, 1),
+(6, 63, 1, 1, 1),
+(6, 64, 1, 1, 1),
+(6, 65, 1, 1, 1),
+(6, 66, 1, 1, 1),
+(6, 67, 1, 1, 1),
+(6, 68, 1, 1, 1),
+(6, 69, 1, 1, 1),
+(6, 71, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -19907,6 +20463,7 @@ INSERT INTO `ps_module_shop` (`id_module`, `id_shop`, `enable_device`) VALUES
 (3, 1, 7),
 (4, 1, 7),
 (5, 1, 7),
+(6, 1, 7),
 (7, 1, 7),
 (8, 1, 7),
 (10, 1, 7),
@@ -20011,6 +20568,7 @@ INSERT INTO `ps_operating_system` (`id_operating_system`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `ps_orders` (
   `id_order` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_sin` int(11) NOT NULL,
   `reference` varchar(9) DEFAULT NULL,
   `id_shop_group` int(11) unsigned NOT NULL DEFAULT '1',
   `id_shop` int(11) unsigned NOT NULL DEFAULT '1',
@@ -20069,25 +20627,34 @@ CREATE TABLE IF NOT EXISTS `ps_orders` (
   KEY `current_state` (`current_state`),
   KEY `id_shop` (`id_shop`),
   KEY `date_add` (`date_add`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Volcado de datos para la tabla `ps_orders`
 --
 
-INSERT INTO `ps_orders` (`id_order`, `reference`, `id_shop_group`, `id_shop`, `id_carrier`, `id_lang`, `id_customer`, `id_cart`, `id_currency`, `id_address_delivery`, `id_address_invoice`, `current_state`, `payment`, `conversion_rate`, `module`, `recyclable`, `gift`, `gift_message`, `mobile_theme`, `shipping_number`, `total_discounts`, `total_discounts_tax_incl`, `total_discounts_tax_excl`, `total_paid`, `total_paid_tax_incl`, `total_paid_tax_excl`, `total_paid_real`, `total_products`, `total_products_wt`, `total_shipping`, `total_shipping_tax_incl`, `total_shipping_tax_excl`, `carrier_tax_rate`, `total_wrapping`, `total_wrapping_tax_incl`, `total_wrapping_tax_excl`, `round_mode`, `invoice_number`, `delivery_number`, `invoice_date`, `delivery_date`, `valid`, `date_add`, `date_upd`, `secure_key`) VALUES
-(1, 'XKBKNABJK', 1, 1, 2, 1, 1, 1, 1, 4, 4, 6, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '55.000000', '55.000000', '55.000000', '0.000000', '53.000000', '53.000000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:41', ''),
-(2, 'OHSATSERP', 1, 1, 2, 1, 1, 2, 1, 4, 4, 1, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '75.900000', '75.900000', '75.900000', '0.000000', '73.900000', '73.900000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:40', ''),
-(3, 'UOYEVOLI', 1, 1, 2, 1, 1, 3, 1, 4, 4, 8, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '76.010000', '76.010000', '76.010000', '0.000000', '74.010000', '74.010000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:41', ''),
-(4, 'FFATNOMMJ', 1, 1, 2, 1, 1, 4, 1, 4, 4, 1, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '89.890000', '89.890000', '89.890000', '0.000000', '87.890000', '87.890000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:40', ''),
-(5, 'KHWLILZLL', 1, 1, 2, 1, 1, 5, 1, 4, 4, 10, 'Bank wire', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '71.510000', '71.510000', '71.510000', '0.000000', '69.510000', '69.510000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:37', '2015-02-23 12:43:40', ''),
-(6, 'JUGMJQEQH', 1, 1, 6, 1, 5, 6, 1, 6, 5, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '1938.420000', '1938.420000', '1602.000000', '0.000000', '1600.000000', '1936.000000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-04-29 13:09:39', '2015-04-29 13:27:36', ''),
-(7, 'AFNVDYXPG', 1, 1, 6, 1, 39, 13, 1, 19, 19, 10, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '37.490000', '37.490000', '30.980000', '0.000000', '28.980000', '35.070000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 11:29:01', '2015-05-13 11:29:03', ''),
-(8, 'TLQJPDZVK', 1, 1, 6, 1, 39, 14, 1, 19, 19, 10, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '324.770000', '324.770000', '268.400000', '0.000000', '266.400000', '322.350000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 11:36:10', '2015-05-13 11:36:13', ''),
-(9, 'UGIOKSYBK', 1, 1, 6, 1, 39, 15, 1, 19, 19, 1, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '418.430000', '418.430000', '345.810000', '0.000000', '343.810000', '416.010000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 15:06:10', '2015-05-26 13:35:03', ''),
-(10, 'KXCYJHBIA', 1, 1, 6, 1, 41, 17, 1, 28, 28, 6, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '1514.920000', '1514.920000', '1252.000000', '0.000000', '1250.000000', '1512.500000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 15:56:40', '2015-05-14 09:52:14', 'd13928d2ab6e51e0146b38a0e9343108'),
-(11, 'NQHKZAHAV', 1, 1, 6, 1, 39, 18, 1, 19, 19, 5, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '37.490000', '37.490000', '30.980000', '37.490000', '28.980000', '35.070000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 1, 1, '2015-05-14 09:43:09', '2015-05-14 09:43:11', 1, '2015-05-13 16:31:45', '2015-05-14 09:43:12', 'bb450b08109bf17b817fc93ce9441283'),
-(12, 'QQTJHGWMR', 1, 1, 6, 1, 48, 19, 1, 30, 30, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '64.120000', '64.120000', '52.990000', '0.000000', '50.990000', '61.700000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-14 12:18:50', '2015-05-14 12:18:52', '30d8d89810529065eb4cdf952cb2f6b1');
+INSERT INTO `ps_orders` (`id_order`, `id_sin`, `reference`, `id_shop_group`, `id_shop`, `id_carrier`, `id_lang`, `id_customer`, `id_cart`, `id_currency`, `id_address_delivery`, `id_address_invoice`, `current_state`, `payment`, `conversion_rate`, `module`, `recyclable`, `gift`, `gift_message`, `mobile_theme`, `shipping_number`, `total_discounts`, `total_discounts_tax_incl`, `total_discounts_tax_excl`, `total_paid`, `total_paid_tax_incl`, `total_paid_tax_excl`, `total_paid_real`, `total_products`, `total_products_wt`, `total_shipping`, `total_shipping_tax_incl`, `total_shipping_tax_excl`, `carrier_tax_rate`, `total_wrapping`, `total_wrapping_tax_incl`, `total_wrapping_tax_excl`, `round_mode`, `invoice_number`, `delivery_number`, `invoice_date`, `delivery_date`, `valid`, `date_add`, `date_upd`, `secure_key`) VALUES
+(1, 0, 'XKBKNABJK', 1, 1, 2, 1, 1, 1, 1, 4, 4, 6, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '55.000000', '55.000000', '55.000000', '0.000000', '53.000000', '53.000000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:41', ''),
+(2, 0, 'OHSATSERP', 1, 1, 2, 1, 1, 2, 1, 4, 4, 1, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '75.900000', '75.900000', '75.900000', '0.000000', '73.900000', '73.900000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:40', ''),
+(3, 0, 'UOYEVOLI', 1, 1, 2, 1, 1, 3, 1, 4, 4, 8, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '76.010000', '76.010000', '76.010000', '0.000000', '74.010000', '74.010000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:41', ''),
+(4, 0, 'FFATNOMMJ', 1, 1, 2, 1, 1, 4, 1, 4, 4, 1, 'Payment by check', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '89.890000', '89.890000', '89.890000', '0.000000', '87.890000', '87.890000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:36', '2015-02-23 12:43:40', ''),
+(5, 0, 'KHWLILZLL', 1, 1, 2, 1, 1, 5, 1, 4, 4, 10, 'Bank wire', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '71.510000', '71.510000', '71.510000', '0.000000', '69.510000', '69.510000', '2.000000', '2.000000', '2.000000', '0.000', '0.000000', '0.000000', '0.000000', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-02-23 12:43:37', '2015-02-23 12:43:40', ''),
+(6, 0, 'JUGMJQEQH', 1, 1, 6, 1, 5, 6, 1, 6, 5, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '1938.420000', '1938.420000', '1602.000000', '0.000000', '1600.000000', '1936.000000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-04-29 13:09:39', '2015-04-29 13:27:36', ''),
+(7, 0, 'AFNVDYXPG', 1, 1, 6, 1, 39, 13, 1, 19, 19, 10, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '37.490000', '37.490000', '30.980000', '0.000000', '28.980000', '35.070000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 11:29:01', '2015-05-13 11:29:03', ''),
+(8, 0, 'TLQJPDZVK', 1, 1, 6, 1, 39, 14, 1, 19, 19, 10, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '324.770000', '324.770000', '268.400000', '0.000000', '266.400000', '322.350000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 11:36:10', '2015-05-13 11:36:13', ''),
+(9, 0, 'UGIOKSYBK', 1, 1, 6, 1, 39, 15, 1, 19, 19, 1, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '418.430000', '418.430000', '345.810000', '0.000000', '343.810000', '416.010000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 15:06:10', '2015-05-26 13:35:03', ''),
+(10, 0, 'KXCYJHBIA', 1, 1, 6, 1, 41, 17, 1, 28, 28, 6, 'Transferencia bancaria', '1.000000', 'bankwire', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '1514.920000', '1514.920000', '1252.000000', '0.000000', '1250.000000', '1512.500000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-13 15:56:40', '2015-05-14 09:52:14', 'd13928d2ab6e51e0146b38a0e9343108'),
+(11, 0, 'NQHKZAHAV', 1, 1, 6, 1, 39, 18, 1, 19, 19, 5, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '37.490000', '37.490000', '30.980000', '37.490000', '28.980000', '35.070000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 1, 1, '2015-05-14 09:43:09', '2015-05-14 09:43:11', 1, '2015-05-13 16:31:45', '2015-05-14 09:43:12', 'bb450b08109bf17b817fc93ce9441283'),
+(12, 0, 'QQTJHGWMR', 1, 1, 6, 1, 48, 19, 1, 30, 30, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '64.120000', '64.120000', '52.990000', '0.000000', '50.990000', '61.700000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-14 12:18:50', '2015-05-14 12:18:52', '30d8d89810529065eb4cdf952cb2f6b1'),
+(13, 0, 'GEIHCDOGY', 1, 1, 6, 1, 100, 23, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '324.770000', '324.770000', '268.400000', '0.000000', '266.400000', '322.350000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-27 12:33:58', '2015-05-27 12:34:00', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(14, 0, 'UABUOCMAE', 1, 1, 6, 1, 100, 24, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '369.050000', '369.050000', '305.000000', '0.000000', '303.000000', '366.630000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-27 12:42:31', '2015-05-27 12:42:42', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(15, 0, 'SJNJKJKJM', 1, 1, 6, 1, 100, 25, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '369.050000', '369.050000', '305.000000', '0.000000', '303.000000', '366.630000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-27 12:48:35', '2015-05-27 12:48:37', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(16, 0, 'KOWSTYITW', 1, 1, 6, 1, 100, 26, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '369.050000', '369.050000', '305.000000', '0.000000', '303.000000', '366.630000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-27 13:14:00', '2015-05-27 13:14:05', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(17, 0, 'OKBNMDZRP', 1, 1, 6, 1, 100, 27, 1, 84, 84, 1, 'Perro', '1.000000', 'Perro2', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '369.050000', '369.050000', '305.000000', '0.000000', '303.000000', '366.630000', '2.420000', '2.420000', '2.000000', '21.000', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-27 13:16:21', '2015-05-27 13:16:27', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(18, 0, 'ENUTFSBCY', 1, 1, 8, 1, 100, 29, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '1191.450000', '1191.450000', '1063.980000', '0.000000', '1061.980000', '1189.240000', '2.210000', '2.210000', '2.000000', '10.500', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-28 09:35:29', '2015-05-28 09:35:35', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(19, 0, 'IIUHVWFVP', 1, 1, 8, 1, 100, 30, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '88.300000', '88.300000', '78.310000', '297.820000', '297.820000', '264.180000', '0.000000', '340.490000', '383.910000', '2.210000', '2.210000', '2.000000', '10.500', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-28 11:31:08', '2015-05-28 11:31:16', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(20, 0, 'JBUVERGJX', 1, 1, 8, 1, 100, 32, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '306.740000', '306.740000', '253.680000', '0.000000', '251.680000', '304.530000', '2.210000', '2.210000', '2.000000', '10.500', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-28 12:26:11', '2015-05-28 12:26:13', 'b6ca9e2f5b0104a34e7ce6ae74537ac3'),
+(21, 0, 'LVXQJUHAV', 1, 1, 8, 1, 100, 33, 1, 84, 84, 1, 'Cheque', '1.000000', 'cheque', 0, 0, '', 0, '', '0.000000', '0.000000', '0.000000', '110.240000', '110.240000', '91.280000', '0.000000', '89.280000', '108.030000', '2.210000', '2.210000', '2.000000', '10.500', '0.000000', '0.000000', '0.000000', 2, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2015-05-28 13:27:13', '2015-05-28 13:27:14', 'b6ca9e2f5b0104a34e7ce6ae74537ac3');
 
 --
 -- Disparadores `ps_orders`
@@ -20175,7 +20742,7 @@ CREATE TABLE IF NOT EXISTS `ps_order_carrier` (
   KEY `id_order` (`id_order`),
   KEY `id_carrier` (`id_carrier`),
   KEY `id_order_invoice` (`id_order_invoice`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Volcado de datos para la tabla `ps_order_carrier`
@@ -20193,7 +20760,16 @@ INSERT INTO `ps_order_carrier` (`id_order_carrier`, `id_order`, `id_carrier`, `i
 (9, 9, 6, 0, '40.000000', '2.000000', '2.420000', '', '2015-05-13 15:06:12'),
 (10, 10, 6, 0, '200.000000', '2.000000', '2.420000', '', '2015-05-13 15:56:42'),
 (11, 11, 6, 1, '0.000000', '2.000000', '2.420000', '', '2015-05-13 16:31:50'),
-(12, 12, 6, 0, '0.000000', '2.000000', '2.420000', '', '2015-05-14 12:18:51');
+(12, 12, 6, 0, '0.000000', '2.000000', '2.420000', '', '2015-05-14 12:18:51'),
+(13, 13, 6, 0, '40.000000', '2.000000', '2.420000', '', '2015-05-27 12:33:59'),
+(14, 14, 6, 0, '40.000000', '2.000000', '2.420000', '', '2015-05-27 12:42:41'),
+(15, 15, 6, 0, '40.000000', '2.000000', '2.420000', '', '2015-05-27 12:48:37'),
+(16, 16, 6, 0, '40.000000', '2.000000', '2.420000', '', '2015-05-27 13:14:04'),
+(17, 17, 6, 0, '40.000000', '2.000000', '2.420000', '', '2015-05-27 13:16:27'),
+(18, 18, 8, 0, '120.000000', '2.000000', '2.210000', '', '2015-05-28 09:35:33'),
+(19, 19, 8, 0, '40.000000', '2.000000', '2.210000', '', '2015-05-28 11:31:12'),
+(20, 20, 8, 0, '330.000000', '2.000000', '2.210000', '', '2015-05-28 12:26:12'),
+(21, 21, 8, 0, '180.000000', '2.000000', '2.210000', '', '2015-05-28 13:27:14');
 
 -- --------------------------------------------------------
 
@@ -20213,7 +20789,14 @@ CREATE TABLE IF NOT EXISTS `ps_order_cart_rule` (
   PRIMARY KEY (`id_order_cart_rule`),
   KEY `id_order` (`id_order`),
   KEY `id_cart_rule` (`id_cart_rule`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `ps_order_cart_rule`
+--
+
+INSERT INTO `ps_order_cart_rule` (`id_order_cart_rule`, `id_order`, `id_cart_rule`, `id_order_invoice`, `name`, `value`, `value_tax_excl`, `free_shipping`) VALUES
+(1, 19, 1, 0, 'Test de vales', '88.30', '78.31', 0);
 
 -- --------------------------------------------------------
 
@@ -20223,6 +20806,7 @@ CREATE TABLE IF NOT EXISTS `ps_order_cart_rule` (
 
 CREATE TABLE IF NOT EXISTS `ps_order_detail` (
   `id_order_detail` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_sin` int(11) NOT NULL,
   `id_order` int(10) unsigned NOT NULL,
   `id_order_invoice` int(11) DEFAULT NULL,
   `id_warehouse` int(10) unsigned DEFAULT '0',
@@ -20271,38 +20855,63 @@ CREATE TABLE IF NOT EXISTS `ps_order_detail` (
   KEY `product_attribute_id` (`product_attribute_id`),
   KEY `id_tax_rules_group` (`id_tax_rules_group`),
   KEY `id_order_id_order_detail` (`id_order`,`id_order_detail`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
 
 --
 -- Volcado de datos para la tabla `ps_order_detail`
 --
 
-INSERT INTO `ps_order_detail` (`id_order_detail`, `id_order`, `id_order_invoice`, `id_warehouse`, `id_shop`, `product_id`, `product_attribute_id`, `product_name`, `product_quantity`, `product_quantity_in_stock`, `product_quantity_refunded`, `product_quantity_return`, `product_quantity_reinjected`, `product_price`, `reduction_percent`, `reduction_amount`, `reduction_amount_tax_incl`, `reduction_amount_tax_excl`, `group_reduction`, `product_quantity_discount`, `product_ean13`, `product_upc`, `product_reference`, `product_supplier_reference`, `product_weight`, `id_tax_rules_group`, `tax_computation_method`, `tax_name`, `tax_rate`, `ecotax`, `ecotax_tax_rate`, `discount_quantity_applied`, `download_hash`, `download_nb`, `download_deadline`, `total_price_tax_incl`, `total_price_tax_excl`, `unit_price_tax_incl`, `unit_price_tax_excl`, `total_shipping_price_tax_incl`, `total_shipping_price_tax_excl`, `purchase_supplier_price`, `original_product_price`) VALUES
-(1, 1, 0, 0, 1, 2, 10, 'Blouse - Color : White, Size : M', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
-(2, 1, 0, 0, 1, 3, 13, 'Printed Dress - Color : Orange, Size : S', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_3', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '26.000000', '26.000000', '26.000000', '26.000000', '0.000000', '0.000000', '0.000000', '25.999852'),
-(3, 2, 0, 0, 1, 2, 10, 'Blouse - Color : White, Size : M', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
-(4, 2, 0, 0, 1, 6, 32, 'Printed Summer Dress - Color : Yellow, Size : M', 1, 1, 0, 0, 0, '30.502569', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_6', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '30.500000', '30.500000', '30.500000', '30.500000', '0.000000', '0.000000', '0.000000', '30.502569'),
-(5, 2, 0, 0, 1, 7, 34, 'Printed Chiffon Dress - Color : Yellow, Size : S', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '17.400000', '', '', 'demo_7', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.400000', '16.400000', '16.400000', '16.400000', '0.000000', '0.000000', '0.000000', '20.501236'),
-(6, 3, 0, 0, 1, 1, 1, 'Faded Short Sleeve T-shirts - Color : Orange, Size : S', 1, 1, 0, 0, 0, '16.510000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_1', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.510000', '16.510000', '16.510000', '16.510000', '0.000000', '0.000000', '0.000000', '16.510000'),
-(7, 3, 0, 0, 1, 2, 10, 'Blouse - Color : White, Size : M', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
-(8, 3, 0, 0, 1, 6, 32, 'Printed Summer Dress - Color : Yellow, Size : M', 1, 1, 0, 0, 0, '30.502569', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_6', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '30.500000', '30.500000', '30.500000', '30.500000', '0.000000', '0.000000', '0.000000', '30.502569'),
-(9, 4, 0, 0, 1, 1, 1, 'Faded Short Sleeve T-shirts - Color : Orange, Size : S', 1, 1, 0, 0, 0, '16.510000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_1', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.510000', '16.510000', '16.510000', '16.510000', '0.000000', '0.000000', '0.000000', '16.510000'),
-(10, 4, 0, 0, 1, 3, 13, 'Printed Dress - Color : Orange, Size : S', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_3', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '26.000000', '26.000000', '26.000000', '26.000000', '0.000000', '0.000000', '0.000000', '25.999852'),
-(11, 4, 0, 0, 1, 5, 19, 'Printed Summer Dress - Color : Yellow, Size : S', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '29.980000', '', '', 'demo_5', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '28.980000', '28.980000', '28.980000', '28.980000', '0.000000', '0.000000', '0.000000', '30.506321'),
-(12, 4, 0, 0, 1, 7, 34, 'Printed Chiffon Dress - Color : Yellow, Size : S', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '17.400000', '', '', 'demo_7', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.400000', '16.400000', '16.400000', '16.400000', '0.000000', '0.000000', '0.000000', '20.501236'),
-(13, 5, 0, 0, 1, 1, 1, 'Faded Short Sleeve T-shirts - Color : Orange, Size : S', 1, 1, 0, 0, 0, '16.510000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_1', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.510000', '16.510000', '16.510000', '16.510000', '0.000000', '0.000000', '0.000000', '16.510000'),
-(14, 5, 0, 0, 1, 2, 7, 'Blouse - Color : Black, Size : S', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
-(15, 5, 0, 0, 1, 3, 13, 'Printed Dress - Color : Orange, Size : S', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_3', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '26.000000', '26.000000', '26.000000', '26.000000', '0.000000', '0.000000', '0.000000', '25.999852'),
-(16, 6, 0, 0, 1, 10, 0, 'Nuevo 2015', 20, 1, 0, 0, 0, '80.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '999', 'nuevo_2015', '', '10.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '1936.000000', '1600.000000', '96.800000', '80.000000', '0.000000', '0.000000', '70.000000', '80.000000'),
-(17, 7, 0, 0, 1, 5, 19, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '36.280000', '', '790040720309', 'vino_5', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '35.070000', '28.980000', '35.067016', '28.981005', '0.000000', '0.000000', '9.150000', '30.506321'),
-(18, 8, 0, 0, 1, 7, 34, 'Vino Chardonnay - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '21.060000', '', '790040720311', 'vino_7', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '19.850000', '16.400000', '19.845197', '16.400989', '0.000000', '0.000000', '6.150000', '20.501236'),
-(19, 8, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
-(20, 9, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
-(21, 9, 0, 0, 1, 7, 34, 'Vino Chardonnay - Capacidad : 500 ml, Etiqueta : Amarillo', 2, 2, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720311', 'vino_7', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '39.690000', '32.800000', '19.845197', '16.400989', '0.000000', '0.000000', '6.150000', '20.501236'),
-(22, 9, 0, 0, 1, 6, 31, 'Vino Canarí - Capacidad : 500 ml, Etiqueta : Amarillo', 2, 2, 0, 0, 0, '30.502569', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720310', 'vino_6', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '73.820000', '61.010000', '36.908108', '30.502569', '0.000000', '0.000000', '9.150000', '30.502569'),
-(23, 10, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 5, 5, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '1512.500000', '1250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
-(24, 11, 1, 0, 1, 5, 19, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '36.280000', '', '790040720309', 'vino_5', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '35.070000', '28.980000', '35.067016', '28.981005', '0.000000', '0.000000', '9.150000', '30.506321'),
-(25, 12, 0, 0, 1, 4, 16, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', 1, 1, 0, 0, 0, '50.994153', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720308', 'vino_4', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '61.700000', '50.990000', '61.702925', '50.994153', '0.000000', '0.000000', '15.300000', '50.994153');
+INSERT INTO `ps_order_detail` (`id_order_detail`, `id_sin`, `id_order`, `id_order_invoice`, `id_warehouse`, `id_shop`, `product_id`, `product_attribute_id`, `product_name`, `product_quantity`, `product_quantity_in_stock`, `product_quantity_refunded`, `product_quantity_return`, `product_quantity_reinjected`, `product_price`, `reduction_percent`, `reduction_amount`, `reduction_amount_tax_incl`, `reduction_amount_tax_excl`, `group_reduction`, `product_quantity_discount`, `product_ean13`, `product_upc`, `product_reference`, `product_supplier_reference`, `product_weight`, `id_tax_rules_group`, `tax_computation_method`, `tax_name`, `tax_rate`, `ecotax`, `ecotax_tax_rate`, `discount_quantity_applied`, `download_hash`, `download_nb`, `download_deadline`, `total_price_tax_incl`, `total_price_tax_excl`, `unit_price_tax_incl`, `unit_price_tax_excl`, `total_shipping_price_tax_incl`, `total_shipping_price_tax_excl`, `purchase_supplier_price`, `original_product_price`) VALUES
+(1, 0, 1, 0, 0, 1, 2, 10, 'Blouse - Color : White, Size : M', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
+(2, 0, 1, 0, 0, 1, 3, 13, 'Printed Dress - Color : Orange, Size : S', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_3', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '26.000000', '26.000000', '26.000000', '26.000000', '0.000000', '0.000000', '0.000000', '25.999852'),
+(3, 0, 2, 0, 0, 1, 2, 10, 'Blouse - Color : White, Size : M', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
+(4, 0, 2, 0, 0, 1, 6, 32, 'Printed Summer Dress - Color : Yellow, Size : M', 1, 1, 0, 0, 0, '30.502569', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_6', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '30.500000', '30.500000', '30.500000', '30.500000', '0.000000', '0.000000', '0.000000', '30.502569'),
+(5, 0, 2, 0, 0, 1, 7, 34, 'Printed Chiffon Dress - Color : Yellow, Size : S', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '17.400000', '', '', 'demo_7', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.400000', '16.400000', '16.400000', '16.400000', '0.000000', '0.000000', '0.000000', '20.501236'),
+(6, 0, 3, 0, 0, 1, 1, 1, 'Faded Short Sleeve T-shirts - Color : Orange, Size : S', 1, 1, 0, 0, 0, '16.510000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_1', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.510000', '16.510000', '16.510000', '16.510000', '0.000000', '0.000000', '0.000000', '16.510000'),
+(7, 0, 3, 0, 0, 1, 2, 10, 'Blouse - Color : White, Size : M', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
+(8, 0, 3, 0, 0, 1, 6, 32, 'Printed Summer Dress - Color : Yellow, Size : M', 1, 1, 0, 0, 0, '30.502569', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_6', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '30.500000', '30.500000', '30.500000', '30.500000', '0.000000', '0.000000', '0.000000', '30.502569'),
+(9, 0, 4, 0, 0, 1, 1, 1, 'Faded Short Sleeve T-shirts - Color : Orange, Size : S', 1, 1, 0, 0, 0, '16.510000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_1', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.510000', '16.510000', '16.510000', '16.510000', '0.000000', '0.000000', '0.000000', '16.510000'),
+(10, 0, 4, 0, 0, 1, 3, 13, 'Printed Dress - Color : Orange, Size : S', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_3', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '26.000000', '26.000000', '26.000000', '26.000000', '0.000000', '0.000000', '0.000000', '25.999852'),
+(11, 0, 4, 0, 0, 1, 5, 19, 'Printed Summer Dress - Color : Yellow, Size : S', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '29.980000', '', '', 'demo_5', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '28.980000', '28.980000', '28.980000', '28.980000', '0.000000', '0.000000', '0.000000', '30.506321'),
+(12, 0, 4, 0, 0, 1, 7, 34, 'Printed Chiffon Dress - Color : Yellow, Size : S', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '17.400000', '', '', 'demo_7', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.400000', '16.400000', '16.400000', '16.400000', '0.000000', '0.000000', '0.000000', '20.501236'),
+(13, 0, 5, 0, 0, 1, 1, 1, 'Faded Short Sleeve T-shirts - Color : Orange, Size : S', 1, 1, 0, 0, 0, '16.510000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_1', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '16.510000', '16.510000', '16.510000', '16.510000', '0.000000', '0.000000', '0.000000', '16.510000'),
+(14, 0, 5, 0, 0, 1, 2, 7, 'Blouse - Color : Black, Size : S', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.000000', '27.000000', '27.000000', '27.000000', '0.000000', '0.000000', '0.000000', '26.999852'),
+(15, 0, 5, 0, 0, 1, 3, 13, 'Printed Dress - Color : Orange, Size : S', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '', 'demo_3', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '26.000000', '26.000000', '26.000000', '26.000000', '0.000000', '0.000000', '0.000000', '25.999852'),
+(16, 0, 6, 0, 0, 1, 10, 0, 'Nuevo 2015', 20, 1, 0, 0, 0, '80.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '999', 'nuevo_2015', '', '10.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '1936.000000', '1600.000000', '96.800000', '80.000000', '0.000000', '0.000000', '70.000000', '80.000000'),
+(17, 0, 7, 0, 0, 1, 5, 19, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '36.280000', '', '790040720309', 'vino_5', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '35.070000', '28.980000', '35.067016', '28.981005', '0.000000', '0.000000', '9.150000', '30.506321'),
+(18, 0, 8, 0, 0, 1, 7, 34, 'Vino Chardonnay - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '21.060000', '', '790040720311', 'vino_7', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '19.850000', '16.400000', '19.845197', '16.400989', '0.000000', '0.000000', '6.150000', '20.501236'),
+(19, 0, 8, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(20, 0, 9, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(21, 0, 9, 0, 0, 1, 7, 34, 'Vino Chardonnay - Capacidad : 500 ml, Etiqueta : Amarillo', 2, 2, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720311', 'vino_7', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '39.690000', '32.800000', '19.845197', '16.400989', '0.000000', '0.000000', '6.150000', '20.501236'),
+(22, 0, 9, 0, 0, 1, 6, 31, 'Vino Canarí - Capacidad : 500 ml, Etiqueta : Amarillo', 2, 2, 0, 0, 0, '30.502569', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720310', 'vino_6', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '73.820000', '61.010000', '36.908108', '30.502569', '0.000000', '0.000000', '9.150000', '30.502569'),
+(23, 0, 10, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 5, 5, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '1512.500000', '1250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(24, 0, 11, 1, 0, 1, 5, 19, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '36.280000', '', '790040720309', 'vino_5', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '35.070000', '28.980000', '35.067016', '28.981005', '0.000000', '0.000000', '9.150000', '30.506321'),
+(25, 0, 12, 0, 0, 1, 4, 16, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', 1, 1, 0, 0, 0, '50.994153', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720308', 'vino_4', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '61.700000', '50.990000', '61.702925', '50.994153', '0.000000', '0.000000', '15.300000', '50.994153'),
+(26, 0, 13, 0, 0, 1, 7, 34, 'Vino Chardonnay - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '20.501236', '20.00', '0.000000', '0.000000', '0.000000', '0.00', '21.060000', '', '790040720311', 'vino_7', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '19.850000', '16.400000', '19.845197', '16.400989', '0.000000', '0.000000', '6.150000', '20.501236'),
+(27, 0, 13, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(28, 0, 14, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(29, 0, 14, 0, 0, 1, 2, 7, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720306', 'vino_2', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '32.670000', '27.000000', '32.669821', '26.999852', '0.000000', '0.000000', '8.100000', '26.999852'),
+(30, 0, 14, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720307', 'vino_3', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '31.460000', '26.000000', '31.459821', '25.999852', '0.000000', '0.000000', '7.800000', '25.999852'),
+(31, 0, 15, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(32, 0, 15, 0, 0, 1, 2, 7, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720306', 'vino_2', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '32.670000', '27.000000', '32.669821', '26.999852', '0.000000', '0.000000', '8.100000', '26.999852'),
+(33, 0, 15, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720307', 'vino_3', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '31.460000', '26.000000', '31.459821', '25.999852', '0.000000', '0.000000', '7.800000', '25.999852'),
+(34, 0, 16, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(35, 0, 16, 0, 0, 1, 2, 7, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720306', 'vino_2', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '32.670000', '27.000000', '32.669821', '26.999852', '0.000000', '0.000000', '8.100000', '26.999852'),
+(36, 0, 16, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720307', 'vino_3', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '31.460000', '26.000000', '31.459821', '25.999852', '0.000000', '0.000000', '7.800000', '25.999852'),
+(37, 0, 17, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '302.500000', '250.000000', '302.500000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(38, 0, 17, 0, 0, 1, 2, 7, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, 1, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720306', 'vino_2', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '32.670000', '27.000000', '32.669821', '26.999852', '0.000000', '0.000000', '8.100000', '26.999852'),
+(39, 0, 17, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720307', 'vino_3', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '31.460000', '26.000000', '31.459821', '25.999852', '0.000000', '0.000000', '7.800000', '25.999852'),
+(40, 0, 18, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 3, 3, 0, 0, 0, '250.000000', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '04040404', '790040720305', 'vino_1', '', '40.000000', 2, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '828.750000', '750.000000', '276.250000', '250.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(41, 0, 18, 0, 0, 1, 2, 7, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 3, 3, 0, 0, 0, '26.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720306', 'vino_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '81.000000', '81.000000', '26.999852', '26.999852', '0.000000', '0.000000', '8.100000', '26.999852'),
+(42, 0, 18, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 3, 3, 0, 0, 0, '25.999852', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720307', 'vino_3', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '94.380000', '78.000000', '31.459821', '25.999852', '0.000000', '0.000000', '7.800000', '25.999852'),
+(43, 0, 18, 0, 0, 1, 4, 16, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', 3, 3, 0, 0, 0, '50.994153', '0.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '', '790040720308', 'vino_4', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '185.110000', '152.980000', '61.702925', '50.994153', '0.000000', '0.000000', '15.300000', '50.994153'),
+(44, 0, 19, 0, 0, 1, 1, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '250.000000', '12.00', '0.000000', '0.000000', '0.000000', '0.00', '244.205000', '04040404', '790040720305', 'vino_1', '', '40.000000', 2, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '243.100000', '220.000000', '243.100000', '220.000000', '0.000000', '0.000000', '666.000000', '250.000000'),
+(45, 0, 19, 0, 0, 1, 5, 19, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', 1, 1, 0, 0, 0, '30.506321', '5.00', '0.000000', '0.000000', '0.000000', '0.00', '36.280000', '', '790040720309', 'vino_5', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '35.070000', '28.980000', '35.067016', '28.981005', '0.000000', '0.000000', '9.150000', '30.506321'),
+(46, 0, 19, 0, 0, 1, 4, 16, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', 1, 1, 0, 0, 0, '50.994153', '12.00', '0.000000', '0.000000', '0.000000', '0.00', '55.510000', '', '790040720308', 'vino_4', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '54.300000', '44.870000', '54.298575', '44.874855', '0.000000', '0.000000', '15.300000', '50.994153'),
+(47, 0, 19, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, 1, 0, 0, 0, '25.999852', '12.00', '0.000000', '0.000000', '0.000000', '0.00', '28.890000', '', '790040720307', 'vino_3', '', '0.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '27.680000', '22.880000', '27.684643', '22.879870', '0.000000', '0.000000', '7.800000', '25.999852'),
+(48, 0, 19, 0, 0, 1, 2, 7, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, 1, 0, 0, 0, '26.999852', '12.00', '0.000000', '0.000000', '0.000000', '0.00', '24.760000', '', '790040720306', 'vino_2', '', '0.000000', 0, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '23.760000', '23.760000', '23.759870', '23.759870', '0.000000', '0.000000', '8.100000', '26.999852'),
+(49, 0, 20, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 11, 11, 0, 0, 0, '25.999852', '12.00', '0.000000', '0.000000', '0.000000', '0.00', '0.000000', '809080908090', '790040720307', 'vino_3', '', '30.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '304.530000', '251.680000', '27.684643', '22.879870', '0.000000', '0.000000', '7.800000', '25.999852'),
+(50, 0, 21, 0, 0, 1, 3, 13, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 6, 6, 0, 0, 0, '25.999852', '0.00', '13.455000', '13.455000', '11.120000', '0.00', '0.000000', '809080908090', '790040720307', 'vino_3', '', '30.000000', 1, 0, '', '0.000', '0.000000', '0.000', 0, '', 0, '0000-00-00 00:00:00', '108.030000', '89.280000', '18.004821', '14.880017', '0.000000', '0.000000', '7.800000', '25.999852');
 
 --
 -- Disparadores `ps_order_detail`
@@ -20317,9 +20926,19 @@ CREATE TRIGGER `ps_order_detail_AINS` AFTER INSERT ON `ps_order_detail`
 		`id_sin`,
 		`id_order`,
 		`product_id`,
-		`product_quantity`,
 		`product_name`,
+		`product_quantity`,
 		`product_price`,
+		`unit_price_tax_excl`,
+		`unit_price_tax_incl`,
+		`total_price_tax_incl`,
+		`total_price_tax_excl`,
+		`purchase_supplier_price`,
+		`id_tax_rules_group`,
+		`reduction_percent`,
+		`reduction_amount`,
+		`reduction_amount_tax_incl`,
+		`reduction_amount_tax_excl`,
 		`system`,
 		`action`,
 		`id_estado`
@@ -20330,9 +20949,19 @@ CREATE TRIGGER `ps_order_detail_AINS` AFTER INSERT ON `ps_order_detail`
 		0,
 		NEW.id_order,
 		NEW.product_id,
-		NEW.product_quantity,
 		NEW.product_name,
+		NEW.product_quantity,
 		NEW.product_price,
+		NEW.unit_price_tax_excl,
+		NEW.unit_price_tax_incl,
+		NEW.total_price_tax_incl,
+		NEW.total_price_tax_excl,
+		NEW.purchase_supplier_price,
+		NEW.id_tax_rules_group,
+		NEW.reduction_percent,
+		NEW.reduction_amount,
+		NEW.reduction_amount_tax_incl,
+		NEW.reduction_amount_tax_excl,
 		'prestashop',
 		'insert',
 		0
@@ -20350,9 +20979,19 @@ CREATE TRIGGER `ps_order_detail_AUPD` AFTER UPDATE ON `ps_order_detail`
 		`id_sin`,
 		`id_order`,
 		`product_id`,
-		`product_quantity`,
 		`product_name`,
+		`product_quantity`,
 		`product_price`,
+		`unit_price_tax_excl`,
+		`unit_price_tax_incl`,
+		`total_price_tax_incl`,
+		`total_price_tax_excl`,
+		`purchase_supplier_price`,
+		`id_tax_rules_group`,
+		`reduction_percent`,
+		`reduction_amount`,
+		`reduction_amount_tax_incl`,
+		`reduction_amount_tax_excl`,
 		`system`,
 		`action`,
 		`id_estado`
@@ -20363,11 +21002,21 @@ CREATE TRIGGER `ps_order_detail_AUPD` AFTER UPDATE ON `ps_order_detail`
 		0,
 		NEW.id_order,
 		NEW.product_id,
-		NEW.product_quantity,
 		NEW.product_name,
+		NEW.product_quantity,
 		NEW.product_price,
+		NEW.unit_price_tax_excl,
+		NEW.unit_price_tax_incl,
+		NEW.total_price_tax_incl,
+		NEW.total_price_tax_excl,
+		NEW.purchase_supplier_price,
+		NEW.id_tax_rules_group,
+		NEW.reduction_percent,
+		NEW.reduction_amount,
+		NEW.reduction_amount_tax_incl,
+		NEW.reduction_amount_tax_excl,
 		'prestashop',
-		'insert',
+		'update',
 		0
 	);
 END
@@ -20403,7 +21052,30 @@ INSERT INTO `ps_order_detail_tax` (`id_order_detail`, `id_tax`, `unit_amount`, `
 (22, 1, '6.405539', '12.810000'),
 (23, 1, '52.500000', '262.500000'),
 (24, 1, '6.086011', '6.090000'),
-(25, 1, '10.708772', '10.710000');
+(25, 1, '10.708772', '10.710000'),
+(26, 1, '3.444208', '3.440000'),
+(27, 1, '52.500000', '52.500000'),
+(28, 1, '52.500000', '52.500000'),
+(29, 1, '5.669969', '5.670000'),
+(30, 1, '5.459969', '5.460000'),
+(31, 1, '52.500000', '52.500000'),
+(32, 1, '5.669969', '5.670000'),
+(33, 1, '5.459969', '5.460000'),
+(34, 1, '52.500000', '52.500000'),
+(35, 1, '5.669969', '5.670000'),
+(36, 1, '5.459969', '5.460000'),
+(37, 1, '52.500000', '52.500000'),
+(38, 1, '5.669969', '5.670000'),
+(39, 1, '5.459969', '5.460000'),
+(40, 2, '26.250000', '78.750000'),
+(42, 1, '5.459969', '16.380000'),
+(43, 1, '10.708772', '32.130000'),
+(44, 2, '17.787183', '17.790000'),
+(45, 1, '4.686277', '4.690000'),
+(46, 1, '7.256339', '7.260000'),
+(47, 1, '3.699713', '3.700000'),
+(49, 1, '4.804773', '52.850000'),
+(50, 1, '3.124804', '18.750000');
 
 -- --------------------------------------------------------
 
@@ -20421,7 +21093,7 @@ CREATE TABLE IF NOT EXISTS `ps_order_history` (
   KEY `order_history_order` (`id_order`),
   KEY `id_employee` (`id_employee`),
   KEY `id_order_state` (`id_order_state`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Volcado de datos para la tabla `ps_order_history`
@@ -20444,7 +21116,16 @@ INSERT INTO `ps_order_history` (`id_order_history`, `id_employee`, `id_order`, `
 (14, 1, 11, 5, '2015-05-14 09:43:12'),
 (15, 2, 10, 6, '2015-05-14 09:52:14'),
 (16, 0, 12, 1, '2015-05-14 12:18:52'),
-(17, 1, 9, 1, '2015-05-26 13:35:02');
+(17, 1, 9, 1, '2015-05-26 13:35:02'),
+(18, 0, 13, 1, '2015-05-27 12:34:00'),
+(19, 0, 14, 1, '2015-05-27 12:42:42'),
+(20, 0, 15, 1, '2015-05-27 12:48:37'),
+(21, 0, 16, 1, '2015-05-27 13:14:05'),
+(22, 0, 17, 1, '2015-05-27 13:16:27'),
+(23, 0, 18, 1, '2015-05-28 09:35:35'),
+(24, 0, 19, 1, '2015-05-28 11:31:16'),
+(25, 0, 20, 1, '2015-05-28 12:26:13'),
+(26, 0, 21, 1, '2015-05-28 13:27:14');
 
 -- --------------------------------------------------------
 
@@ -20865,7 +21546,7 @@ CREATE TABLE IF NOT EXISTS `ps_page` (
   PRIMARY KEY (`id_page`),
   KEY `id_page_type` (`id_page_type`),
   KEY `id_object` (`id_object`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `ps_page`
@@ -20880,7 +21561,8 @@ INSERT INTO `ps_page` (`id_page`, `id_page_type`, `id_object`) VALUES
 (6, 6, 0),
 (7, 7, NULL),
 (8, 8, NULL),
-(9, 9, NULL);
+(9, 9, NULL),
+(10, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -20897,7 +21579,7 @@ CREATE TABLE IF NOT EXISTS `ps_pagenotfound` (
   `date_add` datetime NOT NULL,
   PRIMARY KEY (`id_pagenotfound`),
   KEY `date_add` (`date_add`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Volcado de datos para la tabla `ps_pagenotfound`
@@ -20945,7 +21627,12 @@ INSERT INTO `ps_pagenotfound` (`id_pagenotfound`, `id_shop`, `id_shop_group`, `r
 (39, 1, 1, '/casta/ERP/htdocs/sincronizar/admin/mysetuppage.php', 'http://localhost/casta/ERP/htdocs/admin/modules.php?mode=common', '2015-05-26 09:13:42'),
 (40, 1, 1, '/casta/ERP/htdocs/sincronizar/admin/mysetuppage.php', 'http://localhost/casta/ERP/htdocs/sincronizar/admin/mysetuppage.php', '2015-05-26 10:45:23'),
 (41, 1, 1, '/casta/ERP/htdocs/sincronizar/admin/mysetuppage.php', 'http://localhost/casta/ERP/htdocs/admin/modules.php?mainmenu=home', '2015-05-26 10:45:40'),
-(42, 1, 1, '/casta/ERP/htdocs/sincronizar/admin/clientes.php', 'http://localhost/casta/ERP/htdocs/sincronizar/admin/config.php', '2015-05-26 10:48:18');
+(42, 1, 1, '/casta/ERP/htdocs/sincronizar/admin/clientes.php', 'http://localhost/casta/ERP/htdocs/sincronizar/admin/config.php', '2015-05-26 10:48:18'),
+(43, 1, 1, '/casta/admin1978/undefined&ajax=1&rand=1433505685463?_=1433505681486', 'http://localhost/casta/admin1978/index.php?controller=AdminProducts&id_product=1&updateproduct&token=df6d55dba74c7587d6715c5926f1cfc3', '2015-06-05 09:01:27'),
+(44, 1, 1, '/casta/admin1978/undefined&ajax=1&rand=1433505814880?_=1433505802954', 'http://localhost/casta/admin1978/index.php?controller=AdminProducts&id_product=1&updateproduct&token=df6d55dba74c7587d6715c5926f1cfc3', '2015-06-05 09:03:36'),
+(45, 1, 1, '/casta/admin1978/undefined&ajax=1&rand=1433505863600?_=1433505861148', 'http://localhost/casta/admin1978/index.php?controller=AdminProducts&id_product=1&updateproduct&token=df6d55dba74c7587d6715c5926f1cfc3', '2015-06-05 09:04:24'),
+(46, 1, 1, '/casta/admin1978/undefined&ajax=1&rand=1433505892206?_=1433505890355', 'http://localhost/casta/admin1978/index.php?controller=AdminProducts&id_product=1&updateproduct&token=df6d55dba74c7587d6715c5926f1cfc3', '2015-06-05 09:04:52'),
+(47, 1, 1, '/casta/admin1978/undefined&ajax=1&rand=1433506255745?_=1433506250433', 'http://localhost/casta/admin1978/index.php?controller=AdminProducts&id_product=1&updateproduct&token=df6d55dba74c7587d6715c5926f1cfc3', '2015-06-05 09:10:56');
 
 -- --------------------------------------------------------
 
@@ -20958,7 +21645,7 @@ CREATE TABLE IF NOT EXISTS `ps_page_type` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id_page_type`),
   KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `ps_page_type`
@@ -20973,7 +21660,8 @@ INSERT INTO `ps_page_type` (`id_page_type`, `name`) VALUES
 (3, 'manufacturer'),
 (6, 'order'),
 (9, 'pagenotfound'),
-(7, 'payment');
+(7, 'payment'),
+(10, 'product');
 
 -- --------------------------------------------------------
 
@@ -21051,16 +21739,16 @@ CREATE TABLE IF NOT EXISTS `ps_product` (
   KEY `id_category_default` (`id_category_default`),
   KEY `indexed` (`indexed`),
   KEY `date_add` (`date_add`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- Volcado de datos para la tabla `ps_product`
 --
 
 INSERT INTO `ps_product` (`id_product`, `id_sin`, `id_supplier`, `id_manufacturer`, `id_category_default`, `id_shop_default`, `id_tax_rules_group`, `on_sale`, `online_only`, `ean13`, `upc`, `ecotax`, `quantity`, `minimal_quantity`, `price`, `wholesale_price`, `unity`, `unit_price_ratio`, `additional_shipping_cost`, `reference`, `supplier_reference`, `location`, `width`, `height`, `depth`, `weight`, `out_of_stock`, `quantity_discount`, `customizable`, `uploadable_files`, `text_fields`, `active`, `redirect_type`, `id_product_redirected`, `available_for_order`, `available_date`, `condition`, `show_price`, `indexed`, `visibility`, `cache_is_pack`, `cache_has_attachments`, `is_virtual`, `cache_default_attribute`, `date_add`, `date_upd`, `advanced_stock_management`, `pack_stock_type`) VALUES
-(1, 0, 1, 1, 12, 1, 1, 0, 0, '04040404', '790040720305', '0.000000', 0, 1, '250.000000', '666.000000', '5', '0.827815', '0.00', 'vino_1', '', '', '10.000000', '20.000000', '30.000000', '40.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 1, '2015-02-23 12:42:43', '2015-05-21 13:30:02', 0, 3),
-(2, 0, 1, 1, 12, 1, 1, 0, 0, '0', '790040720306', '0.000000', 0, 1, '26.999852', '8.100000', '', '0.000000', '0.00', 'vino_2', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 7, '2015-02-23 12:42:46', '2015-05-12 13:34:38', 0, 3),
-(3, 0, 1, 1, 12, 1, 1, 0, 0, '0', '790040720307', '0.000000', 0, 1, '25.999852', '7.800000', '', '0.000000', '0.00', 'vino_3', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 13, '2015-02-23 12:42:47', '2015-05-08 11:29:30', 0, 3),
+(1, 0, 1, 1, 12, 1, 2, 0, 0, '04040404', '790040720305', '0.000000', 0, 1, '250.000000', '666.000000', '5', '0.827815', '0.00', 'vino_1', '', '', '10.000000', '20.000000', '30.000000', '40.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 1, '2015-02-23 12:42:43', '2015-05-28 09:31:34', 0, 3),
+(2, 0, 1, 1, 12, 1, 0, 0, 0, '0', '790040720306', '0.000000', 0, 1, '26.999852', '8.100000', '', '0.000000', '0.00', 'vino_2', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 7, '2015-02-23 12:42:46', '2015-05-28 09:32:03', 0, 3),
+(3, 0, 1, 1, 12, 1, 1, 0, 0, '809080908090', '790040720307', '0.000000', 0, 1, '25.999852', '7.800000', '', '0.000000', '0.00', 'vino_3', '', '', '0.000000', '0.000000', '0.000000', '30.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 13, '2015-02-23 12:42:47', '2015-05-28 12:24:40', 0, 3),
 (4, 0, 1, 1, 12, 1, 1, 0, 0, '0', '790040720308', '0.000000', 0, 1, '50.994153', '15.300000', '', '0.000000', '0.00', 'vino_4', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 16, '2015-02-23 12:42:47', '2015-05-08 11:30:16', 0, 3),
 (5, 0, 1, 1, 12, 1, 1, 0, 0, '0', '790040720309', '0.000000', 0, 1, '30.506321', '9.150000', '', '0.000000', '0.00', 'vino_5', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 19, '2015-02-23 12:42:47', '2015-05-08 11:30:53', 0, 3),
 (6, 0, 1, 1, 14, 1, 1, 0, 0, '0', '790040720310', '0.000000', 0, 1, '30.502569', '9.150000', '', '0.000000', '0.00', 'vino_6', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 31, '2015-02-23 12:42:48', '2015-05-08 11:31:40', 0, 3),
@@ -21081,12 +21769,17 @@ INSERT INTO `ps_product` (`id_product`, `id_sin`, `id_supplier`, `id_manufacture
 (23, 23, NULL, NULL, NULL, 1, 0, 0, 0, '2030', '', '0.000000', 0, 1, '1020.000000', '80.000000', NULL, '0.000000', '0.00', 'ocho_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-20 16:05:41', 0, 3),
 (24, 24, NULL, NULL, NULL, 1, 0, 0, 0, '2030', '', '0.000000', 0, 1, '100.000000', '80.000000', NULL, '0.000000', '0.00', 'nueve_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-20 16:23:08', 0, 3),
 (25, 25, NULL, NULL, NULL, 1, 0, 0, 0, '2030', '', '0.000000', 0, 1, '100.000000', '80.000000', NULL, '0.000000', '0.00', 'diez_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-20 16:31:16', 0, 3),
-(26, 26, NULL, NULL, NULL, 1, 0, 0, 0, '2030', '', '0.000000', 0, 1, '100.000000', '80.000000', NULL, '0.000000', '0.00', 'aaa_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-21 17:25:52', 0, 3),
+(26, 26, NULL, NULL, NULL, 1, 21, 0, 0, '2030', '', '0.000000', 0, 1, '99.173550', '74.380170', NULL, '0.000000', '0.00', 'aaa_producto', NULL, NULL, '20.000000', '1.500000', '26.666667', '10.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-21 17:25:52', 0, 3),
 (27, 27, NULL, NULL, NULL, 1, 0, 0, 0, '', '', '0.000000', 0, 1, '0.000000', '0.000000', NULL, '0.000000', '0.00', 'bbb_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-21 17:47:38', 0, 3),
-(28, 28, 0, 1, 2, 1, 1, 0, 0, '', '', '0.000000', 0, 1, '20.000000', '10.000000', '', '0.000000', '0.00', 'ccc_producto', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-05-21 16:31:11', 0, 3),
-(29, 29, 1, 1, 1, 1, 0, 0, 0, '2030', '', '0.000000', 0, 1, '100.000000', '80.000000', NULL, '0.000000', '0.00', 'molotov', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '0000-00-00 00:00:00', '2015-05-22 14:09:50', 0, 3),
+(28, 28, 0, 1, 2, 1, 1, 0, 0, '', '', '0.000000', 0, 1, '20.000000', '12.000000', '', '0.000000', '0.00', 'ccc_producto', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-06-04 15:20:25', 0, 3),
+(29, 29, 0, 1, 2, 1, 1, 0, 0, '2030', '', '0.000000', 0, 1, '300.000000', '200.000000', '', '0.000000', '0.00', 'molotov', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-06-01 16:49:14', 0, 3),
 (30, 30, 0, 1, 2, 1, 1, 0, 0, '', '', '0.000000', 0, 1, '0.000000', '0.000000', '', '0.000000', '0.00', 'abab_producto', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 3),
-(31, 31, 0, 1, 2, 1, 21, 0, 0, '', '', '0.000000', 0, 1, '666.000000', '555.000000', '', '0.000000', '0.00', 'dire_doli', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 3);
+(31, 31, 0, 1, 2, 1, 21, 0, 0, '', '', '0.000000', 0, 1, '666.000000', '555.000000', '', '0.000000', '0.00', 'dire_doli', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 3),
+(32, 32, 0, 0, 2, 1, 1, 0, 0, '0261616161', '161513513513', '0.000000', 0, 1, '20.000000', '17.000000', '', '0.000000', '0.00', 'prueba_precios', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 0, '2015-06-04 12:59:13', '2015-06-04 15:17:06', 0, 3),
+(33, 33, 0, 1, 2, 1, 1, 0, 0, '3020', '3020', '0.000000', 0, 1, '220.000000', '150.000000', '', '0.000000', '0.00', '2030', '', '', '30.000000', '0.666667', '1800.000015', '10.000000', 2, 0, 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, 0, 0, '0000-00-00 00:00:00', '2015-06-05 13:07:54', 0, 3),
+(34, 35, 1, 1, 1, 1, 0, 0, 0, '', '', '0.000000', 0, 1, '120.000000', '108.900000', NULL, '0.000000', '0.00', 'deDolibar3', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '2015-06-05 18:14:52', '2015-06-05 18:14:52', 0, 3),
+(35, 36, 1, 1, 1, 1, 0, 0, 0, '', '', '0.000000', 0, 1, '120.000000', '108.900000', NULL, '0.000000', '0.00', 'deDolibar4', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '2015-06-05 18:17:03', '2015-06-05 18:17:03', 0, 3),
+(36, 37, 1, 1, 1, 1, 11, 0, 0, '', '', '0.000000', 0, 1, '108.597290', '81.447960', NULL, '0.000000', '0.00', 'deDolibar5', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', 2, 0, 0, 0, 0, 1, '', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, 0, NULL, '2015-06-05 18:18:31', '2015-06-05 18:18:31', 0, 3);
 
 --
 -- Disparadores `ps_product`
@@ -21122,7 +21815,7 @@ CREATE TRIGGER `ps_product_AINS` AFTER INSERT ON `ps_product`
 		0,
 		NEW.reference,
 		NEW.price,
-		NEW.price,
+		NEW.wholesale_price,
 		NEW.upc,
 		NEW.upc,
 		NEW.upc,
@@ -21172,7 +21865,7 @@ CREATE TRIGGER `ps_product_AUPD` AFTER UPDATE ON `ps_product`
 		0,
 		NEW.reference,
 		NEW.price,
-		NEW.price,
+		NEW.wholesale_price,
 		NEW.upc,
 		NEW.upc,
 		NEW.upc,
@@ -21698,6 +22391,8 @@ CREATE TABLE IF NOT EXISTS `ps_product_lang` (
 --
 
 INSERT INTO `ps_product_lang` (`id_product`, `id_shop`, `id_lang`, `description`, `description_short`, `link_rewrite`, `meta_description`, `meta_keywords`, `meta_title`, `name`, `available_now`, `available_later`) VALUES
+(0, 1, 1, NULL, '', '', NULL, NULL, NULL, 'deDolibar2', NULL, NULL),
+(0, 1, 2, NULL, '', '', NULL, NULL, NULL, 'deDolibar2', NULL, NULL),
 (1, 1, 1, '<p>descripcion corta</p>', '<p>Descripcion corta</p>', 'pack-de-vinos-promocion', 'metadescripcion', '', 'metatitulo', 'Pack de vinos promoción', 'En stock', ''),
 (1, 1, 2, '<p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman''s wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>', '<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you''re ready for summer!</p>', 'faded-short-sleeves-tshirt', '', '', '', 'Faded Short Sleeves T-shirt', 'In stock', ''),
 (2, 1, 1, '<p>Vino Malbec descripción</p>', '<p>Vino Malbec descripción</p>', 'vino-malbec', '', '', '', 'Vino Malbec', 'En stock', ''),
@@ -21726,12 +22421,22 @@ INSERT INTO `ps_product_lang` (`id_product`, `id_shop`, `id_lang`, `description`
 (27, 1, 2, NULL, '', '', NULL, NULL, NULL, 'bbb producto', NULL, NULL),
 (28, 1, 1, '<p>-</p>', '', 'ccc-producto', '-', '-', '-', 'Diegaaaaxxxx', '-', '-'),
 (28, 1, 2, '<p>-</p>', '', 'ccc-producto', '-', '-', '-', 'ccc producto', '-', '-'),
-(29, 1, 1, NULL, '', '', NULL, NULL, NULL, 'molotov', NULL, NULL),
-(29, 1, 2, NULL, '', '', NULL, NULL, NULL, 'molotov', NULL, NULL),
+(29, 1, 1, '', '', 'molotov', '', '', '', 'molotov', '', ''),
+(29, 1, 2, '', '', 'molotov', '', '', '', 'molotov', '', ''),
 (30, 1, 1, '', '', 'ababa-producto', '', '', '', 'ababa producto', '', ''),
 (30, 1, 2, '', '', 'ababa-producto', '', '', '', 'abab producto', '', ''),
 (31, 1, 1, '', '', 'diro-doli', '', '', '', 'Fuera de ventasa', '', ''),
-(31, 1, 2, '', '', 'diro-doli', '', '', '', 'dire doli', '', '');
+(31, 1, 2, '', '', 'diro-doli', '', '', '', 'dire doli', '', ''),
+(32, 1, 1, '', '<p>Descripción del articulo</p>', 'pruebaprecios', '', '', '', 'prueba_precios', '', ''),
+(32, 1, 2, '', '', 'pruebaprecios', '', '', '', 'prueba_precios', '', ''),
+(33, 1, 1, '', '', 'dedolibar', '', '', '', 'deDolibar', '', ''),
+(33, 1, 2, '', '', 'dedolibar', '', '', '', 'deDolibar', '', ''),
+(34, 1, 1, NULL, '', '', NULL, NULL, NULL, 'deDolibar3', NULL, NULL),
+(34, 1, 2, NULL, '', '', NULL, NULL, NULL, 'deDolibar3', NULL, NULL),
+(35, 1, 1, NULL, '', '', NULL, NULL, NULL, 'deDolibar4', NULL, NULL),
+(35, 1, 2, NULL, '', '', NULL, NULL, NULL, 'deDolibar4', NULL, NULL),
+(36, 1, 1, NULL, '', '', NULL, NULL, NULL, 'deDolibar5', NULL, NULL),
+(36, 1, 2, NULL, '', '', NULL, NULL, NULL, 'deDolibar5', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -21806,9 +22511,10 @@ CREATE TABLE IF NOT EXISTS `ps_product_shop` (
 --
 
 INSERT INTO `ps_product_shop` (`id_product`, `id_shop`, `id_category_default`, `id_tax_rules_group`, `on_sale`, `online_only`, `ecotax`, `minimal_quantity`, `price`, `wholesale_price`, `unity`, `unit_price_ratio`, `additional_shipping_cost`, `customizable`, `uploadable_files`, `text_fields`, `active`, `redirect_type`, `id_product_redirected`, `available_for_order`, `available_date`, `condition`, `show_price`, `indexed`, `visibility`, `cache_default_attribute`, `advanced_stock_management`, `date_add`, `date_upd`, `pack_stock_type`) VALUES
-(1, 1, 12, 1, 0, 0, '0.000000', 1, '250.000000', '666.000000', '5', '0.827815', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 1, 0, '2015-02-23 12:42:43', '2015-05-21 13:30:02', 3),
-(2, 1, 12, 1, 0, 0, '0.000000', 1, '26.999852', '8.100000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 7, 0, '2015-02-23 12:42:46', '2015-05-12 13:34:38', 3),
-(3, 1, 12, 1, 0, 0, '0.000000', 1, '25.999852', '7.800000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 13, 0, '2015-02-23 12:42:47', '2015-05-08 11:29:30', 3),
+(0, 1, 1, 1, 0, 0, '0.000000', 1, '0.000000', '0.000000', NULL, '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
+(1, 1, 12, 2, 0, 0, '0.000000', 1, '250.000000', '666.000000', '5', '0.827815', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 1, 0, '2015-02-23 12:42:43', '2015-05-28 09:31:34', 3),
+(2, 1, 12, 0, 0, 0, '0.000000', 1, '26.999852', '8.100000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 7, 0, '2015-02-23 12:42:46', '2015-05-28 09:32:03', 3),
+(3, 1, 12, 1, 0, 0, '0.000000', 1, '25.999852', '7.800000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 13, 0, '2015-02-23 12:42:47', '2015-05-28 12:24:40', 3),
 (4, 1, 12, 1, 0, 0, '0.000000', 1, '50.994153', '15.300000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 16, 0, '2015-02-23 12:42:47', '2015-05-08 11:30:16', 3),
 (5, 1, 12, 1, 0, 0, '0.000000', 1, '30.506321', '9.150000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 19, 0, '2015-02-23 12:42:47', '2015-05-08 11:30:53', 3),
 (6, 1, 14, 1, 0, 0, '0.000000', 1, '30.502569', '9.150000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 31, 0, '2015-02-23 12:42:48', '2015-05-08 11:31:40', 3),
@@ -21818,10 +22524,15 @@ INSERT INTO `ps_product_shop` (`id_product`, `id_shop`, `id_category_default`, `
 (12, 1, 2, 1, 0, 0, '0.000000', 1, '20.000000', '10.000000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '2015-05-20 10:00:28', '2015-05-20 10:00:28', 3),
 (13, 1, 2, 1, 0, 0, '0.000000', 1, '20.000000', '10.000000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '2015-05-20 10:01:12', '2015-05-20 10:01:12', 3),
 (18, 1, 2, 1, 0, 0, '0.000000', 1, '20.000000', '10.000000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '2015-05-20 10:35:54', '2015-05-20 10:35:54', 3),
-(28, 1, 2, 1, 0, 0, '0.000000', 1, '20.000000', '10.000000', '', '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '0000-00-00 00:00:00', '2015-05-21 16:31:11', 3),
-(29, 1, 2, 1, 0, 0, '0.000000', 1, '0.000000', '0.000000', NULL, '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
+(28, 1, 2, 1, 0, 0, '0.000000', 1, '20.000000', '12.000000', '', '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '0000-00-00 00:00:00', '2015-06-04 15:20:25', 3),
+(29, 1, 2, 1, 0, 0, '0.000000', 1, '300.000000', '200.000000', '', '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '0000-00-00 00:00:00', '2015-06-01 16:49:14', 3),
 (30, 1, 2, 1, 0, 0, '0.000000', 1, '0.000000', '0.000000', '', '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '0000-00-00 00:00:00', '2015-05-22 10:30:42', 3),
-(31, 1, 2, 1, 0, 0, '0.000000', 1, '666.000000', '555.000000', '', '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '0000-00-00 00:00:00', '2015-05-22 13:04:21', 3);
+(31, 1, 2, 1, 0, 0, '0.000000', 1, '666.000000', '555.000000', '', '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', 0, 0, '0000-00-00 00:00:00', '2015-05-22 13:04:21', 3),
+(32, 1, 2, 1, 0, 0, '0.000000', 1, '20.000000', '17.000000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, '2015-06-04 12:59:13', '2015-06-04 15:17:06', 3),
+(33, 1, 2, 1, 0, 0, '0.000000', 1, '220.000000', '150.000000', '', '0.000000', '0.00', 0, 0, 0, 1, '404', 0, 1, '0000-00-00', 'new', 1, 1, 'both', 0, 0, '0000-00-00 00:00:00', '2015-06-05 13:07:54', 3),
+(34, 1, 1, 1, 0, 0, '0.000000', 1, '0.000000', '0.000000', NULL, '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
+(35, 1, 1, 1, 0, 0, '0.000000', 1, '120.000000', '108.900000', NULL, '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
+(36, 1, 2, 2, 0, 0, '0.000000', 1, '108.597290', '81.447960', NULL, '0.000000', '0.00', 0, 0, 0, 0, '404', 0, 1, '0000-00-00', 'new', 1, 0, 'both', NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3);
 
 -- --------------------------------------------------------
 
@@ -21921,7 +22632,7 @@ CREATE TABLE IF NOT EXISTS `ps_product_tag` (
 CREATE TABLE IF NOT EXISTS `ps_profile` (
   `id_profile` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_profile`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `ps_profile`
@@ -21932,7 +22643,8 @@ INSERT INTO `ps_profile` (`id_profile`) VALUES
 (2),
 (3),
 (4),
-(5);
+(5),
+(6);
 
 -- --------------------------------------------------------
 
@@ -21961,7 +22673,9 @@ INSERT INTO `ps_profile_lang` (`id_lang`, `id_profile`, `name`) VALUES
 (1, 4, 'Vendedor'),
 (2, 4, 'Salesman'),
 (1, 5, 'Estados pedido'),
-(2, 5, 'Estados pedido');
+(2, 5, 'Estados pedido'),
+(1, 6, 'Admin Casta'),
+(2, 6, 'Admin Casta');
 
 -- --------------------------------------------------------
 
@@ -22045,7 +22759,7 @@ CREATE TABLE IF NOT EXISTS `ps_range_weight` (
   `delimiter2` decimal(20,6) NOT NULL,
   PRIMARY KEY (`id_range_weight`),
   UNIQUE KEY `id_carrier` (`id_carrier`,`delimiter1`,`delimiter2`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `ps_range_weight`
@@ -22058,7 +22772,9 @@ INSERT INTO `ps_range_weight` (`id_range_weight`, `id_carrier`, `delimiter1`, `d
 (4, 6, '0.000000', '10000.000000'),
 (5, 6, '10000.000000', '0.000000'),
 (6, 7, '0.000000', '10000.000000'),
-(7, 7, '10000.000000', '0.000000');
+(7, 7, '10000.000000', '0.000000'),
+(8, 8, '0.000000', '10000.000000'),
+(9, 8, '10000.000000', '0.000000');
 
 -- --------------------------------------------------------
 
@@ -22347,6 +23063,7 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (5, 20, 72),
 (6, 20, 18),
 (7, 20, 18),
+(33, 20, 3),
 (1, 79, 18),
 (2, 79, 18),
 (3, 79, 9),
@@ -22354,6 +23071,7 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (5, 79, 72),
 (6, 79, 18),
 (7, 79, 18),
+(33, 79, 3),
 (1, 80, 36),
 (3, 80, 18),
 (5, 80, 144),
@@ -22414,6 +23132,7 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (5, 105, 120),
 (6, 105, 30),
 (7, 105, 30),
+(33, 105, 3),
 (1, 106, 6),
 (2, 106, 12),
 (3, 106, 3),
@@ -22833,6 +23552,7 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (5, 166, 72),
 (6, 166, 18),
 (7, 166, 18),
+(33, 166, 3),
 (1, 167, 36),
 (3, 167, 21),
 (5, 167, 144),
@@ -22842,7 +23562,6 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (2, 170, 12),
 (5, 170, 48),
 (2, 171, 6),
-(3, 174, 6),
 (6, 174, 12),
 (7, 174, 12),
 (2, 176, 36),
@@ -22898,6 +23617,7 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (4, 229, 36),
 (1, 231, 12),
 (4, 231, 12),
+(32, 237, 1),
 (5, 241, 144),
 (6, 241, 36),
 (7, 241, 36),
@@ -22980,6 +23700,7 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (7, 295, 12),
 (8, 295, 2),
 (18, 295, 7014),
+(32, 295, 1),
 (1, 296, 60),
 (2, 326, 60),
 (2, 327, 60),
@@ -23030,6 +23751,8 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (12, 351, 6672),
 (13, 351, 6669),
 (18, 351, 10521),
+(32, 351, 3),
+(33, 351, 3),
 (8, 352, 16),
 (8, 353, 6),
 (8, 354, 6),
@@ -23041,6 +23764,8 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (12, 357, 6672),
 (13, 357, 6669),
 (18, 357, 10521),
+(32, 357, 3),
+(33, 357, 3),
 (9, 358, 16),
 (9, 359, 10),
 (9, 360, 10),
@@ -23064,7 +23789,25 @@ INSERT INTO `ps_search_index` (`id_product`, `id_word`, `weight`) VALUES
 (18, 372, 35070),
 (18, 373, 56112),
 (18, 374, 35070),
-(18, 375, 35070);
+(18, 375, 35070),
+(3, 376, 6),
+(3, 377, 30),
+(3, 378, 30),
+(32, 379, 16),
+(32, 380, 16),
+(32, 381, 10),
+(32, 382, 10),
+(32, 383, 1),
+(32, 384, 16),
+(32, 385, 16),
+(32, 386, 10),
+(32, 387, 10),
+(33, 388, 6),
+(33, 389, 10),
+(33, 390, 20),
+(33, 391, 6),
+(33, 392, 10),
+(33, 393, 20);
 
 -- --------------------------------------------------------
 
@@ -23079,7 +23822,7 @@ CREATE TABLE IF NOT EXISTS `ps_search_word` (
   `word` varchar(15) NOT NULL,
   PRIMARY KEY (`id_word`),
   UNIQUE KEY `id_lang` (`id_lang`,`id_shop`,`word`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=376 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=394 ;
 
 --
 -- Volcado de datos para la tabla `ps_search_word`
@@ -23088,14 +23831,18 @@ CREATE TABLE IF NOT EXISTS `ps_search_word` (
 INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (360, 1, 1, '0261513215'),
 (365, 1, 1, '0261515454'),
+(381, 1, 1, '0261616161'),
 (366, 1, 1, '0265484684'),
 (294, 1, 1, '04040404'),
 (188, 1, 1, '100'),
 (330, 1, 1, '1000'),
 (359, 1, 1, '1515424688'),
+(382, 1, 1, '161513513513'),
 (280, 1, 1, '2002'),
 (25, 1, 1, '2010'),
+(389, 1, 1, '2030'),
 (348, 1, 1, '20302030'),
+(390, 1, 1, '3020'),
 (349, 1, 1, '30203020'),
 (328, 1, 1, '500'),
 (372, 1, 1, '5555555555'),
@@ -23108,6 +23855,7 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (339, 1, 1, '790040720309'),
 (341, 1, 1, '790040720310'),
 (343, 1, 1, '790040720311'),
+(377, 1, 1, '809080908090'),
 (68, 1, 1, 'ahora'),
 (234, 1, 1, 'ajustables'),
 (82, 1, 1, 'algodon'),
@@ -23115,6 +23863,7 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (241, 1, 1, 'amarillo'),
 (69, 1, 1, 'ampliado'),
 (47, 1, 1, 'armario'),
+(383, 1, 1, 'articulo'),
 (63, 1, 1, 'atencion'),
 (81, 1, 1, 'azul'),
 (216, 1, 1, 'beige'),
@@ -23141,7 +23890,9 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (278, 1, 1, 'cosecha'),
 (364, 1, 1, 'cuatro'),
 (236, 1, 1, 'debajo'),
+(388, 1, 1, 'dedolibar'),
 (237, 1, 1, 'del'),
+(376, 1, 1, 'delicado'),
 (295, 1, 1, 'descripcion'),
 (67, 1, 1, 'detalle'),
 (22, 1, 1, 'disenando'),
@@ -23208,6 +23959,7 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (260, 1, 1, 'pierna'),
 (244, 1, 1, 'poliester'),
 (41, 1, 1, 'porter'),
+(380, 1, 1, 'precios'),
 (31, 1, 1, 'prendas'),
 (347, 1, 1, 'presta'),
 (62, 1, 1, 'prestando'),
@@ -23215,6 +23967,7 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (346, 1, 1, 'producto'),
 (268, 1, 1, 'promocion'),
 (256, 1, 1, 'pronunciado'),
+(379, 1, 1, 'prueba'),
 (42, 1, 1, 'que'),
 (190, 1, 1, 'rayas'),
 (213, 1, 1, 'rectas'),
@@ -23247,12 +24000,16 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (74, 1, 1, 'zapatos'),
 (363, 1, 2, '0261513215'),
 (368, 1, 2, '0261515454'),
+(386, 1, 2, '0261616161'),
 (369, 1, 2, '0265484684'),
 (296, 1, 2, '04040404'),
 (201, 1, 2, '100'),
 (362, 1, 2, '1515424688'),
+(387, 1, 2, '161513513513'),
 (113, 1, 2, '2010'),
+(392, 1, 2, '2030'),
 (355, 1, 2, '20302030'),
+(393, 1, 2, '3020'),
 (356, 1, 2, '30203020'),
 (375, 1, 2, '5555555555'),
 (374, 1, 2, '6666666666'),
@@ -23263,6 +24020,7 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (340, 1, 2, '790040720309'),
 (342, 1, 2, '790040720310'),
 (344, 1, 2, '790040720311'),
+(378, 1, 2, '809080908090'),
 (159, 1, 2, 'accessories'),
 (99, 1, 2, 'accessorize'),
 (274, 1, 2, 'adjustable'),
@@ -23294,6 +24052,7 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (169, 1, 2, 'cotton'),
 (108, 1, 2, 'creating'),
 (367, 1, 2, 'cuatro'),
+(391, 1, 2, 'dedolibar'),
 (263, 1, 2, 'deep'),
 (119, 1, 2, 'delivering'),
 (110, 1, 2, 'designed'),
@@ -23355,9 +24114,11 @@ INSERT INTO `ps_search_word` (`id_word`, `id_shop`, `id_lang`, `word`) VALUES
 (149, 1, 2, 'pieces'),
 (229, 1, 2, 'pink'),
 (254, 1, 2, 'polyester'),
+(385, 1, 2, 'precios'),
 (354, 1, 2, 'presta'),
 (199, 1, 2, 'printed'),
 (353, 1, 2, 'producto'),
+(384, 1, 2, 'prueba'),
 (158, 1, 2, 'range'),
 (103, 1, 2, 'ready'),
 (137, 1, 2, 'result'),
@@ -23551,7 +24312,7 @@ CREATE TABLE IF NOT EXISTS `ps_specific_price` (
   KEY `from_quantity` (`from_quantity`),
   KEY `id_specific_price_rule` (`id_specific_price_rule`),
   KEY `id_cart` (`id_cart`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `ps_specific_price`
@@ -23559,7 +24320,12 @@ CREATE TABLE IF NOT EXISTS `ps_specific_price` (
 
 INSERT INTO `ps_specific_price` (`id_specific_price`, `id_specific_price_rule`, `id_cart`, `id_product`, `id_shop`, `id_shop_group`, `id_currency`, `id_country`, `id_group`, `id_customer`, `id_product_attribute`, `price`, `from_quantity`, `reduction`, `reduction_tax`, `reduction_type`, `from`, `to`) VALUES
 (1, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, '-1.000000', 1, '0.050000', 1, 'percentage', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, '-1.000000', 1, '0.200000', 1, 'percentage', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, '-1.000000', 1, '0.200000', 1, 'percentage', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, '-1.000000', 1, '13.455000', 1, 'amount', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, 1, 0, 2, 1, 0, 1, 0, 0, 0, 0, '-1.000000', 1, '13.455000', 1, 'amount', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, 1, 0, 3, 1, 0, 1, 0, 0, 0, 0, '-1.000000', 1, '13.455000', 1, 'amount', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, 1, 0, 4, 1, 0, 1, 0, 0, 0, 0, '-1.000000', 1, '13.455000', 1, 'amount', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, 1, 0, 5, 1, 0, 1, 0, 0, 0, 0, '-1.000000', 1, '13.455000', 1, 'amount', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -23573,7 +24339,7 @@ CREATE TABLE IF NOT EXISTS `ps_specific_price_priority` (
   `priority` varchar(80) NOT NULL,
   PRIMARY KEY (`id_specific_price_priority`,`id_product`),
   UNIQUE KEY `id_product` (`id_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
 
 --
 -- Volcado de datos para la tabla `ps_specific_price_priority`
@@ -23592,7 +24358,10 @@ INSERT INTO `ps_specific_price_priority` (`id_specific_price_priority`, `id_prod
 (21, 10, 'id_shop;id_currency;id_country;id_group'),
 (25, 28, 'id_shop;id_currency;id_country;id_group'),
 (45, 30, 'id_shop;id_currency;id_country;id_group'),
-(50, 31, 'id_shop;id_currency;id_country;id_group');
+(50, 31, 'id_shop;id_currency;id_country;id_group'),
+(51, 29, 'id_shop;id_currency;id_country;id_group'),
+(52, 32, 'id_shop;id_currency;id_country;id_group'),
+(69, 33, 'id_shop;id_currency;id_country;id_group');
 
 -- --------------------------------------------------------
 
@@ -23616,7 +24385,14 @@ CREATE TABLE IF NOT EXISTS `ps_specific_price_rule` (
   `to` datetime NOT NULL,
   PRIMARY KEY (`id_specific_price_rule`),
   KEY `id_product` (`id_shop`,`id_currency`,`id_country`,`id_group`,`from_quantity`,`from`,`to`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `ps_specific_price_rule`
+--
+
+INSERT INTO `ps_specific_price_rule` (`id_specific_price_rule`, `name`, `id_shop`, `id_currency`, `id_country`, `id_group`, `from_quantity`, `price`, `reduction`, `reduction_tax`, `reduction_type`, `from`, `to`) VALUES
+(1, 'Test de descuentos', 1, 1, 0, 0, 1, '-1.000000', '13.455000', 1, 'amount', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -23631,7 +24407,14 @@ CREATE TABLE IF NOT EXISTS `ps_specific_price_rule_condition` (
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id_specific_price_rule_condition`),
   KEY `id_specific_price_rule_condition_group` (`id_specific_price_rule_condition_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `ps_specific_price_rule_condition`
+--
+
+INSERT INTO `ps_specific_price_rule_condition` (`id_specific_price_rule_condition`, `id_specific_price_rule_condition_group`, `type`, `value`) VALUES
+(2, 2, 'category', '12');
 
 -- --------------------------------------------------------
 
@@ -23643,7 +24426,14 @@ CREATE TABLE IF NOT EXISTS `ps_specific_price_rule_condition_group` (
   `id_specific_price_rule_condition_group` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_specific_price_rule` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id_specific_price_rule_condition_group`,`id_specific_price_rule`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `ps_specific_price_rule_condition_group`
+--
+
+INSERT INTO `ps_specific_price_rule_condition_group` (`id_specific_price_rule_condition_group`, `id_specific_price_rule`) VALUES
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -24043,39 +24833,39 @@ CREATE TABLE IF NOT EXISTS `ps_stock_available` (
   KEY `id_shop_group` (`id_shop_group`),
   KEY `id_product` (`id_product`),
   KEY `id_product_attribute` (`id_product_attribute`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
 
 --
 -- Volcado de datos para la tabla `ps_stock_available`
 --
 
 INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_product_attribute`, `id_shop`, `id_shop_group`, `quantity`, `depends_on_stock`, `out_of_stock`) VALUES
-(1, 1, 0, 1, 0, 1797, 0, 2),
-(2, 2, 0, 1, 0, 1799, 0, 2),
-(3, 3, 0, 1, 0, 899, 0, 2),
-(4, 4, 0, 1, 0, 899, 0, 2),
-(5, 5, 0, 1, 0, 3597, 0, 2),
+(1, 1, 0, 1, 0, 1788, 0, 2),
+(2, 2, 0, 1, 0, 1791, 0, 2),
+(3, 3, 0, 1, 0, 874, 0, 2),
+(4, 4, 0, 1, 0, 895, 0, 2),
+(5, 5, 0, 1, 0, 3596, 0, 2),
 (6, 6, 0, 1, 0, 898, 0, 2),
-(7, 7, 0, 1, 0, 1797, 0, 2),
-(8, 1, 1, 1, 0, 297, 0, 2),
+(7, 7, 0, 1, 0, 1796, 0, 2),
+(8, 1, 1, 1, 0, 288, 0, 2),
 (9, 1, 2, 1, 0, 300, 0, 2),
 (10, 1, 3, 1, 0, 300, 0, 2),
 (11, 1, 4, 1, 0, 300, 0, 2),
 (12, 1, 5, 1, 0, 300, 0, 2),
 (13, 1, 6, 1, 0, 300, 0, 2),
-(14, 2, 7, 1, 0, 299, 0, 2),
+(14, 2, 7, 1, 0, 291, 0, 2),
 (15, 2, 8, 1, 0, 300, 0, 2),
 (16, 2, 9, 1, 0, 300, 0, 2),
 (17, 2, 10, 1, 0, 300, 0, 2),
 (18, 2, 11, 1, 0, 300, 0, 2),
 (19, 2, 12, 1, 0, 300, 0, 2),
-(20, 3, 13, 1, 0, 299, 0, 2),
+(20, 3, 13, 1, 0, 274, 0, 2),
 (21, 3, 14, 1, 0, 300, 0, 2),
 (22, 3, 15, 1, 0, 300, 0, 2),
-(23, 4, 16, 1, 0, 299, 0, 2),
+(23, 4, 16, 1, 0, 295, 0, 2),
 (24, 4, 17, 1, 0, 300, 0, 2),
 (25, 4, 18, 1, 0, 300, 0, 2),
-(26, 5, 19, 1, 0, 297, 0, 2),
+(26, 5, 19, 1, 0, 296, 0, 2),
 (27, 5, 20, 1, 0, 300, 0, 2),
 (28, 5, 21, 1, 0, 300, 0, 2),
 (29, 5, 22, 1, 0, 300, 0, 2),
@@ -24090,7 +24880,7 @@ INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_produc
 (38, 6, 31, 1, 0, 298, 0, 2),
 (39, 6, 32, 1, 0, 300, 0, 2),
 (40, 6, 33, 1, 0, 300, 0, 2),
-(41, 7, 34, 1, 0, 297, 0, 2),
+(41, 7, 34, 1, 0, 296, 0, 2),
 (42, 7, 35, 1, 0, 300, 0, 2),
 (43, 7, 36, 1, 0, 300, 0, 2),
 (44, 7, 37, 1, 0, 300, 0, 2),
@@ -24106,7 +24896,8 @@ INSERT INTO `ps_stock_available` (`id_stock_available`, `id_product`, `id_produc
 (54, 9, 0, 1, 0, 0, 0, 2),
 (55, 12, 0, 1, 0, 0, 0, 2),
 (56, 13, 0, 1, 0, 0, 0, 2),
-(57, 18, 0, 1, 0, 0, 0, 2);
+(57, 18, 0, 1, 0, 0, 0, 2),
+(58, 32, 0, 1, 0, 0, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -26228,7 +27019,7 @@ CREATE TABLE IF NOT EXISTS `tms_clientes_sin` (
   `id_ps_address` int(11) NOT NULL,
   `id_llx_societe` int(11) NOT NULL,
   PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=94 ;
 
 --
 -- Volcado de datos para la tabla `tms_clientes_sin`
@@ -26307,7 +27098,9 @@ INSERT INTO `tms_clientes_sin` (`id_cliente`, `id_ps_customer`, `id_ps_address`,
 (88, 0, 0, 0),
 (89, 99, 0, 216),
 (90, 0, 83, 0),
-(91, 100, 84, 217);
+(91, 100, 84, 217),
+(92, 101, 0, 218),
+(93, 102, 88, 219);
 
 -- --------------------------------------------------------
 
@@ -26339,7 +27132,7 @@ CREATE TABLE IF NOT EXISTS `tms_direccion_sin` (
   `id_ps_address` int(11) NOT NULL,
   `id_llx_socpeople` int(11) NOT NULL,
   PRIMARY KEY (`id_direccion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Volcado de datos para la tabla `tms_direccion_sin`
@@ -26364,7 +27157,34 @@ INSERT INTO `tms_direccion_sin` (`id_direccion`, `id_ps_address`, `id_llx_socpeo
 (16, 76, 30),
 (17, 77, 31),
 (18, 78, 32),
-(19, 81, 33);
+(19, 81, 33),
+(20, 0, 34),
+(21, 0, 35),
+(22, 0, 36),
+(23, 0, 37),
+(24, 86, 38),
+(25, 87, 39);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tms_estados_log`
+--
+
+CREATE TABLE IF NOT EXISTS `tms_estados_log` (
+  `id_estado` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_estado`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `tms_estados_log`
+--
+
+INSERT INTO `tms_estados_log` (`id_estado`, `estado`) VALUES
+(1, 'Nuevo'),
+(2, 'Cerrado'),
+(3, 'En espera');
 
 -- --------------------------------------------------------
 
@@ -26386,6 +27206,7 @@ CREATE TABLE IF NOT EXISTS `tms_log_clientes` (
   `city` varchar(64) DEFAULT NULL,
   `phone` varchar(32) DEFAULT NULL,
   `secure_key` varchar(32) NOT NULL,
+  `is_client` tinyint(4) NOT NULL,
   `id_state` int(11) DEFAULT NULL,
   `id_country` int(11) DEFAULT NULL,
   `active` tinyint(4) DEFAULT NULL,
@@ -26394,35 +27215,42 @@ CREATE TABLE IF NOT EXISTS `tms_log_clientes` (
   `action` varchar(16) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
 
 --
 -- Volcado de datos para la tabla `tms_log_clientes`
 --
 
-INSERT INTO `tms_log_clientes` (`id_log`, `id_row`, `id_sin`, `nombre`, `email`, `website`, `note`, `cuil`, `address`, `postcode`, `city`, `phone`, `secure_key`, `id_state`, `id_country`, `active`, `date_upd`, `system`, `action`, `id_estado`) VALUES
-(2, 96, 212, 'aaaass', 'aaaapresta@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-21 11:33:24', 'prestashop', 'update', 1),
-(5, 96, 212, 'aaaa', 'aaaapresta@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-21 11:34:24', 'prestashop', 'update', 1),
-(8, 211, 95, 'aaadigoa presta', 'aaazzjb@presta.com', NULL, '', '', 'cuarentaiocho 5050', 'A5500', 'Mendoza', '4396721', '', NULL, NULL, 1, '2015-05-21 11:05:29', 'dolibar', 'update', 1),
-(11, 211, 95, 'aaadigoa presta', 'aaazzjb@presta.com', NULL, '', '', 'cuarentaiocho 4050', 'A5500', 'Mendoza', '4396721', '', NULL, NULL, 1, '2015-05-21 11:05:29', 'dolibar', 'update', 1),
-(14, 213, -1, 'aaaa doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '6ee076e7dbc91b0e8e3c14c990a766fa', NULL, NULL, 1, '2015-05-22 17:40:19', 'dolibar', 'insert', 1),
-(16, 214, -1, 'abab doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4db76e7838294d3ac08c3969f660faf0', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'insert', 1),
-(17, 214, -1, 'abab doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
-(20, 214, -1, 'abay doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
-(22, 214, -1, 'abat doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
-(24, 214, -1, 'abauu doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
-(26, 214, -1, 'abapapu doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
-(28, 214, -1, 'abapapu doli', 'abab@doli.com', NULL, NULL, '', 'Nueva direccion', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
-(31, 215, -1, 'dire doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '01c67b1acc1f800b4f704d2f952cc724', NULL, NULL, 1, '2015-05-22 17:50:12', 'dolibar', 'insert', 1),
-(32, 215, -1, 'dire doli', 'dire@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:50:12', 'dolibar', 'update', 1),
-(35, 215, -1, 'dire doli', 'dire@doli.com', NULL, NULL, '', 'Costanera', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:50:12', 'dolibar', 'update', 1),
-(37, 216, -1, 'diredos presta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'a6499cea83cdcbd0929196174ba4cb52', NULL, NULL, 1, '2015-05-22 17:51:54', 'dolibar', 'insert', 1),
-(38, 216, -1, 'diredos presta', 'diredos@presta.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:51:54', 'dolibar', 'update', 1),
-(41, 216, -1, 'diredos presta', 'diredos@presta.com', NULL, NULL, '', 'costanera', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:51:54', 'dolibar', 'update', 1),
-(43, 217, -1, 'diretres presta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', NULL, NULL, 1, '2015-05-22 17:55:35', 'dolibar', 'insert', 1),
-(44, 217, -1, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', '', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:55:35', 'dolibar', 'update', 1),
-(47, 217, -1, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', 'Nueva direccion', NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-22 17:55:35', 'dolibar', 'update', 1),
-(48, 100, 217, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', NULL, NULL, 1, '2015-05-26 11:45:16', 'prestashop', 'update', 1);
+INSERT INTO `tms_log_clientes` (`id_log`, `id_row`, `id_sin`, `nombre`, `email`, `website`, `note`, `cuil`, `address`, `postcode`, `city`, `phone`, `secure_key`, `is_client`, `id_state`, `id_country`, `active`, `date_upd`, `system`, `action`, `id_estado`) VALUES
+(2, 96, 212, 'aaaass', 'aaaapresta@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-21 11:33:24', 'prestashop', 'update', 1),
+(5, 96, 212, 'aaaa', 'aaaapresta@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-21 11:34:24', 'prestashop', 'update', 1),
+(8, 211, 95, 'aaadigoa presta', 'aaazzjb@presta.com', NULL, '', '', 'cuarentaiocho 5050', 'A5500', 'Mendoza', '4396721', '', 0, NULL, NULL, 1, '2015-05-21 11:05:29', 'dolibar', 'update', 1),
+(11, 211, 95, 'aaadigoa presta', 'aaazzjb@presta.com', NULL, '', '', 'cuarentaiocho 4050', 'A5500', 'Mendoza', '4396721', '', 0, NULL, NULL, 1, '2015-05-21 11:05:29', 'dolibar', 'update', 1),
+(14, 213, -1, 'aaaa doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '6ee076e7dbc91b0e8e3c14c990a766fa', 0, NULL, NULL, 1, '2015-05-22 17:40:19', 'dolibar', 'insert', 1),
+(16, 214, -1, 'abab doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4db76e7838294d3ac08c3969f660faf0', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'insert', 1),
+(17, 214, -1, 'abab doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
+(20, 214, -1, 'abay doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
+(22, 214, -1, 'abat doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
+(24, 214, -1, 'abauu doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
+(26, 214, -1, 'abapapu doli', 'abab@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
+(28, 214, -1, 'abapapu doli', 'abab@doli.com', NULL, NULL, '', 'Nueva direccion', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:42:08', 'dolibar', 'update', 1),
+(31, 215, -1, 'dire doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '01c67b1acc1f800b4f704d2f952cc724', 0, NULL, NULL, 1, '2015-05-22 17:50:12', 'dolibar', 'insert', 1),
+(32, 215, -1, 'dire doli', 'dire@doli.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:50:12', 'dolibar', 'update', 1),
+(35, 215, -1, 'dire doli', 'dire@doli.com', NULL, NULL, '', 'Costanera', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:50:12', 'dolibar', 'update', 1),
+(37, 216, -1, 'diredos presta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'a6499cea83cdcbd0929196174ba4cb52', 0, NULL, NULL, 1, '2015-05-22 17:51:54', 'dolibar', 'insert', 1),
+(38, 216, -1, 'diredos presta', 'diredos@presta.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:51:54', 'dolibar', 'update', 1),
+(41, 216, -1, 'diredos presta', 'diredos@presta.com', NULL, NULL, '', 'costanera', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:51:54', 'dolibar', 'update', 1),
+(43, 217, -1, 'diretres presta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'b6ca9e2f5b0104a34e7ce6ae74537ac3', 0, NULL, NULL, 1, '2015-05-22 17:55:35', 'dolibar', 'insert', 1),
+(44, 217, -1, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:55:35', 'dolibar', 'update', 1),
+(47, 217, -1, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', 'Nueva direccion', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-22 17:55:35', 'dolibar', 'update', 1),
+(48, 100, 217, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-26 11:45:16', 'prestashop', 'update', 1),
+(49, 100, 217, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-27 12:32:57', 'prestashop', 'update', 1),
+(50, 100, 217, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-27 12:33:03', 'prestashop', 'update', 1),
+(53, 218, -1, 'Proveedor uno doli', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'd313768703cbdef9380234e1d0dc7001', 0, NULL, NULL, 1, '2015-05-28 14:48:13', 'dolibar', 'insert', 1),
+(54, 218, -1, 'Proveedor uno doli', NULL, NULL, NULL, '', '', NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-28 14:48:13', 'dolibar', 'update', 1),
+(57, 100, 217, 'diretres presta', 'diretres@presta.com', NULL, NULL, '', NULL, NULL, NULL, NULL, '', 0, NULL, NULL, 1, '2015-05-28 12:02:54', 'prestashop', 'update', 1),
+(59, 219, -1, 'cliente prueba', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4cb4f0cc4f7eab521c67fa9e5400e9f1', 0, NULL, NULL, 1, '2015-06-04 14:25:41', 'dolibar', 'insert', 1),
+(60, 219, -1, 'cliente prueba', 'cliente@doli.com', NULL, NULL, '', 'Vistalba', 'A 5550', 'Luján de Cuyo', NULL, '', 1, NULL, NULL, 1, '2015-06-04 14:25:41', 'dolibar', 'update', 1);
 
 --
 -- Disparadores `tms_log_clientes`
@@ -26464,25 +27292,74 @@ CREATE TABLE IF NOT EXISTS `tms_log_direccion` (
   `city` varchar(255) DEFAULT NULL,
   `phone` varchar(32) DEFAULT NULL,
   `phone_mobile` varchar(32) DEFAULT NULL,
+  `id_country` int(11) NOT NULL,
+  `id_state` int(11) NOT NULL,
   `date_add` datetime DEFAULT NULL,
+  `date_upd` datetime NOT NULL,
   `alias` varchar(128) DEFAULT NULL,
   `active` tinyint(4) DEFAULT NULL,
   `system` varchar(16) DEFAULT NULL,
   `action` varchar(16) DEFAULT NULL,
   `id_estado` tinyint(61) DEFAULT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=115 ;
 
 --
 -- Volcado de datos para la tabla `tms_log_direccion`
 --
 
-INSERT INTO `tms_log_direccion` (`id_log`, `id_row`, `id_sin`, `id_cliente`, `firstname`, `lastname`, `address`, `postcode`, `city`, `phone`, `phone_mobile`, `date_add`, `alias`, `active`, `system`, `action`, `id_estado`) VALUES
-(1, 82, 0, 96, 'aaaa', 'presta', 'A verte', 'A5500', 'Mendoza', '4396721', '02615132824', '2015-05-21 11:06:38', 'asdf', 1, 'prestashop', 'update', 1),
-(2, 82, 0, 96, 'aaaa', 'presta', 'A vertes', 'A5500', 'Mendoza', '4396721', '02615132824', '2015-05-21 11:06:38', 'asdf', 1, 'prestashop', 'update', 1),
-(3, 82, 0, 96, 'aaaa', 'presta', 'A verte', 'A5500', 'Mendoza', '4396721', '02615132824', '2015-05-21 11:06:38', 'asdf', 1, 'prestashop', 'update', 1),
-(4, 80, 0, 95, 'aaazz presta', 'presta', 'cuarentaiocho 5050', 'A5500', 'Mendoza', '4396721', '02615132824', '2015-05-21 10:50:41', 'asdf', 1, 'prestashop', 'update', 1),
-(5, 80, 0, 95, 'aaazz presta', 'presta', 'cuarentaiocho 4050', 'A5500', 'Mendoza', '4396721', '02615132824', '2015-05-21 10:50:41', 'asdf', 1, 'prestashop', 'update', 1);
+INSERT INTO `tms_log_direccion` (`id_log`, `id_row`, `id_sin`, `id_cliente`, `firstname`, `lastname`, `address`, `postcode`, `city`, `phone`, `phone_mobile`, `id_country`, `id_state`, `date_add`, `date_upd`, `alias`, `active`, `system`, `action`, `id_estado`) VALUES
+(1, 82, 0, 96, 'aaaa', 'presta', 'A verte', 'A5500', 'Mendoza', '4396721', '02615132824', 0, 0, '2015-05-21 11:06:38', '0000-00-00 00:00:00', 'asdf', 1, 'prestashop', 'update', 1),
+(2, 82, 0, 96, 'aaaa', 'presta', 'A vertes', 'A5500', 'Mendoza', '4396721', '02615132824', 0, 0, '2015-05-21 11:06:38', '0000-00-00 00:00:00', 'asdf', 1, 'prestashop', 'update', 1),
+(3, 82, 0, 96, 'aaaa', 'presta', 'A verte', 'A5500', 'Mendoza', '4396721', '02615132824', 0, 0, '2015-05-21 11:06:38', '0000-00-00 00:00:00', 'asdf', 1, 'prestashop', 'update', 1),
+(4, 80, 0, 95, 'aaazz presta', 'presta', 'cuarentaiocho 5050', 'A5500', 'Mendoza', '4396721', '02615132824', 0, 0, '2015-05-21 10:50:41', '0000-00-00 00:00:00', 'asdf', 1, 'prestashop', 'update', 1),
+(5, 80, 0, 95, 'aaazz presta', 'presta', 'cuarentaiocho 4050', 'A5500', 'Mendoza', '4396721', '02615132824', 0, 0, '2015-05-21 10:50:41', '0000-00-00 00:00:00', 'asdf', 1, 'prestashop', 'update', 1),
+(7, 34, 0, 199, 'Test', 'Prueba', NULL, NULL, NULL, NULL, NULL, 0, 0, '2015-05-29 17:21:37', '0000-00-00 00:00:00', NULL, 1, 'dolibar', 'insert', 1),
+(16, 80, 0, 95, 'aaazz presta', 'presta', 'cuarentaiocho 4050', 'A5500', 'Mendoza', '4396721', '02615132824', 0, 0, '2015-05-21 10:50:41', '0000-00-00 00:00:00', 'asdf', 1, 'prestashop', 'update', 1),
+(17, 35, 0, 213, 'DIego', 'Nieto', NULL, NULL, NULL, NULL, NULL, 0, 0, '2015-06-03 21:29:17', '0000-00-00 00:00:00', NULL, 1, 'dolibar', 'insert', 1),
+(25, 13, 0, 105, 'TMS', 'Apellido', 'direccion 123', 'A5501', 'Mendoza', '666', '0261-5132824', 0, 0, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(26, 13, 0, 105, 'TMS', 'Apellido', 'direccion 1238', 'A5501', 'Mendoza', '666', '0261-5132824', 0, 0, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(27, 13, 0, 105, 'TMS', 'Apellido', 'direccion 123', 'A5501', 'Mendoza', '666', '0261-5132824', 23, 596, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(28, 13, 0, 105, 'TMS', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '666', '0261-5132824', 23, 596, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(29, 13, 0, 105, 'TMS', 'Apellido', 'direccion 1234', 'A5501', 'Mendoza', '666', '0261-5132824', 23, 596, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(30, 13, 0, 105, 'TMS', 'Apellido', 'direccion 1231', 'A5501', 'Mendoza', '666', '0261-5132824', 23, 596, '2015-05-15 16:44:17', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(31, 14, 0, 134, 'Nombre', 'Apellido', 'direccion', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 595, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(32, 14, 0, 134, 'Nombre', 'Apellido', 'direccion', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 595, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(33, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1234', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 595, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(35, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 595, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(37, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 600, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(39, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 595, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(41, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 67, 649, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(43, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(46, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(49, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(52, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(54, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(56, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(58, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(60, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(62, 14, 0, 134, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', 'tel trabajo', '0261-5132824', 23, 604, NULL, '2015-05-15 16:57:34', 'Puesto funcion', 1, 'dolibar', 'update', 1),
+(66, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 109, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(68, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 102, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(70, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 100, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(72, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 111, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(74, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 112, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(76, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 109, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(78, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 42, 109, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(80, 39, 14, 36, 'Nombre', 'Apellido', 'direccion 1235', 'A5501', 'Mendoza', '02616', '0261-5132824', 44, 117, '2015-05-15 16:57:34', '0000-00-00 00:00:00', 'Puesto funcion', 1, 'prestashop', 'update', 1),
+(82, 36, 0, 217, 'Nombre', 'Apellido', NULL, NULL, NULL, NULL, NULL, 0, 0, '2015-06-04 14:07:00', '2015-06-04 14:07:00', NULL, 1, 'dolibar', 'insert', 1),
+(85, 37, 0, 217, 'DIego', 'Nieto', NULL, NULL, NULL, NULL, NULL, 0, 0, '2015-06-04 14:09:14', '2015-06-04 14:09:14', NULL, 1, 'dolibar', 'insert', 1),
+(88, 38, 0, 217, 'Finca', 'Nieto', NULL, NULL, NULL, NULL, NULL, 0, 0, '2015-06-04 14:10:28', '2015-06-04 14:10:28', NULL, 1, 'dolibar', 'insert', 1),
+(89, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 597, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(90, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 597, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(94, 87, 38, 100, 'Finca', 'Nieto', '-', '', '', '', '', 0, 0, '2015-06-04 14:10:28', '0000-00-00 00:00:00', '-', 1, 'prestashop', 'insert', 1),
+(96, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 595, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(103, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 596, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(105, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 610, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(107, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 597, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(109, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 597, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(111, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 23, 597, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1),
+(113, 38, 0, 217, 'Finca', 'Nieto', 'Vistalba', 'A 5550', 'Luján de Cuyo', '', '', 201, 597, NULL, '2015-06-04 14:10:28', '', 1, 'dolibar', 'update', 1);
 
 --
 -- Disparadores `tms_log_direccion`
@@ -26509,6 +27386,36 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tms_log_errores`
+--
+
+CREATE TABLE IF NOT EXISTS `tms_log_errores` (
+  `id_log` int(11) NOT NULL AUTO_INCREMENT,
+  `error` varchar(255) NOT NULL,
+  `date_add` datetime NOT NULL,
+  `date_upd` datetime NOT NULL,
+  `id_estado` int(11) NOT NULL,
+  `comentario` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_log`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `tms_log_errores`
+--
+
+INSERT INTO `tms_log_errores` (`id_log`, `error`, `date_add`, `date_upd`, `id_estado`, `comentario`) VALUES
+(1, 'No hay se ha encotrado id_llx_societe = 145 , en la tabla tms_clientes_sin cuando se actualizó clientes en dolibar', '2015-06-04 17:20:01', '0000-00-00 00:00:00', 0, ''),
+(2, 'No hay se ha encotrado id_llx_product = 20 , en la tabla tms_productos_sin cuando se actualizó productos en dolibar', '2015-06-04 17:29:20', '2015-06-04 17:29:20', 1, ''),
+(3, 'No hay se ha encotrado id_llx_socpeople = 40 , en la tabla tms_direccion_sin cuando se actualizó direcciones en dolibar', '2015-06-04 17:18:37', '2015-06-04 17:18:37', 1, ''),
+(4, 'No hay se ha encotrado id_llx_socpeople = 40 , en la tabla tms_direccion_sin cuando se actualizó direcciones en dolibar', '2015-06-04 17:18:37', '2015-06-04 17:18:37', 1, ''),
+(5, 'No hay se ha encotrado id_llx_socpeople = 35 , en la tabla tms_direccion_sin cuando se actualizó direcciones en dolibar', '2015-06-04 17:49:37', '2015-06-04 17:49:37', 1, ''),
+(6, 'No hay se ha encotrado id_llx_socpeople = 36 , en la tabla tms_direccion_sin cuando se actualizó direcciones en dolibar', '2015-06-04 17:28:38', '2015-06-04 17:28:38', 1, ''),
+(7, 'La consulta " SELECT id_state FROM `ps_state` WHERE name = `Tucamán` " no encontró registros"', '2015-06-04 17:44:44', '2015-06-04 17:44:44', 1, ''),
+(8, 'La consulta " SELECT id_state FROM `ps_state` WHERE name = `Tucamán` " no encontró registros"', '2015-06-04 17:28:47', '2015-06-04 17:28:47', 1, '');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tms_log_pedidos`
 --
 
@@ -26524,14 +27431,49 @@ CREATE TABLE IF NOT EXISTS `tms_log_pedidos` (
   `action` varchar(16) NOT NULL,
   `id_estado` int(11) NOT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Volcado de datos para la tabla `tms_log_pedidos`
 --
 
 INSERT INTO `tms_log_pedidos` (`id_log`, `id_row`, `id_sin`, `id_cliente`, `reference`, `date_upd`, `total_paid`, `system`, `action`, `id_estado`) VALUES
-(1, 9, 0, 39, 'UGIOKSYBK', '2015-05-13 15:06:10', '418.430000', 'prestashop', 'insert', 1);
+(1, 9, 0, 39, 'UGIOKSYBK', '2015-05-13 15:06:10', '418.430000', 'prestashop', 'insert', 1),
+(2, 13, 0, 100, 'GEIHCDOGY', '2015-05-27 12:33:58', '324.770000', 'prestashop', 'insert', 1),
+(3, 13, 0, 100, 'GEIHCDOGY', '2015-05-27 12:33:58', '324.770000', 'prestashop', 'update', 1),
+(4, 13, 0, 100, 'GEIHCDOGY', '2015-05-27 12:33:58', '324.770000', 'prestashop', 'update', 1),
+(5, 14, 0, 100, 'UABUOCMAE', '2015-05-27 12:42:31', '369.050000', 'prestashop', 'insert', 1),
+(6, 14, 0, 100, 'UABUOCMAE', '2015-05-27 12:42:31', '369.050000', 'prestashop', 'update', 1),
+(7, 14, 0, 100, 'UABUOCMAE', '2015-05-27 12:42:31', '369.050000', 'prestashop', 'update', 1),
+(8, 15, 0, 100, 'SJNJKJKJM', '2015-05-27 12:48:35', '369.050000', 'prestashop', 'insert', 1),
+(9, 15, 0, 100, 'SJNJKJKJM', '2015-05-27 12:48:35', '369.050000', 'prestashop', 'update', 1),
+(10, 15, 0, 100, 'SJNJKJKJM', '2015-05-27 12:48:35', '369.050000', 'prestashop', 'update', 1),
+(11, 16, 0, 100, 'KOWSTYITW', '2015-05-27 13:14:00', '369.050000', 'prestashop', 'insert', 1),
+(12, 16, 0, 100, 'KOWSTYITW', '2015-05-27 13:14:00', '369.050000', 'prestashop', 'update', 1),
+(13, 16, 0, 100, 'KOWSTYITW', '2015-05-27 13:14:00', '369.050000', 'prestashop', 'update', 1),
+(14, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'insert', 1),
+(15, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(16, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(17, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(18, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(19, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(20, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(21, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(22, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(23, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(24, 17, 0, 100, 'OKBNMDZRP', '2015-05-27 13:16:21', '369.050000', 'prestashop', 'update', 1),
+(25, 18, 0, 100, 'ENUTFSBCY', '2015-05-28 09:35:29', '1191.450000', 'prestashop', 'insert', 1),
+(26, 18, 0, 100, 'ENUTFSBCY', '2015-05-28 09:35:29', '1191.450000', 'prestashop', 'update', 1),
+(27, 18, 0, 100, 'ENUTFSBCY', '2015-05-28 09:35:29', '1191.450000', 'prestashop', 'update', 1),
+(28, 19, 0, 100, 'IIUHVWFVP', '2015-05-28 11:31:08', '297.820000', 'prestashop', 'insert', 1),
+(29, 19, 0, 100, 'IIUHVWFVP', '2015-05-28 11:31:08', '297.820000', 'prestashop', 'update', 1),
+(30, 19, 0, 100, 'IIUHVWFVP', '2015-05-28 11:31:08', '297.820000', 'prestashop', 'update', 1),
+(31, 20, 0, 100, 'JBUVERGJX', '2015-05-28 12:26:11', '306.740000', 'prestashop', 'insert', 1),
+(32, 20, 0, 100, 'JBUVERGJX', '2015-05-28 12:26:11', '306.740000', 'prestashop', 'update', 1),
+(33, 20, 0, 100, 'JBUVERGJX', '2015-05-28 12:26:11', '306.740000', 'prestashop', 'update', 1),
+(34, 21, 0, 100, 'LVXQJUHAV', '2015-05-28 13:27:13', '110.240000', 'prestashop', 'insert', 0),
+(35, 21, 0, 100, 'LVXQJUHAV', '2015-05-28 13:27:13', '110.240000', 'prestashop', 'update', 0),
+(36, 21, 0, 100, 'LVXQJUHAV', '2015-05-28 13:27:13', '110.240000', 'prestashop', 'update', 0);
 
 --
 -- Disparadores `tms_log_pedidos`
@@ -26567,14 +27509,77 @@ CREATE TABLE IF NOT EXISTS `tms_log_pedidos_detalle` (
   `id_sin` int(11) NOT NULL,
   `id_order` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_quantity` int(11) NOT NULL,
   `product_name` varchar(255) DEFAULT NULL,
+  `product_quantity` int(11) NOT NULL,
   `product_price` decimal(20,6) NOT NULL,
+  `unit_price_tax_excl` decimal(20,6) NOT NULL,
+  `unit_price_tax_incl` decimal(20,6) NOT NULL,
+  `total_price_tax_incl` decimal(20,6) NOT NULL,
+  `total_price_tax_excl` decimal(20,6) NOT NULL,
+  `purchase_supplier_price` decimal(20,6) NOT NULL,
+  `id_tax_rules_group` int(11) NOT NULL,
+  `reduction_percent` decimal(10,2) NOT NULL,
+  `reduction_amount` decimal(20,6) NOT NULL,
+  `reduction_amount_tax_incl` decimal(20,6) NOT NULL,
+  `reduction_amount_tax_excl` decimal(20,6) NOT NULL,
   `system` varchar(16) NOT NULL,
   `action` varchar(16) NOT NULL,
   `id_estado` int(11) NOT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+
+--
+-- Volcado de datos para la tabla `tms_log_pedidos_detalle`
+--
+
+INSERT INTO `tms_log_pedidos_detalle` (`id_log`, `id_row`, `id_sin`, `id_order`, `product_id`, `product_name`, `product_quantity`, `product_price`, `unit_price_tax_excl`, `unit_price_tax_incl`, `total_price_tax_incl`, `total_price_tax_excl`, `purchase_supplier_price`, `id_tax_rules_group`, `reduction_percent`, `reduction_amount`, `reduction_amount_tax_incl`, `reduction_amount_tax_excl`, `system`, `action`, `id_estado`) VALUES
+(1, 26, 0, 13, 7, 'Vino Chardonnay - Capacidad : 500 ml, Etiqueta : Amarillo', 1, '20.501236', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(2, 27, 0, 13, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(3, 28, 0, 14, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(4, 29, 0, 14, 2, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, '26.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(5, 30, 0, 14, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(6, 31, 0, 15, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(7, 32, 0, 15, 2, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, '26.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(8, 33, 0, 15, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(9, 34, 0, 16, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(10, 35, 0, 16, 2, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, '26.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(11, 36, 0, 16, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(12, 37, 0, 17, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(13, 38, 0, 17, 2, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, '26.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(14, 39, 0, 17, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(15, 40, 0, 18, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 3, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(16, 41, 0, 18, 2, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 3, '26.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(17, 42, 0, 18, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 3, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(18, 43, 0, 18, 4, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', 3, '50.994153', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(19, 44, 0, 19, 1, 'Pack de vinos promoción - Capacidad : 500 ml, Etiqueta : Naranja', 1, '250.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(20, 45, 0, 19, 5, 'Pack de vinos exportación - Capacidad : 500 ml, Etiqueta : Amarillo', 1, '30.506321', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(21, 46, 0, 19, 4, 'Vino Cabernet  Sauvignon - Capacidad : 500 ml, Etiqueta : Beige', 1, '50.994153', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(22, 47, 0, 19, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 1, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(23, 48, 0, 19, 2, 'Vino Malbec - Capacidad : 500 ml, Etiqueta : Negro', 1, '26.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(24, 49, 0, 20, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 11, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 1),
+(25, 50, 0, 21, 3, 'Cosecha 2002 - Capacidad : 500 ml, Etiqueta : Naranja', 6, '25.999852', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', 0, '0.00', '0.000000', '0.000000', '0.000000', 'prestashop', 'insert', 0);
+
+--
+-- Disparadores `tms_log_pedidos_detalle`
+--
+DROP TRIGGER IF EXISTS `tms_log_pedidos_detalle_AINS`;
+DELIMITER //
+CREATE TRIGGER `tms_log_pedidos_detalle_AINS` AFTER INSERT ON `tms_log_pedidos_detalle`
+ FOR EACH ROW BEGIN 
+	DECLARE cantidad INT;
+
+	IF (NEW.system =  'dolibar') THEN
+		SET cantidad = (SELECT `pedidos_detalle_dolibar` FROM `tms_mod_pedidos` WHERE `id_row` = 1);
+		SET cantidad = cantidad + 1 ;
+		UPDATE `tms_mod_pedidos` SET `pedidos_detalle_dolibar` = cantidad  WHERE `id_row` = 1 ; 
+	ELSE 
+		SET cantidad = (SELECT `pedidos_detalle_prestashop` FROM `tms_mod_pedidos` WHERE `id_row` = 1);
+		SET cantidad = cantidad + 1 ;
+		UPDATE `tms_mod_pedidos` SET `pedidos_detalle_prestashop` = cantidad  WHERE `id_row` = 1 ; 
+	END IF;
+END
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -26590,7 +27595,9 @@ CREATE TABLE IF NOT EXISTS `tms_log_productos` (
   `name` varchar(128) DEFAULT NULL,
   `description_short` text,
   `price` decimal(20,6) DEFAULT NULL,
+  `price_ttc` decimal(20,6) NOT NULL,
   `price_min` decimal(20,6) DEFAULT NULL,
+  `price_min_ttc` decimal(20,6) NOT NULL,
   `code_sell` varchar(32) DEFAULT NULL,
   `code_buy` varchar(32) DEFAULT NULL,
   `barcode` varchar(32) DEFAULT NULL,
@@ -26599,116 +27606,277 @@ CREATE TABLE IF NOT EXISTS `tms_log_productos` (
   `height` decimal(20,6) DEFAULT NULL,
   `depth` decimal(20,6) DEFAULT NULL,
   `active` tinyint(4) DEFAULT NULL,
-  `tva` int(11) DEFAULT NULL,
+  `tva` double DEFAULT NULL,
   `date_upd` datetime DEFAULT NULL,
   `system` varchar(16) NOT NULL,
   `action` varchar(16) NOT NULL,
   `id_estado` int(11) NOT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=184 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=557 ;
 
 --
 -- Volcado de datos para la tabla `tms_log_productos`
 --
 
-INSERT INTO `tms_log_productos` (`id_log`, `id_row`, `id_sin`, `ref`, `name`, `description_short`, `price`, `price_min`, `code_sell`, `code_buy`, `barcode`, `weight`, `width`, `height`, `depth`, `active`, `tva`, `date_upd`, `system`, `action`, `id_estado`) VALUES
-(1, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(13, 28, 0, 'ccc_producto', 'cccD producto', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(15, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(16, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(17, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(18, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(23, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(24, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(25, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(26, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(31, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(32, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(33, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(34, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(35, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(36, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(41, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(42, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(43, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(44, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(45, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(46, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(51, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(52, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(53, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(54, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(59, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(60, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(61, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(62, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(67, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(68, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(69, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(70, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(75, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '20.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(76, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '20.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(77, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '20.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(78, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '20.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(83, 29, 0, 'molotov', 'molotov', NULL, '100.000000', '80.000000', '2030', '3010', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-05-22 14:09:50', 'dolibar', 'insert', 1),
-(86, 30, 0, 'abab_producto', 'abab producto', NULL, '100.000000', '80.000000', '2030', '3010', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-05-22 15:25:58', 'dolibar', 'insert', 1),
-(89, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(90, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(91, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(92, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(93, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(94, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(95, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(96, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(97, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(98, 30, 0, 'abab_producto', 'ababa producto', 'abab producto', '100.000000', '80.000000', '2030', '3010', NULL, '10.000000', '20.000000', '30.000000', '40.000000', 1, 21, '2015-05-22 15:25:58', 'dolibar', 'update', 1),
-(99, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(100, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(101, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(102, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(103, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(104, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(105, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(106, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(107, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(108, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(109, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(110, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(115, 30, 0, 'abab_producto', 'ababa producto', '', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(117, 31, 0, 'dire_doli', 'dire doli', NULL, '0.000000', '0.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-05-22 17:57:40', 'dolibar', 'insert', 1),
-(120, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(121, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(122, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(123, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(124, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(130, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(132, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(133, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(134, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(135, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(136, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(142, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(144, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(146, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(147, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(148, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(149, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(154, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(155, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(156, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(157, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(162, 31, 0, 'dire_doli', 'Nuevo producto presta', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(164, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(165, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(166, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(167, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
-(172, 31, 0, 'dire_doli', 'Fuera de ventas', '', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(174, 31, 0, 'dire_doli', 'Fuera de ventas', '', '100.000000', '80.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(176, 31, 0, 'dire_doli', 'Fuera de ventas', '', '666.000000', '555.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(178, 31, 0, 'dire_doli', 'Fuera de ventas', '', '6666.000000', '5555.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(180, 31, 0, 'dire_doli', 'Fuera de ventas', '', '666.000000', '555.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(182, 31, 0, 'dire_doli', 'Fuera de ventas', '', '666.000000', '555.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
-(183, 31, 0, 'dire_doli', 'Fuera de ventasa', '', '666.000000', '555.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '0000-00-00 00:00:00', 'dolibar', 'update', 1);
+INSERT INTO `tms_log_productos` (`id_log`, `id_row`, `id_sin`, `ref`, `name`, `description_short`, `price`, `price_ttc`, `price_min`, `price_min_ttc`, `code_sell`, `code_buy`, `barcode`, `weight`, `width`, `height`, `depth`, `active`, `tva`, `date_upd`, `system`, `action`, `id_estado`) VALUES
+(1, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(13, 28, 0, 'ccc_producto', 'cccD producto', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(15, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(16, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(17, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(18, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(23, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(24, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(25, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(26, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(31, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(32, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(33, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(34, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(35, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(36, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(41, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(42, 28, 0, 'ccc_producto', 'Diego', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(43, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(44, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(45, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(46, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(51, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(52, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(53, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(54, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(59, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(60, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(61, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(62, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(67, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(68, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(69, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(70, 28, 0, 'ccc_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(75, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(76, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(77, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(78, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(83, 29, 0, 'molotov', 'molotov', NULL, '100.000000', '0.000000', '80.000000', '0.000000', '2030', '3010', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-05-22 14:09:50', 'dolibar', 'insert', 1),
+(86, 30, 0, 'abab_producto', 'abab producto', NULL, '100.000000', '0.000000', '80.000000', '0.000000', '2030', '3010', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-05-22 15:25:58', 'dolibar', 'insert', 1),
+(89, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(90, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(91, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(92, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(93, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(94, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(95, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(96, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(97, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(98, 30, 0, 'abab_producto', 'ababa producto', 'abab producto', '100.000000', '0.000000', '80.000000', '0.000000', '2030', '3010', NULL, '10.000000', '20.000000', '30.000000', '40.000000', 1, 21, '2015-05-22 15:25:58', 'dolibar', 'update', 1),
+(99, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(100, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(101, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(102, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(103, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(104, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(105, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(106, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(107, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(108, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(109, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(110, 30, 0, 'abab_producto', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(115, 30, 0, 'abab_producto', 'ababa producto', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(117, 31, 0, 'dire_doli', 'dire doli', NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-05-22 17:57:40', 'dolibar', 'insert', 1),
+(120, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(121, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(122, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(123, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(124, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(130, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(132, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(133, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(134, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(135, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(136, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(142, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(144, 31, 0, 'dire_doli', 'diro doli', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(146, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(147, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(148, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(149, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(154, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(155, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(156, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(157, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(162, 31, 0, 'dire_doli', 'Nuevo producto presta', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(164, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(165, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(166, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(167, 31, 0, 'dire_doli', NULL, NULL, '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(172, 31, 0, 'dire_doli', 'Fuera de ventas', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(174, 31, 0, 'dire_doli', 'Fuera de ventas', '', '100.000000', '0.000000', '80.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(176, 31, 0, 'dire_doli', 'Fuera de ventas', '', '666.000000', '0.000000', '555.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(178, 31, 0, 'dire_doli', 'Fuera de ventas', '', '6666.000000', '0.000000', '5555.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(180, 31, 0, 'dire_doli', 'Fuera de ventas', '', '666.000000', '0.000000', '555.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 0, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(182, 31, 0, 'dire_doli', 'Fuera de ventas', '', '666.000000', '0.000000', '555.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(183, 31, 0, 'dire_doli', 'Fuera de ventasa', '', '666.000000', '0.000000', '555.000000', '0.000000', '', '', NULL, '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '0000-00-00 00:00:00', 'dolibar', 'update', 1),
+(232, 26, 0, 'aaa_producto', 'aaa producto', 'aaa producto', '120.000000', '0.000000', '80.000000', '0.000000', '2030', '3010', NULL, '10.000000', '20.000000', '30.000000', '40.000000', 1, 21, '2015-05-21 17:25:52', 'dolibar', 'update', 1),
+(234, 26, 0, 'aaa_producto', 'aaa producto', 'aaa producto', '120.000000', '0.000000', '90.000000', '0.000000', '2030', '3010', NULL, '10.000000', '20.000000', '30.000000', '40.000000', 1, 21, '2015-05-21 17:25:52', 'dolibar', 'update', 1),
+(237, 26, 0, 'aaa_producto', 'aaa producto', 'aaa producto', '99.173550', '0.000000', '74.380170', '0.000000', '2030', '3010', NULL, '10.000000', '20.000000', '30.000000', '40.000000', 1, 21, '2015-05-21 17:25:52', 'dolibar', 'update', 1),
+(238, 29, 0, 'molotov', NULL, NULL, '300.000000', '0.000000', '300.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(239, 29, 0, 'molotov', NULL, NULL, '300.000000', '0.000000', '300.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(240, 29, 0, 'molotov', NULL, NULL, '300.000000', '0.000000', '300.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(241, 29, 0, 'molotov', NULL, NULL, '300.000000', '0.000000', '300.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(242, 29, 0, 'molotov', NULL, NULL, '300.000000', '0.000000', '300.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(249, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'insert', 1),
+(250, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(251, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(252, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '20.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(257, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '0.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(258, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(259, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(260, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(261, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(262, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(263, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(271, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(272, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(273, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(274, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(275, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(276, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(277, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(278, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(279, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(280, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(281, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(282, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(295, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(296, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(297, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(298, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(299, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(300, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(307, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(309, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(310, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(311, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(312, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(313, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(314, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '7.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(315, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(323, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(325, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(327, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(329, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '8.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 21, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(331, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(332, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(333, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(334, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(335, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(336, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(343, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(344, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(345, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(346, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(347, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(348, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(349, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(350, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(359, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(360, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(361, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(362, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(363, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(364, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(365, 32, 0, 'prueba_precios', 'prueba_precios', '<p>Descripción del articulo</p>', '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'dolibar', 'update', 1),
+(373, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(374, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(375, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(376, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(377, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(378, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '5.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(385, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(386, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(387, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(388, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(389, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(390, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '4.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(397, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '22.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(398, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '22.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(399, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '22.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(400, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '22.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(401, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '22.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(402, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '22.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(409, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '21.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(410, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '21.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(411, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '21.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(412, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '21.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(413, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '21.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(414, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '21.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(421, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '19.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(422, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '19.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(423, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '19.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(424, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '19.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(425, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '19.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(426, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '19.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(433, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '18.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(434, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '18.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(435, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '18.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(436, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '18.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(437, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '18.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(438, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '18.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(445, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '17.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(446, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '17.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(447, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '17.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(448, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '17.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(449, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '17.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(450, 32, 0, 'prueba_precios', NULL, NULL, '20.000000', '0.000000', '17.000000', '0.000000', '161513513513', '161513513513', '161513513513', '0.000000', '0.000000', '0.000000', '0.000000', 1, 1, '2015-06-04 12:59:13', 'prestashop', 'update', 1),
+(457, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '11.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(458, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '11.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(459, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '11.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(460, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '11.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(465, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '12.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(466, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '12.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(467, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '12.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(468, 28, 0, 'ccc_producto', NULL, NULL, '20.000000', '0.000000', '12.000000', '0.000000', '', '', '', '0.000000', '0.000000', '0.000000', '0.000000', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(473, 33, 0, '2030', 'deDolibar', NULL, '200.000000', '0.000000', '150.000000', '0.000000', '2030', '2030', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-06-05 17:35:45', 'dolibar', 'insert', 1),
+(476, 33, 0, '2030', 'deDolibar', '', '210.000000', '0.000000', '140.000000', '0.000000', '2030', '2030', NULL, '10.000000', '30.000000', '20.000000', '40.000000', 1, 21, '2015-06-05 17:35:45', 'dolibar', 'update', 1),
+(478, 33, 0, '2030', NULL, NULL, '210.000000', '0.000000', '140.000000', '0.000000', '', '', '', '10.000000', '30.000000', '0.666667', '60.000000', 1, 21, '2015-06-05 17:35:45', 'prestashop', 'update', 1);
+INSERT INTO `tms_log_productos` (`id_log`, `id_row`, `id_sin`, `ref`, `name`, `description_short`, `price`, `price_ttc`, `price_min`, `price_min_ttc`, `code_sell`, `code_buy`, `barcode`, `weight`, `width`, `height`, `depth`, `active`, `tva`, `date_upd`, `system`, `action`, `id_estado`) VALUES
+(480, 33, 0, '2030', 'deDolibar', '', '220.000000', '266.200000', '150.000000', '181.500000', '', '', '', '10.000000', '30.000000', '20.000010', '1200.000610', 1, 21, '2015-06-05 17:35:45', 'dolibar', 'update', 1),
+(482, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '', '', '', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 2, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(483, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '', '', '', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 2, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(484, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '', '', '', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 2, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(485, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '', '', '', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 2, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(486, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '', '', '', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 2, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(487, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(488, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(489, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(490, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 0, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(491, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(492, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(493, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(494, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(495, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(496, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(497, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(498, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(499, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(500, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(501, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(502, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(503, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(504, 33, 0, '2030', NULL, NULL, '220.000000', '0.000000', '150.000000', '0.000000', '3020', '3020', '3020', '10.000000', '30.000000', '0.666667', '1800.000015', 1, 1, '0000-00-00 00:00:00', 'prestashop', 'update', 1),
+(528, 34, 0, 'deDolibar2', 'deDolibar2', NULL, '100.000000', '121.000000', '80.000000', '96.800000', '', '', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-06-05 18:13:30', 'dolibar', 'insert', 1),
+(530, 35, 0, 'deDolibar3', 'deDolibar3', NULL, '120.000000', '145.200000', '90.000000', '108.900000', '', '', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-06-05 18:14:52', 'dolibar', 'insert', 1),
+(533, 36, 0, 'deDolibar4', 'deDolibar4', NULL, '120.000000', '145.200000', '90.000000', '108.900000', '', '', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-06-05 18:17:03', 'dolibar', 'insert', 1),
+(536, 37, 0, 'deDolibar5', 'deDolibar5', NULL, '90.000000', '108.900000', '120.000000', '145.200000', '', '', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2015-06-05 18:18:31', 'dolibar', 'insert', 1),
+(539, 37, 0, 'deDolibar5', 'deDolibar5', '', '120.000000', '145.200000', '90.000000', '108.900000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 21, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(541, 37, 0, 'deDolibar5', 'deDolibar5', '', '99.173550', '120.000000', '74.380170', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 21, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(543, 37, 0, 'deDolibar5', 'deDolibar5', '', '108.597290', '120.000000', '81.447960', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 10, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(545, 37, 0, 'deDolibar5', 'deDolibar5', '', '99.173550', '120.000000', '74.380170', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 21, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(547, 37, 0, 'deDolibar5', 'deDolibar5', '', '99.173550', '120.000000', '74.380170', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 21, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(549, 37, 0, 'deDolibar5', 'deDolibar5', '', '108.597290', '120.000000', '81.447960', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 10.5, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(551, 37, 0, 'deDolibar5', 'deDolibar5', '', '120.000000', '145.200000', '90.000000', '108.900000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 21, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(553, 37, 0, 'deDolibar5', 'deDolibar5', '', '99.173550', '120.000000', '74.380170', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 21, '2015-06-05 18:18:31', 'dolibar', 'update', 1),
+(555, 37, 0, 'deDolibar5', 'deDolibar5', '', '108.597290', '120.000000', '81.447960', '90.000000', '', '', NULL, NULL, NULL, NULL, NULL, 1, 10.5, '2015-06-05 18:18:31', 'dolibar', 'update', 1);
 
 --
 -- Disparadores `tms_log_productos`
@@ -26764,6 +27932,8 @@ CREATE TABLE IF NOT EXISTS `tms_mod_pedidos` (
   `id_row` int(11) NOT NULL AUTO_INCREMENT,
   `pedidos_dolibar` int(11) NOT NULL,
   `pedidos_prestashop` int(11) NOT NULL,
+  `pedidos_detalle_dolibar` int(11) NOT NULL,
+  `pedidos_detalle_prestashop` int(11) NOT NULL,
   PRIMARY KEY (`id_row`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -26771,8 +27941,8 @@ CREATE TABLE IF NOT EXISTS `tms_mod_pedidos` (
 -- Volcado de datos para la tabla `tms_mod_pedidos`
 --
 
-INSERT INTO `tms_mod_pedidos` (`id_row`, `pedidos_dolibar`, `pedidos_prestashop`) VALUES
-(1, 0, 0);
+INSERT INTO `tms_mod_pedidos` (`id_row`, `pedidos_dolibar`, `pedidos_prestashop`, `pedidos_detalle_dolibar`, `pedidos_detalle_prestashop`) VALUES
+(1, 0, 3, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -26805,7 +27975,37 @@ CREATE TABLE IF NOT EXISTS `tms_pedidos_detalle_sin` (
   `id_ps_order_detail` int(11) NOT NULL,
   `id_llx_commandedet` int(11) NOT NULL,
   PRIMARY KEY (`id_detalle`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+
+--
+-- Volcado de datos para la tabla `tms_pedidos_detalle_sin`
+--
+
+INSERT INTO `tms_pedidos_detalle_sin` (`id_detalle`, `id_ps_order_detail`, `id_llx_commandedet`) VALUES
+(1, 26, 0),
+(2, 27, 0),
+(3, 28, 0),
+(4, 29, 0),
+(5, 30, 0),
+(6, 31, 4),
+(7, 32, 5),
+(8, 33, 6),
+(9, 34, 7),
+(10, 35, 8),
+(11, 36, 9),
+(12, 37, 10),
+(13, 38, 11),
+(14, 39, 12),
+(15, 40, 13),
+(16, 41, 14),
+(17, 42, 15),
+(18, 43, 16),
+(19, 44, 22),
+(20, 45, 23),
+(21, 46, 24),
+(22, 47, 25),
+(23, 48, 26),
+(24, 49, 27);
 
 -- --------------------------------------------------------
 
@@ -26818,7 +28018,7 @@ CREATE TABLE IF NOT EXISTS `tms_pedidos_sin` (
   `id_ps_orders` int(11) NOT NULL,
   `id_llx_commande` int(11) NOT NULL,
   PRIMARY KEY (`id_pedido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `tms_pedidos_sin`
@@ -26826,7 +28026,15 @@ CREATE TABLE IF NOT EXISTS `tms_pedidos_sin` (
 
 INSERT INTO `tms_pedidos_sin` (`id_pedido`, `id_ps_orders`, `id_llx_commande`) VALUES
 (1, 9, 0),
-(2, 9, 6);
+(2, 9, 6),
+(3, 13, 7),
+(4, 14, 9),
+(5, 15, 10),
+(6, 16, 11),
+(7, 17, 12),
+(8, 18, 13),
+(9, 19, 16),
+(10, 20, 17);
 
 -- --------------------------------------------------------
 
@@ -26839,7 +28047,7 @@ CREATE TABLE IF NOT EXISTS `tms_productos_sin` (
   `id_ps_product` int(11) NOT NULL,
   `id_llx_product` int(11) NOT NULL,
   PRIMARY KEY (`id_producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Volcado de datos para la tabla `tms_productos_sin`
@@ -26856,7 +28064,13 @@ INSERT INTO `tms_productos_sin` (`id_producto`, `id_ps_product`, `id_llx_product
 (8, 28, 28),
 (9, 29, 29),
 (10, 30, 30),
-(11, 31, 31);
+(11, 31, 31),
+(12, 32, 32),
+(13, 33, 33),
+(14, 0, 34),
+(15, 34, 35),
+(16, 35, 36),
+(17, 36, 37);
 
 -- --------------------------------------------------------
 
