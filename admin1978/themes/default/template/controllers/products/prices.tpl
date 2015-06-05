@@ -271,7 +271,7 @@ $(document).ready(function () {
 		<button type="submit" name="submitAddproductAndStay" class="btn btn-default pull-right" disabled="disabled"><i class="process-icon-loading"></i> {l s='Save and stay'}</button>
 	</div>
 </div>
-{if isset($specificPriceModificationForm) && 1 == 2} 
+{if isset($specificPriceModificationForm) } 
 <div class="panel">
 	<h3>{l s='Specific prices'}</h3>
 	<div class="alert alert-info">
@@ -279,9 +279,11 @@ $(document).ready(function () {
 	</div>
 	<div class="form-group">
 		<div class="col-lg-12">
+			<!--
 			<a class="btn btn-default" href="#" id="show_specific_price">
 				<i class="icon-plus-sign"></i> {l s='Add a new specific price'}
 			</a>
+			-->
 			<a class="btn btn-default" href="#" id="hide_specific_price" style="display:none">
 				<i class="icon-remove text-danger"></i> {l s='Cancel new specific price'}
 			</a>

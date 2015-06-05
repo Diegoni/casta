@@ -151,14 +151,31 @@ class Actualizar_productos extends Actualizar
 							$this->insert_registro($this->table_lag, $registro);
 						}
 						
-						// 3 - Hacemos insert de los precios del producto en la tabla ps_product_shop
+						// 3 - Buscamos el impuesto correspondiente
+						
+						$where = '`rate` = '.$objp->tva;
+						$array_tax = $this->get_registros('ps_tax', $where);
+						
+						if(is_array($array_tax))
+						{
+							$id_tax = $array_tax['id_tax'];
+						}
+						else
+						{
+							log_error('cero_sql', $where);
+							$id_tax = 1;	
+						}
+						
+						// 4 - Hacemos insert de los precios del producto en la tabla ps_product_shop
 						
 						$registro = array(
 							'id_product' 			=> $id_registro,
 							'id_shop' 				=> 1,
-							'id_category_default'	=> 1,
+							'id_category_default'	=> $id_tax,
 							'id_tax_rules_group'	=> 1,
 							'active'				=> 0,
+							'price'					=> "'".$objp->price."'",
+							'wholesale_price'		=> "'".$objp->price_min."'",
 							'redirect_type'			=> "'404'"
 						);
 						
@@ -238,25 +255,12 @@ class Actualizar_productos extends Actualizar
 							
 							if(is_array($array_precios)) // Si no es array significa que no se han ingresa nunca un cambio 
 							{
-								echo "entro en array<br>";
 								if(
 									$array_precios['price'] == $array_shop['price'] && 
 									$array_precios['price_min'] == $array_shop['wholesale_price'])
 								{
-									echo "entro en precios iguales<br>";
 									$bandera = 1;
 								}
-								else
-								{
-									echo $array_precios['price']." == ".$array_shop['price']; 
-									echo $array_precios['price_min']." == ".$array_shop['wholesale_price'];
-									
-									echo "Los precios no son iguales<br>";
-								}
-							}
-							else
-							{
-								echo "No es array<br>";
 							}
 							
 							if($bandera == 0)
@@ -283,8 +287,6 @@ class Actualizar_productos extends Actualizar
 								
 								$this->insert_registro($this->table_dol_price, $registro);
 							}
-							
-							
 							
 							$this->update_log($objp->id_log);
 						}
@@ -344,13 +346,28 @@ class Actualizar_productos extends Actualizar
 							
 							$this->update_registro($this->table_lag, $registro, $where);
 							
-							// 3 - Update precios, tabla ps_product_shop
+							// 3 - Buscamos el impuesto correspondiente
+						
+							$where = '`rate` = '.$objp->tva;
+							$array_tax = $this->get_registros('ps_tax', $where);
+							
+							if(is_array($array_tax))
+							{
+								$id_tax = $array_tax['id_tax'];
+							}
+							else
+							{
+								log_error('cero_sql', $where);
+								$id_tax = 1;	
+							}
+							
+							// 4 - Update precios, tabla ps_product_shop
 							
 							$registro = array(
 								'id_product' 			=> $id_registro,
 								'id_shop' 				=> 1,
 								'id_category_default'	=> 2,
-								'id_tax_rules_group'	=> 1,
+								'id_tax_rules_group'	=> $id_tax,
 								'active'				=> 0,
 								'redirect_type'			=> "'404'",
 								'price'					=> "'".$objp->price."'",
