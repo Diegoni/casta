@@ -12,8 +12,15 @@ class Actualizar extends CommonObject
 	var $system_prestashop	= 'prestashop';
 	
 	// ambientes
-	var $environment		= 'development';
-	//var $environment		= 'production';
+	var $environment	= 'development';
+	//var $environment	= 'production';
+	
+	// tabla 
+	var $table_error	= 'tms_log_errores';
+	var $table_pais_dol	= 'llx_c_country';
+	var $table_pais_pre	= 'ps_country';
+	var $table_dep_dol	= 'llx_c_departements';
+	var $table_dep_pre	= 'ps_state';
 		
 	function __construct(
 		$db, 
@@ -310,6 +317,133 @@ class Actualizar extends CommonObject
 		return $id_return;
 						
 	}
+
+	/*----------------------------------------------------------------
+	------------------------------------------------------------------
+	
+	 		Funcion para sincronizar paises
+	 
+	------------------------------------------------------------------
+	----------------------------------------------------------------*/
+	
+	function getID_direccion($id, $system, $state)
+	{
+		if($system == $this->system_dolibar && $id == 23 && $state == 'country')
+		{
+			return 44;
+		}
+		else
+		if($system == $this->system_prestashop && $id == 44 && $state == 'country')
+		{
+			return 23;
+		}
+		else
+		{
+			if($state == 'country')
+			{
+				if($system == $this->system_dolibar)
+				{
+					$datos = array(
+						'table_bus'			=> $this->table_pais_dol,
+						'table_return'		=> $this->table_pais_pre,
+						'cadena_busqueda'	=> 'code',
+						'id_busqueda'		=> 'rowid',
+						'cadena_comparacion'=> 'iso_code',
+						'id_return'			=> 'id_country',
+						'return'			=> 44		//id de Argentina, en caso de no encontrarlo va como default
+					);
+				}
+				else
+				if($system == $this->system_prestashop)
+				{
+					$datos = array(
+						'table_bus'			=> $this->table_pais_pre,
+						'table_return'		=> $this->table_pais_dol,
+						'cadena_busqueda'	=> 'iso_code',
+						'id_busqueda'		=> 'id_country',
+						'cadena_comparacion'=> 'code',
+						'id_return'			=> 'rowid',
+						'return'			=> 23		//id de Argentina, en caso de no encontrarlo va como default
+					);
+				}
+			}	
+			else
+			if($state == 'state')
+			{
+				if($system == $this->system_dolibar)
+				{
+					$datos = array(
+						'table_bus'			=> $this->table_dep_dol,
+						'table_return'		=> $this->table_dep_pre,
+						'cadena_busqueda'	=> 'nom',
+						'id_busqueda'		=> 'rowid',
+						'cadena_comparacion'=> 'name',
+						'id_return'			=> 'id_state',
+						'return'			=> 111		//id de Mendoza, en caso de no encontrarlo va como default
+					);
+				}
+				else
+				if($system == $this->system_prestashop )
+				{
+					$datos = array(
+						'table_bus'			=> $this->table_dep_pre,
+						'table_return'		=> $this->table_dep_dol,
+						'cadena_busqueda'	=> 'name',
+						'id_busqueda'		=> 'id_state',
+						'cadena_comparacion'=> 'nom',
+						'id_return'			=> 'rowid',
+						'return'			=> 23		//id de Mendoza, en caso de no encontrarlo va como default
+					);
+				}
+			}
+							
+			// 01 - Buscamos cadena de comparacion  	
+				
+			$sql = "SELECT $datos[cadena_busqueda] FROM `$datos[table_bus]` WHERE $datos[id_busqueda] = $id";	
+			
+			$this->view_sql($sql);
+				
+			$resql_code = $this->db->query($sql);
+			
+			$numr_code = $this->db->num_rows($resql_code);
+				
+			if($numr_code > 0)
+			{
+				$objp_code = $this->db->fetch_array($resql_code);
+				
+				$cadena = $objp_code[$datos['cadena_busqueda']];
+				
+				// 02 - Buscamos en la otra tabla la cadena 
+				
+				$sql = "SELECT $datos[id_return] FROM `$datos[table_return]` WHERE $datos[cadena_comparacion] = '$cadena'";
+				
+				$this->view_sql($sql);
+							
+				$resql_country = $this->db->query($sql);
+				
+				$numr_country = $this->db->num_rows($resql_country);
+					
+				if($numr_country > 0)
+				{
+					$objp_country = $this->db->fetch_array($resql_country);
+					
+					$datos['return'] = $objp_country[$datos['id_return']];
+				}
+				else
+				{
+					$this->log_error('cero_sql', $sql);
+				}
+			}
+			else
+			{
+				$this->log_error('cero_sql', $sql);
+			}
+				
+	
+			return $datos['return'];		
+		}		
+	}
+	
 	
 	/*----------------------------------------------------------------
 	------------------------------------------------------------------
@@ -329,6 +463,60 @@ class Actualizar extends CommonObject
 		{
 			$sql = "DELETE FROM `$table` WHERE `id_estado` = 0";	
 		}
+		
+		$this->view_sql($sql);	
+			
+		$this->db->query($sql);	
+	}
+	
+	/*----------------------------------------------------------------
+	------------------------------------------------------------------
+	
+	 		Funcion para insert de errores
+	 
+	------------------------------------------------------------------
+	----------------------------------------------------------------*/
+	
+	function log_error($error, $objp = NULL)
+	{
+		$date = date('Y/m/d H:s:i');
+		
+		if($error == 'no_sin')
+		{
+			if($objp->system == $this->system_prestashop)
+			{
+				$campo = $this->id_sin_pre;
+			}
+			else
+			{
+				$campo = $this->id_sin_dol;
+			}
+			
+			$error = 'No hay se ha encotrado '.$campo.' = '.$objp->id_row;
+			$error .= ' , en la tabla '.$this->table_sin;
+			$error .= ' cuando se actualizó '.$this->subject.' en '.$objp->system;
+		}
+		else
+		if($error == 'cero_sql')
+		{
+			$objp = str_replace("'", "`", $objp);
+			$objp = str_replace('"', '`', $objp);
+			$error = 'La consulta " '.$objp.' " no encontró registros"';
+		}
+		
+		
+		$sql = 
+		"INSERT INTO `$this->table_error`(
+			error,
+			date_add,
+			date_upd,
+			id_estado
+		)VALUES	(
+			'$error',
+			'$date',
+			'$date',
+			1
+		);";
 		
 		$this->view_sql($sql);	
 			
@@ -364,7 +552,7 @@ class Actualizar extends CommonObject
 	/*----------------------------------------------------------------
 	------------------------------------------------------------------
 	
-	 		Funcion para insertar la sincronización
+	 		Funcion para ver las consultas a base de datos
 	 
 	------------------------------------------------------------------
 	----------------------------------------------------------------*/

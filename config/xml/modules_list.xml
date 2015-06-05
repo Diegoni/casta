@@ -156,7 +156,9 @@
 		<module name="moneybookers"/>
 		<module name="netreviews"/>
 		<module name="nostotagging"/>
+		<module name="nimblepayment"/>
 		<module name="ogone"/>
+		<module name="olark"/>
 		<module name="pagseguro"/>
 		<module name="paymentsense"/>
 		<module name="paypal"/>
@@ -168,6 +170,7 @@
 		<module name="powatag"/>
 		<module name="prestashippingeasy"/>
 		<module name="prestastats"/>
+		<module name="protectedshops"/>
 		<module name="psphipay"/>
 		<module name="realexredirect"/>
 		<module name="reforestaction"/>
@@ -186,6 +189,7 @@
 		<module name="tntcarrier"/>
 		<module name="trustly"/>
 		<module name="trustpilot"/>
+		<module name="trustedshops"/>
 		<module name="vtpayment"/>
 		<module name="yotpo"/>
 		<module name="yousticeresolutionsystem"/>

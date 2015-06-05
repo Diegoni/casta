@@ -138,6 +138,10 @@ class Actualizar_pedidos extends Actualizar
 							
 							$this->update_log($objp->id_log);
 						}
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						} 	
 					}
 								
 		/*----------------------------------------------------------------
@@ -164,7 +168,10 @@ class Actualizar_pedidos extends Actualizar
 							
 							$this->update_log($objp->id_log);
 						}
-		
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						} 	
 					}
 				}							
 				 

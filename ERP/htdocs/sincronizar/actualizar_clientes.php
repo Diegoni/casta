@@ -20,6 +20,7 @@ class Actualizar_clientes extends Actualizar
 	
 	// tablas en base de datos para DIRECCIONES
 	var $table_dir_pre	= 'ps_address';
+	
 	var $table_log_dir	= 'tms_log_direccion'; //Guarda los cambios direcciones
 	
 	// campos en tablas
@@ -115,9 +116,12 @@ class Actualizar_clientes extends Actualizar
 						{
 							$ciudad = 'Mendoza'; //Mejorar esta parte
 							
+							$id_country = $this->getID_direccion($objp->id_country, $this->system_prestashop, 'country');
+							$id_state	= $this->getID_direccion($objp->id_state, $this->system_prestashop, 'state');
+									
 							$registro = array(
-								'id_country'	=> 44,
-								'id_state'		=> 111,
+								'id_country'	=> $id_country,
+								'id_state'		=> $id_state,
 								'id_customer'	=> $id_registro, 
 								'address1'		=> "'".$objp->address."'",
 								'postcode'		=> "'".$objp->postcode."'",
@@ -158,14 +162,14 @@ class Actualizar_clientes extends Actualizar
 						if($id_registro != 0)
 						{
 							$registro = array(
-								'email' 	=> "'".$objp->email."'",
-								'url' 		=> "'".$objp->website."'",
-								'note_private' => "'".$objp->note."'",
-								'siren' 	=> "'".$objp->cuil."'",
-								'nom'		=> "'".$objp->nombre."'",
-								'datec' 	=> "'".$objp->date_upd."'",
-								'status' 	=> $objp->active,
-								'id_sin' 	=> $objp->id_row
+								'email' 		=> "'".$objp->email."'",
+								'url' 			=> "'".$objp->website."'",
+								'note_private'	=> "'".$objp->note."'",
+								'siren' 		=> "'".$objp->cuil."'",
+								'nom'			=> "'".$objp->nombre."'",
+								'datec' 		=> "'".$objp->date_upd."'",
+								'status' 		=> $objp->active,
+								'id_sin' 		=> $objp->id_row
 							);
 							
 							$where = $this->id_table_dol." = ".$id_registro;
@@ -174,7 +178,10 @@ class Actualizar_clientes extends Actualizar
 							
 							$this->update_log($objp->id_log);
 						}
-						 
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						} 
 					}
 								
 		/*----------------------------------------------------------------
@@ -188,69 +195,89 @@ class Actualizar_clientes extends Actualizar
 						
 						if(is_array($id_registro))
 						{
-							$registro = array(
-								'email' 	=> "'".$objp->email."'",
-								'website' 	=> "'".$objp->website."'",
-								'note' 		=> "'".$objp->note."'",
-								'cuil' 		=> "'".$objp->cuil."'",
-								'firstname' => "'".$objp->nombre."'",
-								'date_upd' 	=> "'".$objp->date_upd."'",
-								'active' 	=> $objp->active,
-								'id_sin' 	=> $objp->id_row
-							);
-							
-							$where = $this->id_table_pre." = ".$id_registro[$this->id_sin_pre];
-							
-							$this->update_registro($this->table_pre, $registro, $where);
-							
-							if($objp->address != NULL)
-							{	
-								if($id_registro[$this->id_sin_dir_pre] == 0)
-								{
-									$ciudad = 'Mendoza'; //Mejorar esta parte
-									
-									$registro = array(
-										'id_country'	=> 44,
-										'id_state'		=> 111,
-										'id_customer'	=> $id_registro[$this->id_sin_pre],
-										'address1'		=> "'".$objp->address."'",
-										'postcode'		=> "'".$objp->postcode."'",
-										'city'			=> "'".$ciudad."'",
-										'phone'			=> "'".$objp->phone."'",
-										'date_add'		=> "'".$objp->date_upd."'",
-										'date_upd'		=> "'".$objp->date_upd."'",
-										'active'		=> 1,
-										'deleted'		=> 0
-									);
+							if($objp->is_client == 1) // Controlamos que lo que se modifico fue un cliente
+							{
+								$registro = array(
+									'email' 	=> "'".$objp->email."'",
+									'website' 	=> "'".$objp->website."'",
+									'note' 		=> "'".$objp->note."'",
+									'cuil' 		=> "'".$objp->cuil."'",
+									'firstname' => "'".$objp->nombre."'",
+									'date_upd' 	=> "'".$objp->date_upd."'",
+									'active' 	=> $objp->active,
+									'id_sin' 	=> $objp->id_row
+								);
 								
-									$id_address = $this->insert_registro($this->table_dir_pre, $registro);
-									
-									$registro = array(
-										$this->id_sin_dir_pre => $id_address
-									);
-									
-									$where = $this->id_sin_dol." = ".$objp->id_row; 
+								$where = $this->id_table_pre." = ".$id_registro[$this->id_sin_pre];
+								
+								$this->update_registro($this->table_pre, $registro, $where);
+								
+								if($objp->address != NULL)
+								{	
+									if($id_registro[$this->id_sin_dir_pre] == 0)
+									{
+										$ciudad = 'Mendoza'; //Mejorar esta parte
 										
-									$this->update_registro($this->table_sin, $registro, $where);		
-								}
-								else
-								{
-									$registro = array(
-										'address1'	=> "'".$objp->address."'",
-										'postcode'	=> "'".$objp->postcode."'",
-										'city'		=> "'".$objp->city."'",
-										'phone'		=> "'".$objp->phone."'",
-										'id_sin'	=> "'".$objp->id_cliente."'"
-									);
+										$id_country = $this->getID_direccion($objp->id_country, $this->system_prestashop, 'country');
+										$id_state	= $this->getID_direccion($objp->id_state, $this->system_prestashop, 'state');
+										
+										$registro = array(
+											'id_country'	=> $id_country,
+											'id_state'		=> $id_state,
+											'id_customer'	=> $id_registro[$this->id_sin_pre],
+											'address1'		=> "'".$objp->address."'",
+											'postcode'		=> "'".$objp->postcode."'",
+											'city'			=> "'".$ciudad."'",
+											'phone'			=> "'".$objp->phone."'",
+											'date_add'		=> "'".$objp->date_upd."'",
+											'date_upd'		=> "'".$objp->date_upd."'",
+											'active'		=> 1,
+											'deleted'		=> 0
+										);
 									
-									$where = "id_address = ".$id_registro['id_ps_address'];
-									
-									$this->update_registro($this->table_dir_pre, $registro, $where);
+										$id_address = $this->insert_registro($this->table_dir_pre, $registro);
+										
+										$registro = array(
+											$this->id_sin_dir_pre => $id_address
+										);
+										
+										$where = $this->id_sin_dol." = ".$objp->id_row; 
+											
+										$this->update_registro($this->table_sin, $registro, $where);		
+									}
+									else
+									{
+										$registro = array(
+											'address1'	=> "'".$objp->address."'",
+											'postcode'	=> "'".$objp->postcode."'",
+											'city'		=> "'".$objp->city."'",
+											'phone'		=> "'".$objp->phone."'",
+											'id_sin'	=> "'".$objp->id_cliente."'"
+										);
+										
+										$where = "id_address = ".$id_registro['id_ps_address'];
+										
+										$this->update_registro($this->table_dir_pre, $registro, $where);
+									}
 								}
 							}
-
+							else // Si no es cliente lo damos de baja
+							{
+								$registro = array(
+									'active' 	=> 0
+								);
+								
+								$where = $this->id_table_pre." = ".$id_registro[$this->id_sin_pre];
+								
+								$this->update_registro($this->table_pre, $registro, $where);											
+							}
+							
 							$this->update_log($objp->id_log);
-						}	
+						}
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						}
 					}
 				}
 

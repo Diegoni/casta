@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2015-06-01 12:08:23
+<?php /* Smarty version Smarty-3.1.19, created on 2015-06-05 12:38:58
          compiled from "C:\xampp2\htdocs\casta\admin1978\themes\default\template\nav.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:4392556c756713d9e8-26588291%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:307235571c292b16f00-77742618%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b7abc6d781b34377db0030f82988159d05c30e65' => 
     array (
       0 => 'C:\\xampp2\\htdocs\\casta\\admin1978\\themes\\default\\template\\nav.tpl',
-      1 => 1433159751,
+      1 => 1433516073,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '4392556c756713d9e8-26588291',
+  'nocache_hash' => '307235571c292b16f00-77742618',
   'function' => 
   array (
   ),
@@ -25,9 +25,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_556c75671d9e08_35160735',
+  'unifunc' => 'content_5571c292bab638_01672920',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_556c75671d9e08_35160735')) {function content_556c75671d9e08_35160735($_smarty_tpl) {?><div class="bootstrap">
+<?php if ($_valid && !is_callable('content_5571c292bab638_01672920')) {function content_5571c292bab638_01672920($_smarty_tpl) {?><div class="bootstrap">
 	<nav id="<?php if ($_smarty_tpl->tpl_vars['employee']->value->bo_menu) {?>nav-sidebar<?php } else { ?>nav-topbar<?php }?>" role="navigation">
 		<?php if (!$_smarty_tpl->tpl_vars['tab']->value) {?>
 			<div class="mainsubtablist" style="display:none;"></div>
@@ -66,6 +66,7 @@ $_smarty_tpl->tpl_vars['t']->_loop = true;
 <?php } else { ?><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['t']->value['name'], ENT_QUOTES, 'UTF-8', true);?>
 <?php }?></span>
 						</a>
+						
 						<?php if (count($_smarty_tpl->tpl_vars['t']->value['sub_tabs'])) {?>
 							<ul class="submenu">
 							<?php  $_smarty_tpl->tpl_vars['t2'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['t2']->_loop = false;

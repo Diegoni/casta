@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2015-06-01 12:20:59
+<?php /* Smarty version Smarty-3.1.19, created on 2015-06-05 12:38:08
          compiled from "C:\xampp2\htdocs\casta\admin1978\themes\default\template\helpers\list\list_action_enable.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:27113556c785b9b18b1-10802330%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:6785571c2609279b1-68702307%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '27113556c785b9b18b1-10802330',
+  'nocache_hash' => '6785571c2609279b1-68702307',
   'function' => 
   array (
   ),
@@ -24,9 +24,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_556c785b9dc843_24365290',
+  'unifunc' => 'content_5571c260952946_28604741',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_556c785b9dc843_24365290')) {function content_556c785b9dc843_24365290($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_5571c260952946_28604741')) {function content_5571c260952946_28604741($_smarty_tpl) {?>
 <a class="list-action-enable<?php if (isset($_smarty_tpl->tpl_vars['ajax']->value)&&$_smarty_tpl->tpl_vars['ajax']->value) {?> ajax_table_link<?php }?><?php if ($_smarty_tpl->tpl_vars['enabled']->value) {?> action-enabled<?php } else { ?> action-disabled<?php }?>" href="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['url_enable']->value, ENT_QUOTES, 'UTF-8', true);?>
 "<?php if (isset($_smarty_tpl->tpl_vars['confirm']->value)) {?> onclick="return confirm('<?php echo $_smarty_tpl->tpl_vars['confirm']->value;?>
 ');"<?php }?> title="<?php if ($_smarty_tpl->tpl_vars['enabled']->value) {?><?php echo smartyTranslate(array('s'=>'Enabled'),$_smarty_tpl);?>

@@ -136,22 +136,25 @@ class Actualizar_direcciones extends Actualizar
 						
 						$objp_id_row = $this->get_registros($this->table_clientes_sin, $where);
 						
+						$id_country = $this->getID_direccion($objp->id_country, $this->system_prestashop, 'country');
+						$id_state	= $this->getID_direccion($objp->id_state, $this->system_prestashop, 'state');
+						
 						$registro = array(
 							'id_customer'	=> $objp_id_row[$this->id_sin_cliente_pre],
 							'id_sin'		=> $objp->id_row,
 							'firstname'		=> "'".$objp->firstname."'",
 							'lastname'		=> "'".$objp->lastname."'",
-							'id_country'	=> 44,
-							'id_state'		=> 111,
+							'id_country'	=> $id_country,
+							'id_state'		=> $id_state,
 							'address1'		=> "'-'",
 							'postcode'		=> "'".$objp->postcode."'",
 							'city'			=> "'".$objp->city."'",
 							'phone' 		=> "'".$objp->phone."'",
 							'phone_mobile'	=> "'".$objp->phone_mobile."'", 
-							'date_add'		=> "'".$objp->date_udp."'",
-							'date_udp'		=> "'".$objp->date_udp."'",
+							'date_add'		=> "'".$objp->date_upd."'",
+							'date_upd'		=> "'".$objp->date_upd."'",
 							'alias'			=> "'-'",
-							'active' 		=> "'".$objp->active
+							'active' 		=> $objp->active
 						);
 						
 						$id_registro = $this->insert_registro($this->table_pre, $registro);
@@ -195,8 +198,11 @@ class Actualizar_direcciones extends Actualizar
 						{
 							$id_registro = $this->get_id_sin($objp->id_row, $this->system_dolibar);
 																					
-							if($numr_row > 0)
+							if($id_registro != 0)
 							{
+								$id_country = $this->getID_direccion($objp->id_country, $this->system_prestashop, 'country');
+								$id_state	= $this->getID_direccion($objp->id_state, $this->system_prestashop, 'state');
+								
 								$registro = array(
 									'id_sin'	=> $objp->id_row, 
 									'firstname'	=> "'".$objp->firstname."'", 
@@ -205,7 +211,9 @@ class Actualizar_direcciones extends Actualizar
 									'zip'		=> "'".$objp->postcode."'", 
 									'town'		=> "'".$objp->city."'", 
 									'phone'		=> "'".$objp->phone."'", 
-									'phone_mobile'	=> "'".$objp->phone_mobile."'", 
+									'phone_mobile'	=> "'".$objp->phone_mobile."'",
+									'fk_pays'	=> $id_country,
+									'fk_departement' => $id_state,
 									'datec'		=> "'".$objp->date_udp."'",
 									'poste'		=> "'".$objp->alias."'",
 									'statut'	=> $objp->active
@@ -216,7 +224,11 @@ class Actualizar_direcciones extends Actualizar
 								$this->update_registro($this->table_dol, $registro, $where);	
 								
 								$this->update_log($objp->id_log);		
-							}	
+							}
+							else
+							{
+								$this->log_error('no_sin' , $objp);
+							} 	
 						}	
 					}
 								
@@ -229,20 +241,23 @@ class Actualizar_direcciones extends Actualizar
 					{
 						$id_registro = $this->get_id_sin($objp->id_row, $this->system_prestashop);
 						
-						if($numr_row > 0)
+						if($id_registro != 0)
 						{
+							$id_country = $this->getID_direccion($objp->id_country, $this->system_dolibar, 'country');
+							$id_state	= $this->getID_direccion($objp->id_state, $this->system_dolibar, 'state');
+						
 							$registro = array(
 								'id_sin'		=> $objp->id_row, 
 								'firstname'		=> "'".$objp->firstname."'", 
 								'lastname'		=> "'".$objp->lastname."'",
-								'id_country'	=> 44, 
-								'id_state'		=> 111,
+								'id_country'	=> $id_country, 
+								'id_state'		=> $id_state,
 								'address1'		=> "'".$objp->address."'",
 								'postcode'		=> "'".$objp->postcode."'",
 								'city'			=> "'".$objp->city."'",
 								'phone'			=> "'".$objp->phone."'",
 								'phone_mobile'	=> "'".$objp->phone_mobile."'", 
-								'date_udp'		=> "'".$objp->date_udp."'",
+								'date_upd'		=> "'".$objp->date_upd."'",
 								'alias'			=> "'".$objp->alias."'",
 								'active'		=> $objp->active 								
 							);
@@ -253,6 +268,10 @@ class Actualizar_direcciones extends Actualizar
 								
 							$this->update_log($objp->id_log);	
 						}	
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						} 	
 					}
 				}
 				

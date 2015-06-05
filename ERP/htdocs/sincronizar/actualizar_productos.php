@@ -14,6 +14,9 @@ class Actualizar_productos extends Actualizar
 	
 	var $table_lag		= 'ps_product_lang';
 	var $table_shop		= 'ps_product_shop';
+	var $table_dol_price	= 'llx_product_price';
+	
+	
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_product';
@@ -207,7 +210,8 @@ class Actualizar_productos extends Actualizar
 								'label'			=> "'".$array_lag['name']."'",
 								'description'	=> "'".$array_lag['description_short']."'",
 								'price'			=> "'".$array_shop['price']."'",
-								'price_min'		=> "'".$array_shop['price_min']."'",
+								'price_min'		=> "'".$array_shop['wholesale_price']."'",
+								'price_min_ttc'	=> "'".$array_shop['wholesale_price']."'",
 								'accountancy_code_sell' => "'".$objp->code_sell."'",
 								'accountancy_code_buy'	=> "'".$objp->code_buy."'",
 								'barcode'		=> "'".$objp->barcode."'",
@@ -224,8 +228,70 @@ class Actualizar_productos extends Actualizar
 							
 							$this->update_registro($this->table_dol, $registro, $where);
 							
+							// 4 - Hacemos el insert de la tabla llx_product_price solo si hay cambio de precio
+							
+							$where = 'fk_product = '.$objp->id_row.' ORDER BY rowid DESC LIMIT 0,1';
+							
+							$array_precios = $this->get_registros($this->table_dol_price, $where);
+							
+							$bandera = 0;
+							
+							if(is_array($array_precios)) // Si no es array significa que no se han ingresa nunca un cambio 
+							{
+								echo "entro en array<br>";
+								if(
+									$array_precios['price'] == $array_shop['price'] && 
+									$array_precios['price_min'] == $array_shop['wholesale_price'])
+								{
+									echo "entro en precios iguales<br>";
+									$bandera = 1;
+								}
+								else
+								{
+									echo $array_precios['price']." == ".$array_shop['price']; 
+									echo $array_precios['price_min']." == ".$array_shop['wholesale_price'];
+									
+									echo "Los precios no son iguales<br>";
+								}
+							}
+							else
+							{
+								echo "No es array<br>";
+							}
+							
+							if($bandera == 0)
+							{
+								$registro = array(
+									'entity'			=> 1,
+									'tms'				=> "'".$objp->date_upd."'",
+									'fk_product'		=> $objp->id_row,
+									'date_price'		=> "'".$objp->date_upd."'",
+									'price_level'		=> 1,
+									'price'				=> "'".$array_shop['price']."'",
+									'price_ttc'			=> "'".$array_shop['price']."'", // mal hay que calcular el precio con iva
+									'price_min'			=> "'".$array_shop['wholesale_price']."'",
+									'price_min_ttc'		=> "'".$array_shop['wholesale_price']."'", // mal hay que calcular el minimo precio con iva
+									//'price_base_type'	=> 'HT', //Ver este campo
+									'tva_tx'			=> 21, //mejorar 
+									'recuperableonly'	=> 0,
+									'localtax1_tx'		=> 0,
+									'localtax2_tx'		=> 0,
+									'fk_user_author'	=> 1,
+									'tosell'			=> 1,
+									'price_by_qty'		=> 0
+								);
+								
+								$this->insert_registro($this->table_dol_price, $registro);
+							}
+							
+							
+							
 							$this->update_log($objp->id_log);
 						}
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						} 	
 					}
 								
 		/*----------------------------------------------------------------
@@ -298,7 +364,10 @@ class Actualizar_productos extends Actualizar
 							
 							$this->update_log($objp->id_log);
 						}
-		
+						else
+						{
+							$this->log_error('no_sin' , $objp);
+						}
 					}
 				}							
 				 
@@ -310,5 +379,4 @@ class Actualizar_productos extends Actualizar
 			
 		$this->reset_mod();
 	}
-		
 }

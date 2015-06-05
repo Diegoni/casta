@@ -55,5 +55,3 @@ if (!isset($_REQUEST['controller']) && isset($_REQUEST['tab']))
 
 // Prepare and trigger admin dispatcher
 Dispatcher::getInstance()->dispatch();
-
-echo "test";

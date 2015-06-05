@@ -41,6 +41,7 @@
 							<i class="icon-{$t.class_name}"></i>
 							<span>{if $t.name eq ''}{$t.class_name|escape:'html':'UTF-8'}{else}{$t.name|escape:'html':'UTF-8'}{/if}</span>
 						</a>
+						
 						{if $t.sub_tabs|@count}
 							<ul class="submenu">
 							{foreach from=$t.sub_tabs item=t2}
