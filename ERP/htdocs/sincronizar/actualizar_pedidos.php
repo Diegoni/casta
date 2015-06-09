@@ -14,6 +14,8 @@ class Actualizar_pedidos extends Actualizar
 	
 	var $table_sin_cli	= 'tms_clientes_sin';
 	var $table_payment	= 'tms_payment';
+	var $table_carrier	= 'ps_order_carrier';
+	var $table_dol_det	= 'llx_commandedet';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_commande';
@@ -85,7 +87,8 @@ class Actualizar_pedidos extends Actualizar
 						// 4 - Calculo impuesto
 						
 						$impuesto = $objp->total_ttc - $objp->total_ht;
-											
+						
+						// 5 - Ingreso del pedido											
 												
 						$registro = array(
 							'id_sin'				=> $objp->id_row,
@@ -104,6 +107,35 @@ class Actualizar_pedidos extends Actualizar
 						$id_registro = $this->insert_registro($this->table_dol, $registro);
 						
 						$this->insert_sin($objp->id_row, $id_registro);
+						
+						// 6 - Ingreso del cargo de transporte
+						
+						$where = "`id_order` = '$objp->id_row'";
+							
+						$array_carrier = $this->get_registros($this->table_carrier, $where);
+						
+						$iva = $array_carrier['shipping_cost_tax_incl'] - $array_carrier['shipping_cost_tax_excl'];
+						
+						$iva = $iva * 100 / $array_carrier['shipping_cost_tax_excl'];
+						
+						$registro = array(
+							//'id_sin'		=> $objp->id_row,
+							'fk_commande'	=> $id_registro,
+							'fk_product'	=> $array_config_s['id_servicio_envio'],
+							//'description'	=> "'".$objp->product_name."'",
+							'qty'			=> 1,
+							//'buy_price_ht'	=> $objp->purchase_supplier_price,
+							'tva_tx'		=> $iva,
+							'subprice'		=> $array_carrier['shipping_cost_tax_excl'],
+							'price'			=> $array_carrier['shipping_cost_tax_incl'],
+							/*'total_tva'		=> $total_tva,*/
+							'total_ht'		=> $array_carrier['shipping_cost_tax_incl'], // Ver 
+							'total_ttc'		=> $array_carrier['shipping_cost_tax_incl'],
+							/*'remise_percent'=> $remise_percent,
+							'remise'		=> $objp->reduction_amount,*/
+						);
+						
+						$this->insert_registro($this->table_dol_det, $registro);						
 						
 						$this->update_log($objp->id_log);
 					}

@@ -45,6 +45,12 @@ $action = GETPOST('action');
 
 if ($action == 'setvalue' && $user->admin)
 {
+	$registro = array(
+		'id_llx_c_payment_term'	=> GETPOST('id_llx_c_payment_term'),
+		'id_llx_c_input_reason'	=> GETPOST('id_llx_c_input_reason'),
+		'id_servicio_envio'		=> GETPOST('id_servicio_envio')
+	);
+	
 	if(GETPOST('SincronizarAutomatica') == 'yes')
 	{
 		$registro['automatica'] = 1;
@@ -67,8 +73,11 @@ if ($action == 'setvalue' && $user->admin)
 	$sql = 
 	"UPDATE `tms_config_sincronizacion` 
 		SET 
-			`automatica`	= $registro[automatica],
-			`cantidad`		= $registro[cantidad]
+			`automatica`			= $registro[automatica],
+			`cantidad`				= $registro[cantidad],
+			`id_llx_c_payment_term`	= $registro[id_llx_c_payment_term],
+			`id_llx_c_input_reason`	= $registro[id_llx_c_input_reason],
+			`id_servicio_envio`		= $registro[id_servicio_envio]
 		WHERE 
 			`id_config`		= 1";
 	
@@ -97,7 +106,19 @@ $sql	= "SELECT * FROM `llx_c_payment_term` WHERE active = 1";
 
 $condicion_pago	= $db->query($sql);	
 	
-$num_condicion_pago	= $db->num_rows($condicion_pago);					
+$num_condicion_pago	= $db->num_rows($condicion_pago);	
+
+
+/*----------------------------------------------------------------------------
+		SELECT de servicio de envio
+----------------------------------------------------------------------------*/
+
+$sql	= "SELECT `label`, `rowid` FROM `llx_product` WHERE `fk_product_type` = 1 ORDER BY `label`";
+
+$servicio_envio	= $db->query($sql);	
+	
+$num_servicio_envio	= $db->num_rows($servicio_envio);	
+				
 
 
 /*----------------------------------------------------------------------------
@@ -218,6 +239,38 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				}	
 				
 				print '<option value="'.$origen->rowid.'" '.$select.'>'.$langs->trans("DemandReasonType".$origen->code).'</option>';
+				
+				$c++; 
+			}
+		}	
+		
+		print '</select>';
+		print '</td></tr>';
+				
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarServicioEnvio").'</td><td>';
+		print '<select name="id_servicio_envio">';
+		print '<option value="0"></option>';
+		
+		$c = 0;
+		
+		if($num_servicio_envio > 0)
+		{	
+			while ($c < $num_servicio_envio)
+			{
+				$servicio = $db->fetch_object($servicio_envio);
+				
+				if($registros['id_servicio_envio'] == $servicio->rowid)
+				{
+					$select = 'selected';
+				}
+				else
+				{
+					$select = '';
+				}	
+				
+				print '<option value="'.$servicio->rowid.'" '.$select.'>'.$servicio->label.'</option>';
 				
 				$c++; 
 			}
