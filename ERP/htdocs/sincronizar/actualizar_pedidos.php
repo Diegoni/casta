@@ -74,9 +74,11 @@ class Actualizar_pedidos extends Actualizar
 							
 						$array_sin_cliente = $this->get_registros($this->table_sin_cli, $where);
 						
+						
 						// 2 - Buscamos los valores de configuración para Condición de Pago y Origen del pedido
 							
 						$array_config_s = $this->get_registros($this->table_config_s);
+						
 						
 						// 3 - Buscamos Modo de pago
 						
@@ -86,7 +88,9 @@ class Actualizar_pedidos extends Actualizar
 						
 						// 4 - Calculo impuesto
 						
+						
 						$impuesto = $objp->total_ttc - $objp->total_ht;
+						
 						
 						// 5 - Ingreso del pedido											
 												
@@ -108,35 +112,39 @@ class Actualizar_pedidos extends Actualizar
 						
 						$this->insert_sin($objp->id_row, $id_registro);
 						
+						
 						// 6 - Ingreso del cargo de transporte
 						
 						$where = "`id_order` = '$objp->id_row'";
 							
 						$array_carrier = $this->get_registros($this->table_carrier, $where);
 						
-						$iva = $array_carrier['shipping_cost_tax_incl'] - $array_carrier['shipping_cost_tax_excl'];
+						if(is_array($array_carrier))
+						{
+							$iva = $array_carrier['shipping_cost_tax_incl'] - $array_carrier['shipping_cost_tax_excl'];
 						
-						$iva = $iva * 100 / $array_carrier['shipping_cost_tax_excl'];
-						
-						$registro = array(
-							//'id_sin'		=> $objp->id_row,
-							'fk_commande'	=> $id_registro,
-							'fk_product'	=> $array_config_s['id_servicio_envio'],
-							//'description'	=> "'".$objp->product_name."'",
-							'qty'			=> 1,
-							//'buy_price_ht'	=> $objp->purchase_supplier_price,
-							'tva_tx'		=> $iva,
-							'subprice'		=> $array_carrier['shipping_cost_tax_excl'],
-							'price'			=> $array_carrier['shipping_cost_tax_incl'],
-							/*'total_tva'		=> $total_tva,*/
-							'total_ht'		=> $array_carrier['shipping_cost_tax_incl'], // Ver 
-							'total_ttc'		=> $array_carrier['shipping_cost_tax_incl'],
-							/*'remise_percent'=> $remise_percent,
-							'remise'		=> $objp->reduction_amount,*/
-						);
-						
-						$this->insert_registro($this->table_dol_det, $registro);						
-						
+							$iva = $iva * 100 / $array_carrier['shipping_cost_tax_excl'];
+							
+							$registro = array(
+								//'id_sin'		=> $objp->id_row,
+								'fk_commande'	=> $id_registro,
+								'fk_product'	=> $array_config_s['id_servicio_envio'],
+								//'description'	=> "'".$objp->product_name."'",
+								'qty'			=> 1,
+								//'buy_price_ht'	=> $objp->purchase_supplier_price,
+								'tva_tx'		=> $iva,
+								'subprice'		=> $array_carrier['shipping_cost_tax_excl'],
+								'price'			=> $array_carrier['shipping_cost_tax_incl'],
+								/*'total_tva'		=> $total_tva,*/
+								'total_ht'		=> $array_carrier['shipping_cost_tax_incl'], // Ver 
+								'total_ttc'		=> $array_carrier['shipping_cost_tax_incl'],
+								/*'remise_percent'=> $remise_percent,
+								'remise'		=> $objp->reduction_amount,*/
+							);
+							
+							$this->insert_registro($this->table_dol_det, $registro);						
+						}
+							
 						$this->update_log($objp->id_log);
 					}
 					

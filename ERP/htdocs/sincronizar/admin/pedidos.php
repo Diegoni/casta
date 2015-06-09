@@ -35,40 +35,15 @@ $langs->load("sincronizar");
 
 if (! $user->admin) accessforbidden();
 
-$action = GETPOST('action');
+$sql		= "SELECT * FROM `tms_config_sincronizacion`";
+$resql		= $db->query($sql);	
+$config		= $db->fetch_array($resql);	
 
-if ($action == 'setvalue' && $user->admin)
-{
-	if(GETPOST('SincronizarAutomatica') == 'yes')
-	{
-		$automatica = 1;
-	}
-	else
-	{
-		$automatica = 0;
-	}
+$sql		= "SELECT * FROM `tms_log_pedidos` ORDER BY id_log DESC LIMIT 0, $config[cantidad]";
+$resql		= $db->query($sql);	
 	
-	$sql = 
-	"UPDATE `tms_config_sincronizacion` 
-		SET 
-			`automatica`	= $automatica
-		WHERE 
-			`id_config`		= 1";
-	
-	$db->query($sql);
-	
-	setEventMessage($langs->trans("SetupSaved"));
-}
-
-$sql	= "SELECT * FROM `tms_config_sincronizacion`";
-$resql	= $db->query($sql);	
-	
-$numr	= $db->num_rows($resql);					
-		
-if($numr > 0)
-{
-	$registros = $db->fetch_array($resql);	
-}
+$numr		= $db->num_rows($resql);					
+$i			= 0;
 
 
 /*
@@ -85,7 +60,9 @@ print_fiche_titre($langs->trans("ModuleSetup").' de Sincronización',$linkback);
 print '<br>';
 
 $head = paypaladmin_prepare_head();
+
 dol_fiche_head($head, 'pedidos', 'Sincronización', 0, 'sincronizar');
+print $langs->trans("SincronizarUltimos")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -95,15 +72,48 @@ print '<table class="noborder" width="100%">';
 
 $var=true;
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("SincronizarParametros").'</td>';
-print '<td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("SincronizarNombre").'</a></td>';
+print '<td>'.$langs->trans("SincronizarEmail").'</td>';
+print '<td>'.$langs->trans("SincronizarPhone").'</td>';
+print '<td>'.$langs->trans("SincronizarSystem").'</td>';
+print '<td>'.$langs->trans("SincronizarAction").'</td>';
+print '<td>'.$langs->trans("SincronizarFecha").'</td>';
+print '<td>'.$langs->trans("SincronizarEstado").'</td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("SincronizarAutomatica").'</td><td>';
-print $form->selectyesno("SincronizarAutomatica", $registros['automatica']);
-print '</td></tr>';
+if($numr > 0)
+{	
+	while ($i < $numr)
+	{
+		$pedidos = $db->fetch_object($resql);
+		
+		if($pedidos->system == 'dolibar')
+		{
+			$label = 'primary';				
+		}
+		else
+		{
+			$label = 'info';	
+		}
+	
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print '<a href="'.DOL_URL_ROOT.'/commande/list.php?viewstatut=&search_sale=&search_user=-1&search_ref='.$pedidos->reference.'&search_ref_customer=&search_company=&ordermonth=&orderyear=&deliverymonth=&deliveryyear=&button_search.x=0&button_search.y=0&button_search=Buscar" title="'.$langs->trans("SincronizarDetalle").'">';
+		print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/object_order.png" border="0" alt=""> ';
+		print $pedidos->reference.'</a></td><td>';
+		print $pedidos->total_ttc.'</td><td>';
+		print $pedidos->payment.'</td><td>';
+		print '<span class="label label-'.$label.'">';
+		print $langs->trans('Sincronizar'.$pedidos->system).'</label></td><td>';
+		print $langs->trans('Sincronizar'.$pedidos->action).'</td><td>';
+		print date('d-m-Y', strtotime($pedidos->date_upd)).'</td><td>';
+		print$langs->trans('SincronizarEstado'. $pedidos->id_estado);
+		print '</td></tr>';
+		
+		$i++;	
+	}
+}
+
 /*
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
@@ -119,9 +129,6 @@ $doleditor->Create();
 print '</td></tr>';
 */
 print '</table>';
-
-print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
-
 print '</form>';
 
 llxFooter();
