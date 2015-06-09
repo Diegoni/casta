@@ -35,14 +35,11 @@ $langs->load("sincronizar");
 
 if (! $user->admin) accessforbidden();
 
-$action = GETPOST('action');
+$sql		= "SELECT * FROM `tms_config_sincronizacion`";
+$resql		= $db->query($sql);	
+$config		= $db->fetch_array($resql);
 
-if ($action == 'setvalue' && $user->admin)
-{
-
-}
-
-$sql	= "SELECT * FROM `tms_log_productos` ORDER BY id_log DESC LIMIT 0, 10";
+$sql	= "SELECT * FROM `tms_log_productos` ORDER BY id_log DESC LIMIT 0, $config[cantidad]";
 $resql	= $db->query($sql);	
 	
 $numr	= $db->num_rows($resql);					
@@ -109,6 +106,15 @@ if($numr > 0)
 				$id_row = $array_sin['id_llx_product'];
 			}	
 		}
+
+		if($registro->system == 'dolibar')
+		{
+			$label = 'primary';				
+		}
+		else
+		{
+			$label = 'info';	
+		}
 	
 		$var=!$var;
 		print '<tr '.$bc[$var].'><td>';
@@ -117,7 +123,8 @@ if($numr > 0)
 		print $registro->ref.'</a></td><td>';
 		print $registro->name.'</td><td>';
 		print $registro->price.'</td><td>';
-		print $langs->trans('Sincronizar'.$registro->system).'</td><td>';
+		print '<span class="label label-'.$label.'">';
+		print $langs->trans('Sincronizar'.$registro->system).'</label></td><td>';
 		print $langs->trans('Sincronizar'.$registro->action).'</td><td>';
 		print date('d-m-Y', strtotime($registro->date_upd)).'</td><td>';
 		print$langs->trans('SincronizarEstado'. $registro->id_estado);

@@ -14,7 +14,7 @@ class Actualizar_pedidos_detalle extends Actualizar
 	
 	var $table_sin_ped	= 'tms_pedidos_sin';
 	var $table_sin_pro	= 'tms_productos_sin';
-	var $table_tax		= 'tms_productos_sin';
+	var $table_tax		= 'ps_tax';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_commandedet';
@@ -111,7 +111,7 @@ class Actualizar_pedidos_detalle extends Actualizar
 							'id_sin'		=> $objp->id_row,
 							'fk_commande'	=> $array_sin_pedido['id_llx_commande'],
 							'fk_product'	=> $array_sin_producto['id_llx_product'],
-							'description'	=> $objp->product_name,
+							'description'	=> "'".$objp->product_name."'",
 							'qty'			=> $objp->product_quantity,
 							'buy_price_ht'	=> $objp->purchase_supplier_price,
 							'tva_tx'		=> $array_tax['rate'],

@@ -32,8 +32,14 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 $servicename='Sincronizar';
 
 $langs->load("sincronizar");
+$langs->load("bills");
+$langs->load("dict");
 
 if (! $user->admin) accessforbidden();
+
+/*----------------------------------------------------------------------------
+		UPDATE de la tabla tms_config_sincronizacion
+----------------------------------------------------------------------------*/
 
 $action = GETPOST('action');
 
@@ -41,17 +47,28 @@ if ($action == 'setvalue' && $user->admin)
 {
 	if(GETPOST('SincronizarAutomatica') == 'yes')
 	{
-		$automatica = 1;
+		$registro['automatica'] = 1;
 	}
 	else
 	{
-		$automatica = 0;
+		$registro['automatica'] = 0;
 	}
+	
+	if(GETPOST('cantidad') < 1 )
+	{
+		$registro['cantidad'] = 1;
+	}
+	else
+	{
+		$registro['cantidad'] = GETPOST('cantidad');
+	}
+	
 	
 	$sql = 
 	"UPDATE `tms_config_sincronizacion` 
 		SET 
-			`automatica`	= $automatica
+			`automatica`	= $registro[automatica],
+			`cantidad`		= $registro[cantidad]
 		WHERE 
 			`id_config`		= 1";
 	
@@ -59,6 +76,33 @@ if ($action == 'setvalue' && $user->admin)
 	
 	setEventMessage($langs->trans("SetupSaved"));
 }
+
+
+/*----------------------------------------------------------------------------
+		SELECT de los origenes del pedido
+----------------------------------------------------------------------------*/
+
+$sql	= "SELECT * FROM `llx_c_input_reason` WHERE active = 1";
+
+$origen_pedido	= $db->query($sql);	
+	
+$num_origen_pedido	= $db->num_rows($origen_pedido);					
+
+
+/*----------------------------------------------------------------------------
+		SELECT de las condiciones de pago
+----------------------------------------------------------------------------*/
+
+$sql	= "SELECT * FROM `llx_c_payment_term` WHERE active = 1";
+
+$condicion_pago	= $db->query($sql);	
+	
+$num_condicion_pago	= $db->num_rows($condicion_pago);					
+
+
+/*----------------------------------------------------------------------------
+		SELECT de tms_config_sincronizacion
+----------------------------------------------------------------------------*/
 
 $sql	= "SELECT * FROM `tms_config_sincronizacion`";
 $resql	= $db->query($sql);	
@@ -71,9 +115,12 @@ if($numr > 0)
 }
 
 
-/*
- *	View
- */
+/*----------------------------------------------------------------------------
+------------------------------------------------------------------------------
+		VISTA
+------------------------------------------------------------------------------
+----------------------------------------------------------------------------*/
+
 
 $form = new Form($db);
 
@@ -92,38 +139,96 @@ print $langs->trans("SincronizarConfigDesc")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-print '<input type="hidden" name="action" value="setvalue">';
+	
+	print '<input type="hidden" name="action" value="setvalue">';
+	
+	print '<table class="noborder" width="100%">';
+	
+		$var=true;
+		print '<tr class="liste_titre">';
+		print '<td>'.$langs->trans("SincronizarParametros").'</td>';
+		print '<td>'.$langs->trans("Value").'</td>';
+		print "</tr>\n";
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarAutomatica").'</td><td>';
+		print $form->selectyesno("SincronizarAutomatica", $registros['automatica']);
+		print '</td></tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarCantidad").'</td><td>';
+		print '<input size="64" type="number" name="cantidad" value="'.$registros['cantidad'].'">';
+		print '</td></tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarCondicionPago").'</td><td>';
+		print '<select name="id_llx_c_payment_term">';
+		print '<option value="0"></option>';
+		
+		$c = 0;
+		
+		if($num_condicion_pago > 0)
+		{	
+			while ($c < $num_condicion_pago)
+			{
+				$condicion = $db->fetch_object($condicion_pago);
+				
+				if($registros['id_llx_c_payment_term'] == $condicion->rowid)
+				{
+					$select = 'selected';
+				}
+				else
+				{
+					$select = '';
+				}	
+				
+				print '<option value="'.$condicion->rowid.'" '.$select.'>'.$langs->trans("PaymentConditionShort".$condicion->code).'</option>';
+				
+				$c++; 
+			}
+		}	
+		
+		print '</select>';
+		print '</td></tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarOrigenPedido").'</td><td>';
+		print '<select name="id_llx_c_input_reason">';
+		print '<option value="0"></option>';
+		
+		$c = 0;
+		
+		if($num_origen_pedido > 0)
+		{	
+			while ($c < $num_origen_pedido)
+			{
+				$origen = $db->fetch_object($origen_pedido);
+				
+				if($registros['id_llx_c_input_reason'] == $origen->rowid)
+				{
+					$select = 'selected';
+				}
+				else
+				{
+					$select = '';
+				}	
+				
+				print '<option value="'.$origen->rowid.'" '.$select.'>'.$langs->trans("DemandReasonType".$origen->code).'</option>';
+				
+				$c++; 
+			}
+		}	
+		
+		print '</select>';
+		print '</td></tr>';
 
-print '<table class="noborder" width="100%">';
+	print '</table>';
 
-$var=true;
-print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("SincronizarParametros").'</td>';
-print '<td>'.$langs->trans("Value").'</td>';
-print "</tr>\n";
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("SincronizarAutomatica").'</td><td>';
-print $form->selectyesno("SincronizarAutomatica", $registros['automatica']);
-print '</td></tr>';
-/*
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("CSSUrlForPaymentForm").'</td><td>';
-print '<input size="64" type="text" name="PAYPAL_CSS_URL" value="">';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("MessageOK").'</td><td>';
-$doleditor=new DolEditor('PAYPAL_MESSAGE_OK',$conf->global->PAYPAL_MESSAGE_OK,'',100,'dolibarr_details','In',false,true,true,ROWS_4,60);
-$doleditor->Create();
-print '</td></tr>';
-*/
-print '</table>';
-
-print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
+	print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
 
 print '</form>';
 

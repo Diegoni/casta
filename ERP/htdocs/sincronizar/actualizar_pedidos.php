@@ -13,6 +13,7 @@ class Actualizar_pedidos extends Actualizar
 	var $table_mod		= 'tms_mod_pedidos';
 	
 	var $table_sin_cli	= 'tms_clientes_sin';
+	var $table_payment	= 'tms_payment';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_commande';
@@ -65,15 +66,37 @@ class Actualizar_pedidos extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
+						// 1 - Buscamos el id correspondiente del cliente
+						
 						$where = "`id_ps_customer`	= $objp->id_cliente";
 							
 						$array_sin_cliente = $this->get_registros($this->table_sin_cli, $where);
+						
+						// 2 - Buscamos los valores de configuración para Condición de Pago y Origen del pedido
+							
+						$array_config_s = $this->get_registros($this->table_config_s);
+						
+						// 3 - Buscamos Modo de pago
+						
+						$where = "`ps_order_payment` = '$objp->payment'";
+							
+						$array_forma = $this->get_registros($this->table_payment, $where);
+						
+						// 4 - Calculo impuesto
+						
+						$impuesto = $objp->total_ttc - $objp->total_ht;
+											
 												
 						$registro = array(
 							'id_sin'				=> $objp->id_row,
 							'fk_soc'				=> $array_sin_cliente['id_llx_societe'],
 							'ref'					=> "'".$objp->reference."'",
-							'total_ttc'				=> "'".$objp->total_paid."'",
+							'tva'					=> "'".$impuesto."'",
+							'total_ht'				=> "'".$objp->total_ht."'",
+							'total_ttc'				=> "'".$objp->total_ttc."'",
+							'fk_mode_reglement'		=> $array_forma['llx_c_paiement_id'],
+							'fk_input_reason'		=> $array_config_s['id_llx_c_input_reason'],
+							'fk_cond_reglement'		=> $array_config_s['id_llx_c_payment_term'],
 							'date_creation'			=> "'".$objp->date_upd."'",
 							'date_commande'			=> "'".date('Y-m-d', strtotime($objp->date_upd))."'"
 						);
@@ -125,11 +148,39 @@ class Actualizar_pedidos extends Actualizar
 						
 						if($id_registro != 0)
 						{
-							$registro =  array(
+							// 1 - Buscamos el id correspondiente del cliente
+						
+							$where = "`id_ps_customer`	= $objp->id_cliente";
+								
+							$array_sin_cliente = $this->get_registros($this->table_sin_cli, $where);
+							
+							// 2 - Buscamos los valores de configuración para Condición de Pago y Origen del pedido
+								
+							$array_config_s = $this->get_registros($this->table_config_s);
+							
+							// 3 - Buscamos Modo de pago
+							
+							$where = "`ps_order_payment` = '$objp->payment'";
+								
+							$array_forma = $this->get_registros($this->table_payment, $where);
+							
+							// 4 - Calculo impuesto
+							
+							$impuesto = $objp->total_ttc - $objp->total_ht;
+												
+													
+							$registro = array(
 								'id_sin'				=> $objp->id_row,
+								'fk_soc'				=> $array_sin_cliente['id_llx_societe'],
 								'ref'					=> "'".$objp->reference."'",
-								'total_ttc'				=> "'".$objp->total_paid."'",
-								'date_creation'			=> "'".$objp->date_upd."'"
+								'tva'					=> "'".$impuesto."'",
+								'total_ht'				=> "'".$objp->total_ht."'",
+								'total_ttc'				=> "'".$objp->total_ttc."'",
+								'fk_mode_reglement'		=> $array_forma['llx_c_paiement_id'],
+								'fk_input_reason'		=> $array_config_s['id_llx_c_input_reason'],
+								'fk_cond_reglement'		=> $array_config_s['id_llx_c_payment_term'],
+								'date_creation'			=> "'".$objp->date_upd."'",
+								'date_commande'			=> "'".date('Y-m-d', strtotime($objp->date_upd))."'"
 							);
 							
 							$where = $this->id_table_dol." = ".$id_registro;

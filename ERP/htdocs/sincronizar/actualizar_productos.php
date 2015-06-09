@@ -16,8 +16,6 @@ class Actualizar_productos extends Actualizar
 	var $table_shop		= 'ps_product_shop';
 	var $table_dol_price	= 'llx_product_price';
 	
-	
-	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_product';
 	var $id_sin_pre		= 'id_ps_product';
@@ -153,8 +151,18 @@ class Actualizar_productos extends Actualizar
 						
 						// 3 - Buscamos el impuesto correspondiente
 						
-						$where = '`rate` = '.$objp->tva;
+						if($array_tax != NULL)
+						{
+							$where = '`rate` = '.$array_tax;	
+						}
+						else
+						{
+							$where = '`rate` = 0';
+						}	
+
 						$array_tax = $this->get_registros('ps_tax', $where);
+						
+						echo $array_tax;
 						
 						if(is_array($array_tax))
 						{
@@ -162,7 +170,7 @@ class Actualizar_productos extends Actualizar
 						}
 						else
 						{
-							log_error('cero_sql', $where);
+							$this->log_error('cero_sql', $where);
 							$id_tax = 1;	
 						}
 						
@@ -348,7 +356,15 @@ class Actualizar_productos extends Actualizar
 							
 							// 3 - Buscamos el impuesto correspondiente
 						
-							$where = '`rate` = '.$objp->tva;
+							if($array_tax != NULL)
+							{
+								$where = '`rate` = '.$array_tax;	
+							}
+							else
+							{
+								$where = '`rate` = 0';
+							}	
+							
 							$array_tax = $this->get_registros('ps_tax', $where);
 							
 							if(is_array($array_tax))
@@ -357,7 +373,7 @@ class Actualizar_productos extends Actualizar
 							}
 							else
 							{
-								log_error('cero_sql', $where);
+								$this->log_error('cero_sql', $where);
 								$id_tax = 1;	
 							}
 							

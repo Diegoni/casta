@@ -21,6 +21,7 @@ class Actualizar extends CommonObject
 	var $table_pais_pre	= 'ps_country';
 	var $table_dep_dol	= 'llx_c_departements';
 	var $table_dep_pre	= 'ps_state';
+	var $table_config_s	= 'tms_config_sincronizacion';
 		
 	function __construct(
 		$db, 
@@ -502,6 +503,11 @@ class Actualizar extends CommonObject
 			$objp = str_replace("'", "`", $objp);
 			$objp = str_replace('"', '`', $objp);
 			$error = 'La consulta " '.$objp.' " no encontró registros"';
+		}
+		else
+		if($error == 'cadena')
+		{
+			$error = $objp;
 		}
 		
 		

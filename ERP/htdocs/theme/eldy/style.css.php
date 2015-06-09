@@ -3108,5 +3108,43 @@ border-top-right-radius: 6px;
 	padding-left: 54px;
 }
 
+
+/*
+  Agregados TMS
+ */
+
+
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.label-default {
+    background-color: #777;
+}
+.label-primary {
+    background-color: #337ab7;
+}
+.label-success {
+    background-color: #5cb85c;
+}
+.label-info {
+    background-color: #5bc0de;
+}
+.label-warning {
+    background-color: #f0ad4e;
+}
+.label-danger {
+    background-color: #d9534f;
+}
+
 <?php
 if (is_object($db)) $db->close();

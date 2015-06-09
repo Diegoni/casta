@@ -35,18 +35,15 @@ $langs->load("sincronizar");
 
 if (! $user->admin) accessforbidden();
 
-$action = GETPOST('action');
+$sql		= "SELECT * FROM `tms_config_sincronizacion`";
+$resql		= $db->query($sql);	
+$config		= $db->fetch_array($resql);	
 
-if ($action == 'setvalue' && $user->admin)
-{
-
-}
-
-$sql	= "SELECT * FROM `tms_log_clientes` ORDER BY id_log DESC LIMIT 0, 10";
-$resql	= $db->query($sql);	
+$sql		= "SELECT * FROM `tms_log_clientes` ORDER BY id_log DESC LIMIT 0, $config[cantidad]";
+$resql		= $db->query($sql);	
 	
-$numr	= $db->num_rows($resql);					
-$i		= 0;
+$numr		= $db->num_rows($resql);					
+$i			= 0;
 
 
 /*
@@ -109,6 +106,15 @@ if($numr > 0)
 				$id_cliente = $array_sin['id_llx_societe'];
 			}	
 		}
+		
+		if($clientes->system == 'dolibar')
+		{
+			$label = 'primary';				
+		}
+		else
+		{
+			$label = 'info';	
+		}
 	
 		$var=!$var;
 		print '<tr '.$bc[$var].'><td>';
@@ -117,7 +123,8 @@ if($numr > 0)
 		print $clientes->nombre.'</a></td><td>';
 		print $clientes->email.'</td><td>';
 		print $clientes->phone.'</td><td>';
-		print $langs->trans('Sincronizar'.$clientes->system).'</td><td>';
+		print '<span class="label label-'.$label.'">';
+		print $langs->trans('Sincronizar'.$clientes->system).'</label></td><td>';
 		print $langs->trans('Sincronizar'.$clientes->action).'</td><td>';
 		print date('d-m-Y', strtotime($clientes->date_upd)).'</td><td>';
 		print$langs->trans('SincronizarEstado'. $clientes->id_estado);
