@@ -86,9 +86,9 @@ class Actualizar_pedidos extends Actualizar
 							
 						$array_forma = $this->get_registros($this->table_payment, $where);
 						
+						
 						// 4 - Calculo impuesto
-						
-						
+												
 						$impuesto = $objp->total_ttc - $objp->total_ht;
 						
 						

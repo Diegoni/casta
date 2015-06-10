@@ -15,6 +15,7 @@ class Actualizar_productos extends Actualizar
 	var $table_lag		= 'ps_product_lang';
 	var $table_shop		= 'ps_product_shop';
 	var $table_dol_price	= 'llx_product_price';
+	var $table_cat		= 'ps_category_product';
 	
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_product';
@@ -189,6 +190,18 @@ class Actualizar_productos extends Actualizar
 						
 						$this->insert_registro($this->table_shop, $registro);
 						
+						// 5 - Hacemos insert de la categoría 
+						
+						$array_config_s = $this->get_registros($this->table_config_s);
+						
+						$registro = array(
+							'id_category' 			=> $array_config_s['id_categoria'],
+							'id_product' 			=> $id_registro,
+							'position'				=> $array_config_s['position']
+						);
+						
+						$this->insert_registro($this->table_cat, $registro);
+						
 						$this->update_log($objp->id_log);						
 					}						
 				}
@@ -209,7 +222,7 @@ class Actualizar_productos extends Actualizar
 							// 1 - Obtenemos cadenas, tabla ps_product_lag
 							
 							$where = 
-							"`id_product`	= $id_registro AND
+							"`id_product`	= $objp->id_row AND
 							 `id_shop`		= 1 AND
 							 `id_lang`		= 1";
 							
@@ -218,7 +231,7 @@ class Actualizar_productos extends Actualizar
 							// 2 - Obtenemos precios, tabla ps_product_shop
 							
 							$where = 
-							"`id_product`	= $id_registro AND
+							"`id_product`	= $objp->id_row AND
 							 `id_shop`		= 1";
 							
 							$array_shop = $this->get_registros($this->table_shop, $where);
@@ -252,7 +265,7 @@ class Actualizar_productos extends Actualizar
 							$where = $this->id_table_dol." = ".$id_registro;
 							
 							$this->update_registro($this->table_dol, $registro, $where);
-							
+							/*
 							// 4 - Hacemos el insert de la tabla llx_product_price solo si hay cambio de precio
 							
 							$where = 'fk_product = '.$objp->id_row.' ORDER BY rowid DESC LIMIT 0,1';
@@ -295,6 +308,7 @@ class Actualizar_productos extends Actualizar
 								
 								$this->insert_registro($this->table_dol_price, $registro);
 							}
+							*/ 
 							
 							$this->update_log($objp->id_log);
 						}

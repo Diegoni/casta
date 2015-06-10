@@ -48,7 +48,9 @@ if ($action == 'setvalue' && $user->admin)
 	$registro = array(
 		'id_llx_c_payment_term'	=> GETPOST('id_llx_c_payment_term'),
 		'id_llx_c_input_reason'	=> GETPOST('id_llx_c_input_reason'),
-		'id_servicio_envio'		=> GETPOST('id_servicio_envio')
+		'id_servicio_envio'		=> GETPOST('id_servicio_envio'),
+		'id_categoria'			=> GETPOST('id_categoria'),
+		'position'				=> GETPOST('position')		
 	);
 	
 	if(GETPOST('SincronizarAutomatica') == 'yes')
@@ -77,7 +79,9 @@ if ($action == 'setvalue' && $user->admin)
 			`cantidad`				= $registro[cantidad],
 			`id_llx_c_payment_term`	= $registro[id_llx_c_payment_term],
 			`id_llx_c_input_reason`	= $registro[id_llx_c_input_reason],
-			`id_servicio_envio`		= $registro[id_servicio_envio]
+			`id_servicio_envio`		= $registro[id_servicio_envio],
+			`id_categoria`			= $registro[id_categoria],
+			`position`				= $registro[position]
 		WHERE 
 			`id_config`		= 1";
 	
@@ -118,6 +122,17 @@ $sql	= "SELECT `label`, `rowid` FROM `llx_product` WHERE `fk_product_type` = 1 O
 $servicio_envio	= $db->query($sql);	
 	
 $num_servicio_envio	= $db->num_rows($servicio_envio);	
+
+
+/*----------------------------------------------------------------------------
+		SELECT de categorias de productos
+----------------------------------------------------------------------------*/
+
+$sql	= "SELECT id_category, descripcion FROM `ps_category` ORDER BY `descripcion`";
+
+$categorias	= $db->query($sql);	
+	
+$num_categorias	= $db->num_rows($categorias);	
 				
 
 
@@ -176,6 +191,18 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		print $langs->trans("SincronizarAutomatica").'</td><td>';
 		print $form->selectyesno("SincronizarAutomatica", $registros['automatica']);
 		print '</td></tr>';
+	
+	print '</table>';	
+	
+	print '<br><br>';	
+	
+	print '<table class="noborder" width="100%">';
+		
+		$var=true;
+		print '<tr class="liste_titre">';
+		print '<td>'.$langs->trans("SincronizarPedidos").'</td>';
+		print '<td></td>';
+		print "</tr>\n";
 		
 		$var=!$var;
 		print '<tr '.$bc[$var].'><td>';
@@ -280,6 +307,56 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		print '</td></tr>';
 
 	print '</table>';
+	
+	print '<br><br>';	
+	
+	print '<table class="noborder" width="100%">';
+		
+		$var=true;
+		print '<tr class="liste_titre">';
+		print '<td>'.$langs->trans("SincronizarProductos").'</td>';
+		print '<td></td>';
+		print "</tr>\n";
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarCategoria").'</td><td>';
+		print '<select name="id_categoria">';
+		print '<option value="0"></option>';
+		
+		$c = 0;
+		
+		if($num_categorias > 0)
+		{	
+			while ($c < $num_categorias)
+			{
+				$categoria = $db->fetch_object($categorias);
+				
+				if($registros['id_categoria'] == $categoria->id_category)
+				{
+					$select = 'selected';
+				}
+				else
+				{
+					$select = '';
+				}	
+				
+				print '<option value="'.$categoria->id_category.'" '.$select.'>'.$categoria->descripcion.'</option>';
+				
+				$c++; 
+			}
+		}	
+		
+		print '</select>';
+		print '</td></tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td>';
+		print $langs->trans("SincronizarPosicion").'</td><td>';
+		print '<input name="position" type="number" value="'.$registros['position'].'">';
+		print '</td></tr>';
+	
+	print '</table>';	
 
 	print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
 
