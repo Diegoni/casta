@@ -71,12 +71,15 @@ class Actualizar_clientes extends Actualizar
 				{
 					if($objp->system == $this->system_prestashop)
 					{
+						$nombre = $this->armar_nombre($objp->nombre, $objp->apellido); 
+						
 						$registro = array(
 							'email'			=> "'".$objp->email."'",
 							'url'			=> "'".$objp->website."'",
 							'note_private'	=> "'".$objp->note."'",
 							'siren'			=> "'".$objp->cuil."'",
-							'nom'			=> "'".$objp->nombre."'",
+							'nom'			=> "'".$nombre['nombre']."'",
+							'nom_cant'		=> "'".$nombre['nombre_cantidad']."'",
 							'datec'			=> "'".$objp->date_upd."'",
 							'status'		=> $objp->active,
 							'client'		=> 1,
@@ -170,12 +173,15 @@ class Actualizar_clientes extends Actualizar
 						
 						if($id_registro != 0)
 						{
+							$nombre = $this->armar_nombre($objp->nombre, $objp->apellido);
+							
 							$registro = array(
 								'email' 		=> "'".$objp->email."'",
 								'url' 			=> "'".$objp->website."'",
 								'note_private'	=> "'".$objp->note."'",
 								'siren' 		=> "'".$objp->cuil."'",
-								'nom'			=> "'".$objp->nombre."'",
+								'nom'			=> "'".$nombre['nombre']."'",
+								'nom_cant'		=> "'".$nombre['nombre_cantidad']."'",
 								'datec' 		=> "'".$objp->date_upd."'",
 								'status' 		=> $objp->active,
 								'id_sin' 		=> $objp->id_row
@@ -214,12 +220,15 @@ class Actualizar_clientes extends Actualizar
 								
 								if($cant_email == 0) // Controlamos que el email no este repetido
 								{
+									$nombre = $this->armar_nombre($objp->nombre, $objp->apellido);
+									
 									$registro = array(
 										'email' 	=> "'".$email."'",
 										'website' 	=> "'".$objp->website."'",
 										'note' 		=> "'".$objp->note."'",
 										'cuil' 		=> "'".$objp->cuil."'",
-										'firstname' => "'".$objp->nombre."'",
+										'firstname' => "'".$nombre['nombre']."'",
+										'lastname'	=> "'".$nombre['apellido']."'",
 										'date_upd' 	=> "'".$objp->date_upd."'",
 										'active' 	=> $objp->active,
 										'id_sin' 	=> $objp->id_row

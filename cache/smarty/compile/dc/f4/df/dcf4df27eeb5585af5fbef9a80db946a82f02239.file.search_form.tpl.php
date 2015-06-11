@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2015-06-10 12:21:37
+<?php /* Smarty version Smarty-3.1.19, created on 2015-06-11 15:58:27
          compiled from "C:\xampp2\htdocs\casta\admin1978\themes\default\template\search_form.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:29781557856019cb487-38186843%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:264965579da5388ced3-89552214%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '29781557856019cb487-38186843',
+  'nocache_hash' => '264965579da5388ced3-89552214',
   'function' => 
   array (
   ),
@@ -24,9 +24,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_55785601a119a3_13130493',
+  'unifunc' => 'content_5579da538def61_61119355',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_55785601a119a3_13130493')) {function content_55785601a119a3_13130493($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_5579da538def61_61119355')) {function content_5579da538def61_61119355($_smarty_tpl) {?>
 
 <form id="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['id']->value, ENT_QUOTES, 'UTF-8', true);?>
 " class="bo_search_form" method="post" action="index.php?controller=AdminSearch&amp;token=<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['getAdminToken'][0][0]->getAdminTokenLiteSmarty(array('tab'=>'AdminSearch'),$_smarty_tpl);?>

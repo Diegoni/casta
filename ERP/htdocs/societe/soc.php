@@ -926,7 +926,7 @@ else
 
         // Email web
         print '<tr><td><label for="email">'.$langs->trans('EMail').(! empty($conf->global->SOCIETE_MAIL_REQUIRED)?'*':'').'</label></td>';
-	    print '<td colspan="3"><input type="text" name="email" id="email" size="32" value="'.$object->email.'"></td></tr>';
+	    print '<td colspan="3"><input type="text" name="email" id="email" size="32" value="'.$object->email.'" required></td></tr>';
         print '<tr><td><label for="url">'.$langs->trans('Web').'</label></td>';
 	    print '<td colspan="3"><input type="text" name="url" id="url" size="32" value="'.$object->url.'"></td></tr>';
 
