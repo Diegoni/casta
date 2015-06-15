@@ -192,6 +192,11 @@ function paypaladmin_prepare_head()
 	$head[$h][2] = 'pedidos';
 	$h++;
 	
+	$head[$h][0] = DOL_URL_ROOT.'/sincronizar/admin/pagos.php';
+	$head[$h][1] = 'Pagos';
+	$head[$h][2] = 'pagos';
+	$h++;
+	
 	$head[$h][0] = DOL_URL_ROOT.'/sincronizar/admin/errores.php';
 	$head[$h][1] = 'Errores';
 	$head[$h][2] = 'errores';

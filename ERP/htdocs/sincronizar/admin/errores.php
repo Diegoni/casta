@@ -208,7 +208,7 @@ if(isset($_GET['id_error']))
 }
 else
 {	
-	print $langs->trans("SincronizarUltimos")."<br>\n";
+	print $langs->trans("SincronizarUltimos").' '.$config['cantidad'].' '.$langs->trans("SincronizarRegistros")."<br>\n";
 	
 	print '<br>';
 	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';

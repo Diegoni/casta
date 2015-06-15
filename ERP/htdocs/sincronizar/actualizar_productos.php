@@ -16,7 +16,8 @@ class Actualizar_productos extends Actualizar
 	var $table_shop		= 'ps_product_shop';
 	var $table_dol_price	= 'llx_product_price';
 	var $table_cat		= 'ps_category_product';
-	
+	var $table_stock	= 'ps_stock_available';
+		
 	// campos en tablas
 	var $id_sin_dol		= 'id_llx_product';
 	var $id_sin_pre		= 'id_ps_product';
@@ -201,6 +202,17 @@ class Actualizar_productos extends Actualizar
 						);
 						
 						$this->insert_registro($this->table_cat, $registro);
+						
+						// 6 - Permitimos que se hagan pedidos de este producto sin stock
+						
+						$registro = array(
+							'id_product' 			=> $id_registro,
+							'id_shop'				=> 1,
+							'out_of_stock'			=> 1
+						);
+						
+						$this->insert_registro($this->table_stock, $registro);
+																		
 						
 						$this->update_log($objp->id_log);						
 					}						

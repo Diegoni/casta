@@ -64,11 +64,11 @@ class Actualizar extends CommonObject
 		$valores	= substr($valores, 0, -1);
 		
 		$sql = 
-		"INSERT INTO `$table`(
-			$campos
-		)VALUES	(
-			$valores
-		);";
+			"INSERT INTO `$table`(
+				$campos
+			)VALUES	(
+				$valores
+			);";
 		
 		$this->view_sql($sql);
 							
@@ -155,13 +155,14 @@ class Actualizar extends CommonObject
 		{
 			$where_sql = $where;
 		}
-		
-		
+				
 		$sql =
-		"SELECT $campo_sql FROM `$table`
+			"SELECT 
+				$campo_sql 
+			FROM 
+				`$table`
 			WHERE
-				$where_sql
-		;";
+				$where_sql ;";
 		
 		$this->view_sql($sql);
 							
@@ -215,13 +216,13 @@ class Actualizar extends CommonObject
 		if($extra_field == NULL)
 		{
 			$sql = 
-			"INSERT INTO `$this->table_sin` (
-				`$this->id_sin_pre`,
-				`$this->id_sin_dol`
-			)VALUES(
-				$id_presta,
-				$id_doli
-			);";			
+				"INSERT INTO `$this->table_sin` (
+					`$this->id_sin_pre`,
+					`$this->id_sin_dol`
+				)VALUES(
+					$id_presta,
+					$id_doli
+				);";			
 		}
 		else
 		{
@@ -240,11 +241,11 @@ class Actualizar extends CommonObject
 				$valores .= $id_doli;
 				
 				$sql = 
-				"INSERT INTO `$this->table_sin` (
-					$campos
-				)VALUES(
-					$valores
-				);";	
+					"INSERT INTO `$this->table_sin` (
+						$campos
+					)VALUES(
+						$valores
+					);";	
 			}
 		}
 		
@@ -277,7 +278,13 @@ class Actualizar extends CommonObject
 		
 		if($extra_field == NULL)
 		{
-			$sql = "SELECT `$id_buscado` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";	
+			$sql = 
+				"SELECT 
+					`$id_buscado` 
+				FROM 
+					`$this->table_sin` 
+				WHERE 
+					`$id_referencia` = $id;";	
 		}
 		else
 		{
@@ -287,7 +294,14 @@ class Actualizar extends CommonObject
 			}
 			else
 			{
-				$sql = "SELECT `$id_buscado`, `$extra_field` FROM `$this->table_sin` WHERE `$id_referencia` = $id;";
+				$sql = 
+					"SELECT 
+						`$id_buscado`, 
+						`$extra_field` 
+					FROM 
+						`$this->table_sin` 
+					WHERE 
+						`$id_referencia` = $id;";
 			}			
 		}
 		
@@ -400,7 +414,13 @@ class Actualizar extends CommonObject
 							
 			// 01 - Buscamos cadena de comparacion  	
 				
-			$sql = "SELECT $datos[cadena_busqueda] FROM `$datos[table_bus]` WHERE $datos[id_busqueda] = $id";	
+			$sql = 	
+				"SELECT 
+					$datos[cadena_busqueda] 
+				FROM 
+					`$datos[table_bus]` 
+				WHERE 
+					$datos[id_busqueda] = $id";	
 			
 			$this->view_sql($sql);
 				
@@ -416,7 +436,13 @@ class Actualizar extends CommonObject
 				
 				// 02 - Buscamos en la otra tabla la cadena 
 				
-				$sql = "SELECT $datos[id_return] FROM `$datos[table_return]` WHERE $datos[cadena_comparacion] = '$cadena'";
+				$sql = 
+					"SELECT 
+						$datos[id_return] 
+					FROM 
+						`$datos[table_return]` 
+					WHERE 
+						$datos[cadena_comparacion] = '$cadena'";
 				
 				$this->view_sql($sql);
 							
@@ -506,11 +532,19 @@ class Actualizar extends CommonObject
 	{
 		if($table == NULL)
 		{
-			$sql = "DELETE FROM `$this->table_log` WHERE `id_estado` = 0";	
+			$sql = 
+				"DELETE FROM 
+					`$this->table_log` 
+				WHERE 
+					`id_estado` = 0";	
 		}
 		else
 		{
-			$sql = "DELETE FROM `$table` WHERE `id_estado` = 0";	
+			$sql = 
+				"DELETE FROM 
+					`$table` 
+				WHERE 
+					`id_estado` = 0";	
 		}
 		
 		$this->view_sql($sql);	
@@ -560,17 +594,17 @@ class Actualizar extends CommonObject
 		
 		
 		$sql = 
-		"INSERT INTO `$this->table_error`(
-			error,
-			date_add,
-			date_upd,
-			id_estado
-		)VALUES	(
-			'$error',
-			'$date',
-			'$date',
-			1
-		);";
+			"INSERT INTO `$this->table_error`(
+				error,
+				date_add,
+				date_upd,
+				id_estado
+			)VALUES	(
+				'$error',
+				'$date',
+				'$date',
+				1
+			);";
 		
 		$this->view_sql($sql);	
 			
@@ -591,12 +625,12 @@ class Actualizar extends CommonObject
 		$prestashop	= $this->subject.'_'.$this->system_prestashop;
 		
 		$sql = 
-		"UPDATE `$this->table_mod` 
-			SET 
-				`$dolibar`		= 0, 
-				`$prestashop`	= 0 
-			WHERE 
-				`id_row` = 1";
+			"UPDATE `$this->table_mod` 
+				SET 
+					`$dolibar`		= 0, 
+					`$prestashop`	= 0 
+				WHERE 
+					`id_row` = 1";
 		
 		$this->view_sql($sql);
 	

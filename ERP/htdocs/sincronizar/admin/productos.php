@@ -62,7 +62,7 @@ print '<br>';
 $head = paypaladmin_prepare_head();
 
 dol_fiche_head($head, 'productos', 'Sincronización', 0, 'sincronizar');
-print $langs->trans("SincronizarUltimos")."<br>\n";
+print $langs->trans("SincronizarUltimos").' '.$config['cantidad'].' '.$langs->trans("SincronizarRegistros")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
