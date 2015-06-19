@@ -37,6 +37,53 @@ $langs->load("dict");
 
 if (! $user->admin) accessforbidden();
 
+function formato_importe($importe)
+{
+	$importe = explode('.', $importe);
+	
+	$decimal = substr($importe[1], 0, 2);
+	
+	if(strlen($decimal) < 1)
+	{
+		$decimal = '00'; 
+	}
+	else
+	if(strlen($decimal) < 2)
+	{
+		$decimal = '0'; 
+	}
+	
+	$formato = $importe[0].'.'.$decimal;
+	
+	return $formato;
+}
+
+function comprobar_factura($factura)
+{
+	if($factura['siren'] == '')
+	{
+		$errores['CUIL'] = 'El nro de cuil no puede estar vacio';
+	}
+	
+	$cuil = ereg_replace("[^0-9]", "", $factura['siren']);
+	
+	if(strlen($cuil) != 11)
+	{
+		$errores['CUIL'] = 'La cantidad de valores no es correcta';
+	}
+		
+	
+	if(isset($errores))
+	{
+		return $errores;
+	}
+	else 
+	{
+		return 1;	
+	}
+}
+
+
 function armar_cadena($cadena, $cantidad, $tipo)
 {
 	if($tipo == 'Varchar')
@@ -44,9 +91,49 @@ function armar_cadena($cadena, $cantidad, $tipo)
 		$char_completar = ' ';
 	}
 	else
-	if($tipo == 'Importe' || $tipo == 'Int' || $tipo == 'Otro')
+	if($tipo == 'Int')
 	{
 		$char_completar = '0';
+		
+		$cadena = ereg_replace("[^0-9]", "", $cadena);
+	}
+	else
+	if($tipo == 'Importe')
+	{
+		$char_completar = '0';
+		
+		$importe = round($cadena, 2);
+								
+		$importe_entero = round($cadena);
+		
+		if($importe > $importe_entero)
+		{
+			$resto = $importe - $importe_entero;	
+			
+			$resto = round($resto, 2);
+			
+			$a_resto = explode('.', $resto);
+		}
+		else
+		{
+			$resto = $importe_entero - $importe;	
+			
+			$resto = round($resto, 2);
+			
+			$a_resto = explode('.', $resto);
+		}
+								
+		if($resto == 0)
+		{
+			$importe .= '00'; 
+		}
+		else
+		if(strlen($a_resto[1]) == 1)
+		{
+			$importe .= '0'; 
+		}
+								
+		$cadena = str_replace('.', '', $importe);		
 	}
 	
 	if($cantidad > strlen($cadena))
@@ -58,7 +145,8 @@ function armar_cadena($cadena, $cantidad, $tipo)
 		else
 		{
 			$campo = '';
-		}	
+		}
+			
 									
 		$limite = $cantidad - strlen($cadena);
 									
@@ -88,15 +176,19 @@ $action = GETPOST('action');
 
 if ($action == 'setvalue' && $user->admin)
 {
-	$sql = 
+	$sql	= 
 		"SELECT 
-			llx_facture.*, 
-			llx_societe.nom,
-			llx_societe.siren
+			`llx_facture`.*, 
+			`llx_societe`.`nom`, 
+			`llx_societe`.`siren` 
 		FROM 
 			`llx_facture` 
 		INNER JOIN 
-			llx_societe ON(llx_facture.fk_soc = llx_societe.rowid)";
+			`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
+		WHERE 
+			`llx_facture`.`fk_statut`= 1 
+		ORDER BY 
+			`llx_facture`.`datef`, `llx_facture`.`facnumber`";
 
 	$facturas_query = $db->query($sql);	
 		
@@ -112,6 +204,8 @@ if ($action == 'setvalue' && $user->admin)
 	if($num_facturas > 0)
 	{
 		$archivo = '';
+		
+		$cant_lineas = 0;
 			
 		while ($c < $num_facturas)
 		{
@@ -119,6 +213,8 @@ if ($action == 'setvalue' && $user->admin)
 			
 			if(in_array($factura['rowid'], $facturas_agenerar))
 			{
+				$cant_lineas++;
+				
 				$linea = '';
 				
 				$r = 0;
@@ -151,48 +247,8 @@ if ($action == 'setvalue' && $user->admin)
 								$campo = date('Ymd', strtotime($factura[$rece['campo_dolibarr']]));
 							}
 							else
-							if($rece['tipo'] == 'Varchar')
 							{
 								$campo = armar_cadena($factura[$rece['campo_dolibarr']], $rece['cantidad'], $rece['tipo']);
-							}
-							else
-							if($rece['tipo'] == 'Importe')
-							{
-								$campo = '';
-								
-								$importe = round($factura[$rece['campo_dolibarr']], 2);
-								
-								$importe_entero = round($factura[$rece['campo_dolibarr']]);
-								
-								$resto = $importe - $importe_entero;
-								
-								if($resto == 0)
-								{
-									$importe .= '00'; 
-								}
-								else
-								if(strlen($resto) == 1)
-								{
-									$importe .= '0'; 
-								}
-								
-								$importe = str_replace('.', '', $importe);
-																
-								$campo = armar_cadena($importe, $rece['cantidad'], $rece['tipo']);
-														
-							}
-							else
-							if($rece['tipo'] == 'Int')
-							{
-								$campo = '';
-								
-								$numeros = ereg_replace("[^0-9]", "", $factura[$rece['campo_dolibarr']]);
-								
-								$campo = armar_cadena($numeros, $rece['cantidad'], $rece['tipo']); 
-							}							
-							else
-							{
-								$campo = armar_cadena($factura[$rece['campo_dolibarr']], $rece['cantidad'], 'Otro');
 							}
 						}
 						
@@ -201,22 +257,48 @@ if ($action == 'setvalue' && $user->admin)
 						$r++;
 					}
 
-					$total_operaciones = $total_operaciones + $factura['total_ttc'];
-					$total_neto = $total_neto + $factura['total'];
-					$total_impuesto = $total_impuesto + $factura['tva'];
+					$total_operaciones	= $total_operaciones + $factura['total_ttc'];
+					$total_neto 		= $total_neto + $factura['total'];
+					$total_impuesto		= $total_impuesto + $factura['tva'];
 
 					$file = fopen("archivo.txt", "a");
 					fwrite($file, $linea . PHP_EOL);
 					fclose($file);
 				}
-							
 			}
 			
 			$c++;
 		}
+		
+		$mes = GETPOST('mes');
+		$ano = GETPOST('ano');
+		$pdv = GETPOST('PuntodeVenta');
+		$coa = GETPOST('CodAutorizacion');
+		$inv = GETPOST('InformaFechas');
+		$pes = GETPOST('PrestacionesServicio');
+		
+		$totales = '2';
+		$totales .= $ano.$mes;
+		$totales .= armar_cadena('', 13, 'Varchar');
+		$totales .= armar_cadena($cant_lineas, 8, 'Int');
+		$totales .= armar_cadena('', 17, 'Varchar');
+		$totales .= '20305949125';
+		$totales .= armar_cadena('', 22, 'Varchar');
+		$totales .= armar_cadena($total_operaciones, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena($total_neto, 15, 'Importe');
+		$totales .= armar_cadena($total_impuesto, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena(0, 15, 'Importe');
+		$totales .= armar_cadena('', 61, 'Varchar');
+		$totales .= '*';
 
 		$file = fopen("archivo.txt", "a");
-		fwrite($file, $total_operaciones . PHP_EOL);
+		fwrite($file, $totales . PHP_EOL);
 		fclose($file);	
 
 	}
@@ -228,7 +310,19 @@ if ($action == 'setvalue' && $user->admin)
 		SELECT de los origenes del pedido
 ----------------------------------------------------------------------------*/
 
-$sql	= "SELECT * FROM `llx_facture`";
+$sql	= 
+	"SELECT 
+		`llx_facture`.*, 
+		`llx_societe`.`nom`, 
+		`llx_societe`.`siren` 
+	FROM 
+		`llx_facture` 
+	INNER JOIN 
+		`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
+	WHERE 
+		`llx_facture`.`fk_statut`= 1 
+	ORDER BY 
+		`llx_facture`.`datef`, `llx_facture`.`facnumber`";
 
 $facturas_query = $db->query($sql);	
 	
@@ -256,7 +350,7 @@ $head = paypaladmin_prepare_head();
 
 dol_fiche_head($head, 'config', 'Sincronización', 0, 'sincronizar');
 
-print $langs->trans("SincronizarConfigDesc")."<br>\n";
+print $langs->trans("ReceConfigDesc")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -267,8 +361,8 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("RecePeriodo").'</td>';
-	print '<td>'.$langs->trans("RecePuntodeVenta").'</td>';
-	print '<td>'.$langs->trans("ReceNroAutorizacion").'</td>';
+	print '<td>'.$langs->trans("RecePuntoVenta").'</td>';
+	print '<td>'.$langs->trans("ReceCodAutorizacion").'</td>';
 	print '<td>'.$langs->trans("ReceInformaFechas").'</td>';
 	print '<td>'.$langs->trans("RecePrestacionesServicio").'</td>';
 	print '</tr>';
@@ -277,9 +371,9 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<tr '.$bc[$var].'>';
 	print '<td><input name="mes" value="'.date('m').'" readonly><input name="ano" value="'.date('Y').'" readonly></td>';
 	print '<td><input name="PuntodeVenta" value="" required></td>';
-	print '<td><input name="NroAutorizacion" value=""></td>';
-	print '<td><input type="checkbox" name="" value=""></td>';
-	print '<td><input type="checkbox" name="" value=""></td>';
+	print '<td><input name="CodAutorizacion" value=""></td>';
+	print '<td><input name="InformaFechas" type="checkbox" value=""></td>';
+	print '<td><input name="PrestacionesServicio" type="checkbox"  value=""></td>';
 	print '</tr>';
 	
 	print '</table>';
@@ -292,14 +386,15 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		print '<td>'.$langs->trans("ReceTipoRegistro").'</td>';
 		print '<td>'.$langs->trans("ReceFechaComprobante").'</td>';
 		print '<td>'.$langs->trans("ReceNroComprobante").'</td>';
-		print '<td>'.$langs->trans("ReceCodDocumento").'</td>';
-		print '<td>'.$langs->trans("ReceNroIdentificacion").'</td>';
-		print '<td>'.$langs->trans("ReceImporteOperacion").'</td>';
-		print '<td>'.$langs->trans("ReceImporteOperacionPrecio").'</td>';
-		print '<td>'.$langs->trans("ReceImporteNeto").'</td>';
+		print '<td>'.$langs->trans("ReceNombre").'</td>';
+		print '<td title="'.$langs->trans("ReceCodDocumento").'">'.$langs->trans("ReceRCodDocumento").'</td>';
+		print '<td title="'.$langs->trans("ReceNroIdentificacion").'">'.$langs->trans("ReceRNroIdentificacion").'</td>';
+		print '<td title="'.$langs->trans("ReceImporteOperacion").'">'.$langs->trans("ReceRImporteOperacion").'</td>';
+		print '<td title="'.$langs->trans("ReceImporteOperacionPrecio").'">'.$langs->trans("ReceRImporteOperacionPrecio").'</td>';
+		print '<td title="'.$langs->trans("ReceImporteNeto").'">'.$langs->trans("ReceRImporteNeto").'</td>';
 		print '<td>'.$langs->trans("ReceImpuestoLiquidado").'</td>';
-		print '<td>'.$langs->trans("ReceImpuestoLiquidadoRNI").'</td>';
-		print '<td>'.$langs->trans("ReceImpuestoOperaciones").'</td>';
+		print '<td title="'.$langs->trans("ReceImpuestoLiquidadoRNI").'">'.$langs->trans("ReceRImpuestoLiquidadoRNI").'</td>';
+		print '<td title="'.$langs->trans("ReceImpuestoOperaciones").'">'.$langs->trans("ReceRImpuestoOperaciones").'</td>';
 		print "</tr>\n";
 		
 		$c = 0;
@@ -313,18 +408,41 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 			{
 				$factura = $db->fetch_array($facturas_query);
 				
+				$error = comprobar_factura($factura);
+				
+				if(is_array($error))
+				{
+					$mensaje = '';
+					
+					foreach ($error as $key => $value) 
+					{
+						$mensaje .= $key.' : '.$value;
+					}
+				}
+				
 				$var=!$var;
 				print '<tr '.$bc[$var].'>';
-				print '<td><input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'" checked></td>';
+				if(is_array($error))
+				{
+					print '<td>';
+					print '<img src="/casta/ERP/htdocs/theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'">';
+					print '</td>';	
+				}
+				else
+				{
+					print '<td><input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'"></td>';	
+				}
+				
 				print '<td></td>'; //ReceTipoRegistro
 				print '<td>'.$factura['datef'].'</td>';
 				print '<td>'.$factura['facnumber'].'</td>';
-				print '<td></td>'; //ReceCodDocumento
-				print '<td></td>'; //ReceNroIdentificacion
-				print '<td>'.$factura['total_ttc'].'</td>';
+				print '<td>'.$factura['nom'].'</td>';
+				print '<td>80</td>'; //ReceCodDocumento
+				print '<td>'.$factura['siren'].'</td>'; //ReceNroIdentificacion
+				print '<td align="right">'.formato_importe($factura['total_ttc']).'</td>';
 				print '<td></td>'; //ReceImporteOperacionPrecio
-				print '<td>'.$factura['total'].'</td>';
-				print '<td>'.$factura['tva'].'</td>';
+				print '<td align="right">'.formato_importe($factura['total']).'</td>';
+				print '<td align="right">'.formato_importe($factura['tva']).'</td>';
 				print '<td></td>'; //ReceImpuestoLiquidadoRNI
 				print '<td></td>'; //ReceImpuestoOperaciones
 				print '</tr>';
@@ -344,10 +462,11 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		print '<td></td>';
 		print '<td></td>';
 		print '<td></td>';
-		print '<td>'.$total_operaciones.'</td>';
 		print '<td></td>';
-		print '<td>'.$total_neto.'</td>';
-		print '<td>'.$total_impuesto.'</td>';
+		print '<td align="right">'.formato_importe($total_operaciones).'</td>';
+		print '<td></td>';
+		print '<td align="right">'.formato_importe($total_neto).'</td>';
+		print '<td align="right">'.formato_importe($total_impuesto).'</td>';
 		print '<td></td>';
 		print '<td></td>';
 		print "</tr>\n";	
