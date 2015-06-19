@@ -37,6 +37,10 @@ $langs->load("dict");
 
 if (! $user->admin) accessforbidden();
 
+/*----------------------------------------------------------------------------
+		Función para unificar formatos de importes
+----------------------------------------------------------------------------*/
+
 function formato_importe($importe)
 {
 	$importe = explode('.', $importe);
@@ -58,6 +62,10 @@ function formato_importe($importe)
 	return $formato;
 }
 
+/*----------------------------------------------------------------------------
+		Función para corroborar los datos antes de generar el txt
+----------------------------------------------------------------------------*/
+
 function comprobar_factura($factura)
 {
 	if($factura['siren'] == '')
@@ -71,6 +79,24 @@ function comprobar_factura($factura)
 	{
 		$errores['CUIL'] = 'La cantidad de valores no es correcta';
 	}
+
+	$fecha		= date('Y-m-j');
+	$nuevafecha = strtotime('-5 day' , strtotime($fecha)) ;
+	$nuevafecha = date('Y-m-j' , $nuevafecha);
+	
+	$fecha_min	= strtotime($nuevafecha);
+	$fecha_max	= strtotime($fecha);
+	$fecha_fac	= strtotime($factura['datef']);
+		
+	if($fecha_min > $fecha_fac)
+	{
+		$errores['FECHA'] = 'La fecha del comprobante no puede ser menor a '.$nuevafecha;
+	}
+	else
+	if($fecha_max < $fecha_fac)
+	{
+		$errores['FECHA'] = 'La fecha del comprobante no puede ser mayor a '.$fecha;
+	}
 		
 	
 	if(isset($errores))
@@ -83,6 +109,9 @@ function comprobar_factura($factura)
 	}
 }
 
+/*----------------------------------------------------------------------------
+		Función para armar la cadena con el formato para importar
+----------------------------------------------------------------------------*/
 
 function armar_cadena($cadena, $cantidad, $tipo)
 {
@@ -169,7 +198,7 @@ function armar_cadena($cadena, $cantidad, $tipo)
 }
 
 /*----------------------------------------------------------------------------
-		UPDATE de la tabla tms_config_sincronizacion
+		Generación del archivo
 ----------------------------------------------------------------------------*/
 
 $action = GETPOST('action');
@@ -195,6 +224,32 @@ if ($action == 'setvalue' && $user->admin)
 	$num_facturas	= $db->num_rows($facturas_query);
 		
 	$facturas_agenerar = GETPOST('toGenerate');
+	$mes = GETPOST('mes');
+	$ano = GETPOST('ano');
+	$pdv = GETPOST('PuntodeVenta');
+	$coa = GETPOST('CodAutorizacion');
+	$inv = GETPOST('InformaFechas');
+	$pes = GETPOST('PrestacionesServicio');
+	
+	if($inv)
+	{
+		$inv_text = '1';
+	}
+	else 
+	{
+		$inv_text = '0';
+	}
+	
+	if($pes)
+	{
+		$pes_text = '1';
+	}
+	else 
+	{
+		$pes_text = '0';
+	}
+	
+	$nombre_archivo = 'RECE'.$ano.$mes.$pdv.$coa.$inv_text.$pes_text.'.txt';
 	
 	$c = 0;
 	$total_operaciones = 0;
@@ -261,7 +316,7 @@ if ($action == 'setvalue' && $user->admin)
 					$total_neto 		= $total_neto + $factura['total'];
 					$total_impuesto		= $total_impuesto + $factura['tva'];
 
-					$file = fopen("archivo.txt", "a");
+					$file = fopen($nombre_archivo, "a");
 					fwrite($file, $linea . PHP_EOL);
 					fclose($file);
 				}
@@ -269,13 +324,6 @@ if ($action == 'setvalue' && $user->admin)
 			
 			$c++;
 		}
-		
-		$mes = GETPOST('mes');
-		$ano = GETPOST('ano');
-		$pdv = GETPOST('PuntodeVenta');
-		$coa = GETPOST('CodAutorizacion');
-		$inv = GETPOST('InformaFechas');
-		$pes = GETPOST('PrestacionesServicio');
 		
 		$totales = '2';
 		$totales .= $ano.$mes;
@@ -296,15 +344,14 @@ if ($action == 'setvalue' && $user->admin)
 		$totales .= armar_cadena(0, 15, 'Importe');
 		$totales .= armar_cadena('', 61, 'Varchar');
 		$totales .= '*';
-
-		$file = fopen("archivo.txt", "a");
+		
+		$file = fopen($nombre_archivo, "a");
 		fwrite($file, $totales . PHP_EOL);
 		fclose($file);	
 
 	}
 	
 }
-
 
 /*----------------------------------------------------------------------------
 		SELECT de los origenes del pedido
@@ -372,8 +419,8 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<td><input name="mes" value="'.date('m').'" readonly><input name="ano" value="'.date('Y').'" readonly></td>';
 	print '<td><input name="PuntodeVenta" value="" required></td>';
 	print '<td><input name="CodAutorizacion" value=""></td>';
-	print '<td><input name="InformaFechas" type="checkbox" value=""></td>';
-	print '<td><input name="PrestacionesServicio" type="checkbox"  value=""></td>';
+	print '<td><input name="InformaFechas" type="checkbox" value="1"></td>';
+	print '<td><input name="PrestacionesServicio" type="checkbox"  value="1"></td>';
 	print '</tr>';
 	
 	print '</table>';
@@ -424,9 +471,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				print '<tr '.$bc[$var].'>';
 				if(is_array($error))
 				{
-					print '<td>';
-					print '<img src="/casta/ERP/htdocs/theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'">';
-					print '</td>';	
+					print '<td><img src="../../theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'"></td>';					
 				}
 				else
 				{
@@ -434,7 +479,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				}
 				
 				print '<td></td>'; //ReceTipoRegistro
-				print '<td>'.$factura['datef'].'</td>';
+				print '<td>'.date('d-m-Y', strtotime($factura['datef'])).'</td>';
 				print '<td>'.$factura['facnumber'].'</td>';
 				print '<td>'.$factura['nom'].'</td>';
 				print '<td>80</td>'; //ReceCodDocumento
