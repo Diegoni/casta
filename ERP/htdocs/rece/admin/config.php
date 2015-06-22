@@ -29,7 +29,7 @@ require_once DOL_DOCUMENT_ROOT.'/rece/lib/rece.lib.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-$servicename='Sincronizar';
+$servicename='Rece';
 
 $langs->load("rece");
 $langs->load("bills");
@@ -386,16 +386,16 @@ $num_facturas	= $db->num_rows($facturas_query);
 
 $form = new Form($db);
 
-llxHeader('',$langs->trans("SincronizarSetup"));
+llxHeader('',$langs->trans("ReceSetup"));
 
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ModuleSetup").' de Sincronización',$linkback);
+print_fiche_titre($langs->trans("ModuleSetup").' de Rece',$linkback);
 print '<br>';
 
 $head = paypaladmin_prepare_head();
 
-dol_fiche_head($head, 'config', 'Sincronización', 0, 'sincronizar');
+dol_fiche_head($head, 'config', 'Rece', 0, 'rece');
 
 print $langs->trans("ReceConfigDesc")."<br>\n";
 

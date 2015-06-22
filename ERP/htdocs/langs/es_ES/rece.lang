@@ -42,3 +42,4 @@ RecePrestacionesServicio=Prestaciones de Servicios
 ReceNombre=Nombre
 BackToModuleList=Volver a la lista de Modulos
 ReceConfigDesc=Modulo para exportar las facturas para el sistema RECE de AFIP
+ReceSetup=Configuración del módulo de Rece
