@@ -4,6 +4,8 @@
  * Copyright (C) 2011-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012  Juanjo Menent			<jmenent@2byte.es>
  *
+12015062301 000100000005000000050008023312465019Prueba_rece                   00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000   00000000000 000000000000000000000000000000
+2201506             00000001                 30711500746                      000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                                                             *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
@@ -38,7 +40,7 @@ $langs->load("dict");
 if (! $user->admin) accessforbidden();
 
 /*----------------------------------------------------------------------------
-		Generación del archivo
+		Guardamos la configuración
 ----------------------------------------------------------------------------*/
 
 $action = GETPOST('action');
@@ -49,6 +51,7 @@ if ($action == 'setvalue' && $user->admin)
 		'folder'	=> GETPOST('folder'),
 		'min_dias'	=> GETPOST('min_dias'),
 		'cuil'		=> GETPOST('cuil'),
+		'limite'	=> GETPOST('limite'),
 	);
 	
 	if(is_dir($registro['folder']))
@@ -60,7 +63,8 @@ if ($action == 'setvalue' && $user->admin)
 				SET 
 					`folder`			= '$registro[folder]',
 					`min_dias`			= $registro[min_dias],
-					`cuil`				= $registro[cuil]
+					`cuil`				= $registro[cuil],
+					`limite`			= $registro[limite]
 				WHERE 
 					`id_config`		= 1";
 		
@@ -74,6 +78,11 @@ if ($action == 'setvalue' && $user->admin)
 	}
 }
 else
+		
+/*----------------------------------------------------------------------------
+		Modificar punto de venta
+----------------------------------------------------------------------------*/
+	
 if ($action == 'punto_venta' && $user->admin)
 {
 	$registro = array(
@@ -142,6 +151,11 @@ if ($action == 'new' && $user->admin)
 	}	
 }
 else
+
+/*----------------------------------------------------------------------------
+		Eliminar punto de venta
+----------------------------------------------------------------------------*/
+
 if(isset($_GET['delete']))
 {
 	$registro = array(
@@ -158,7 +172,6 @@ if(isset($_GET['delete']))
 			
 	setEventMessage($langs->trans("SetupSaved"));
 }
-
 
 /*----------------------------------------------------------------------------
 		SELECT de los origenes del pedido
@@ -252,6 +265,12 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.$langs->trans("ReceCuil").'</td>';
 	print '<td><input name="cuil" value="'.$config_rece['cuil'].'" size="20" required></td>';
+	print '</tr>';
+	
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("ReceLimite").'</td>';
+	print '<td><input name="limite" value="'.$config_rece['limite'].'" size="20" required></td>';
 	print '</tr>';
 			
 	print '</table>';

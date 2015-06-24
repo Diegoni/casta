@@ -251,6 +251,7 @@ if ($action == 'setvalue' && $user->admin)
 	$facturas_agenerar = GETPOST('toGenerate');
 	$mes = GETPOST('mes');
 	$ano = GETPOST('ano');
+	$cuil= GETPOST('cuil');
 	$pdv = GETPOST('PuntodeVenta');
 	$coa = GETPOST('CodAutorizacion');
 	$inv = GETPOST('InformaFechas');
@@ -273,6 +274,8 @@ if ($action == 'setvalue' && $user->admin)
 	{
 		$pes_text = '0';
 	}
+	
+	$config_rece['folder'] = str_replace('-', '\\', $config_rece['folder']);
 	
 	$nombre_archivo = $config_rece['folder'];
 	
@@ -315,7 +318,12 @@ if ($action == 'setvalue' && $user->admin)
 						
 						if($rece['default'] != '')
 						{
-							$campo = $rece['default'];
+							$campo = armar_cadena($rece['default'], $rece['cantidad'], $rece['tipo']);
+						}
+						else
+						if($rece['post'] != '')
+						{
+							$campo = armar_cadena(GETPOST($rece['post']), $rece['cantidad'], $rece['tipo']);
 						}
 						else
 						if($rece['campo_dolibarr'] == '')
@@ -326,7 +334,14 @@ if ($action == 'setvalue' && $user->admin)
 						{
 							if($rece['tipo'] == 'Fecha')
 							{
-								$campo = date('Ymd', strtotime($factura[$rece['campo_dolibarr']]));
+								if($inv_text == 1)
+								{
+									$campo = date('Ymd', strtotime($factura[$rece['campo_dolibarr']]));	
+								}
+								else
+								{
+									$campo = armar_cadena('', $rece['cantidad'], $rece['tipo']);
+								}
 							}
 							else
 							{
@@ -342,11 +357,21 @@ if ($action == 'setvalue' && $user->admin)
 					$total_operaciones	= $total_operaciones + $factura['total_ttc'];
 					$total_neto 		= $total_neto + $factura['total'];
 					$total_impuesto		= $total_impuesto + $factura['tva'];
-
+					
 					$file = fopen($nombre_archivo, "a");
 					fwrite($file, $linea . PHP_EOL);
 					fclose($file);
-				}
+					
+					$sql	= 
+					"UPDATE 
+						`llx_facture` 
+					SET 
+						`rece` = 1 
+					WHERE
+						`llx_facture`.`rowid` = $factura[rowid]";
+						
+					$db->query($sql);	
+				}				
 			}
 			
 			$c++;
@@ -357,7 +382,7 @@ if ($action == 'setvalue' && $user->admin)
 		$totales .= armar_cadena('', 13, 'Varchar');
 		$totales .= armar_cadena($cant_lineas, 8, 'Int');
 		$totales .= armar_cadena('', 17, 'Varchar');
-		$totales .= '20305949125';
+		$totales .= armar_cadena($cuil, 11, 'Varchar');
 		$totales .= armar_cadena('', 22, 'Varchar');
 		$totales .= armar_cadena($total_operaciones, 15, 'Importe');
 		$totales .= armar_cadena(0, 15, 'Importe');
@@ -407,9 +432,11 @@ $sql	=
 	INNER JOIN 
 		`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
 	WHERE 
-		`llx_facture`.`fk_statut`= 1 
+		`llx_facture`.`fk_statut`= 1
 	ORDER BY 
-		`llx_facture`.`datef`, `llx_facture`.`facnumber`";
+		`llx_facture`.`datef` DESC, `llx_facture`.`facnumber`
+	LIMIT
+		0, $config_rece[limite]";
 
 $facturas_query = $db->query($sql);	
 	
@@ -427,18 +454,6 @@ $puntos_query = $db->query($sql);
 $num_puntos	= $db->num_rows($puntos_query);	
 
 $puntos_query2 = $db->query($sql);	
-	
-		
-
-
-/*
-
-<script>
-function cambiar(test){
-  alert(test.value);
-};
-</script>
-*/	
 
 
 /*----------------------------------------------------------------------------
@@ -476,6 +491,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<td>'.$langs->trans("ReceCodAutorizacion").'</td>';
 	print '<td>'.$langs->trans("ReceInformaFechas").'</td>';
 	print '<td>'.$langs->trans("RecePrestacionesServicio").'</td>';
+	print '<td>'.$langs->trans("ReceCuil").'</td>';
 	print '</tr>';
 	
 	$var=!$var;
@@ -502,8 +518,9 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '</select>';			
 	print '</td>';
 	print '<td><input name="CodAutorizacion" id="CodAutorizacion" value="'.$codautorizacion.'"></td>';
-	print '<td><input name="InformaFechas" type="checkbox" value="1"></td>';
+	print '<td><input name="InformaFechas" type="checkbox" value="1" checked></td>';
 	print '<td><input name="PrestacionesServicio" type="checkbox"  value="1"></td>';
+	print '<td><input name="cuil" value="'.$config_rece['cuil'].'" readonly></td>';
 	print '</tr>';
 	
 	print '</table>';
@@ -567,31 +584,46 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				if(is_array($error))
 				{
 					$mensaje = '';
-					
+				
 					foreach ($error as $key => $value) 
 					{
 						$mensaje .= $key.' : '.$value;
 					}
 				}
-				
+					
 				$var=!$var;
 				print '<tr '.$bc[$var].'>';
 				if(is_array($error))
 				{
-					print '<td><img src="../../theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'"></td>';					
+					print '<td>';
+					print '<input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'" title="'.$mensaje.'" disabled>';
+					print ' <img src="../../theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'">';
+					print '</td>';					
 				}
 				else
 				{
-					print '<td><input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'"></td>';	
+					if($factura['rece'] == 1)
+					{
+						$icono = '<img src="../../theme/eldy/img/tick.png" border="0" alt="" title="Factura generada">'; 
+					}
+					else 
+					{
+						$icono = '';
+					}
+					
+					print '<td><input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'"> '.$icono.'</td>';
+						
 				}
 				
 				print '<td></td>'; //ReceTipoRegistro
 				print '<td>'.date('d-m-Y', strtotime($factura['datef'])).'</td>';
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/compta/facture.php?facid='.$factura['rowid'].'">';
+				print '<img src="../../theme/eldy/img/object_bill.png" border="0"> ';
 				print $factura['facnumber'].'</a></td>';
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$factura['id_societe'].'">';
+				print '<img src="../../theme/eldy/img/object_company.png" border="0"> ';
 				print $factura['nom'].'</a></td>';
 				print '<td>80</td>'; //ReceCodDocumento
 				print '<td>'.$factura['siren'].'</td>'; //ReceNroIdentificacion
