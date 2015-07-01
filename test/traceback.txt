@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+
+  File "C:\xampp2\htdocs\pyafipws-master\rece1.py", line 617, in <module>
+    autorizar(ws, f_entrada, f_salida, '/informarcaea' in sys.argv)
+
+  File "C:\xampp2\htdocs\pyafipws-master\rece1.py", line 151, in autorizar
+    encabezado = json.load(entrada)[0]
+
+  File "C:\Python27\lib\json\__init__.py", line 290, in load
+    **kw)
+
+  File "C:\Python27\lib\json\__init__.py", line 338, in loads
+    return _default_decoder.decode(s)
+
+  File "C:\Python27\lib\json\decoder.py", line 366, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+
+  File "C:\Python27\lib\json\decoder.py", line 384, in raw_decode
+    raise ValueError("No JSON object could be decoded")
+
+ValueError: No JSON object could be decoded

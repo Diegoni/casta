@@ -87,6 +87,52 @@ function formato_importe($importe)
 	return $formato;
 }
 
+
+/*----------------------------------------------------------------------------
+		Función para modificar los numeros de factura
+----------------------------------------------------------------------------*/
+
+function formato_factura_numero($factura, $type)
+{
+	global $conf;	
+	
+	$conf->global->FACTURE_MERCURE_MASK_REPLACEMENT."<br>";
+	
+	$conf->global->FACTURE_MERCURE_MASK_DEPOSITM."<br>";
+	
+		
+	if($type == 2)
+	{
+		$mascara = $conf->global->FACTURE_MERCURE_MASK_CREDIT;
+	}
+	else
+	{
+		$mascara = $conf->global->FACTURE_MERCURE_MASK_INVOICE;
+	}
+	
+	$array_mascara = explode('{', $mascara);
+	
+	foreach($array_mascara as $key => $value)
+	{
+		$value = str_replace('}', '', $value);
+		if(is_numeric($value))
+		{
+			$new_value = $value;
+		}
+	}
+	
+	$mascara = str_replace('{', '', $mascara);
+	$mascara = str_replace('}', '', $mascara);
+	
+	$posicion = strpos($mascara, $new_value);
+	
+	$final = $posicion + strlen($new_value);
+	
+	$factura = substr($factura, $posicion, $final);
+			
+	return $factura;
+}
+
 /*----------------------------------------------------------------------------
 		Función para corroborar los datos antes de generar el txt
 ----------------------------------------------------------------------------*/
@@ -240,7 +286,8 @@ if ($action == 'setvalue' && $user->admin)
 		INNER JOIN 
 			`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
 		WHERE 
-			`llx_facture`.`fk_statut`= 1 
+			`llx_facture`.`fk_statut`= 1 OR
+			`llx_facture`.`fk_statut`= 2  
 		ORDER BY 
 			`llx_facture`.`datef`, `llx_facture`.`facnumber`";
 
@@ -306,7 +353,13 @@ if ($action == 'setvalue' && $user->admin)
 				
 				if($num_facturas > 0)
 				{
-					$sql	= "SELECT * FROM `tms_rece_campos` ORDER BY orden";
+					$sql = 
+						"SELECT 
+							* 
+						FROM 
+							`tms_rece_campos` 
+						ORDER BY 
+							orden";
 
 					$rece_query = $db->query($sql);	
 		
@@ -363,12 +416,12 @@ if ($action == 'setvalue' && $user->admin)
 					fclose($file);
 					
 					$sql	= 
-					"UPDATE 
-						`llx_facture` 
-					SET 
-						`rece` = 1 
-					WHERE
-						`llx_facture`.`rowid` = $factura[rowid]";
+						"UPDATE 
+							`llx_facture` 
+						SET 
+							`rece` = 1 
+						WHERE
+							`llx_facture`.`rowid` = $factura[rowid]";
 						
 					$db->query($sql);	
 				}				
@@ -405,7 +458,8 @@ if ($action == 'setvalue' && $user->admin)
 	$coa = $coa + 1;
 
 	$sql = 
-		"UPDATE `tms_puntos_venta` 
+		"UPDATE 
+				`tms_puntos_venta` 
 			SET 
 				`cod_autorizacion`	= $coa
 			WHERE 
@@ -538,7 +592,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		{
 			$puntos = $db->fetch_array($puntos_query2);
 			
-			print ' if(x.value == '.$puntos['punto_venta'].'){';
+			print 'if(x.value == '.$puntos['punto_venta'].'){';
 			print ' y.value ='.$puntos['cod_autorizacion'].'';	
 			print '}';
 			
@@ -556,6 +610,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		print '<td></td>';
 		print '<td>'.$langs->trans("ReceTipoRegistro").'</td>';
 		print '<td>'.$langs->trans("ReceFechaComprobante").'</td>';
+		print '<td>'.$langs->trans("ReceNroComprobante").'</td>';
 		print '<td>'.$langs->trans("ReceNroComprobante").'</td>';
 		print '<td>'.$langs->trans("ReceNombre").'</td>';
 		print '<td title="'.$langs->trans("ReceCodDocumento").'">'.$langs->trans("ReceRCodDocumento").'</td>';
@@ -621,6 +676,8 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				print '<a href="'.DOL_URL_ROOT.'/compta/facture.php?facid='.$factura['rowid'].'">';
 				print '<img src="../../theme/eldy/img/object_bill.png" border="0"> ';
 				print $factura['facnumber'].'</a></td>';
+				print '<td>';
+				print formato_factura_numero($factura['facnumber'], $factura['type']).'</a></td>';
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$factura['id_societe'].'">';
 				print '<img src="../../theme/eldy/img/object_company.png" border="0"> ';

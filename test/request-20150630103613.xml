@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<soap:Header/>
+<soap:Body>
+    <FECompUltimoAutorizado xmlns="http://ar.gov.afip.dif.FEV1/">
+    <Auth><Token>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgdW5pcXVlX2lkPSI2NTI0NDc5NzAiIHNyYz0iQ049d3NhYWhvbW8sIE89QUZJUCwgQz1BUiwgU0VSSUFMTlVNQkVSPUNVSVQgMzM2OTM0NTAyMzkiIGdlbl90aW1lPSIxNDM1NjY3NDEwIiBleHBfdGltZT0iMTQzNTcxMDY3MCIgZHN0PSJDTj13c2ZlLCBPPUFGSVAsIEM9QVIiLz4KICAgIDxvcGVyYXRpb24gdmFsdWU9ImdyYW50ZWQiIHR5cGU9ImxvZ2luIj4KICAgICAgICA8bG9naW4gdWlkPSJDPWFyLCBPPXQubS5zLiBncm91cCBzLmEuLCBTRVJJQUxOVU1CRVI9Q1VJVCAyNzAzNzU0NDg2MywgQ049bWkgY2VydGlmaWNhZG8gMSIgc2VydmljZT0id3NmZSIgcmVnbWV0aG9kPSIyMiIgZW50aXR5PSIzMzY5MzQ1MDIzOSIgYXV0aG1ldGhvZD0iY21zIj4KICAgICAgICAgICAgPHJlbGF0aW9ucz4KICAgICAgICAgICAgICAgIDxyZWxhdGlvbiByZWx0eXBlPSI0IiBrZXk9IjI3MDM3NTQ0ODYzIi8+CiAgICAgICAgICAgIDwvcmVsYXRpb25zPgogICAgICAgIDwvbG9naW4+CiAgICA8L29wZXJhdGlvbj4KPC9zc28+Cgo=</Token><Sign>gDKNe2Fh/7SuYU7YPPCKtUQNUQK0HpX63odxhKEdKQxBrmPPgjnbSLFWpo4S4xXhJoDbeKpU8kcxUCKDqDDjGF0SiwaHJ4C8TeyTQv1vjekGtxu4r+2Q8Zk9r0ltjZ6i32pX9phj23tIii8dznfEtEIOwl512c8bKgHLDs2fo/Y=</Sign><Cuit>27037544863</Cuit></Auth><PtoVta>4000</PtoVta><CbteTipo>1</CbteTipo></FECompUltimoAutorizado>
+</soap:Body>
+</soap:Envelope>
