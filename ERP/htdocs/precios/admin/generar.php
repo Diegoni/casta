@@ -31,199 +31,58 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
 $servicename = 'Precios';
 
-$langs->load("rece");
-$langs->load("bills");
-$langs->load("dict");
+$langs->load("precios");
 
 if (! $user->admin) accessforbidden();
 
+
 /*----------------------------------------------------------------------------
-		Datos de configuración
+		Guardamos la configuración
 ----------------------------------------------------------------------------*/
 
-$sql	= 
-	"SELECT 
-		* 
-	FROM 
-		`tms_config_rece`";
-
-$config_rece_query = $db->query($sql);	
-	
-$num_rece_query	= $db->num_rows($config_rece_query);
-
-if($num_rece_query > 0)
+function calcular_precio($precio, $condiciones)
 {
-	$c = 0;
-	
-	while ($c < $num_rece_query)
+	if($condiciones['condicion'] == 0) // Valor Fijo
 	{
-		$config_rece = $db->fetch_array($config_rece_query);
-		$c++;
+		if($condiciones['tipo'] == 1)
+		{
+			$precio = $precio + $condiciones['valor'];
+		}
+		else
+		{
+			$precio = $precio - $condiciones['valor'];
+		}
 	}
+	else // Porcentaje
+	{
+		if($condiciones['tipo'] == 1)
+		{
+			$precio = $precio + ($precio * $condiciones['valor'] / 100);
+		}
+		else
+		{
+			$precio = $precio - ($precio * $condiciones['valor'] / 100);
+		}
+	}
+	
+	return $precio;
 }
 
+
+
 /*----------------------------------------------------------------------------
-		Función para unificar formatos de importes
+		Guardamos la configuración
 ----------------------------------------------------------------------------*/
 
 function formato_importe($importe)
 {
-	$importe = explode('.', $importe);
-	
-	$decimal = substr($importe[1], 0, 2);
-	
-	if(strlen($decimal) < 1)
-	{
-		$decimal = '00'; 
-	}
-	else
-	if(strlen($decimal) < 2)
-	{
-		$decimal = '0'; 
-	}
-	
-	$formato = $importe[0].'.'.$decimal;
-	
-	return $formato;
+	$importe = round($importe, 2);
+		
+	return $importe;
 }
 
 /*----------------------------------------------------------------------------
-		Función para corroborar los datos antes de generar el txt
-----------------------------------------------------------------------------*/
-
-function comprobar_factura($factura, $config_rece)
-{
-	if($factura['siren'] == '')
-	{
-		$errores['CUIL'] = 'El nro de cuil no puede estar vacio';
-	}
-	
-	$cuil = ereg_replace("[^0-9]", "", $factura['siren']);
-	
-	if(strlen($cuil) != 11)
-	{
-		$errores['CUIL'] = 'La cantidad de valores no es correcta';
-	}
-	
-	$fecha		= date('Y-m-j');
-	$nuevafecha = strtotime("-".$config_rece['min_dias']." day" , strtotime($fecha)) ;
-	$nuevafecha = date('Y-m-j' , $nuevafecha);
-	
-	$fecha_min	= strtotime($nuevafecha);
-	$fecha_max	= strtotime($fecha);
-	$fecha_fac	= strtotime($factura['datef']);
-		
-	if($fecha_min > $fecha_fac)
-	{
-		$errores['FECHA'] = 'La fecha del comprobante no puede ser menor a '.$nuevafecha;
-	}
-	else
-	if($fecha_max < $fecha_fac)
-	{
-		$errores['FECHA'] = 'La fecha del comprobante no puede ser mayor a '.$fecha;
-	}
-		
-	
-	if(isset($errores))
-	{
-		return $errores;
-	}
-	else 
-	{
-		return 1;	
-	}
-}
-
-/*----------------------------------------------------------------------------
-		Función para armar la cadena con el formato para importar
-----------------------------------------------------------------------------*/
-
-function armar_cadena($cadena, $cantidad, $tipo)
-{
-	if($tipo == 'Varchar')
-	{
-		$char_completar = ' ';
-	}
-	else
-	if($tipo == 'Int')
-	{
-		$char_completar = '0';
-		
-		$cadena = ereg_replace("[^0-9]", "", $cadena);
-	}
-	else
-	if($tipo == 'Importe')
-	{
-		$char_completar = '0';
-		
-		$importe = round($cadena, 2);
-								
-		$importe_entero = round($cadena);
-		
-		if($importe > $importe_entero)
-		{
-			$resto = $importe - $importe_entero;	
-			
-			$resto = round($resto, 2);
-			
-			$a_resto = explode('.', $resto);
-		}
-		else
-		{
-			$resto = $importe_entero - $importe;	
-			
-			$resto = round($resto, 2);
-			
-			$a_resto = explode('.', $resto);
-		}
-								
-		if($resto == 0)
-		{
-			$importe .= '00'; 
-		}
-		else
-		if(strlen($a_resto[1]) == 1)
-		{
-			$importe .= '0'; 
-		}
-								
-		$cadena = str_replace('.', '', $importe);		
-	}
-	
-	if($cantidad > strlen($cadena))
-	{
-		if($tipo == 'Varchar')
-		{
-			$campo = $cadena;
-		}
-		else
-		{
-			$campo = '';
-		}
-			
-									
-		$limite = $cantidad - strlen($cadena);
-									
-		for ($i = 0; $i < $limite; $i++) 
-		{ 
-			$campo .= $char_completar; 
-		}
-		
-		if($tipo == 'Importe' || $tipo == 'Int' || $tipo == 'Otro')
-		{
-			$campo .= $cadena;
-		}
-	}
-	else
-	{
-		$campo = substr($cadena, 0, $cantidad);	
-	}
-	
-	return $campo;
-}
-
-/*----------------------------------------------------------------------------
-		Generación del archivo
+		Guardamos la configuración
 ----------------------------------------------------------------------------*/
 
 $action = GETPOST('action');
@@ -232,196 +91,133 @@ if ($action == 'setvalue' && $user->admin)
 {
 	$sql	= 
 		"SELECT 
-			`llx_facture`.*, 
-			`llx_societe`.`nom`, 
-			`llx_societe`.`siren` 
+			* 
 		FROM 
-			`llx_facture` 
+			`llx_categorie_product` 
 		INNER JOIN 
-			`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
-		WHERE 
-			`llx_facture`.`fk_statut`= 1 
+			`llx_product` ON(`llx_categorie_product`.`fk_product` = `llx_product`.`rowid`)
+		WHERE
+			`fk_categorie` = $_GET[id]
 		ORDER BY 
-			`llx_facture`.`datef`, `llx_facture`.`facnumber`";
-
-	$facturas_query = $db->query($sql);	
+			`description`";
+	
+	$product_query = $db->query($sql);	
 		
-	$num_facturas	= $db->num_rows($facturas_query);
+	$num_product = $db->num_rows($product_query);	
+}
+else
+if ($action == 'confirm' && $user->admin)
+{
+	$id = GETPOST('id');
+	
+	$sql	= 
+		"SELECT 
+			* 
+		FROM 
+			`llx_categorie_product` 
+		INNER JOIN 
+			`llx_product` ON(`llx_categorie_product`.`fk_product` = `llx_product`.`rowid`)
+		WHERE
+			`fk_categorie` = $id
+		ORDER BY 
+			`description`";
+	
+	$product_query = $db->query($sql);	
 		
-	$facturas_agenerar = GETPOST('toGenerate');
-	$mes = GETPOST('mes');
-	$ano = GETPOST('ano');
-	$cuil= GETPOST('cuil');
-	$pdv = GETPOST('PuntodeVenta');
-	$coa = GETPOST('CodAutorizacion');
-	$inv = GETPOST('InformaFechas');
-	$pes = GETPOST('PrestacionesServicio');
+	$num_product = $db->num_rows($product_query);	
 	
-	if($inv)
+	if($num_product > 0)
 	{
-		$inv_text = '1';
-	}
-	else 
-	{
-		$inv_text = '0';
-	}
-	
-	if($pes)
-	{
-		$pes_text = '1';
-	}
-	else 
-	{
-		$pes_text = '0';
-	}
-	
-	$config_rece['folder'] = str_replace('-', '\\', $config_rece['folder']);
-	
-	$nombre_archivo = $config_rece['folder'];
-	
-	$nombre_archivo .= 'RECE'.$ano.$mes.$pdv.$coa.$inv_text.$pes_text.'.txt';
-	
-	$c = 0;
-	$total_operaciones = 0;
-	$total_neto = 0;
-	$total_impuesto = 0;
-	
-	if($num_facturas > 0)
-	{
-		$archivo = '';
+		$c = 0;
 		
-		$cant_lineas = 0;
-			
-		while ($c < $num_facturas)
+		$linea = '';
+		
+		while ($c < $num_product)
 		{
-			$factura = $db->fetch_array($facturas_query);
+			$product = $db->fetch_array($product_query);
 			
-			if(in_array($factura['rowid'], $facturas_agenerar))
+			if(isset($_POST[$product['rowid']]))
 			{
-				$cant_lineas++;
+				$price_ttc		= GETPOST('price_ttc_'.$product['rowid']);
+				$price			= GETPOST('price_'.$product['rowid']);
+				$price_min_ttc	= GETPOST('price_min_ttc_'.$product['rowid']);
+				$price_min		= GETPOST('price_min_'.$product['rowid']);
 				
-				$linea = '';
+				$sql	= 
+					"UPDATE
+						`llx_product` 
+					SET 
+						`price_ttc` 	= $price_ttc,
+						`price` 		= $price,
+						`price_min_ttc`	= $price_min_ttc,
+						`price_min`		= $price_min
+					WHERE 
+						`rowid` = $product[rowid]";
+						
+				$db->query($sql);
 				
-				$r = 0;
+				$date_price = date('Y/m/d H:i:s');	
 				
-				if($num_facturas > 0)
-				{
-					$sql = 
-						"SELECT 
-							* 
-						FROM 
-							`tms_rece_campos` 
-						ORDER BY 
-							orden";
-
-					$rece_query = $db->query($sql);	
-		
-					$num_rece	= $db->num_rows($rece_query);
-		
-					while ($r < $num_rece)
-					{
-						$rece = $db->fetch_array($rece_query);
+				$sql	= 
+				"INSERT INTO 
+					`llx_product_price` (
+						`entity`,
+						`fk_product`,
+						`date_price`,
+						`price_level`, 
+						`price`, 
+						`price_ttc`, 
+						`price_min`, 
+						`price_min_ttc`,
+						`price_base_type`,
+						`tva_tx`,
+						`recuperableonly`, 
+						`localtax1_tx`, 
+						`localtax2_tx`, 
+						`fk_user_author`,
+						`tosell` 
+				)VALUES(
+						$product[entity],
+						$product[rowid],
+						'$date_price',
+						1,
+						$price,
+						$price_ttc,
+						$price_min,
+						$price_min_ttc,
+						'$product[price_base_type]',
+						$product[tva_tx],
+						$product[recuperableonly],
+						$product[localtax1_tx],
+						$product[localtax2_tx],
+						1,
+						$product[tosell]
+				);";
+				
+				//fk_user_author mejorar
 						
-						if($rece['default'] != '')
-						{
-							$campo = armar_cadena($rece['default'], $rece['cantidad'], $rece['tipo']);
-						}
-						else
-						if($rece['post'] != '')
-						{
-							$campo = armar_cadena(GETPOST($rece['post']), $rece['cantidad'], $rece['tipo']);
-						}
-						else
-						if($rece['campo_dolibarr'] == '')
-						{
-							$campo = armar_cadena('', $rece['cantidad'], $rece['tipo']);
-						}
-						else
-						{
-							if($rece['tipo'] == 'Fecha')
-							{
-								if($inv_text == 1)
-								{
-									$campo = date('Ymd', strtotime($factura[$rece['campo_dolibarr']]));	
-								}
-								else
-								{
-									$campo = armar_cadena('', $rece['cantidad'], $rece['tipo']);
-								}
-							}
-							else
-							{
-								$campo = armar_cadena($factura[$rece['campo_dolibarr']], $rece['cantidad'], $rece['tipo']);
-							}
-						}
+				$db->query($sql);			
 						
-						$linea .= $campo; 
-						
-						$r++;
-					}
-
-					$total_operaciones	= $total_operaciones + $factura['total_ttc'];
-					$total_neto 		= $total_neto + $factura['total'];
-					$total_impuesto		= $total_impuesto + $factura['tva'];
+				$linea .= '<tr '.$bc[$var].'>';
+				$linea .= '<td>';
+				$linea .= '<a href="/casta/ERP/htdocs/product/card.php?id='.$product['rowid'].'">';
+				$linea .= '<img src="/casta/ERP/htdocs/theme/eldy/img/object_product.png" border="0" alt="" title="Mostrar producto "> ';
+				$linea .= $product['ref'].'</a></td>';
+				$linea .= '<td>'.$product['description'].'</td>';
+				$linea .= '<td>'.formato_importe($price_ttc).'</td>';
+				$linea .= '<td>'.formato_importe($price).'</td>';
+				$linea .= '<td>'.formato_importe($product['tva_tx']).'</td>';
+				$linea .= '<td>'.formato_importe($price_min_ttc).'</td>';
+				$linea .= '<td>'.formato_importe($price_min).'</td>';
+				$linea .= '</tr>';
 					
-					$file = fopen($nombre_archivo, "a");
-					fwrite($file, $linea . PHP_EOL);
-					fclose($file);
-					
-					$sql	= 
-						"UPDATE 
-							`llx_facture` 
-						SET 
-							`rece` = 1 
-						WHERE
-							`llx_facture`.`rowid` = $factura[rowid]";
-						
-					$db->query($sql);	
-				}				
 			}
 			
 			$c++;
 		}
-		
-		$totales = '2';
-		$totales .= $ano.$mes;
-		$totales .= armar_cadena('', 13, 'Varchar');
-		$totales .= armar_cadena($cant_lineas, 8, 'Int');
-		$totales .= armar_cadena('', 17, 'Varchar');
-		$totales .= armar_cadena($cuil, 11, 'Varchar');
-		$totales .= armar_cadena('', 22, 'Varchar');
-		$totales .= armar_cadena($total_operaciones, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena($total_neto, 15, 'Importe');
-		$totales .= armar_cadena($total_impuesto, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena(0, 15, 'Importe');
-		$totales .= armar_cadena('', 61, 'Varchar');
-		$totales .= '*';
-		
-		$file = fopen($nombre_archivo, "a");
-		fwrite($file, $totales . PHP_EOL);
-		fclose($file);	
 	}
-	
-	$coa = $coa + 1;
 
-	$sql = 
-		"UPDATE 
-				`tms_puntos_venta` 
-			SET 
-				`cod_autorizacion`	= $coa
-			WHERE 
-				`punto_venta`		= $pdv";
-		
-	$db->query($sql);
-			
 	setEventMessage($langs->trans("SetupSaved"));
-	
 }
 
 /*----------------------------------------------------------------------------
@@ -430,37 +226,18 @@ if ($action == 'setvalue' && $user->admin)
 
 $sql	= 
 	"SELECT 
-		`llx_facture`.*, 
-		`llx_societe`.`nom`, 
-		`llx_societe`.`rowid` as id_societe,
-		`llx_societe`.`siren` 
-	FROM 
-		`llx_facture` 
-	INNER JOIN 
-		`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
-	WHERE 
-		`llx_facture`.`fk_statut`= 1
-	ORDER BY 
-		`llx_facture`.`datef` DESC, `llx_facture`.`facnumber`
-	LIMIT
-		0, $config_rece[limite]";
-
-$facturas_query = $db->query($sql);	
-	
-$num_facturas	= $db->num_rows($facturas_query);		
-
-
-$sql	= 
-	"SELECT 
 		* 
 	FROM 
-		`tms_puntos_venta`";
+		`llx_categorie`
+	WHERE
+		`type` = 0
+	ORDER BY
+		`label`";
 
-$puntos_query = $db->query($sql);	
+$categorie_query = $db->query($sql);	
 	
-$num_puntos	= $db->num_rows($puntos_query);	
-
-$puntos_query2 = $db->query($sql);	
+$num_categorie	= $db->num_rows($categorie_query);		
+			
 
 
 /*----------------------------------------------------------------------------
@@ -476,202 +253,189 @@ llxHeader('',$langs->trans("ReceSetup"));
 
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ModuleSetup").' de Rece',$linkback);
+print_fiche_titre($langs->trans("ModuleSetup").' de Precios',$linkback);
 print '<br>';
 
 $head = paypaladmin_prepare_head();
 
-dol_fiche_head($head, 'generar', 'Rece', 0, 'rece');
+dol_fiche_head($head, 'generar', 'Precios', 0, 'precios');
 
-print $langs->trans("ReceConfigDesc")."<br>\n";
-
-print '<br>';
-print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-
-	print '<input type="hidden" name="action" value="setvalue">';
+if ($action != 'confirm')
+{
+	print $langs->trans("PrecioParametros")."<br>\n";
+	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'">';
 	
-	print '<table class="noborder" width="100%">';
-	
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("RecePeriodo").'</td>';
-	print '<td>'.$langs->trans("RecePuntoVenta").'</td>';
-	print '<td>'.$langs->trans("ReceCodAutorizacion").'</td>';
-	print '<td>'.$langs->trans("ReceInformaFechas").'</td>';
-	print '<td>'.$langs->trans("RecePrestacionesServicio").'</td>';
-	print '<td>'.$langs->trans("ReceCuil").'</td>';
-	print '</tr>';
-	
-	$var=!$var;
-	print '<tr '.$bc[$var].'>';
-	print '<td><input name="mes" value="'.date('m').'" readonly><input name="ano" value="'.date('Y').'" readonly></td>';
-	print '<td><select name="PuntodeVenta" id="PuntodeVenta" onchange="cambiar_valor()" required>';
-			if($num_puntos > 0)
+		print '<input type="hidden" name="action" value="setvalue">';
+		
+		print '<table class="noborder" width="100%">';
+		
+		print '<tr class="liste_titre">';
+		print '<td>'.$langs->trans("PrecioDato").'</td>';
+		print '<td>'.$langs->trans("PrecioValor").'</td>';
+		print '</tr>';
+				
+		$var=!$var;
+		print '<tr '.$bc[$var].'>';
+		print '<td>'.$langs->trans("PrecioCategoria").'</td>';
+		print '<td><select name="id" required>';
+		print '<option></option>';
+			if($num_categorie > 0)
 			{
-				$c = 0;	
-				while ($c < $num_puntos)
+				$c = 0;
+				while ($c < $num_categorie)
 				{
-					$puntos = $db->fetch_array($puntos_query);
+					$categorie = $db->fetch_array($categorie_query);
 					
-					print '<option value="'.$puntos['punto_venta'].'">'.$puntos['punto_venta'].'</option>';
-					
-					if($c == 0)
-					{
-						$codautorizacion = $puntos['cod_autorizacion'];
-					}
+					print '<option value="'.$categorie['rowid'].'">'.$categorie['label'].'</option>';
 					
 					$c++;
 				}
 			}
-	print '</select>';			
-	print '</td>';
-	print '<td><input name="CodAutorizacion" id="CodAutorizacion" value="'.$codautorizacion.'"></td>';
-	print '<td><input name="InformaFechas" type="checkbox" value="1" checked></td>';
-	print '<td><input name="PrestacionesServicio" type="checkbox"  value="1"></td>';
-	print '<td><input name="cuil" value="'.$config_rece['cuil'].'" readonly></td>';
+		print '</select></td>';
+		print '</tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'>';
+		print '<td>'.$langs->trans("PrecioTipo").'</td>';
+		print '<td>';
+		print '<input type="radio" name="tipo" value="1" checked>'.$langs->trans("PrecioAumento").'<br>';
+		print '<input type="radio" name="tipo" value="0">'.$langs->trans("PrecioDescuento").'';
+		print '</td>';
+		print '</tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'>';
+		print '<td>'.$langs->trans("PrecioValor").'</td>';
+		print '<td>';
+		print '<input type="text" name="valor" min="0" required>';
+		print '</td>';
+		print '</tr>';
+		
+		$var=!$var;
+		print '<tr '.$bc[$var].'>';
+		print '<td>'.$langs->trans("PrecioCondicion").'</td>';
+		print '<td>';
+		print '<input type="radio" name="condicion" value="1" checked>'.$langs->trans("PrecioPorcentaje").' %<br>';
+		print '<input type="radio" name="condicion" value="0">'.$langs->trans("PrecioValorFijo").'';
+		print '</td>';
+		print '</tr>';
+				
+		print '</table>';
+			
+		print '<center><input type="submit" class="button" value="'.$langs->trans("PrecioCalcular").'"></center><br>';
+	
+	print '</form>';
+}
+
+if(isset($_GET['id']))
+{
+	print $langs->trans("PrecioCalculo")."<br>\n";
+	
+	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+	
+	print '<input type="hidden" name="action" value="confirm">';
+	print '<input type="hidden" name="tipo" value="'.$_GET['tipo'].'">';
+	print '<input type="hidden" name="valor" value="'.$_GET['valor'].'">';
+	print '<input type="hidden" name="condicion" value="'.$_GET['condicion'].'">';
+	print '<input type="hidden" name="id" value="'.$_GET['id'].'">';
+	
+	print '<table class="noborder" width="100%">';
+	
+	print '<tr class="liste_titre">';
+	print '<td rowspan="2"></td>';
+	print '<td rowspan="2">'.$langs->trans("PrecioRef").'</td>';
+	print '<td rowspan="2">'.$langs->trans("PrecioEtiqueta").'</td>';
+	print '<td colspan="2">'.$langs->trans("PrecioPrecioVenta").'</td>';
+	print '<td colspan="2">'.$langs->trans("PrecioPrecioVentaSinIVA").'</td>';
+	print '<td rowspan="2">'.$langs->trans("PrecioTasaIVA").'</td>';
+	print '<td colspan="2">'.$langs->trans("PrecioPrecioVentaMin").'</td>';
+	print '<td colspan="2">'.$langs->trans("PrecioPrecioVentaMinSINIVA").'</td>';
 	print '</tr>';
 	
-	print '</table>';
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans("PrecioNuevo").'</td>';
+	print '<td>'.$langs->trans("PrecioAnterior").'</td>';
+	print '<td>'.$langs->trans("PrecioNuevo").'</td>';
+	print '<td>'.$langs->trans("PrecioAnterior").'</td>';
+	print '<td>'.$langs->trans("PrecioNuevo").'</td>';
+	print '<td>'.$langs->trans("PrecioAnterior").'</td>';
+	print '<td>'.$langs->trans("PrecioNuevo").'</td>';
+	print '<td>'.$langs->trans("PrecioAnterior").'</td>';
+	print '</tr>';
 	
-	print '<script>';
-	print 'function cambiar_valor() {';
+	$condiciones = array(
+		'tipo'		=> $_GET['tipo'],
+		'valor'		=> $_GET['valor'],
+		'condicion'	=> $_GET['condicion']
+	);
 	
-	print ' var x = document.getElementById("PuntodeVenta");';
-	print ' var y = document.getElementById("CodAutorizacion");';
-	
-	if($num_puntos > 0)
+	if($num_product > 0)
 	{
-		$c = 0;	
-		while ($c < $num_puntos)
+		$c = 0;
+		while ($c < $num_product)
 		{
-			$puntos = $db->fetch_array($puntos_query2);
+			$product = $db->fetch_array($product_query);
 			
-			print 'if(x.value == '.$puntos['punto_venta'].'){';
-			print ' y.value ='.$puntos['cod_autorizacion'].'';	
-			print '}';
+				$new_price_ttc		= calcular_precio($product['price_ttc'], $condiciones);
+				$new_price			= calcular_precio($product['price'], $condiciones);
+				$new_price_min_ttc	= calcular_precio($product['price_min_ttc'], $condiciones);
+				$new_price_min		= calcular_precio($product['price_min'], $condiciones);
+							
+				$var=!$var;
+				print '<tr '.$bc[$var].'>';
+				print '<td><input type="checkbox" name="'.$product['rowid'].'" value="'.$product['rowid'].'" checked></td>';
+				print '<td>';
+				print '<a href="'.DOL_URL_ROOT.'/product/card.php?id='.$product['rowid'].'">';
+				print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/object_product.png" border="0" alt="" title="'.$langs->trans("PrecioMostrarProducto").'"> ';
+				print $product['ref'].'</a></td>';
+				print '<td>'.$product['description'].'</td>';
+				print '<td><input name="price_ttc_'.$product['rowid'].'" value="'.formato_importe($new_price_ttc).'"></td>';
+				print '<td>'.formato_importe($product['price_ttc']).'</td>';
+				print '<td><input name="price_'.$product['rowid'].'" value="'.formato_importe($new_price).'"></td>';
+				print '<td>'.formato_importe($product['price']).'</td>';
+				print '<td>'.formato_importe($product['tva_tx']).'</td>';
+				print '<td><input name="price_min_ttc_'.$product['rowid'].'" value="'.formato_importe($new_price_min_ttc).'"></td>';
+				print '<td>'.formato_importe($product['price_min_ttc']).'</td>';
+				print '<td><input name="price_min_'.$product['rowid'].'" value="'.formato_importe($new_price_min).'"></td>';
+				print '<td>'.formato_importe($product['price_min']).'</td>';
+				print '</tr>';
 			
 			$c++;
 		}
 	}
-	
-	print '}';
-	print '</script>';
-
-	print '<table class="noborder" width="100%">';
-		
-		$var=true;
-		print '<tr class="liste_titre">';
-		print '<td></td>';
-		print '<td>'.$langs->trans("ReceTipoRegistro").'</td>';
-		print '<td>'.$langs->trans("ReceFechaComprobante").'</td>';
-		print '<td>'.$langs->trans("ReceNroComprobante").'</td>';
-		print '<td>'.$langs->trans("ReceNombre").'</td>';
-		print '<td title="'.$langs->trans("ReceCodDocumento").'">'.$langs->trans("ReceRCodDocumento").'</td>';
-		print '<td title="'.$langs->trans("ReceNroIdentificacion").'">'.$langs->trans("ReceRNroIdentificacion").'</td>';
-		print '<td title="'.$langs->trans("ReceImporteOperacion").'">'.$langs->trans("ReceRImporteOperacion").'</td>';
-		print '<td title="'.$langs->trans("ReceImporteOperacionPrecio").'">'.$langs->trans("ReceRImporteOperacionPrecio").'</td>';
-		print '<td title="'.$langs->trans("ReceImporteNeto").'">'.$langs->trans("ReceRImporteNeto").'</td>';
-		print '<td>'.$langs->trans("ReceImpuestoLiquidado").'</td>';
-		print '<td title="'.$langs->trans("ReceImpuestoLiquidadoRNI").'">'.$langs->trans("ReceRImpuestoLiquidadoRNI").'</td>';
-		print '<td title="'.$langs->trans("ReceImpuestoOperaciones").'">'.$langs->trans("ReceRImpuestoOperaciones").'</td>';
-		print "</tr>\n";
-		
-		$c = 0;
-		$total_operaciones = 0;
-		$total_neto = 0;
-		$total_impuesto = 0;
-		
-		if($num_facturas > 0)
-		{	
-			while ($c < $num_facturas)
-			{
-				$factura = $db->fetch_array($facturas_query);
 				
-				$error = comprobar_factura($factura, $config_rece);
-				
-				if(is_array($error))
-				{
-					$mensaje = '';
-				
-					foreach ($error as $key => $value) 
-					{
-						$mensaje .= $key.' : '.$value;
-					}
-				}
-					
-				$var=!$var;
-				print '<tr '.$bc[$var].'>';
-				if(is_array($error))
-				{
-					print '<td>';
-					print '<input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'" title="'.$mensaje.'" disabled>';
-					print ' <img src="../../theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'">';
-					print '</td>';					
-				}
-				else
-				{
-					if($factura['rece'] == 1)
-					{
-						$icono = '<img src="../../theme/eldy/img/tick.png" border="0" alt="" title="Factura generada">'; 
-					}
-					else 
-					{
-						$icono = '';
-					}
-					
-					print '<td><input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'"> '.$icono.'</td>';
-						
-				}
-				
-				print '<td></td>'; //ReceTipoRegistro
-				print '<td>'.date('d-m-Y', strtotime($factura['datef'])).'</td>';
-				print '<td>';
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture.php?facid='.$factura['rowid'].'">';
-				print '<img src="../../theme/eldy/img/object_bill.png" border="0"> ';
-				print $factura['facnumber'].'</a></td>';
-				print '<td>';
-				print '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$factura['id_societe'].'">';
-				print '<img src="../../theme/eldy/img/object_company.png" border="0"> ';
-				print $factura['nom'].'</a></td>';
-				print '<td>80</td>'; //ReceCodDocumento
-				print '<td>'.$factura['siren'].'</td>'; //ReceNroIdentificacion
-				print '<td align="right">'.formato_importe($factura['total_ttc']).'</td>';
-				print '<td></td>'; //ReceImporteOperacionPrecio
-				print '<td align="right">'.formato_importe($factura['total']).'</td>';
-				print '<td align="right">'.formato_importe($factura['tva']).'</td>';
-				print '<td></td>'; //ReceImpuestoLiquidadoRNI
-				print '<td></td>'; //ReceImpuestoOperaciones
-				print '</tr>';
-				
-				$total_operaciones = $total_operaciones + $factura['total_ttc'];
-				$total_neto = $total_neto + $factura['total'];
-				$total_impuesto = $total_impuesto + $factura['tva'];
-				
-				$c++; 
-			}
-		}
-		
-		print '<tr class="liste_total">';
-		print '<td></td>';
-		print '<td></td>';
-		print '<td></td>';
-		print '<td></td>';
-		print '<td></td>';
-		print '<td></td>';
-		print '<td></td>';
-		print '<td align="right">'.formato_importe($total_operaciones).'</td>';
-		print '<td></td>';
-		print '<td align="right">'.formato_importe($total_neto).'</td>';
-		print '<td align="right">'.formato_importe($total_impuesto).'</td>';
-		print '<td></td>';
-		print '<td></td>';
-		print "</tr>\n";	
-			
-		
 	print '</table>';
 	
-	print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
+	print '<br><center><input type="submit" class="button" value="'.$langs->trans("PrecioConfirmar").'"></center>';
+	
+	print '</form>';
 
-print '</form>';
+}
+
+
+if ($action == 'confirm' && $user->admin)
+{
+	print $langs->trans("PrecioModificados")."<br>\n";
+	
+	print '<table class="noborder" width="100%">';
+	
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans("PrecioRef").'</td>';
+	print '<td>'.$langs->trans("PrecioEtiqueta").'</td>';
+	print '<td>'.$langs->trans("PrecioPrecioVenta").'</td>';
+	print '<td>'.$langs->trans("PrecioPrecioVentaSinIVA").'</td>';
+	print '<td>'.$langs->trans("PrecioTasaIVA").'</td>';
+	print '<td>'.$langs->trans("PrecioPrecioVentaMin").'</td>';
+	print '<td>'.$langs->trans("PrecioPrecioVentaMinSINIVA").'</td>';
+	print '</tr>';
+	
+	print $linea;
+	
+	print '</table>';
+	
+	print '<br><center><a class="button" href="'.DOL_URL_ROOT.'/precios/admin/generar.php">'.$langs->trans("PrecioVolver").'</a></center>';
+
+}
 
 llxFooter();
 $db->close();

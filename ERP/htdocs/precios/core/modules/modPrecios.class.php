@@ -95,7 +95,7 @@ class modPrecios extends DolibarrModules
 
 		// Config pages. Put here list of php page, stored into mymodule/admin directory, to use to setup module.
 		//$this->config_page_url = array("mysetuppage.php@mymodule");
-		$this->config_page_url = array("config.php@precios");
+		$this->config_page_url = array("generar.php@precios");
 
 		// Dependencies
 		$this->hidden = false;			// A condition to hide module

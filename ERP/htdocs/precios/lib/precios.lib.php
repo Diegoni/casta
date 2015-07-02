@@ -177,12 +177,6 @@ function paypaladmin_prepare_head()
 	$head[$h][2] = 'generar';
 	$h++;
 	
-	$head[$h][0] = DOL_URL_ROOT."/precios/admin/config.php";
-	$head[$h][1] = 'Config';
-	$head[$h][2] = 'config';
-	$h++;
-
-
 	$object=new stdClass();
 
     // Show more tabs from modules
