@@ -95,7 +95,12 @@ if ($action == 'setvalue' && $user->admin)
 		SELECT de los origenes del pedido
 ----------------------------------------------------------------------------*/
 
-$sql	= "SELECT * FROM `llx_c_input_reason` WHERE active = 1";
+$sql	= "SELECT 
+				* 
+			FROM 
+				`llx_c_input_reason` 
+			WHERE 
+				`active` = 1";
 
 $origen_pedido	= $db->query($sql);	
 	
@@ -106,7 +111,12 @@ $num_origen_pedido	= $db->num_rows($origen_pedido);
 		SELECT de las condiciones de pago
 ----------------------------------------------------------------------------*/
 
-$sql	= "SELECT * FROM `llx_c_payment_term` WHERE active = 1";
+$sql	= "SELECT 
+				* 
+			FROM 
+				`llx_c_payment_term` 
+			WHERE 
+				`active` = 1";
 
 $condicion_pago	= $db->query($sql);	
 	
@@ -117,7 +127,15 @@ $num_condicion_pago	= $db->num_rows($condicion_pago);
 		SELECT de servicio de envio
 ----------------------------------------------------------------------------*/
 
-$sql	= "SELECT `label`, `rowid` FROM `llx_product` WHERE `fk_product_type` = 1 ORDER BY `label`";
+$sql	= "SELECT 
+				`label`, 
+				`rowid` 
+			FROM 
+				`llx_product` 
+			WHERE 
+				`fk_product_type` = 1 
+			ORDER BY 
+				`label`";
 
 $servicio_envio	= $db->query($sql);	
 	
@@ -128,7 +146,13 @@ $num_servicio_envio	= $db->num_rows($servicio_envio);
 		SELECT de categorias de productos
 ----------------------------------------------------------------------------*/
 
-$sql	= "SELECT id_category, descripcion FROM `ps_category` ORDER BY `descripcion`";
+$sql	= "SELECT 
+				`id_category`, 
+				`descripcion` 
+			FROM 
+				`ps_category` 
+			ORDER BY 
+				`descripcion`";
 
 $categorias	= $db->query($sql);	
 	
@@ -140,7 +164,11 @@ $num_categorias	= $db->num_rows($categorias);
 		SELECT de tms_config_sincronizacion
 ----------------------------------------------------------------------------*/
 
-$sql	= "SELECT * FROM `tms_config_sincronizacion`";
+$sql	= "SELECT 
+				* 
+			FROM 
+				`tms_config_sincronizacion`";
+				
 $resql	= $db->query($sql);	
 	
 $numr	= $db->num_rows($resql);					

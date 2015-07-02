@@ -140,14 +140,14 @@ function comprobar_factura($factura, $config_rece)
 {
 	if($factura['siren'] == '')
 	{
-		$errores['CUIL'] = 'El nro de cuil no puede estar vacio';
+		$errores['CUIL'] = $langs->trans("ReceCuilVacio");
 	}
 	
 	$cuil = ereg_replace("[^0-9]", "", $factura['siren']);
 	
 	if(strlen($cuil) != 11)
 	{
-		$errores['CUIL'] = 'La cantidad de valores no es correcta';
+		$errores['CUIL'] = $langs->trans('ReceCantidadIncorrecta');
 	}
 	
 	$fecha		= date('Y-m-j');
@@ -160,12 +160,12 @@ function comprobar_factura($factura, $config_rece)
 		
 	if($fecha_min > $fecha_fac)
 	{
-		$errores['FECHA'] = 'La fecha del comprobante no puede ser menor a '.$nuevafecha;
+		$errores['FECHA'] = $langs->trans('ReceFechaMin').$nuevafecha;
 	}
 	else
 	if($fecha_max < $fecha_fac)
 	{
-		$errores['FECHA'] = 'La fecha del comprobante no puede ser mayor a '.$fecha;
+		$errores['FECHA'] = $langs->trans('ReceFechaMax').$fecha;
 	}
 		
 	
@@ -669,14 +669,14 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				{
 					print '<td>';
 					print '<input type="checkbox" name="toGenerate[]" value="'.$factura['rowid'].'" title="'.$mensaje.'" disabled>';
-					print ' <img src="../../theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'">';
+					print ' <img src="'.DOL_URL_ROOT.'/theme/eldy/img/error.png" border="0" alt="" title="'.$mensaje.'">';
 					print '</td>';					
 				}
 				else
 				{
 					if($factura['rece'] == 1)
 					{
-						$icono = '<img src="../../theme/eldy/img/tick.png" border="0" alt="" title="Factura generada">'; 
+						$icono = '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/tick.png" border="0" alt="" title="Factura generada">'; 
 					}
 					else 
 					{
@@ -691,11 +691,11 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				print '<td>'.date('d-m-Y', strtotime($factura['datef'])).'</td>';
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/compta/facture.php?facid='.$factura['rowid'].'" title="'.formato_factura_numero($factura['facnumber'], $factura['type']).'">';
-				print '<img src="../../theme/eldy/img/object_bill.png" border="0"> ';
+				print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/object_bill.png" border="0"> ';
 				print $factura['facnumber'].'</a></td>';
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$factura['id_societe'].'">';
-				print '<img src="../../theme/eldy/img/object_company.png" border="0"> ';
+				print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/object_company.png" border="0"> ';
 				print $factura['nom'].'</a></td>';
 				print '<td>80</td>'; //ReceCodDocumento
 				print '<td>'.$factura['siren'].'</td>'; //ReceNroIdentificacion

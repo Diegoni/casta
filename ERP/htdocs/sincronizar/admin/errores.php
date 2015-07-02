@@ -91,8 +91,13 @@ if(isset($_GET['id_error']))
 else
 {
 	
-	$sql		= "SELECT * FROM `tms_config_sincronizacion`";
+	$sql		= "SELECT 
+						* 
+					FROM 
+						`tms_config_sincronizacion`";
+						
 	$resql		= $db->query($sql);	
+	
 	$config		= $db->fetch_array($resql);
 		
 	$sql	= "SELECT 
@@ -103,6 +108,7 @@ else
 					`tms_estados_log` ON(tms_log_errores.id_estado = tms_estados_log.id_estado) 
 				ORDER BY 
 					id_log DESC LIMIT 0, $config[cantidad]";
+					
 	$resql	= $db->query($sql);	
 		
 	$numr	= $db->num_rows($resql);					

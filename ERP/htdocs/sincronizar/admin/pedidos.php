@@ -114,20 +114,6 @@ if($numr > 0)
 	}
 }
 
-/*
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("CSSUrlForPaymentForm").'</td><td>';
-print '<input size="64" type="text" name="PAYPAL_CSS_URL" value="">';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("MessageOK").'</td><td>';
-$doleditor=new DolEditor('PAYPAL_MESSAGE_OK',$conf->global->PAYPAL_MESSAGE_OK,'',100,'dolibarr_details','In',false,true,true,ROWS_4,60);
-$doleditor->Create();
-print '</td></tr>';
-*/
 print '</table>';
 print '</form>';
 

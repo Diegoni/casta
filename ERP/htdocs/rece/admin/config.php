@@ -72,7 +72,7 @@ if ($action == 'setvalue' && $user->admin)
 	}
 	else
 	{
-		setEventMessage("No existe el directorio de la carpeta", 'errors');
+		setEventMessage($langs->trans("ReceDirectorioError"), 'errors');
 	}
 }
 else
@@ -129,7 +129,7 @@ if ($action == 'new' && $user->admin)
 	
 	if($num_punto > 0)
 	{
-		setEventMessage("El punto de venta ya esta creado", 'errors');
+		setEventMessage($langs->trans("RecePuntoVentaCreado"), 'errors');
 	}
 	else
 	{

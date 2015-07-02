@@ -127,7 +127,7 @@ if(isset($_GET['delete']))
 
 if(isset($_GET['id']))
 {
-	$sql	= 
+	$sql = 
 		"SELECT 
 			id_payment,
 			ps_order_payment,
@@ -144,7 +144,7 @@ if(isset($_GET['id']))
 		
 	$numr	= $db->num_rows($resql);	
 	
-	$sql	= 
+	$sql = 
 		"SELECT 
 			* 
 		FROM 
@@ -157,7 +157,7 @@ if(isset($_GET['id']))
 	$num_estados = $db->num_rows($sql_estados);
 	
 	
-	$sql	= 
+	$sql = 
 		"SELECT 
 			payment 
 		FROM 
