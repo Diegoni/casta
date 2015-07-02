@@ -111,7 +111,8 @@ else
 					
 	$resql	= $db->query($sql);	
 		
-	$numr	= $db->num_rows($resql);					
+	$numr	= $db->num_rows($resql);
+						
 	$i		= 0;	
 }
 
