@@ -25,11 +25,11 @@
  */
 
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/rece/lib/rece.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/precios/lib/precios.lib.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-$servicename = 'Rece';
+$servicename = 'Precios';
 
 $langs->load("rece");
 $langs->load("bills");

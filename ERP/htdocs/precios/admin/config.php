@@ -25,11 +25,11 @@
  */
 
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/rece/lib/rece.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/precios/lib/precios.lib.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-$servicename = 'Rece';
+$servicename = 'Precios';
 
 $langs->load("precios");
 
@@ -106,6 +106,7 @@ if ($action == 'setvalue' && $user->admin)
 	$num_product = $db->num_rows($product_query);	
 }
 else
+if ($action == 'confirm' && $user->admin)
 {
 	$id = GETPOST('id');
 	
@@ -153,6 +154,51 @@ else
 					WHERE 
 						`rowid` = $product[rowid]";
 						
+				$db->query($sql);
+				
+				$date_price = date('Y/m/d H:i:s');	
+				
+				$sql	= 
+				"INSERT INTO 
+					`llx_product_price` (
+						`entity`,
+						`fk_product`,
+						`date_price`,
+						`price_level`, 
+						`price`, 
+						`price_ttc`, 
+						`price_min`, 
+						`price_min_ttc`,
+						`price_base_type`,
+						`tva_tx`,
+						`recuperableonly`, 
+						`localtax1_tx`, 
+						`localtax2_tx`, 
+						`fk_user_author`,
+						`tosell` 
+				)VALUES(
+						$product[entity],
+						$product[rowid],
+						'$date_price',
+						1,
+						$price,
+						$price_ttc,
+						$price_min,
+						$price_min_ttc,
+						'$product[price_base_type]',
+						$product[tva_tx],
+						$product[recuperableonly],
+						$product[localtax1_tx],
+						$product[localtax2_tx],
+						1,
+						$product[tosell]
+				);";
+				
+				//fk_user_author mejorar
+				
+						
+				$db->query($sql);			
+						
 				$linea .= '<tr '.$bc[$var].'>';
 				$linea .= '<td>';
 				$linea .= '<a href="/casta/ERP/htdocs/product/card.php?id='.$product['rowid'].'">';
@@ -165,8 +211,7 @@ else
 				$linea .= '<td>'.formato_importe($price_min_ttc).'</td>';
 				$linea .= '<td>'.formato_importe($price_min).'</td>';
 				$linea .= '</tr>';
-				
-				$db->query($sql);	
+					
 			}
 			
 			$c++;
@@ -185,6 +230,8 @@ $sql	=
 		* 
 	FROM 
 		`llx_categorie`
+	WHERE
+		`type` = 0
 	ORDER BY
 		`label`";
 
@@ -212,7 +259,7 @@ print '<br>';
 
 $head = paypaladmin_prepare_head();
 
-dol_fiche_head($head, 'config', 'Rece', 0, 'rece');
+dol_fiche_head($head, 'config', 'Precios', 0, 'precios');
 
 if ($action != 'confirm')
 {

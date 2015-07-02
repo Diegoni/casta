@@ -96,9 +96,8 @@ function formato_factura_numero($factura, $type)
 {
 	global $conf;	
 	
-	$conf->global->FACTURE_MERCURE_MASK_REPLACEMENT."<br>";
-	
-	$conf->global->FACTURE_MERCURE_MASK_DEPOSITM."<br>";
+	$conf->global->FACTURE_MERCURE_MASK_REPLACEMENT;
+	$conf->global->FACTURE_MERCURE_MASK_DEPOSITM;
 	
 		
 	if($type == 2)
@@ -201,6 +200,11 @@ function armar_cadena($cadena, $cantidad, $tipo)
 	if($tipo == 'Importe')
 	{
 		$char_completar = '0';
+		
+		if($cadena < 0)
+		{
+			$cadena = $cadena * -1;
+		}
 		
 		$importe = round($cadena, 2);
 								
@@ -369,22 +373,26 @@ if ($action == 'setvalue' && $user->admin)
 					{
 						$rece = $db->fetch_array($rece_query);
 						
+						// 1 - Si hay un campo default se completa con ese valor
 						if($rece['default'] != '')
 						{
 							$campo = armar_cadena($rece['default'], $rece['cantidad'], $rece['tipo']);
 						}
 						else
+						// 2 - Algunos valores pueden ser enviados en el form como el punto de venta	
 						if($rece['post'] != '')
 						{
 							$campo = armar_cadena(GETPOST($rece['post']), $rece['cantidad'], $rece['tipo']);
 						}
 						else
+						// 3 - Si no tiene ni valor default, ni post, ni campo de datos se debe llenar con ' ' o 0;
 						if($rece['campo_dolibarr'] == '')
 						{
 							$campo = armar_cadena('', $rece['cantidad'], $rece['tipo']);
 						}
 						else
 						{
+							// 4 - Si es fecha se debe tener en cuenta si se informa o no fecha y el formato de la fecha
 							if($rece['tipo'] == 'Fecha')
 							{
 								if($inv_text == 1)
@@ -398,7 +406,17 @@ if ($action == 'setvalue' && $user->admin)
 							}
 							else
 							{
-								$campo = armar_cadena($factura[$rece['campo_dolibarr']], $rece['cantidad'], $rece['tipo']);
+								// 5 - Hay que cambiar el formato del numero del comprobante dado que la afip solo acepta numeros
+								if($rece['campo_dolibarr'] == 'facnumber')
+								{
+									$facnumber = formato_factura_numero($factura['facnumber'], $factura['type']);
+									$campo = armar_cadena($facnumber, $rece['cantidad'], $rece['tipo']);
+								}
+								// 6 - Se carga el dato y se adapata a la cantidad dispuesta por la afip dependiendo del tipo. 	
+								else
+								{
+									$campo = armar_cadena($factura[$rece['campo_dolibarr']], $rece['cantidad'], $rece['tipo']);	
+								}
 							}
 						}
 						
@@ -611,7 +629,6 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 		print '<td>'.$langs->trans("ReceTipoRegistro").'</td>';
 		print '<td>'.$langs->trans("ReceFechaComprobante").'</td>';
 		print '<td>'.$langs->trans("ReceNroComprobante").'</td>';
-		print '<td>'.$langs->trans("ReceNroComprobante").'</td>';
 		print '<td>'.$langs->trans("ReceNombre").'</td>';
 		print '<td title="'.$langs->trans("ReceCodDocumento").'">'.$langs->trans("ReceRCodDocumento").'</td>';
 		print '<td title="'.$langs->trans("ReceNroIdentificacion").'">'.$langs->trans("ReceRNroIdentificacion").'</td>';
@@ -673,11 +690,9 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 				print '<td></td>'; //ReceTipoRegistro
 				print '<td>'.date('d-m-Y', strtotime($factura['datef'])).'</td>';
 				print '<td>';
-				print '<a href="'.DOL_URL_ROOT.'/compta/facture.php?facid='.$factura['rowid'].'">';
+				print '<a href="'.DOL_URL_ROOT.'/compta/facture.php?facid='.$factura['rowid'].'" title="'.formato_factura_numero($factura['facnumber'], $factura['type']).'">';
 				print '<img src="../../theme/eldy/img/object_bill.png" border="0"> ';
 				print $factura['facnumber'].'</a></td>';
-				print '<td>';
-				print formato_factura_numero($factura['facnumber'], $factura['type']).'</a></td>';
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$factura['id_societe'].'">';
 				print '<img src="../../theme/eldy/img/object_company.png" border="0"> ';

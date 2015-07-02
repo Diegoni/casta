@@ -172,12 +172,12 @@ function paypaladmin_prepare_head()
 	$h = 0;
 	$head = array();
 	
-	$head[$h][0] = DOL_URL_ROOT."/rece/admin/generar.php";
+	$head[$h][0] = DOL_URL_ROOT."/precios/admin/generar.php";
 	$head[$h][1] = 'Generar';
 	$head[$h][2] = 'generar';
 	$h++;
 	
-	$head[$h][0] = DOL_URL_ROOT."/rece/admin/config.php";
+	$head[$h][0] = DOL_URL_ROOT."/precios/admin/config.php";
 	$head[$h][1] = 'Config';
 	$head[$h][2] = 'config';
 	$h++;
