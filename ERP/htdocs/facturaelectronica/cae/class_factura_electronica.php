@@ -203,7 +203,7 @@ class factura_electronica extends CommonObject
 		Web Service con la AFip, devuelve el CAE si todo ok
 ----------------------------------------------------------------------------*/
 	
-	function obtener_cae($factura)
+	function obtener_cae($factura, $agregariva)
 	{
 		//$control = $this->control_factura($factura);
 		$control = 1;
@@ -326,19 +326,13 @@ class factura_electronica extends CommonObject
 			    $alic			= "1.00";
 			    $importe		= "0.50";
 			    $ok				= $WSFEv1->AgregarTributo($tributo_id, $ds, $base_imp, $alic, $importe);
-			
-			    # Agrego tasas de IVA
-			    $iva_id			= 5;             # 21%
-			    $base_imp		= "100.00";
-			    $importe		= "21.00";
-			    $ok				= $WSFEv1->AgregarIva($iva_id, $base_imp, $importe);
-			    
-			    # Agrego tasas de IVA 
-			    $iva_id			= 4;            # 10.5%  
-			    $base_imp		= "50.00";
-			    $importe		= "5.25";
-			    $ok				= $WSFEv1->AgregarIva($iva_id, $base_imp, $importe);
-			    
+				
+				foreach ($agregariva as $iva_id => $values) 
+				{
+					# Agrego tasas de IVA
+				    $ok	= $WSFEv1->AgregarIva($iva_id, $values['base_imp'], $values['importe']);
+				}
+				
 			    # Agrego datos opcionales  RG 3668 Impuesto al Valor Agregado - Art.12 
 			    # ("presunción no vinculación la actividad gravada", F.8001):
 			    if ($tipo_cbte == 1) 
@@ -407,10 +401,10 @@ class factura_electronica extends CommonObject
 			{
 			    # almacenar la respuesta para depuración / testing
 			    # (guardar en un directorio no descargable al subir a un servidor web)
-			    
-			    echo $this->path.date('Ymd').$this->request;
-			    file_put_contents($this->path.date('Ymd').$this->request,  $WSFEv1->XmlRequest);
-			    file_put_contents($this->path.date('Ymd').$this->response, $WSFEv1->XmlResponse);
+			    $mascara = $ult+1;
+				$mascara .= date('-Y_m_d');
+			    file_put_contents($this->path.$mascara.$this->request,  $WSFEv1->XmlRequest);
+			    file_put_contents($this->path.$mascara.$this->response, $WSFEv1->XmlResponse);
 			}
 			
 			return $respuesta;	

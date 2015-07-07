@@ -51,8 +51,12 @@ $object = new Facture($db);
  
  
 if ($action == 'cae' && $user->rights->facture->creer) {
-//TMS	
+	
 	$factura_e = new factura_electronica($db);
+  
+/*----------------------------------------------------------------------------
+		01 - Busco la factura por id o referencia
+----------------------------------------------------------------------------*/
 		
 	if($ref == '')
 	{
@@ -82,13 +86,17 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 	$resql_fac = $db->query($sql_fac);	
 									
 	$numr_fac = $db->num_rows($resql_fac);
+  
+/*----------------------------------------------------------------------------
+		02 - Adapto los valores de la factura
+----------------------------------------------------------------------------*/
 	
 	if($numr_fac > 0)
 	{
 		$fac_array = $db->fetch_array($resql_fac);
 		
 		$nro_doc	= ereg_replace("[^0-9]", "", $fac_array['siren']);
-		//$fecha_cbte	= date("Ymd", strtotime($fac_array['datec']));
+		
 		$fecha_cbte	= date("Ymd");
 		
 		if($fac_array['type'] == 2)
@@ -105,9 +113,11 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 		}
 		 
 	}
-	
-	
-				
+  
+/*----------------------------------------------------------------------------
+		03 - Creo el array de la factura
+----------------------------------------------------------------------------*/
+					
 	$factura = array(
 		'tipo_cbte' 		=> 1, 
 		'punto_vta' 		=> 1,
@@ -115,19 +125,13 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 		'concepto'			=> 1,						# 1: productos, 2: servicios, 3: ambos
 		'tipo_doc'			=> 80,						# 80: CUIT, 96: DNI, 99: Consumidor Final
 		'nro_doc'			=> $nro_doc,	# 0 para Consumidor Final (<$1000)
-				
-		'imp_total'			=> round($fac_array['total_ttc'], 2) + 3,	# total del comprobante
-		'imp_tot_conc'		=> "2.00",								# subtotal de conceptos no gravados
+			
+		'imp_total'			=> round($fac_array['total_ttc'], 2) + 1,	# total del comprobante
+		'imp_tot_conc'		=> "0.00",								# subtotal de conceptos no gravados
 		'imp_neto'			=> round($fac_array['total'], 2),		# subtotal neto sujeto a IVA
 		'imp_iva'			=> round($fac_array['tva'], 2),			# subtotal impuesto IVA liquidado
 		'imp_trib'			=> "1.00",			# subtotal otros impuestos
-		 /*
-		'imp_total'			=> "179.25",		# total del comprobante
-		'imp_tot_conc'		=> "2.00",			# subtotal de conceptos no gravados
-		'imp_neto'			=> "150.00",		# subtotal neto sujeto a IVA
-		'imp_iva'			=> "26.25",			# subtotal impuesto IVA liquidado
-		'imp_trib'			=> "1.00",			# subtotal otros impuestos
-		 */ 
+		 
 		'imp_op_ex'			=> "0.00",			# subtotal de operaciones exentas
 		'fecha_cbte'		=> $fecha_cbte,
 		'fecha_venc_pago'	=> "",				# solo servicios
@@ -136,20 +140,97 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 		'fecha_serv_hasta'	=> "",
 		'moneda_id'			=> "PES",			# no utilizar DOL u otra moneda 
 		'moneda_ctz'		=> "1.000",			# (deshabilitado por AFIP)
-	 );	
+	 );
+	  
+/*----------------------------------------------------------------------------
+		04 - Busco los valores del iva y armo los array
+----------------------------------------------------------------------------*/
 	
-	foreach ($factura as $key => $value) 
+	$sql_iva = 
+	"SELECT 
+		* 
+	FROM 
+		`tms_iva`"; 
+	
+	$resql_iva = $db->query($sql_iva);	
+									
+	$numr_iva = $db->num_rows($resql_iva);
+	
+	$i = 0;
+	
+	if($numr_iva > 0)
 	{
-		echo $key.' '.$value.'<br>';
-	}    
+		while ($i < $numr_iva)
+		{
+			$iva_array = $db->fetch_array($resql_iva);
+			$iva_id[$iva_array['id_wsfe']] = $iva_array['valor'];
+			$base_imp[$iva_array['id_wsfe']] = 0;
+			$importe[$iva_array['id_wsfe']]	= 0;
+			
+			$i++;
+		}
+	}
+	  
+/*----------------------------------------------------------------------------
+		05 - Busco el detalle de la factura y discrimino el iva
+----------------------------------------------------------------------------*/
+	 
+	$sql_det = 
+	"SELECT 
+		* 
+	FROM 
+		`llx_facturedet` 
+	WHERE 
+		`fk_facture`= $id"; 
+	
+	$resql_det = $db->query($sql_det);	
+									
+	$numr_det = $db->num_rows($resql_det);
+	
+	$i = 0;
+	
+	if($numr_det > 0)
+	{
+		while ($i < $numr_det)
+		{
+			$det_array = $db->fetch_array($resql_det);
+			
+			foreach ($iva_id as $key => $value) 
+			{	
+				if($det_array['tva_tx'] == $value)
+				{
+					$base_imp[$key]	= $base_imp[$key] + $det_array['total_ht'];
+				    $importe[$key]	= $importe[$key] + $det_array['total_tva'];
+				}	
+			}
+			
+			$i++;
+		}
+	}
+	
+	foreach ($base_imp as $key => $value) 
+	{
+		if($value != 0)
+		{
+			$agregariva[$key] = array(
+				'base_imp' 	=> $value,
+				'importe'	=> $importe[$key]
+			);
+		}
+	}  
+	  
+/*----------------------------------------------------------------------------
+		06 - Intento obtener cae, inserto el resultado
+----------------------------------------------------------------------------*/
 		    
-	$cae = $factura_e->obtener_cae($factura);
+	$cae = $factura_e->obtener_cae($factura, $agregariva);
 	
 	$cae['id_facture'] = $id;
 		
 	$factura_e->insert($cae);
 	
 	setEventMessage($langs->trans("CaeGuardado"));
+	
 }
  
  
