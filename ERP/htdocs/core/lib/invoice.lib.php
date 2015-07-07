@@ -97,6 +97,12 @@ function facture_prepare_head($object)
 	$head[$h][1] = $langs->trans('Info');
 	$head[$h][2] = 'info';
 	$h++;
+	
+	//TMS
+	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/cae.php?facid='.$object->id;
+	$head[$h][1] = $langs->trans('CAE');
+	$head[$h][2] = 'cae';
+	$h++;
 
 	complete_head_from_modules($conf,$langs,$object,$head,$h,'invoice','remove');
 

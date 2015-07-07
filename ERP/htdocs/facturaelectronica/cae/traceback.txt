@@ -1,6 +1,6 @@
 Traceback (most recent call last):
 
-  File "C:\xampp2\htdocs\pyafipws-master\rece1.py", line 617, in <module>
+  File "C:\xampp2\htdocs\pyafipws-master\rece1.py", line 618, in <module>
     autorizar(ws, f_entrada, f_salida, '/informarcaea' in sys.argv)
 
   File "C:\xampp2\htdocs\pyafipws-master\rece1.py", line 151, in autorizar
