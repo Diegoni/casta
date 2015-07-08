@@ -473,9 +473,19 @@ class pdf_tms extends ModelePDFFactures
 					}
 				
 					// Unit price before discount
-					$up_excl_tax = pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails);
+					if($this->letra == 'A')
+					{
+						$linea_importe = pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails);
+					}
+					else
+					{
+						$linea_importe = pdf_getlineupwithtax($object, $i, $outputlangs, $hidedetails);
+					}
+					
+					
+					
 					$pdf->SetXY($this->posxup, $curY);
-					$pdf->MultiCell($this->posxqty-$this->posxup-0.8, 3, $up_excl_tax, 0, 'R', 0);
+					$pdf->MultiCell($this->posxqty-$this->posxup-0.8, 3, $linea_importe, 0, 'R', 0);
 
 					// Quantity
 					$qty = pdf_getlineqty($object, $i, $outputlangs, $hidedetails);
@@ -493,7 +503,17 @@ class pdf_tms extends ModelePDFFactures
 					// Total HT line
 					$total_excl_tax = pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails);
 					$pdf->SetXY($this->postotalht, $curY);
-					$pdf->MultiCell($this->page_largeur-$this->marge_droite-$this->postotalht, 3, $total_excl_tax, 0, 'R', 0);
+					
+					if($this->letra == 'A')
+					{
+						$total_linea = pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails);
+					}
+					else
+					{
+						$total_linea = pdf_getlinetotalwithtax($object, $i, $outputlangs, $hidedetails);						
+					}
+					
+					$pdf->MultiCell($this->page_largeur-$this->marge_droite-$this->postotalht, 3, $total_linea, 0, 'R', 0);
 
 					// Collecte des totaux par valeur de tva dans $this->tva["taux"]=total_tva
 					$tvaligne=$object->lines[$i]->total_tva;
@@ -964,13 +984,16 @@ class pdf_tms extends ModelePDFFactures
 
 		$useborder=0;
 		$index = 0;
-
-		// Total HT
-		$pdf->SetFillColor(255,255,255);
-		$pdf->SetXY($col1x, $tab2_top + 0);
-		$pdf->MultiCell($col2x-$col1x, $tab2_hl, $outputlangs->transnoentities("TotalHT"), 0, 'L', 1);
-		$pdf->SetXY($col2x, $tab2_top + 0);
-		$pdf->MultiCell($largcol2, $tab2_hl, price($sign * ($object->total_ht + (! empty($object->remise)?$object->remise:0)), 0, $outputlangs), 0, 'R', 1);
+		
+		if($this->letra == 'A')
+		{
+			// Total HT
+			$pdf->SetFillColor(255,255,255);
+			$pdf->SetXY($col1x, $tab2_top + 0);
+			$pdf->MultiCell($col2x-$col1x, $tab2_hl, $outputlangs->transnoentities("TotalHT"), 0, 'L', 1);
+			$pdf->SetXY($col2x, $tab2_top + 0);
+			$pdf->MultiCell($largcol2, $tab2_hl, price($sign * ($object->total_ht + (! empty($object->remise)?$object->remise:0)), 0, $outputlangs), 0, 'R', 1);
+		}
 
 		// Show VAT by rates and total
 		$pdf->SetFillColor(248,248,248);
@@ -1055,29 +1078,35 @@ class pdf_tms extends ModelePDFFactures
 					}
 				//}
 				// VAT
-				foreach($this->tva as $tvakey => $tvaval)
+				
+				if($this->letra == 'A')
 				{
-					if ($tvakey > 0)    // On affiche pas taux 0
+					foreach($this->tva as $tvakey => $tvaval)
 					{
-						$this->atleastoneratenotnull++;
-
-						$index++;
-						$pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
-
-						$tvacompl='';
-						if (preg_match('/\*/',$tvakey))
+						if ($tvakey > 0)    // On affiche pas taux 0
 						{
-							$tvakey=str_replace('*','',$tvakey);
-							$tvacompl = " (".$outputlangs->transnoentities("NonPercuRecuperable").")";
+							$this->atleastoneratenotnull++;
+	
+							$index++;
+							$pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
+	
+							$tvacompl='';
+							if (preg_match('/\*/',$tvakey))
+							{
+								$tvakey=str_replace('*','',$tvakey);
+								$tvacompl = " (".$outputlangs->transnoentities("NonPercuRecuperable").")";
+							}
+							$totalvat =$outputlangs->transnoentities("TotalVAT").' ';
+							$totalvat.=vatrate($tvakey,1).$tvacompl;
+							$pdf->MultiCell($col2x-$col1x, $tab2_hl, $totalvat, 0, 'L', 1);
+	
+							$pdf->SetXY($col2x, $tab2_top + $tab2_hl * $index);
+							$pdf->MultiCell($largcol2, $tab2_hl, price($tvaval, 0, $outputlangs), 0, 'R', 1);
 						}
-						$totalvat =$outputlangs->transnoentities("TotalVAT").' ';
-						$totalvat.=vatrate($tvakey,1).$tvacompl;
-						$pdf->MultiCell($col2x-$col1x, $tab2_hl, $totalvat, 0, 'L', 1);
-
-						$pdf->SetXY($col2x, $tab2_top + $tab2_hl * $index);
-						$pdf->MultiCell($largcol2, $tab2_hl, price($tvaval, 0, $outputlangs), 0, 'R', 1);
-					}
-				}
+					}	
+					
+					
+				
 
 				//Local tax 1 after VAT
 				//if (! empty($conf->global->FACTURE_LOCAL_TAX1_OPTION) && $conf->global->FACTURE_LOCAL_TAX1_OPTION=='localtax1on')
@@ -1143,6 +1172,8 @@ class pdf_tms extends ModelePDFFactures
 								$pdf->MultiCell($largcol2, $tab2_hl, price($tvaval, 0, $outputlangs), 0, 'R', 1);
 							}
 						}
+						
+					}	
 					//}
 				}
 
