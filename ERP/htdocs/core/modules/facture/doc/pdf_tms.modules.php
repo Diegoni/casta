@@ -166,9 +166,6 @@ class pdf_tms extends ModelePDFFactures
 	}
 
 
-
-
-
 	/**
      *  Function to build pdf onto disk
      *
@@ -465,7 +462,7 @@ class pdf_tms extends ModelePDFFactures
 		TMS: Linea del pedido de iva
 ----------------------------------------------------------------------------*/
 					
-					if($this->liquida_iva($object->ref))
+					if($this->letra == 'A')
 					{
 						if (empty($conf->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT))
 						{
