@@ -12,8 +12,8 @@ class Actualizar extends CommonObject
 	var $system_prestashop	= 'prestashop';
 	
 	// ambientes
-	var $environment	= 'development';
-	//var $environment	= 'production';
+	//var $environment	= 'development';
+	var $environment	= 'production';
 	
 	// tabla 
 	var $table_error	= 'tms_log_errores';
