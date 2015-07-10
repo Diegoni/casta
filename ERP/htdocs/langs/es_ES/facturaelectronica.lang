@@ -14,3 +14,7 @@ FEprod_wsfe_v1=Producción web service factura electrónica
 FErequest=Archivo request
 FEresponse=Archivo response
 FEpath_request=Carpeta archivo request y response
+FEgenerar=Generar
+BackToModuleList=Volver a la lista de Módulos
+FEnoCSR=No se ha encontrado archivo CSR
+FEnoCSR=No se ha encontrado archivo CSR

@@ -28,17 +28,34 @@
  */
 
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/rece/lib/rece.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/facturaelectronica/lib/facturaelectronica.lib.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-$servicename = 'Rece';
+$servicename = 'Factura Electrónica';
 
-$langs->load("rece");
+$langs->load("facturaelectronica");
 $langs->load("bills");
 $langs->load("dict");
 
 if (! $user->admin) accessforbidden();
+
+$sql	= 
+	"SELECT 
+		* 
+	FROM 
+		`tms_config_factura_electronica`";
+	
+$fe_query = $db->query($sql);	
+		
+$num_fe	= $db->num_rows($fe_query);
+	
+if($num_fe > 0)
+{
+	$fe_array = $db->fetch_array($fe_query);
+}
+
+$csr = str_replace(".key", '.csr', $fe_array['clave_privada']);
 
 
 /*----------------------------------------------------------------------------
@@ -49,24 +66,6 @@ $action = GETPOST('action');
 
 if ($action == 'setvalue' && $user->admin)
 {
-	$sql	= 
-	"SELECT 
-		* 
-	FROM 
-		`tms_config_factura_electronica`";
-	
-	$fe_query = $db->query($sql);	
-		
-	$num_fe	= $db->num_rows($fe_query);
-			
-	
-	if($num_fe > 0)
-	{
-		$fe_array = $db->fetch_array($fe_query);
-	}
-	
-	$csr = str_replace(".key", '.csr', $fe_array['clave_privada']);
-	
 	$command = 'openssl genrsa -out '.$fe_array['clave_privada'].' 1024';
 	exec($command);
 	//WSASS - Autogestión Certificados Homologación
@@ -84,30 +83,39 @@ if ($action == 'setvalue' && $user->admin)
 
 $form = new Form($db);
 
-llxHeader('',$langs->trans("ReceSetup"));
+llxHeader('',$langs->trans("FEcertificado"));
 
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ModuleSetup").' de Rece',$linkback);
+print_fiche_titre($langs->trans("ModuleSetup").' de Factura electrónica',$linkback);
 print '<br>';
 
 $head = paypaladmin_prepare_head();
 
-dol_fiche_head($head, 'generar', 'Rece', 0, 'rece');
+dol_fiche_head($head, 'generar', 'Factura electrónica', 0, 'facturaelectronica');
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+	
+	print "<center>";
+	print "<table>";
+	print "<tr class='liste_titre'>";
+	print "<td>".$langs->trans("FEcertificado")."</td>";
+	print "<td>".$langs->trans("FEclave_privada")."</td>";
+	print "</tr>";
+	
+	print "<tr>";
 	if(is_file($csr))
 	{
-		print $langs->trans("FEcontenido")."<br><br>\n";
-		
 		$file = fopen($csr, "r") or exit($langs->trans("FEnoCSR"));
-		//Output a line of the file until the end is reached
+		
+		print "<td><textarea cols='80' rows='16'>";
 		while(!feof($file))
 		{
-			echo fgets($file). "<br />";
+			print fgets($file);
 		}
-		fclose($file);	
+		fclose($file);
+		print "</textarea></td>";	
 	}
 	else
 	{
@@ -116,24 +124,26 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	
 	if(is_file($fe_array['clave_privada']))
 	{
-		print $langs->trans("FEcontenido")."<br><br>\n";
-		
 		$file = fopen($fe_array['clave_privada'], "r") or exit($langs->trans("FEnoClavePrivada"));
-		//Output a line of the file until the end is reached
+		
+		print "<td><textarea cols='80' rows='16'>";
 		while(!feof($file))
 		{
-			echo fgets($file). "<br />";
+			print fgets($file);
 		}
 		fclose($file);
+		print "</textarea></td>";
 	}
 	else
 	{
 		$langs->trans("FEnoClavePrivada");
 	}
+	print "</tr>";
+	print "</table>";
+	print "</center>";
 	
-	
-	print '<input type="hidden" name="action" value="setvalue">';
-	print '<br><center><input type="submit" class="button" value="'.$langs->trans("FEGenerar").'"></center>';
+	print '<br><input type="hidden" name="action" value="setvalue">';
+	print '<br><center><input type="submit" class="button" value="'.$langs->trans("FEgenerar").'"></center>';
 
 print '</form>';
 
