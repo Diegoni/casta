@@ -22,6 +22,9 @@
  * \file       htdocs/paypal/admin/paypal.php
  * \ingroup    paypal
  * \brief      Page to setup paypal module
+ * 
+ * 
+
  */
 
 require '../../main.inc.php';
@@ -36,6 +39,40 @@ $langs->load("bills");
 $langs->load("dict");
 
 if (! $user->admin) accessforbidden();
+
+
+/*----------------------------------------------------------------------------
+		Guardamos la configuración
+----------------------------------------------------------------------------*/
+
+$action = GETPOST('action');
+
+if ($action == 'setvalue' && $user->admin)
+{
+	$sql	= 
+	"SELECT 
+		* 
+	FROM 
+		`tms_config_factura_electronica`";
+	
+	$fe_query = $db->query($sql);	
+		
+	$num_fe	= $db->num_rows($fe_query);
+			
+	
+	if($num_fe > 0)
+	{
+		$fe_array = $db->fetch_array($fe_query);
+	}
+	
+	$csr = str_replace(".key", '.csr', $fe_array['clave_privada']);
+	
+	$command = 'openssl genrsa -out '.$fe_array['clave_privada'].' 1024';
+	exec($command);
+	//WSASS - Autogestión Certificados Homologación
+	$command = 'openssl req -new -key '.$fe_array['clave_privada'].' -subj "/C=AR/O='.$fe_array['empresa'].'/CN=mi certificado 1/serialNumber=CUIT '.$fe_array['cuil'].'" -out '.$csr.'';
+	exec($command);	
+}
 
 
 /*----------------------------------------------------------------------------
@@ -58,27 +95,45 @@ $head = paypaladmin_prepare_head();
 
 dol_fiche_head($head, 'generar', 'Rece', 0, 'rece');
 
-print $langs->trans("ReceConfigDesc")."<br>\n";
-
 print '<br>';
-print '<form method="post" action="https://wswhomo.afip.gov.ar/wsfev1/service.asmx">';
-
+print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+	if(is_file($csr))
+	{
+		print $langs->trans("FEcontenido")."<br><br>\n";
+		
+		$file = fopen($csr, "r") or exit($langs->trans("FEnoCSR"));
+		//Output a line of the file until the end is reached
+		while(!feof($file))
+		{
+			echo fgets($file). "<br />";
+		}
+		fclose($file);	
+	}
+	else
+	{
+		$langs->trans("FEnoCSR");
+	}
+	
+	if(is_file($fe_array['clave_privada']))
+	{
+		print $langs->trans("FEcontenido")."<br><br>\n";
+		
+		$file = fopen($fe_array['clave_privada'], "r") or exit($langs->trans("FEnoClavePrivada"));
+		//Output a line of the file until the end is reached
+		while(!feof($file))
+		{
+			echo fgets($file). "<br />";
+		}
+		fclose($file);
+	}
+	else
+	{
+		$langs->trans("FEnoClavePrivada");
+	}
+	
+	
 	print '<input type="hidden" name="action" value="setvalue">';
-	
-	print '<table class="noborder" width="100%">';
-	
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("ReceCampo").'</td>';
-	print '<td>'.$langs->trans("ReceValor").'</td>';
-	print '</tr>';
-	
-	$var=!$var;
-	print '<tr '.$bc[$var].'>';
-	print '<td><input name="Auth" value=""></td>';
-	
-	print '</table>';
-	
-	print '<br><center><input type="submit" class="button" value="'.$langs->trans("PrecioConfirmar").'"></center>';
+	print '<br><center><input type="submit" class="button" value="'.$langs->trans("FEGenerar").'"></center>';
 
 print '</form>';
 

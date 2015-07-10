@@ -399,7 +399,7 @@ if ($id > 0 || ! empty($ref))
 		else
 		{
 			//despues borrar
-			print '<br><center><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=cae">' . $langs->trans('CaeObtener') . '</center></a>';
+			//print '<br><center><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=cae">' . $langs->trans('CaeObtener') . '</center></a>';
 		}
 	}
 	else

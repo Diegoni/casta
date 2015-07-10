@@ -25,13 +25,13 @@
  */
 
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/rece/lib/rece.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/facturaelectronica/lib/facturaelectronica.lib.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-$servicename = 'Rece';
+$servicename = 'Factura Electronica';
 
-$langs->load("rece");
+$langs->load("facturaelectronica");
 $langs->load("bills");
 $langs->load("dict");
 
@@ -46,23 +46,40 @@ $action = GETPOST('action');
 if ($action == 'setvalue' && $user->admin)
 {
 	$registro = array(
-		'folder'	=> GETPOST('folder'),
-		'min_dias'	=> GETPOST('min_dias'),
-		'cuil'		=> GETPOST('cuil'),
-		'limite'	=> GETPOST('limite'),
+		'ambiente'			=> GETPOST('ambiente'),
+		'cuil'				=> GETPOST('cuil'),
+		'certificado'		=> GETPOST('certificado'),
+		'clave_privada'		=> GETPOST('clave_privada'),
+		'path_certificado'	=> GETPOST('path_certificado'),
+		'homo_web_ser'		=> GETPOST('homo_web_ser'),
+		'homo_wsfe_v1'		=> GETPOST('homo_wsfe_v1'),
+		'prod_web_ser'		=> GETPOST('prod_web_ser'),
+		'prod_wsfe_v1'		=> GETPOST('prod_wsfe_v1'),
+		'request'			=> GETPOST('request'),
+		'response'			=> GETPOST('response'),
+		'path_request'		=> GETPOST('path_request'),
 	);
 	
-	if(is_dir($registro['folder']))
+	if(is_dir($registro['path_certificado']) && is_dir($registro['path_request']) )
 	{
-		$registro['folder'] = str_replace('\\', '-', $registro['folder']);
+		$registro['path_certificado'] = str_replace('\\', '-', $registro['path_certificado']);
+		$registro['path_request'] = str_replace('\\', '-', $registro['path_request']);
 		
 		$sql = 
-			"UPDATE `tms_config_rece` 
+			"UPDATE `tms_config_factura_electronica` 
 				SET 
-					`folder`			= '$registro[folder]',
-					`min_dias`			= $registro[min_dias],
-					`cuil`				= $registro[cuil],
-					`limite`			= $registro[limite]
+					`ambiente`			= '$registro[ambiente]',
+					`cuil`				= '$registro[cuil]',
+					`certificado`		= '$registro[certificado]',
+					`clave_privada`		= '$registro[clave_privada]',
+					`path_certificado`	= '$registro[path_certificado]',
+					`homo_web_ser`		= '$registro[homo_web_ser]',
+					`homo_wsfe_v1`		= '$registro[homo_wsfe_v1]',
+					`prod_web_ser`		= '$registro[prod_web_ser]',
+					`prod_wsfe_v1`		= '$registro[prod_wsfe_v1]',
+					`request`			= '$registro[request]',
+					`response`			= '$registro[response]',
+					`path_request`		= '$registro[path_request]'
 				WHERE 
 					`id_config`		= 1";
 		
@@ -75,143 +92,25 @@ if ($action == 'setvalue' && $user->admin)
 		setEventMessage("No existe el directorio de la carpeta", 'errors');
 	}
 }
-else
-		
-/*----------------------------------------------------------------------------
-		Modificar punto de venta
-----------------------------------------------------------------------------*/
-	
-if ($action == 'punto_venta' && $user->admin)
-{
-	$registro = array(
-		'punto_venta'		=> GETPOST('punto_venta'),
-		'cod_autorizacion'	=> GETPOST('cod_autorizacion'),
-		'id_punto'			=> GETPOST('id_punto'),
-	);
-	
-	$sql = 
-		"UPDATE `tms_puntos_venta` 
-			SET 
-				`punto_venta`		= $registro[punto_venta],
-				`cod_autorizacion`	= $registro[cod_autorizacion]
-			WHERE 
-				`id_punto`			= $registro[id_punto]";
-		
-	$db->query($sql);
-			
-	setEventMessage($langs->trans("SetupSaved"));
-}
-else
-			
-/*----------------------------------------------------------------------------
-		Agregar un nuevo punto de venta
-----------------------------------------------------------------------------*/
-	
-if ($action == 'new' && $user->admin)
-{
-	$registro = array(
-		'punto_venta'		=> GETPOST('punto_venta'),
-		'cod_autorizacion'	=> GETPOST('cod_autorizacion'),
-	);
-	
-	$sql	= 
-		"SELECT 
-				* 
-			FROM 
-				`tms_puntos_venta`
-			WHERE 
-				`punto_venta` = $registro[punto_venta]
-			";
-	
-	$punto_query = $db->query($sql);	
-		
-	$num_punto	= $db->num_rows($punto_query);	
-	
-	if($num_punto > 0)
-	{
-		setEventMessage("El punto de venta ya esta creado", 'errors');
-	}
-	else
-	{
-		$sql = 
-			"INSERT INTO `tms_puntos_venta` (
-					`punto_venta`,
-					`cod_autorizacion`
-				)
-				VALUES (
-					$registro[punto_venta],
-					$registro[cod_autorizacion]
-				)";
-		
-		$db->query($sql);
-		
-		$id_insert = $db->last_insert_id('tms_puntos_venta');
-		
-		if($id_insert != 0)
-		{
-			setEventMessage($langs->trans("SetupSaved"));	
-		}	
-	}	
-}
-else
-
-/*----------------------------------------------------------------------------
-		Eliminar punto de venta
-----------------------------------------------------------------------------*/
-
-if(isset($_GET['delete']))
-{
-	$registro = array(
-		'id_punto'		=> $_GET['delete']
-	);
-	
-	$sql = 
-		"DELETE FROM 
-				`tms_puntos_venta` 
-			WHERE
-				`id_punto`  = $registro[id_punto]";
-		
-	$db->query($sql);
-			
-	setEventMessage($langs->trans("SetupSaved"));
-}
 
 /*----------------------------------------------------------------------------
 		SELECT de los origenes del pedido
 ----------------------------------------------------------------------------*/
 
 $sql	= 
-	"SELECT 
-		* 
-	FROM 
-		`tms_config_rece`";
+"SELECT 
+	* 
+FROM 
+	`tms_config_factura_electronica`";
 
-$config_query = $db->query($sql);	
+$fe_query = $db->query($sql);	
 	
-$num_config	= $db->num_rows($config_query);		
-
-
-$sql	= 
-	"SELECT 
-		* 
-	FROM 
-		`tms_puntos_venta`";
-
-$puntos_query = $db->query($sql);	
-	
-$num_puntos	= $db->num_rows($puntos_query);
+$num_fe	= $db->num_rows($fe_query);
 		
 
-if($num_config > 0)
+if($num_fe > 0)
 {
-	$c = 0;
-	
-	while ($c < $num_config)
-	{
-		$config_rece = $db->fetch_array($config_query);
-		
-		$c++;
-	}
+	$fe_array = $db->fetch_array($fe_query);
 }			
 
 
@@ -224,18 +123,18 @@ if($num_config > 0)
 
 $form = new Form($db);
 
-llxHeader('',$langs->trans("ReceSetup"));
+llxHeader('',$langs->trans("FacturaElectronicaSetup"));
 
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ModuleSetup").' de Rece',$linkback);
+print_fiche_titre($langs->trans("ModuleSetup").' de Factura electrónica',$linkback);
 print '<br>';
 
 $head = paypaladmin_prepare_head();
 
-dol_fiche_head($head, 'config', 'Rece', 0, 'rece');
+dol_fiche_head($head, 'config', 'Factura Electrónica', 0, 'facturaelectronica');
 
-print $langs->trans("ReceConfigDesc")."<br>\n";
+print $langs->trans("FEconfigDesc")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -245,113 +144,90 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<table class="noborder" width="100%">';
 	
 	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("ReceDato").'</td>';
-	print '<td>'.$langs->trans("ReceValor").'</td>';
+	print '<td>'.$langs->trans("FEdato").'</td>';
+	print '<td>'.$langs->trans("FEvalor").'</td>';
 	print '</tr>';
-	
-	$config_rece['folder'] = str_replace('-', '\\', $config_rece['folder']);
 	
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
-	print '<td>'.$langs->trans("ReceCarpeta").'</td>';
-	print '<td><input name="folder" value="'.$config_rece['folder'].'" size="80" required></td>';
+	print '<td>'.$langs->trans("FEambiente").'</td>';
+	print '<td><input name="ambiente" value="'.$fe_array['ambiente'].'" size="80" required></td>';
 	print '</tr>';
 
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
-	print '<td>'.$langs->trans("ReceMinDias").'</td>';
-	print '<td><input name="min_dias" value="'.$config_rece['min_dias'].'" size="20" required></td>';
+	print '<td>'.$langs->trans("FEcuil").'</td>';
+	print '<td><input name="cuil" value="'.$fe_array['cuil'].'" size="80" required></td>';
 	print '</tr>';
 	
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
-	print '<td>'.$langs->trans("ReceCuil").'</td>';
-	print '<td><input name="cuil" value="'.$config_rece['cuil'].'" size="20" required></td>';
+	print '<td>'.$langs->trans("FEcertificado").'</td>';
+	print '<td><input name="certificado" value="'.$fe_array['certificado'].'" size="80" required></td>';
 	print '</tr>';
 	
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
-	print '<td>'.$langs->trans("ReceLimite").'</td>';
-	print '<td><input name="limite" value="'.$config_rece['limite'].'" size="20" required></td>';
+	print '<td>'.$langs->trans("FEclave_privada").'</td>';
+	print '<td><input name="clave_privada" value="'.$fe_array['clave_privada'].'" size="80" required></td>';
+	print '</tr>';
+	
+	$fe_array['path_certificado'] = str_replace('-', '\\', $fe_array['path_certificado']);
+	
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEpath_certificado").'</td>';
+	print '<td><input name="path_certificado" value="'.$fe_array['path_certificado'].'" size="80" required></td>';
+	print '</tr>';
+		
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEhomo_web_ser").'</td>';
+	print '<td><input name="homo_web_ser" value="'.$fe_array['homo_web_ser'].'" size="80" required></td>';
+	print '</tr>';
+	
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEhomo_wsfe_v1").'</td>';
+	print '<td><input name="homo_wsfe_v1" value="'.$fe_array['homo_wsfe_v1'].'" size="80" required></td>';
+	print '</tr>';
+	
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEprod_web_ser").'</td>';
+	print '<td><input name="prod_web_ser" value="'.$fe_array['prod_web_ser'].'" size="80" required></td>';
+	print '</tr>';
+	
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEprod_wsfe_v1").'</td>';
+	print '<td><input name="prod_wsfe_v1" value="'.$fe_array['prod_wsfe_v1'].'" size="80" required></td>';
+	print '</tr>';
+		
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FErequest").'</td>';
+	print '<td><input name="request" value="'.$fe_array['request'].'" size="80" required></td>';
+	print '</tr>';	
+		
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEresponse").'</td>';
+	print '<td><input name="response" value="'.$fe_array['response'].'" size="80" required></td>';
+	print '</tr>';
+	
+	$fe_array['path_request'] = str_replace('-', '\\', $fe_array['path_request']);
+	
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("FEpath_request").'</td>';
+	print '<td><input name="path_request" value="'.$fe_array['path_request'].'" size="80" required></td>';
 	print '</tr>';
 			
 	print '</table>';
 		
 	print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
 
-print '</form>';
-
-print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-	
-	print '<br><a href="'.DOL_URL_ROOT.'/rece/admin/config.php?action=new" class="button">'.$langs->trans("New").'</a>';
-	
-	if(isset($_GET['action']))
-	{
-		print '<br><hr>';
-		print '<label>'.$langs->trans("RecePuntoVenta").'</label>';
-		print '<input type="number" name="punto_venta" value="'.$puntos['punto_venta'].'">';
-		print '<label>'.$langs->trans("ReceCodAutorizacion").'</label>';
-		print '<input type="number" name="cod_autorizacion" value="'.$puntos['cod_autorizacion'].'">';
-		print '<input type="hidden" name="action" value="new">';
-		print '<input type="submit" class="button" value="'.$langs->trans("Create").'"> ';
-		print '<a href="'.DOL_URL_ROOT.'/rece/admin/config.php"  class="button">'.$langs->trans("Cancel").'</a>';
-		print '<br><hr>';
-	}
-	
-	print '<table class="noborder" width="100%">';
-	
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("RecePuntoVenta").'</td>';
-	print '<td>'.$langs->trans("ReceCodAutorizacion").'</td>';
-	print '<td>'.$langs->trans("ReceValor").'</td>';
-	print '</tr>';
-	
-	if($num_puntos > 0)
-	{
-		$c = 0;
-		
-		$cadena = "'".$langs->trans("ReceEliminarConfirmar")."'";
-		
-		while ($c < $num_puntos)
-		{
-			$puntos = $db->fetch_array($puntos_query);
-			
-			$var=!$var;
-			print '<tr '.$bc[$var].'>';
-			
-			if(isset($_GET['id']) && $puntos['id_punto'] == $_GET['id'])
-			{
-				print '<td><input name="punto_venta" value="'.$puntos['punto_venta'].'"></td>';
-				print '<td><input name="cod_autorizacion" value="'.$puntos['cod_autorizacion'].'"></td>';
-				print '<input type="hidden" name="action" value="punto_venta">';
-				print '<input type="hidden" name="id_punto" value="'.$puntos['id_punto'].'">';
-				print '<td>
-							<input type="submit" class="button" value="'.$langs->trans("Modify").'">
-							<a href="'.DOL_URL_ROOT.'/rece/admin/config.php" class="button">'.$langs->trans("Cancel").'</a>
-						</td>';
-			}
-			else 
-			{
-				print '<td>'.$puntos['punto_venta'].'</td>';
-				print '<td>'.$puntos['cod_autorizacion'].'</td>';
-				print '<td>
-							<a href="'.DOL_URL_ROOT.'/rece/admin/config.php?id='.$puntos['id_punto'].'">
-								<span class="label label-primary">'.$langs->trans("Modify").'</span>
-							</a> 
-							<a href="'.DOL_URL_ROOT.'/rece/admin/config.php?delete='.$puntos['id_punto'].'" onclick="return confirm('.$cadena.')">
-								<span class="label label-danger">'.$langs->trans("Delete").'</span>
-							</a>
-						</td>';
-			}	
-			
-			print '</tr>';			
-			
-			$c++;
-		}
-	}	
-				
-	print '</table>';
-	
 print '</form>';
 
 llxFooter();

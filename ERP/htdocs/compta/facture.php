@@ -2893,7 +2893,39 @@ if ($action == 'create')
 				if ($resteapayer == $object->total_ttc && $object->paye == 0 && $ventilExportCompta == 0) {
 					if (! $objectidnext) {
 						if ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && $user->rights->facture->valider) || $user->rights->facture->invoice_advance->unvalidate) {
-							print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=modif">' . $langs->trans('Modify') . '</a></div>';
+								
+							if($ref == '')
+							{
+								$where = "`llx_facture`.`rowid` = $id";	
+							}
+							else
+							{
+								$where = "`llx_facture`.`facnumber` = '$ref'";
+							}
+							
+							$sql = 
+								"SELECT 
+									* 
+								FROM 
+									`llx_facture` 
+								INNER JOIN 
+									`tms_cae` ON(`llx_facture`.`rowid` = `tms_cae`.`id_facture`) 
+								WHERE ";
+								
+							$sql .= $where;	
+									
+							$resql = $db->query($sql);
+								
+							$numr = $db->num_rows($resql);	
+									
+							if($numr > 0)
+							{
+								print '<div class="inline-block divButAction"><a class="butActionRefused">' . $langs->trans('Modify') . '</a></div>';
+							}
+							else
+							{
+								print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=modif">' . $langs->trans('Modify') . '</a></div>';		
+							}	
 						} else {
 							print '<div class="inline-block divButAction"><span class="butActionRefused" title="' . $langs->trans("NotEnoughPermissions") . '">' . $langs->trans('Modify') . '</span></div>';
 						}

@@ -1,0 +1,16 @@
+# Dolibarr language file - Source file is en_US - facturaelectronica
+FEdato=Dato
+FEvalor=Valor
+FEconfigDesc=Datos de configuración de la factura electrónica
+FEambiente=Ambiente	
+FEcuil=Cuil	
+FEcertificado=Certificado
+FEclave_privada=Clave privada
+FEpath_certificado	=Carpeta certificado y clave privada
+FEhomo_web_ser=Homologación web service
+FEhomo_wsfe_v1=Homologación web service factura electrónica
+FEprod_web_ser=Producción web service	
+FEprod_wsfe_v1=Producción web service factura electrónica
+FErequest=Archivo request
+FEresponse=Archivo response
+FEpath_request=Carpeta archivo request y response
