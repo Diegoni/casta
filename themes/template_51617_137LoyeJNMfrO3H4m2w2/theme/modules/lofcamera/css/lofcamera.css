@@ -1,0 +1,173 @@
+.lofcamera_container {
+    float:none!important;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+select {
+    width: 200px;
+}
+.language_flags {
+    background: none repeat scroll 0 0 lightBlue;
+    border: medium none;
+    bottom: 10px;
+    box-shadow: 1px 2px 3px #000000;
+    left: 0;
+    padding: 5px;
+    position: absolute;
+    width: 110px;
+    z-index: 10;
+}
+.language_flags > p{
+    color: orangered;
+    font-style: italic;
+    margin: 0 0 10px;
+    padding: 0;
+    text-shadow: 1px 1px 1px #FFFFFF;
+}
+.language_flags img {
+    margin: 2px 1px;
+    padding: 0;
+}
+.language_flags img:hover {
+    box-shadow: 1px 1px 3px #000000;
+}
+.displayed_flag img {
+    padding: 0;
+    box-shadow: 1px 1px 2px #000;
+}
+.displayed_flag img:hover {
+    box-shadow: 1px 1px 10px #000;
+}
+
+.lof-back-office-content fieldset {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    margin: 0;
+    min-height: 480px;
+    padding: 0;
+}
+#lofcontent_panel, .lofcontent_mainview, .lofcontent-backoffice-line, .lofcontent-right-column {
+    float: left;
+}
+#lofcontent_panel {
+    background-color: #E2E2E2;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px 5px 5px 5px;
+    color: #2B2B2B;
+    margin: 5px 0 0 5px;
+    padding: 3px 0 10px 4px;
+    width: 14%;
+}
+#lofcontent_panel h3 {
+    border-bottom: 1px dotted #333333;
+    color: darkblue;
+    font-size: 12px;
+    margin: 15px 0 5px;
+    padding: 0;
+    text-align: left;
+}
+
+.lofcontent_mainview {
+    background-color: lightgoldenRodYellow;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+    margin-left: 3px;
+    margin-top: 3px;
+    padding-bottom: 10px;
+    width: 84%;
+}
+.lofcontent-backoffice-line {
+    width: 100%;
+    margin: 2px 0;
+}
+.lofcontent-backoffice-line label  {
+    float: left;
+    width: 15%;
+}
+.lofcontent-right-column {
+    width: 84%;
+}
+h3.option_group_header {
+    color: darkblue;
+    margin: 15px 0;
+    padding: 5px 0;
+    text-align: center;
+    text-shadow: 1px 1px 1px #CCCCCC;
+    text-transform: uppercase;
+    width: 100%;
+    float: left;
+}
+h3.option_group_header span {
+    color: orangered;
+    font-size: 0.9em;
+    font-style: italic;
+    font-weight: normal;
+    text-transform: none;
+}
+.lofcontent_button {
+    background-color: #2B2B2B;
+    border: 1px outset #2B2B2B;
+    border-radius: 5px 5px 5px 5px;
+    color: #E2E2E2;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px darkblue;
+    cursor: pointer;
+    padding: 3px;
+}
+.lofcontent_button:hover {
+    background-color: lightblue;
+    border-color: lightblue;
+    color: #2b2b2b;
+    text-shadow: 1px 1px 5px #ddd;
+    -moz-transition-duration: 1s;
+    -webkit-transition-duration: 1s;
+}
+
+.image_preview {
+    width: 300px;
+    max-height: 300px;
+    overflow: hidden;
+}
+.image_preview img {
+    width: 100%;
+}
+.lofc_option_prefix {
+    color: #ddd;
+}
+
+/* CONTROL PANEL BLOCK */
+
+li.selected_view {
+    background-color: lightgoldenRodYellow !important;
+    color: darkRed !important;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #CCCCCC;
+}
+
+#lofcontent_cpanel ul li {
+    border-bottom: 1px solid #CCCCCC;
+    color: gray;
+    cursor: pointer;
+    height: 25px;
+    line-height: 25px;
+    padding-left: 5px;
+    text-align: left;
+}
+
+/* MAIN TAB STYPE */
+h3.lofcontent_admin_header {
+    border-bottom: 1px dotted #DDDDDD;
+    color: darkRed;
+    margin: 15px 0;
+    text-transform: uppercase;
+    width: 100%;
+}
+h3.lofcontent_admin_header span {
+    font-size: 0.8em;
+    text-transform: none;
+    font-style: italic;
+    color: orangered;
+}

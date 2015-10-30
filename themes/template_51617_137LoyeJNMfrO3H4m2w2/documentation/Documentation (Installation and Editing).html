@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Documentation for PrestaShop</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="css/fonts.css" type="text/css" media="all">
+  <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="all">
+  <script type="text/javascript" src="js/jquery-1.5.1.min.js" ></script>
+  <script type="text/javascript" src="js/jquery.prettyPhoto.js" ></script>
+  <script type="text/javascript">
+  	$(document).ready(function(){
+			// prettyphoto init
+			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
+				animationSpeed:'slow',
+				theme:'facebook',
+				slideshow:false,
+				autoplay_slideshow: false,
+				show_title: true,
+				overlay_gallery: false
+			});
+	// hide #back-top first
+	$("#back-top").hide();
+	
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top a').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});	
+		});
+  </script>
+  <!--[if lt IE 7]>
+  	<link rel="stylesheet" href="css/ie/ie6.css" type="text/css" media="screen">
+    <script type="text/javascript" src="js/ie_png.js"></script>
+    <script type="text/javascript">
+        ie_png.fix('.png');
+    </script>
+  <![endif]-->
+  <!--[if lt IE 9]>
+  	<script type="text/javascript" src="js/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<div id="main">
+<div id="back-top"> <a href="#header-row"> </a> </div>
+<div class="inside">
+
+<header id="header">
+	<div class="inside">
+		<h1>Documentation for PrestaShop theme #481<br />(v.1.5.0.17)</h1>
+	</div>
+</header>
+
+<section id="content">
+
+<article>
+	<h2>Table of Contents</h2>
+	<div class="inner">
+		<ol class="table_content">
+			<li><a href="#preparations">Preparations</a></li>
+			<li>
+				<a href="#engine_installation">PrestaShop engine installation</a>
+				<ol>
+					<li><a href="#server_requirements">Server requirements</a></li>
+					<li><a href="#downloading">Downloading</a></li>
+					<li><a href="#extracting_files">Extracting files</a></li>
+					<li><a href="#uploading_files">Uploading engine files</a></li>
+					<li><a href="#engine_installation">PrestaShop engine installation</a></li>
+				</ol>
+			</li>
+			<li>
+				<a href="#template_installation">PrestaShop Template Installation</a>
+				<ol>
+					<li>
+						<a href="#template_installation_themeinstallator">Template installation, using 'themeinstallator' module</a>
+						<ol>
+							<li><a href="#template_installation_themeinstallator1">Template preparing</a></li>
+							<li><a href="#template_installation_themeinstallator2">Installation</a></li>
+						</ol>
+					</li>
+					<li>
+						<a href="#template_installation_clear">Installing template without sample products</a>
+						<ol>
+							<li><a href="#template_installation_clear1">Uploading files and theme activation</a></li>
+							<li><a href="#template_installation_clear2">Install and configure modules</a></li>
+							<li><a href="#template_installation_clear3">Configuring images</a></li>
+						</ol>
+					</li>
+					<li>
+						<a href="#template_installation_sample">Template installation with sample data</a>
+						<ol>
+							<li><a href="#template_installation_sample1">Uploading template files</a></li>
+							<li><a href="#template_installation_sample2">Installing Sample data</a></li>
+						</ol>
+					</li>
+					<li>
+						<a href="#template_installation_over">Installing template over existing store</a>
+						<ol>
+							<li><a href="#template_installation_over1">Uploading template files and theme activation</a></li>
+							<li><a href="#template_installation_over2">Modules installation</a></li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			<li>
+				<a href="#basic_tutorials">Basic tutorials</a>
+				<ol>
+					<li><a href="#basic_tutorials1">How to change store name</a></li>
+					<li><a href="#basic_tutorials2">How to edit header links</a></li>
+					<li><a href="#basic_tutorials3">How to edit banners</a></li>
+					<li><a href="#basic_tutorials4">How to edit slider</a></li>
+				</ol>
+			</li>
+			<li>
+				<a href="#conclusion">Conclusion</a>
+				<ol>
+					<li><a href="#useful_resources">Useful resources</a></li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+</article>
+
+<article>
+<h2 id="preparations">Preparations</h2>
+<div class="inner">
+	<p>PrestaShop e-commerce engine requires MySQL database to store data. Before you proceed with the PrestaShop installation please make sure you've already created the MySQL database. This can be done with your hosting control panel or phpMyAdmin tool.</p>
+	<p>Please check the detailed tutorial on <a href="http://info.template-help.com/help/how-create-database.html">how to create MySQL database</a>. In case of any issues please contact your hosting provider for further assistance. </p>
+	<p>During the MySQL database creation procedure you'll get the database details like: database name, username, password and database server. Remember these details as you'll need them for PrestaShop installation. </p>
+</div>
+
+<h2 id="engine_installation">PrestaShop engine installation</h2>
+<div class="inner">
+
+<h3 id="server_requirements">1. Server requirements</h3>
+	<p>Please make sure your hosting server meets PrestaShop requirements:</p>
+	<ul>
+		<li><b>System:</b> Unix, Linux or Windows. Unix is highly recommended.</li>
+		<li><b>Web server:</b> Apache Web server 1.3 or later, Microsoft's IIS Web server 6.0 or later, and nginx 1.0 or later.</li>
+		<li><b>PHP 5.2<b style="color:#ff0000">*</b></b> or later.</li>
+		<li><b>MySQL 5.0</b> or later.</li>
+		<li>At least 32 Mb of RAM on your server (64 Mb is comfy, the more the better). </li>
+	</ul>
+	<p><b style="color:#ff0000">*</b> PrestaShop can work with PHP 5.1 or later, but versions inferior to 5.2 have bugs that might prevent some functions to work as expected (such as invalid date timezone). </p>
+
+<h3 id="downloading">2. Downloading</h3>
+	<p>To install PrestaShop you need to download PrestaShop engine package from the official website at <a href="http://www.prestashop.com/en/downloads">www.prestashop.com/en/downloads</a></p>
+	<p>Into the Download box input your name and e-mail and click <b>'Download'</b> button. </p>
+	<div class="info-box">Please make sure your version of PrestaShop engine matches the template requirements. All versions of PrestaShop are available at <a href="http://sourceforge.net/projects/prestashop/files/prestashop%20v1/">SourceForge</a></div>
+
+<h3 id="extracting_files">3. Extracting Files</h3>
+	<p>When you are done with the download you need to extract the files from the PrestaShop engine package.</p>
+	<p>This can be done with any archive manager like <b>WinZip(PC)</b>, <b>StuffitExpander(MAC)</b> etc.</p>
+	<p>Please check the following tutorials on how to extract files from the archives with <a href="http://info.template-help.com/help/extract-archived-files-windows-os.html">WinZip(PC)</a> and <a href="http://info.template-help.com/help/extract-archived-files-mac-os.html">StuffitExpander(MAC)</a>.</p>
+	<p>Please note: if your hosting control panel has the option to <b>'Extract'</b> files you can use it and extract the files directly on your server after upload. </p>
+
+<h3 id="uploading_files">4. Uploading PrestaShop engine files</h3>
+	<p>In case you extracted the files locally on your computer you need to upload them to your hosting server.</p>
+	<p>This can be done using the hosting control panel File Manager or with some third party FTP Manager applications like FileZilla, TotalCommander, CureFTP etc.</p>
+	<p>You can check the detailed video tutorial on <a href="http://info.template-help.com/help/how-upload-files-server-2.html">how to upload files to server using FTP manager</a> and <a href="http://info.template-help.com/help/how-to-upload-files-to-a-server-using-cpanel-webhost-manager-whm.html" target="_blank">how to upload files to a server using cPanel (WebHost Manager, WHM)</a>.</p>
+
+<h3 id="engine_installation">5. PrestaShop engine installation</h3>
+	<p>When you are done with the files upload you can start the PrestaShop engine installation. Open your browser and in the address bar type your <b>'domain name/path to your PrestaShop directory'</b>. You should see the welcome screen. Please follow the instructions below to install PrestaShop. </p>
+
+	<h4>Step 1: Welcome</h4>
+		<p>Please select the installation language and check the license agreement.</p>
+		<p>Please note: the installation language option won't affect your store language. By default PrestaShop is offered in English. You can install additional localization packages to change the store language. </p>
+		<img class="presta_scr1" src="images/01-install.png" alt="" />
+		<p>When you are done click 'Next'  button.</p>
+
+	<h4>Step 2: System Compatibility</h4>
+		<p>Check the PHP settings and directory permissions. In case of an errors please contact your hosting provider for further assistance.</p>
+		<img class="presta_scr1" src="images/02-install.png" alt="" />
+		<p>If everything is correct please click 'Next' button.</p>
+
+	<h4>Step 3: Database configuration</h4>
+		<p>As you already have a MySQL database created please input database details into the appropriate fields below.</p>
+		<p>In any case you can get the database details from your hosting control panel or contacting hosting provider.</p>
+		<img class="presta_scr1" src="images/03-install.png" alt="" />
+		<p>When you are done click <b>'Next'</b> button.</p>
+
+	<h4>Step 4: Shop configuration</h4>
+		<p>On this step you need to input the store settings like: Shop name, activity, country, timezone, upload your logo etc.</p>
+		<p>All these settings can be changed later in PrestaShop administration panel.</p>
+		<img class="presta_scr1" src="images/04-install.png" alt="" />
+
+	<h4>Step 5: Installation is complete</h4>
+		<p>This is the final step of PrestaShop installation procedure.</p>
+		<img class="presta_scr1" src="images/05-install.png" alt="" />
+
+	<p>For security reasons you need to delete the <b>/install/</b> directory and rename the <b>/admin/</b> directory on your hosting server. </p>
+	<p>You can enter PrestaShop admin panel using the following address: <b>http://your_domain_name/your_admin_folder_name/</b>.</p>
+	<p>In case of any difficulties you can check the <a href="http://doc.prestashop.com/display/PS15/Getting+Started">official PrestaShop installation manual</a>.</p>
+
+</div>
+
+<h2 id="template_installation">PrestaShop Template installation</h2>
+<div class="inner">
+<h3 id="template_installation_themeinstallator">1. Template installation, using 'themeinstallator' module</h3>
+
+	<h4 id="template_installation_themeinstallator1">1. Template preparation.</h4>
+		<ol>
+			<li>Open template package.</li>
+			<li>Copy ZIP-file with the template from <b>/themeinstaller/</b> directory to your hard drive</li>
+		</ol>
+
+	<h4 id="template_installation_themeinstallator2">2. Installation.</h4>
+		<p>Open PrestaShop admin panel, go to <b>Modules->Modules menu</b>. At this page please open <b>Administration</b> section. Here you will see list of the available modules. Find module '<b>Import/export a theme</b> v1.4' and click <b>Configure</b>.</p>
+
+		<img class="presta_scr2" src="images/05-install-2.png" alt="" />
+
+		<p>Choose <b>Browse</b> button to find the archive with the template:</p>
+
+		<img class="presta_scr2" src="images/05-install-3.png" alt="" />
+
+		<p>On the next page you will see information about the template, you are installing. Click <b>Next</b>.</p>
+
+		<img class="presta_scr2" src="images/05-install-4.png" alt="" />
+
+		<p>After these steps, you’ll see a notification about successful template installation and menu with the module settings. Click <b>Next</b>.</p>
+
+		<img class="presta_scr2" src="images/05-install-5.png" alt="" />
+
+		<p>At the last step you will see information about the modifications, performed by the module during installation. Click <strong>Finish</strong>.</p>
+
+		<img class="presta_scr2" src="images/05-install-6.png" alt="" />
+
+<h3 id="template_installation_clear">2. Installing template without sample products</h3>
+	<p>This installation method will suit you in case you are planing to change the store theme. This method won't harm your existing files or products database. </p>
+
+	<h4 id="template_installation_clear1">1. Uploading files and theme activation</h4>
+		<p>Before you proceed please make sure you already downloaded the template and extracted the files from the template package. You can check detailed tutorials on how to extract the files from the template package with <a href="http://info.template-help.com/help/unzipping-your-template.html">WinZip</a> and <a href="http://info.template-help.com/help/how-unzip-template-mac.html">StuffitExpander</a>.</p>
+		<p>When the files are extracted you can proceed with the template upload.</p>
+		<ol>
+			<li>Open the template folder.</li>
+			<li>Then go to <b>/theme/</b> folder.</li>
+			<li>Upload <b>/img/</b>, <b>/modules/</b> and <b>/themes/</b> folders to PrestaShop root directory.</li>
+			<li>When the upload is complete open PrestaShop admin panel.</li>
+			<li>From the top menu select <b>Preferences > Themes</b>.</li>
+			<li>Select your template in the <b>Themes</b> section and click <b>Save</b> button.</li>
+		</ol>
+		<p>Your new theme should be active now. Now you need to configure the modules.</p>
+
+	<h4 id="template_installation_clear2">2. Install and configure modules</h4>
+		<p>Each template is provided with some specific modules settings. To make the modules appear as at the template preview you need to configure them. All modules can be configured in PrestaShop admin panel.</p>
+		<p><b>1. In PrestaShop admin panel from the top menu select Modules > Modules.</b></p>
+		<p>At the Modules page you can see the list of available PrestaShop modules. You may need to install some of them.</p>
+		<p>To install the module locate it in the list and click <b>'Install'</b> button:</p>
+		<img class="presta_scr2" src="images/06-modules.png" alt="" />
+		<p>If installation has been done correctly you'll see the following message:</p>
+		<img class="presta_scr2" src="images/07-modules.png" alt="" />
+		<p>Using the module links you can activate modules (<b>Enable</b>|<b>Disable</b> links), reset settings to default (<b>Reset</b> link), delete module (<b>Delete</b> link) or configure them (<b>Configure</b> link).</p>
+		<img class="presta_scr2" src="images/08-modules.png" alt="" />
+		<p><b>2. After activating all necessary modules you need to assign them to correct positions.</b></p>
+		<p>In PrestaShop admin panel from the top menu select <b>Modules > Positions</b>. To place module in the required position just drag it to the position section of the modules list.</p>
+		<img class="presta_scr2" src="images/09-modules.png" alt="" />
+
+		<p>List of modules used in the theme is available in the table below:</p>
+
+
+		<table class="presta_table">
+			<tr><th>Module name</th><th>Position</th><th>Order</th></tr>
+
+			<tr><td><b>Language block v1.1</b></td><td>Top of pages</td><td class="presta_center">1</td></tr>
+			<tr><td><b>Currency block v0.1</b></td><td>Top of pages</td><td class="presta_center">2</td></tr>
+			<tr><td><b>User info block v0.1</b></td><td>Top of pages</td><td class="presta_center">3</td></tr>
+			<tr><td><b>TM Cart block v1.2</b></td><td>Top of pages</td><td class="presta_center">4</td></tr>
+			<tr><td><b>TM links block v0.1</b></td><td>Top of pages</td><td class="presta_center">5</td></tr>
+			<tr><td><b>Top horizontal menu v1.5</b></td><td>Top of pages</td><td class="presta_center">6</td></tr>
+			<tr><td><b>Camera Slideshow v1.0</b></td><td>Top of pages</td><td class="presta_center">7</td></tr>
+			<tr><td><b>TM Banner Block v1.0</b></td><td>Top of pages</td><td class="presta_center">8</td></tr>
+			<tr><td><b>TM Quick Search block v1.2</b></td><td>Top of pages</td><td class="presta_center">9</td></tr>
+            
+
+			<tr><td><b>TM Featured Products on the homepage v0.9</b></td><td>Homepage content</td><td class="presta_center">1</td></tr>			
+						
+			<tr><td><b>Layered navigation block v1.8</b></td><td>Right column blocks</td><td class="presta_center">1</td></tr>
+			<tr><td><b>Specials block v0.8</b></td><td>Right column blocks</td><td class="presta_center">2</td></tr>
+			<tr><td><b>Viewed products block v0.9</b></td><td>Right column blocks</td><td class="presta_center">3</td></tr>
+			<tr><td><b>Top seller block v1.1</b></td><td>Right column blocks</td><td class="presta_center">4</td></tr>
+			<tr><td><b>Manufacturers block v1.0</b></td><td>Right column blocks</td><td class="presta_center">5</td></tr>
+            <tr><td><b>Newsletter block v1.4</b></td><td>Right column blocks</td><td class="presta_center">6</td></tr>
+            <tr><td><b>Tags block v1.1</b></td><td>Right column blocks</td><td class="presta_center">7</td></tr>
+
+			<tr><td><b>CMS Block v1.1</b></td><td>Footer</td><td class="presta_center">1</td></tr>
+			<tr><td><b>My Account block on footer v1.2</b></td><td>Footer</td><td class="presta_center">2</td></tr>
+            <tr><td><b>Block social v1.0</b></td><td>Footer</td><td class="presta_center">3</td></tr>
+            <tr><td><b>Block contact infos v1.0</b></td><td>Footer</td><td class="presta_center">4</td></tr>
+			
+		</table>
+
+	<h4 id="template_installation_clear3">3. Configuring images</h4>
+		<p>In PrestaShop you can use predefined image dimensions for product images, category images, manufacturers etc.</p>
+		<p>For example: images of the <b>'home'</b> dimensions are usually used for the category listing product images. <b>'large'</b> for main product image on the product info page.</p>
+		<p>To configure product image dimensions open PrestaShop admin panel, go to <b>Preferences > Images</b> and set the image dimensions as displayed below:</p>
+
+		<table class="presta_table presta_table_img">
+			<tr><th>Picture</th><th>Width (px)</th><th>Height (px)</th></tr>
+
+			<tr><td>small</td><td class="presta_center">71</td><td class="presta_center">91</td></tr>
+			<tr><td>medium</td><td class="presta_center">71</td><td class="presta_center">91</td></tr>
+			<tr><td>large</td><td class="presta_center">304</td><td class="presta_center">388</td></tr>
+			<tr><td>thickbox</td><td class="presta_center">600</td><td class="presta_center">766</td></tr>
+			<tr><td>category</td><td class="presta_center">500</td><td class="presta_center">150</td></tr>
+			<tr><td>home</td><td class="presta_center">228</td><td class="presta_center">291</td></tr>
+			<tr><td>large_scene</td><td class="presta_center">520</td><td class="presta_center">189</td></tr>
+			<tr><td>thumb_scene</td><td class="presta_center">161</td><td class="presta_center">58</td></tr>
+			<tr><td>small-cart</td><td class="presta_center">71</td><td class="presta_center">91</td></tr>
+            <tr><td>home-list</td><td class="presta_center">210</td><td class="presta_center">268</td></tr>
+            <tr><td>larg-mini</td><td class="presta_center">95</td><td class="presta_center">121</td></tr>
+            <tr><td>brand</td><td class="presta_center">80</td><td class="presta_center">80</td></tr>
+            <tr><td>zoom</td><td class="presta_center">600</td><td class="presta_center">766</td></tr>
+            <tr><td>carusel</td><td class="presta_center">145</td><td class="presta_center">186</td></tr>
+		</table>
+
+		<p>In some cases after image dimensions changes you need regenerate images. This can be done using the <b>Regenerate thumbnails</b> section. </p>
+
+<h3 id="template_installation_sample">3. Template installation with sample data</h3>
+	<p>Installing <b>Sample data</b> you'll get your PrestaShop store appear as on the template preview page. It will contain all sample products, store settings, modules settings etc.</p>
+	<div class="error-box">Do not use sample data if you have a running website as it will replace all your store products and store settings.</div>
+
+	<h4 id="template_installation_sample1">1. Uploading template files</h4>
+		<p>To upload template to your server</p>
+		<ul>
+			<li>Open the template folder</li>
+			<li>Then go to <b>/theme/</b> folder</li>
+			<li>Upload <b>/img/</b>, <b>/modules/</b> and <b>/themes/</b> folders to PrestaShop root directory</li>
+		</ul>
+
+	<h4 id="template_installation_sample2">2. Installing Sample data</h4>
+		<p>Sample data is provided as an .SQL file. It is located in the template package <b>/sources/</b> folder and is usually called <b>dump.sql</b></p>
+		<p>Dump.sql file can be installed using the phpMyAdmin tool or database management tool in your hosting control panel. This detailed tutorial on <a href="http://info.template-help.com/help/phpmyadmin-how-to-import-sample-data-dump-file.html">how to install SQL files</a> can help you.</p>
+		<div class="notification-box">Before you proceed please backup your database.</div>
+		<div class="error-box">Please make sure your version of PrestaShop engine matches the template requirements. Otherwise the database can be damaged.</div>
+		<p>When you are done with the dump.sql file installation you need to activate the template.</p>
+		<p>From the PrestaShop admin panel select <b>Preferences > Themes</b>, choose your template in the <b>Themes</b> sections and click <b>Save</b>.</p>
+
+<h3 id="template_installation_over">4. Installing template over existing store</h3>
+	<p>This installation method will suit you in case you have a running PrestaShop website and just want to install new template.</p>
+
+	<h4 id="template_installation_over1">1. Uploading template files and theme activation</h4>
+		<ol>
+			<li>Open the template folder.</li>
+			<li>Then go to <b>/theme/</b> folder.</li>
+			<li>Upload <b>/modules/</b> and <b>/themes/</b> folders to PrestaShop root directory.</li>
+			<li>Open <b>/img/</b> folder from the template package and upload  <b>logo.jpg</b>, <b>favicon.ico</b> files to the <b>/img/</b> folder of your PrestaShop installation</li>
+			<li>From the PrestaShop admin panel select <b>Preferences > Themes</b>, choose your template in the <b>Themes</b> sections and click <b>Save</b>.</li>
+		</ol>
+
+	<h4 id="template_installation_over2">2. Modules installation</h4>
+		<p>Open PrestaShop admin panel and configure modules as displayed above.</p>
+		<div class="error-box">Do not use sample data if you have a running website as it will replace all your store products and store settings.</div>
+
+</div>
+
+<h2 id="basic_tutorials">Basic tutorials</h2>
+<div class="inner">
+
+<h3 id="basic_tutorials1">1. How to change store name</h3>
+	<p>In order to change store title please open PrestaShop admin panel and go to <b>Preferences > Store Contacts</b>, section <b>Contact details</b>.</p>
+	<p>In the <b>Shop name</b> field type your store name and click <b>Save</b> button to save your changes.</p>
+	<img class="presta_scr2" src="images/10-shop_name.png" alt="" />
+
+<h3 id="basic_tutorials2">2. How to edit header links</h3>
+	<p>Please check the detailed tutorial on how to <a href="http://info.template-help.com/help/prestashop-how-to-manage-header-links.html">edit header links</a>.</p>
+
+<h3 id="basic_tutorials3">3. How to edit banners</h3>
+	<p>To edit banners in PrestaShop, open the banners module in the <b>Modules</b> page in your store admin panel. Check section <b>Advertising & Marketing</b> block. When you located your banners module click the <b>Configure</b> button.</p>
+	<img class="presta_scr2" src="images/11-banners-1.png" alt="" />
+	<p>At the module settings page select the image that you want to use as a banner. Input the banner image link and title. Then click the <b>validate</b> button.</p>
+	<img class="presta_scr2" src="images/11-banners-2.png" alt="" />
+
+<h3 id="basic_tutorials4">4. How to edit slider</h3>
+	<p>To edit the slider images locate the <b>Camera Slideshow</b> module (in case you have Responsive PrestaShop template) or <strong>TM Nivo Slider</strong> (in case you have regular PrestaShop template) at the <b>Modules</b> page of your PrestaShop store. It is located in the <b>Front Office Features</b> modules section. Click the <b>Configure</b> button to edit the module. </p>
+	<img class="presta_scr2" src="images/12-slider-1.png" alt="" />
+	<p>At the module settings page you can change slider options (such as width, height, speed, etc.) and edit slides (slide images, URLs, descriptions, etc.).</p>
+	<img class="presta_scr2" src="images/12-slider-2.png" alt="" />
+
+</div>
+
+<h2 id="conclusion">Conclusion</h2>
+<div class="inner">
+<h3 id="useful_resources">Useful resources</h3>
+<ul>
+	<li><a href="http://www.prestashop.com/">PrestaShop official site</a></li>
+	<li><a href="http://info.template-help.com/ecommerce/prestashop/prestashop-tutorials/">PrestaShop tutorials</a></li>
+	<li><a href="http://www.prestashop.com/en/downloads/">Downloads</a></li>
+	<li><a href="http://addons.prestashop.com/en/">Addons: modules, themes, etc.</a></li>
+	<li><a href="http://doc.prestashop.com/display/PS15/English+documentation">English documentation</a></li>
+	<li><a href="http://www.prestashop.com/forums/">Forum</a></li>
+	<li><a href="http://www.prestashop.com/wiki/">Wiki</a></li>
+</ul>
+</div>
+
+</article>
+
+</section>
+
+<footer id="footer">
+	<div class="inside">PrestaShop 1.5.0.17</div>
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

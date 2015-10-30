@@ -3,6 +3,7 @@ Product list Styles
 ********************************************************/
 ul.product_list .product-name {
   display: inline-block;
+  font-family: 'Open Sans', sans-serif;
   width: 100%;
   overflow: hidden; }
 ul.product_list .availability span {

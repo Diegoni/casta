@@ -1,0 +1,1 @@
+<p class="buttons_bottom_block"><a href="#" class="button" id="wishlist_button" onclick="WishlistCart('wishlist_block_list', 'add', '{$id_product|intval}', $('#idCombination').val(), document.getElementById('quantity_wanted').value); return false;">{l s='Add to my wishlist' mod='blockwishlist'}</a></p>

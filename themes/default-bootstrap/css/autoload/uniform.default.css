@@ -9,6 +9,11 @@ http://uniformjs.com/
 
 */
 /* General settings */
+img{
+	image-rendering: pixelated;
+}
+
+
 div.selector, div.selector span, div.checker span, div.radio span, div.uploader, div.uploader span.action, div.button, div.button span {
   background-image: url("../../img/jquery/uniform/sprite.png");
   background-repeat: no-repeat;

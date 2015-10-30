@@ -1,29 +1,4 @@
 <?php
-/* Copyright (C) 2005      Patrick Rouillon     <patrick@rouillon.net>
- * Copyright (C) 2005-2009 Destailleur Laurent  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
- * Copyright (C) 2011-2012 Philippe Grand       <philippe.grand@atoo-net.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
- *       \file       htdocs/compta/facture/contact.php
- *       \ingroup    facture
- *       \brief      Onglet de gestion des contacts des factures
- */
-
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
@@ -34,7 +9,7 @@ require_once DOL_DOCUMENT_ROOT.'/facturaelectronica/cae/class_factura_electronic
 
 $langs->load("cae");
 
-$id     	= GETPOST('facid','int');  // For backward compatibility
+$id     	= GETPOST('facid','int');
 $ref		= GETPOST('ref','alpha');
 $action     = GETPOST('action');
 
@@ -43,23 +18,15 @@ if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'facture', $id);
 
 $object = new Facture($db);
-
-
-/*
- * Ajout d'un nouveau contact
- */
- 
  
 if ($action == 'cae' && $user->rights->facture->creer) {
-	
 	$factura_e = new factura_electronica($db);
   
 /*----------------------------------------------------------------------------
 		01 - Busco la factura por id o referencia
 ----------------------------------------------------------------------------*/
 		
-	if($ref == '')
-	{
+	if($ref == ''){
 		$sql_fac = 
 		"SELECT 
 			* 
@@ -69,9 +36,7 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 			`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
 		WHERE 
 			`llx_facture`.`rowid` = $id";	
-	}
-	else
-	{
+	} else {
 		$sql_fac = 
 		"SELECT 
 			* 
@@ -84,34 +49,25 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 	}
 							
 	$resql_fac = $db->query($sql_fac);	
-									
 	$numr_fac = $db->num_rows($resql_fac);
   
 /*----------------------------------------------------------------------------
 		02 - Adapto los valores de la factura
 ----------------------------------------------------------------------------*/
 	
-	if($numr_fac > 0)
-	{
+	if($numr_fac > 0){
 		$fac_array = $db->fetch_array($resql_fac);
-		
 		$nro_doc	= ereg_replace("[^0-9]", "", $fac_array['siren']);
-		
 		$fecha_cbte	= date("Ymd");
 		
-		if($fac_array['type'] == 2)
-		{
+		if($fac_array['type'] == 2){
 			$tipo_cbte = 3; //Nota de credito A
-			
 			$fac_array['total_ttc']	= $fac_array['total_ttc'] * -1;
 			$fac_array['total']		= $fac_array['total'] * -1;
 			$fac_array['tva']		= $fac_array['tva'] * -1;
-		}
-		else
-		{
+		} else {
 			$tipo_cbte = 1; //Factura A 
 		}
-		 
 	}
   
 /*----------------------------------------------------------------------------
@@ -122,9 +78,9 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 		'tipo_cbte' 		=> 1, 
 		'punto_vta' 		=> 1,
 		
-		'concepto'			=> 1,						# 1: productos, 2: servicios, 3: ambos
-		'tipo_doc'			=> 80,						# 80: CUIT, 96: DNI, 99: Consumidor Final
-		'nro_doc'			=> $nro_doc,	# 0 para Consumidor Final (<$1000)
+		'concepto'			=> 1,				# 1: productos, 2: servicios, 3: ambos
+		'tipo_doc'			=> 80,				# 80: CUIT, 96: DNI, 99: Consumidor Final
+		'nro_doc'			=> $nro_doc,		# 0 para Consumidor Final (<$1000)
 			
 		'imp_total'			=> round($fac_array['total_ttc'], 2) + 1,	# total del comprobante
 		'imp_tot_conc'		=> "0.00",								# subtotal de conceptos no gravados
@@ -153,20 +109,15 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 		`tms_iva`"; 
 	
 	$resql_iva = $db->query($sql_iva);	
-									
 	$numr_iva = $db->num_rows($resql_iva);
-	
 	$i = 0;
 	
-	if($numr_iva > 0)
-	{
-		while ($i < $numr_iva)
-		{
+	if($numr_iva > 0){
+		while ($i < $numr_iva){
 			$iva_array = $db->fetch_array($resql_iva);
 			$iva_id[$iva_array['id_wsfe']] = $iva_array['valor'];
 			$base_imp[$iva_array['id_wsfe']] = 0;
-			$importe[$iva_array['id_wsfe']]	= 0;
-			
+			$importe[$iva_array['id_wsfe']]	= 0;	
 			$i++;
 		}
 	}
@@ -184,34 +135,25 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 		`fk_facture`= $id"; 
 	
 	$resql_det = $db->query($sql_det);	
-									
 	$numr_det = $db->num_rows($resql_det);
-	
 	$i = 0;
 	
-	if($numr_det > 0)
-	{
-		while ($i < $numr_det)
-		{
+	if($numr_det > 0){
+		while ($i < $numr_det){
 			$det_array = $db->fetch_array($resql_det);
 			
-			foreach ($iva_id as $key => $value) 
-			{	
-				if($det_array['tva_tx'] == $value)
-				{
+			foreach ($iva_id as $key => $value) {	
+				if($det_array['tva_tx'] == $value){
 					$base_imp[$key]	= $base_imp[$key] + $det_array['total_ht'];
 				    $importe[$key]	= $importe[$key] + $det_array['total_tva'];
 				}	
 			}
-			
 			$i++;
 		}
 	}
 	
-	foreach ($base_imp as $key => $value) 
-	{
-		if($value != 0)
-		{
+	foreach ($base_imp as $key => $value) {
+		if($value != 0){
 			$agregariva[$key] = array(
 				'base_imp' 	=> $value,
 				'importe'	=> $importe[$key]
@@ -224,80 +166,52 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 ----------------------------------------------------------------------------*/
 		    
 	$cae = $factura_e->obtener_cae($factura, $agregariva);
-	
 	$cae['id_facture'] = $id;
-		
 	$factura_e->insert($cae);
-	
 	setEventMessage($langs->trans("CaeGuardado"));
-	
 }
  
- 
- 
- 
-/*
- * View
- */
+/* *************************************************************************** */
+/*                                                                             */
+/*		VISTA                                                     			   */
+/*                                                                             */
+/* *************************************************************************** */
 
 llxHeader('', $langs->trans("CAE"), "Facture");
 
-$form = new Form($db);
-$formcompany = new FormCompany($db);
-$contactstatic=new Contact($db);
-$userstatic=new User($db);
+$form 			= new Form($db);
+$formcompany 	= new FormCompany($db);
+$contactstatic	= new Contact($db);
+$userstatic		= new User($db);
 
-if($ref == '')
-{
+if($ref == ''){
 	$sql_cae = "SELECT * FROM `tms_cae` WHERE id_facture = $id ORDER BY id_cae DESC";	
-			
-}
-else
-{
+} else {
 	$sql_facture = "SELECT * FROM `llx_facture` WHERE facnumber = '$ref'";
-	
 	$resql_facture = $db->query($sql_facture);	
-								
 	$numr_facture = $db->num_rows($resql_facture);
 	
-	if($numr_facture > 0)
-	{
+	if($numr_facture > 0){
 		$facture_array = $db->fetch_array($resql_facture);
-		
 		$sql_cae = "SELECT * FROM `tms_cae` WHERE id_facture = $facture_array[rowid]";
-		
 	}
 }
-
-
 							
 $resql_cae = $db->query($sql_cae);	
-								
 $numr_cae = $db->num_rows($resql_cae);
 
-/* *************************************************************************** */
-/*                                                                             */
-/* Mode vue et edition                                                         */
-/*                                                                             */
-/* *************************************************************************** */
+/*----------------------------------------------------------------------------
+		Contenido
+----------------------------------------------------------------------------*/
 
-if ($id > 0 || ! empty($ref))
-{
-
-	if ($object->fetch($id, $ref) > 0)
-	{
+if ($id > 0 || ! empty($ref)){
+	if ($object->fetch($id, $ref) > 0){
 		$object->fetch_thirdparty();
-
 		$head = facture_prepare_head($object);
-
 		dol_fiche_head($head, 'cae', $langs->trans('cae'), 0, 'bill');
 
-		/*
-		 *   Facture synthese pour rappel
-		 */
-				 
+		// Tabla 				 
 		print '<table class="border" width="100%">';
-		
 		$linkback = '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
 
 		// Ref
@@ -306,24 +220,18 @@ if ($id > 0 || ! empty($ref))
 		$morehtmlref='';
 		$discount=new DiscountAbsolute($db);
 		$result=$discount->fetch(0,$object->id);
-		if ($result > 0)
-		{
+		if ($result > 0){
 			$morehtmlref=' ('.$langs->trans("CreditNoteConvertedIntoDiscount",$discount->getNomUrl(1,'discount')).')';
-		}
-		if ($result < 0)
-		{
+		} if ($result < 0) {
 			dol_print_error('',$discount->error);
 		}
 		print $form->showrefnav($object, 'ref', $linkback, 1, 'facnumber', 'ref', $morehtmlref);
 		print '</td></tr>';
 		
-		if($numr_cae > 0)
-		{
+		if($numr_cae > 0){
 			$cae_array = $db->fetch_array($resql_cae);
 			//print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=cae" readonly>' . $langs->trans('CAE') . '</a></div>';	
-		}
-		else
-		{
+		} else {
 			//print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=cae">' . $langs->trans('CAE') . '</a></div>';
 		}
 		
@@ -392,24 +300,18 @@ if ($id > 0 || ! empty($ref))
 		
 		print "</table>";
 		
-		if($cae_array['cae'] == '')
-		{
+		if($cae_array['cae'] == ''){
 			print '<br><center><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=cae">' . $langs->trans('CaeObtener') . '</center></a>';	
-		}
-		else
-		{
+		} else {
 			//despues borrar
 			//print '<br><center><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=cae">' . $langs->trans('CaeObtener') . '</center></a>';
 		}
-	}
-	else
-	{
+	} else {
 		// Record not found
 		print "ErrorRecordNotFound";
 	}
  
 }
-
 
 llxFooter();
 $db->close();

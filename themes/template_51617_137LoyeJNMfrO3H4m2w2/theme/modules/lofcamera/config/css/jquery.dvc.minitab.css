@@ -1,0 +1,36 @@
+/* DEFAULT STYLES */
+.minitab-main {
+    min-height: 400px;
+}
+
+.tabs-nav {
+    background-color: lightgoldenRodYellow;
+    border-top: 2px solid lightBlue;
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.tabs-nav li a {
+    color: #2B2B2B;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+
+.dvc-tab {
+    background-color: lavender;
+    border-bottom: 2px solid lightBlue;
+    float: left;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.tabs-selected a {
+    background-color: lavender;
+    color: darkRed !important;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #CCCCCC;
+}

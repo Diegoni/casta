@@ -1,0 +1,5 @@
+List of Fonts used in template 
+
+Playfair Display		http://www.google.com/webfonts/family?family=Playfair+Display&subset=latin
+
+

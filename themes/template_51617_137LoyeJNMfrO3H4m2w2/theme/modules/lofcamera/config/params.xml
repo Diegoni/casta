@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <configuration>     
+        <fieldset name="global" label="Global Option">
+            <field type="theme" name="template" default="default" label="Theme" />
+            <field type="text" name="title" default="tm" label="Title" />
+            <field type="list" name="showTitle" default="0" label="Show/hide title" >
+                <opt value="1" text="Show" />
+                <opt value="0" text="Hide" />
+            </field>
+            <field type="text" name="modWidth" default="950" label="Module Width" />
+        </fieldset>   
+        <fieldset name="image" label="Images Options">
+            <field type="text" name="image_width" default="950" label="Primary width" />
+            <field type="text" name="image_height" default="492" label="Primary height" />     
+            <field type="text" name="thumb_width" default="100" label="Thumbnail width" />
+            <field type="text" name="thumb_height" default="50" label="Thumbnail height" />            
+            <field type="imageupload" 
+                    name="img_uploader" 
+                    label="Upload Images" 
+                    change="reportFilesSelected(this, 'upload_list');" 
+                    multi="1"
+                    />
+            <field type="imageedit" name="slide" default="" properties="title, link, price, desc" labels="Title, Link, Short Description, Description" label="Images" />            
+        </fieldset>
+        <fieldset name="slide" label="Slide Option">
+            <field type="text" name="slideHeight" default="492px" label="Slide Height" description="here you can type pixels (for instance '200px'), a percentage (relative to the width of the slideshow, for instance '472px') or auto" /> 
+            <field type="list" name="skin" default="camera_amber_skin" label="Skin" >
+                <opt value="camera_amber_skin" text="Amber" />
+                <opt value="camera_ash_skin" text="Ash" />
+                <opt value="camera_azure_skin" text="Azure" />
+                <opt value="camera_beige_skin" text="beige" />
+                <opt value="camera_black_skin" text="Black" />
+                <opt value="camera_blue_skin" text="Blue" />
+                <opt value="camera_brown_skin" text="Brown" />
+                <opt value="camera_burgundy_skin" text="Burgundy" />
+                <opt value="camera_charcoal_skin" text="Charcoal" />
+                <opt value="camera_chocolate_skin" text="Chocolate" />
+                <opt value="camera_coffee_skin" text="Coffee" />
+                <opt value="camera_cyan_skin" text="Cyan" />
+                <opt value="camera_fuchsia_skin" text="Fuchsia" />
+                <opt value="camera_gold_skin" text="Gold" />
+                <opt value="camera_green_skin" text="Green" />
+                <opt value="camera_grey_skin" text="Grey" />
+                <opt value="camera_indigo_skin" text="Indigo" />
+                <opt value="camera_khaki_skin" text="Khaki" />
+                <opt value="camera_lime_skin" text="Lime" />
+                <opt value="camera_magenta_skin" text="Magenta" />
+                <opt value="camera_maroon_skin" text="Maroon" />
+                <opt value="camera_orange_skin" text="Orange" />
+                <opt value="camera_olive_skin" text="Olive" />
+                <opt value="camera_pink_skin" text="Pink" />
+                <opt value="camera_pistachio_skin" text="Pistachio" />
+                <opt value="camera_red_skin" text="Red" />
+                <opt value="camera_tangerine_skin" text="Tangerine" />
+                <opt value="camera_turquoise_skin" text="Turquoise" />
+                <opt value="camera_violet_skin" text="Violet" />
+                <opt value="camera_white_skin" text="White" />
+                <opt value="camera_yellow_skin" text="Yellow" />           
+            </field>            
+            <field type="list" name="auto" default="true" label="Auto play" >
+                <opt value="true" text="Yes" />
+                <opt value="false" text="No" />
+            </field>
+            <field type="list" name="showSthumb" default="true" label="Show thumbnails" >
+                <opt value="true" text="Yes" />
+                <opt value="false" text="No" />
+            </field> 
+            <field type="list" name="barDrirection" default="leftToRight" label="Bar Drirection" >
+                <opt value="leftToRight" text="Left to right" />
+                <opt value="rightToLeft" text="Right to left" />
+                <opt value="topToBottom" text="Top to bottom" />
+                <opt value="bottomToTop" text="Bottom to top" />                
+            </field> 
+            <field type="list" name="fx" default="random" label="Effect" >
+                <opt value="random" text="Random" />
+                <opt value="simpleFade" text="Simple Fade" />
+                <opt value="curtainTopLeft" text="Curtain Top left" />
+                <opt value="curtainTopRight" text="Curtain top right" />
+                <opt value="curtainBottomLeft" text="Curtain bottom left" />
+                <opt value="curtainBottomRight" text="Curtain bottom right" />
+                <opt value="curtainSliceLeft" text="Curtain slice left" />
+                <opt value="curtainSliceRight" text="Curtain slice right" />
+                <opt value="blindCurtainTopLeft" text="Blind Curtain top left" />
+                <opt value="blindCurtainTopRight" text="Blind Curtain top right" />
+                <opt value="blindCurtainBottomLeft" text="Blind Curtain bottom left" />
+                <opt value="blindCurtainBottomRight" text="Blind Curtain bottom right" />
+                <opt value="stampede" text="Stampede" />
+                <opt value="mosaic" text="Mosaic" />
+                <opt value="mosaicReverse" text="Mosaic reverse" />
+                <opt value="mosaicRandom" text="Mosaic ramdon" />
+                <opt value="mosaicSpiral" text="Mosaic spiral" />
+                <opt value="mosaicSpiralReverse" text="Mosaic spiral reverse" />
+                <opt value="topLeftBottomRight" text="Top left bottom right" />
+                <opt value="bottomRightTopLeft" text="Bottom right top left" />
+                <opt value="bottomLeftTopRight" text="bottom left top right" />
+                <opt value="scrollLeft" text="Scroll Left" />
+                <opt value="scrollRight" text="Scroll Right" />
+                <opt value="scrollHorz" text="Scroll horizontal" />
+                <opt value="scrollBottom" text="Scroll bottom" />
+                <opt value="scrollTop" text="Scroll top" />
+            </field>       
+            <field type="list" name="navHover" default="false" label="Only show button when hover" >
+                <opt value="true" text="Yes" />
+                <opt value="false" text="No, always show it" />
+            </field>   
+            <field type="list" name="showPagi" default="true" label="Show Pagination" >
+                <opt value="true" text="Yes" />
+                <opt value="false" text="No" />
+            </field>  
+            <field type="list" name="playBtn" default="true" label="Play/Pause button" >
+                <opt value="true" text="Show" />
+                <opt value="false" text="Hide" />
+            </field> 
+            <field type="list" name="hover" default="true" label="Pause on hover" >
+                <opt value="true" text="Yes" />
+                <opt value="false" text="No" />
+            </field>            
+            <field type="text" name="time" default="7000" label="Slide delay" />  
+            <field type="text" name="transTime" default="1500" label="Effect duration" />  
+        </fieldset> 
+        
+    </configuration>
+</root>

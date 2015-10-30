@@ -1,4 +1,5 @@
 .shop-phone {
+	font-family: 'Open Sans', sans-serif;
   float: left;
   padding: 5px 0 10px;
   line-height: 18px; }
@@ -15,7 +16,9 @@
 
 #contact-link {
   float: right;
-  border-left: 1px solid #515151; }
+  border-left: 1px solid #515151; 
+  font-family: 'Open Sans', sans-serif;
+  }
   @media (max-width: 479px) {
     #contact-link {
       width: 25%;

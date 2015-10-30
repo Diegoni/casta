@@ -1,0 +1,51 @@
+.banner-block img{ border:2px solid #333!important; background:#fff;} 
+.banner-block {} 
+.jms-slideshow {
+
+}
+.jms-wrapper {}
+
+.step {float:left; position:relative; margin-right:10px;	}
+.step + div + div { margin-right:0}
+.step a:hover{ text-decoration:none;}
+.step.num-1 .jms-content{position:absolute; left:25px; top:22px;}
+.step.num-2 .jms-content{position:absolute; left:25px; top:32px;}
+.step.num-3 .jms-content{position:absolute; left:60px; top:66px;}
+
+.step.num-1 h3{font-size:43px; line-height:43px; color:#f48b47; font-weight:normal; font-family: 'Playfair Display', serif; text-transform:uppercase;}
+.step p { font-size:25px; color:#989696; line-height:25px; font-family: 'Playfair Display', serif; text-transform:uppercase;}
+.step p span{ display:block;}
+.step p span.item1{ font-size:55px; line-height:55px; color:#3a3a3a; margin-top:-8px;}
+.step.num-1:hover h3{color:#3a3a3a;}
+.step.num-1:hover p{}
+.step.num-1:hover span.item1{color:#f48b47;}
+
+.step.num-2 h3{ font-size:51px; line-height:51px;font-family: 'Open Sans Condensed', sans-serif; font-weight:300; color:#fff;}
+.step.num-2 p { font-size:21px; color:#3a3a3a; line-height:21px; font-family: 'Open Sans', sans-serif; font-weight:normal; text-transform:uppercase; }
+.step.num-2 p span.item2{ display:inline-block; padding:0px 5px 1px 5px; color:#fff; background:#f48b47; font-size:41px; line-height:41px;font-family: 'Open Sans Condensed', sans-serif; font-weight:300;margin-top:7px; }
+
+.step.num-2:hover h3{ color:#f48b47;}
+.step.num-2:hover p{ color:#fff;}
+.step.num-2:hover p span.item2{ background:#3a3a3a;}
+
+
+.step.num-3 h3{ font-size:34px; color:#fff; line-height:34px; font-family: 'Playfair Display', serif; text-transform:uppercase; padding-left:40px; font-weight:normal;}
+.step.num-3 p{font-size:25px; color:#f48b47; line-height:25px; font-family: 'Playfair Display', serif; text-transform:uppercase;font-weight:normal;}
+
+.step.num-3:hover h3{color:#f48b47;}
+.step.num-3:hover p{color:#fff; }
+
+.step.modile-1.num-1 h3{ font-size:30px; line-height:30px;}
+.step.modile-1.num-1 p { font-size:20px; line-height:20px;}
+.step.modile-1.num-1 p span.item1{ font-size:40px; line-height:40px; margin-top:-3px;}
+
+.step.modile-1.num-2 h3{ font-size:40px; line-height:40px;}
+.step.modile-1.num-2  p{ font-size:16px; line-height:16px;}
+.step.modile-1.num-2 p span.item2 { font-size:30px; line-height:30px;}
+
+
+.step.modile-1.num-3 h3{ font-size:22px; line-height:22px;}
+.step.modile-1.num-3 p{ font-size:16px; line-height:16px;}
+
+
+

@@ -1,5 +1,6 @@
 /* lnk on detail product page */
 #wishlist_button, #wishlist_button_nopop {
+font-family: 'Open Sans', sans-serif;
   font-weight: 700;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -7,6 +8,7 @@
   background-color: transparent;
   border-color: transparent;
   margin: auto;
+  font-family: 'Open Sans', sans-serif ;
   outline: 0; }
   #wishlist_button:before, #wishlist_button_nopop:before {
     content: "\f08a";

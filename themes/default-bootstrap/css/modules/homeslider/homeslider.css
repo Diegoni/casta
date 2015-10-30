@@ -2,6 +2,7 @@
 						Home Page Slider
 *******************************************************************************/
 #homepage-slider {
+font-family: 'Open Sans', sans-serif;
   padding-left: 0;
   padding-right: 0;
   margin-bottom: 14px;
@@ -11,6 +12,7 @@
   position: relative;
   z-index: 1;
   float: left;
+   font-family: 'Open Sans', sans-serif;
   /*****************************************************************************
   						BXSlider Styles
   ********************************************************************************/ }
@@ -29,22 +31,28 @@
     left: 0;
     top: 0; }
   #homepage-slider .homeslider-description {
+    display: block;
     position: absolute;
     left: 0;
-    top: 0;
-    padding: 50px 50px;
-    cursor: pointer; }
+    bottom: 0;
+    width: 100%;
+    padding: 16px 285px 18px 27px;
+    cursor: pointer;
+	color: #c3c0bb;
+	
+	background: url('../../imagenes/caption_bg.png');
+	}
     #homepage-slider .homeslider-description h2 {
-      font-size: 2.7em;
+      font-size: 1.2em;
       color: white;
       margin: 0;
       padding: 0; }
     #homepage-slider .homeslider-description p {
-      width: 50%;
-      font-size: 1.15em;
-      line-height: 1.3em;
+      width: 100%;
+      font-size: 1em;
+      line-height: 1em;
       padding: 0.5em 0;
-      color: white; }
+      }
     #homepage-slider .homeslider-description button {
       font-size: 1.2em;
       text-transform: uppercase; }

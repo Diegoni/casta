@@ -46,12 +46,11 @@ class factura_electronica extends CommonObject
 	
 	
 /*----------------------------------------------------------------------------
-		Validación de datos
+		Insert de datos
 ----------------------------------------------------------------------------*/
 	
 	
-	function insert($datos)
-	{	
+	function insert($datos){	
 		$campos		= "";
 		$valores	= "";
 		

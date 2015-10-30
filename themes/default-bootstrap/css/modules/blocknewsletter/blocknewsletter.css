@@ -1,5 +1,6 @@
 /* Block newsletter */
 #columns #newsletter_block_left .form-group {
+	font-family: 'Open Sans', sans-serif;
   margin-bottom: 0; }
   #columns #newsletter_block_left .form-group .form-control {
     max-width: 222px;
@@ -45,9 +46,11 @@
     #footer #newsletter_block_left .form-group .form-control {
       height: 45px;
       max-width: 267px;
-      background: #3c3c3c;
+      background: #fff;
       border-color: #515151;
-      color: #fff;
+      color: #64392a;
+	  font-family: 'Open Sans', sans-serif;
+	  font-size: 12px;
       padding: 10px 43px 10px 12px;
       display: inline-block;
       float: left; }
@@ -86,6 +89,6 @@
         left: 15px;
         clear: none; } }
   #footer #newsletter_block_left .newsletter-input {
-    max-width: 300px !important; }
+    max-width: 350px !important; }
 
 /*# sourceMappingURL=blocknewsletter.css.map */

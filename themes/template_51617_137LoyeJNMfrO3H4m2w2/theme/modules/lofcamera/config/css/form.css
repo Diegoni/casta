@@ -1,0 +1,27 @@
+#loftab {
+    margin-top: 20px;
+}
+.lofparams_line {
+    float: left;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.lofparams_line label {
+    padding-left: 5px;
+    text-align: left;    
+}
+.lofparams_line input {
+    height: 20px;
+    line-height: 20px;
+}
+.lofparams_line label span {
+    display: none;
+    font-size: 0.8em;
+    font-style: italic;
+    font-weight: normal !important;
+    text-shadow: 1px 1px 10px blue;
+}
+.lofparams_line label:hover span {
+    display: block;
+}

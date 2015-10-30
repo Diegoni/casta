@@ -412,3 +412,18 @@ function accordion(status)
 		$('#left_column, #right_column').removeClass('accordion');
 	}
 }
+
+
+
+
+
+
+
+
+
+
+/****************************************/
+
+$(document).ready(function(){
+	$('.test').removeClass('hide');
+});

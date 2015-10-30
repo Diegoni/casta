@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <module>
+            <name>lofcamera</name>
+            <displayName><![CDATA[Camera Slideshow]]></displayName>
+            <version><![CDATA[1.0.0]]></version>
+            <description><![CDATA[Simply - Useful - smoothly, It is slideshow ]]></description>
+            <author><![CDATA[TM]]></author>
+            <tab><![CDATA[front_office_features]]></tab>
+	<confirmUninstall>Do you want to uninstall Lof simple slideshow</confirmUninstall>
+            <is_configurable>1</is_configurable>
+            <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+        </module>

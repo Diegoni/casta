@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.19, created on 2015-07-02 08:58:16
+<?php /* Smarty version Smarty-3.1.19, created on 2015-09-17 10:58:22
          compiled from "C:\xampp2\htdocs\casta\admin1978\themes\default\template\footer.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:38685595275815f450-41915371%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:172055fac6fe953881-02674399%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'ac8506c3110ead0e20fab755738ea20b0c1e61f9' => 
     array (
       0 => 'C:\\xampp2\\htdocs\\casta\\admin1978\\themes\\default\\template\\footer.tpl',
-      1 => 1426860987,
+      1 => 1440180346,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '38685595275815f450-41915371',
+  'nocache_hash' => '172055fac6fe953881-02674399',
   'function' => 
   array (
   ),
@@ -28,9 +28,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.19',
-  'unifunc' => 'content_55952758245c16_02620386',
+  'unifunc' => 'content_55fac6fea59441_32277828',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_55952758245c16_02620386')) {function content_55952758245c16_02620386($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_55fac6fea59441_32277828')) {function content_55fac6fea59441_32277828($_smarty_tpl) {?>
 
 	</div>
 </div>
@@ -38,10 +38,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <div id="footer" class="bootstrap hide">
 
 	<div class="col-sm-2 hidden-xs">
-		<!--
+		
 		<a href="http://www.prestashop.com/" class="_blank">PrestaShop&trade; <?php echo $_smarty_tpl->tpl_vars['ps_version']->value;?>
 </a>
-		-->
+		
 		<span id="footer-load-time"><i class="icon-time" title="<?php echo smartyTranslate(array('s'=>'Load time: '),$_smarty_tpl);?>
 "></i> <?php echo number_format(microtime(true)-$_smarty_tpl->tpl_vars['timer_start']->value,3,'.','');?>
 s</span>

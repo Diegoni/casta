@@ -1,0 +1,102 @@
+.image-edit-field {
+    border-bottom: 2px solid #FFFFFF;
+    float: left;
+    margin: 5px 0;
+    padding-bottom: 5px;
+    width: 100%;
+}
+.image-edit-field > div, .image-edit-field label, .image-edit-field input  {
+    float: left;    
+}
+
+.edit-field-left {
+    background-color: #ccc;
+    border: 1px solid #FFFFFF;
+    padding: 10px;
+    text-align: center;
+    width: 13%;
+}
+.edit-field-left img {
+    border: 1px outset #ccc;
+    width: 82%;
+}
+.edit-field-right {
+    width: 70%;
+}
+.image-edit-field label {
+    width: 100px;
+}
+.image-edit-field .edit-field-right input {
+    width: 395px;
+    margin-bottom: 5px;
+}
+
+.check_remove {
+    background-color: #333333;
+    color: #E2E2E2;
+    float: left;
+    height: 20px;
+    line-height: 19px;
+    margin-left: 10px;
+    margin-top: 2px;
+    text-align: left;
+    vertical-align: top;
+    width: 101px;    
+    text-shadow: 1px 1px 10px lightblue;
+    -moz-transition-duration: 2s;
+    -webkit-transition-duration: 2s;
+}
+.check_remove input{
+    margin: 0 2px;
+    cursor: pointer;
+}
+.image_for_remove {
+    background-color: darkred;
+    text-align: center;
+    text-shadow: 1px 2px 1px #000000;
+}
+
+
+.lofparams_line fieldset, .lofparams_line legend {
+    background-color: #FFFFF0;
+    border: 1px solid #DFD5C3;
+}
+.lofparams_line legend {
+    border-bottom: medium none;
+    margin-bottom: 25px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+#upload_list {
+    list-style: none outside none;
+    margin-bottom: 5px;
+    margin-left: 0;
+    margin-top: 0;
+    padding-bottom: 3px;
+    padding-left: 0;
+}
+#upload_list li span {
+    color: darkblue;
+    font-size: 11px;
+    font-style: italic;
+}
+#upload_list li {
+    border-bottom: 1px dotted #CCCCCC;
+    margin: 2px 0;
+    padding-bottom: 5px;
+}
+
+.lof_flag {
+    margin-left: 40px;
+}
+.lofparams_line .language_flags {
+    background-color: #E2E2E2;
+    border: 1px outset #FFFFFF;
+    bottom: -10px;
+    left: 25px;
+    position: absolute;
+}
+.lofparams_line .language_flags img {
+    box-shadow: 1px 1px 3px #555555;
+    margin: 2px;
+}
