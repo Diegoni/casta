@@ -1,17 +1,4 @@
 <?php
-# Ejemplo de Uso de Interface COM con Web Services AFIP (PyAfipWs) para PHP
-# WSFEv1 2.5 (factura electrónica mercado interno sin detalle -régimen general-)
-# RG2485 RG2485/08 RG2757/10 RG2904/10 RG3067/11 RG3571/13 RG3668/14 RG3749/15
-# 2015 (C) Mariano Reingart <reingart@gmail.com> licencia AGPLv3+
-#
-# Documentación:
-#  * http://www.sistemasagiles.com.ar/trac/wiki/ProyectoWSFEv1
-#  * http://www.sistemasagiles.com.ar/trac/wiki/ManualPyAfipWs
-#
-# Instalación: agregar en el php.ini las siguientes lineas (sin #)
-# [COM_DOT_NET] 
-# extension=ext\php_com_dotnet.dll 
-
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 
 
@@ -195,7 +182,6 @@ class factura_electronica extends CommonObject
 		{
 			return TRUE;	
 		}
-
 	}
 	
 /*----------------------------------------------------------------------------
@@ -410,5 +396,4 @@ class factura_electronica extends CommonObject
 		}
 	}
 } 
-
 ?>

@@ -31,7 +31,7 @@ include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 /**
  *  Description and activation class for module MyModule
  */
-class modFacturaelectronica extends DolibarrModules
+class modFe_MX extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -48,7 +48,7 @@ class modFacturaelectronica extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->numero = 500666;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'facturaelectronica';
+		$this->rights_class = 'fe_mx';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -56,7 +56,7 @@ class modFacturaelectronica extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Factura electronica";
+		$this->description = "Factura electronica México";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.7.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -95,7 +95,7 @@ class modFacturaelectronica extends DolibarrModules
 
 		// Config pages. Put here list of php page, stored into mymodule/admin directory, to use to setup module.
 		//$this->config_page_url = array("mysetuppage.php@mymodule");
-		$this->config_page_url = array("config.php@facturaelectronica");
+		$this->config_page_url = array("config.php@fe_mx");
 
 		// Dependencies
 		$this->hidden = false;			// A condition to hide module

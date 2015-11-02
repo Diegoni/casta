@@ -90,7 +90,7 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("ModuleSetup").' de Factura electrónica',$linkback);
 print '<br>';
 
-$head = paypaladmin_prepare_head();
+$head = prepare_head();
 
 dol_fiche_head($head, 'generar', 'Factura electrónica', 0, 'facturaelectronica');
 

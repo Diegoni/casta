@@ -1,7 +1,8 @@
 <?php
+require '../../main.inc.php';
 include_once('class_factura_electronica.php');
 
-$factura_e = new factura_electronica();
+$factura_e = new factura_electronica($db);
 
 $fecha = date("Ymd");
 

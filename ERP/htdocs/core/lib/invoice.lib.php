@@ -104,11 +104,12 @@ function facture_prepare_head($object)
 	$head[$h][2] = 'cae';
 	$h++;
 	
+	/*
 	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/sap.php?facid='.$object->id;
 	$head[$h][1] = $langs->trans('SAP');
 	$head[$h][2] = 'sap';
 	$h++;
-
+*/
 	complete_head_from_modules($conf,$langs,$object,$head,$h,'invoice','remove');
 
 	return $head;

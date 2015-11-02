@@ -25,8 +25,7 @@
  */
 
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/facturaelectronica/lib/facturaelectronica.lib.php';
-//require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/fe_mx/lib/fe_mx.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
 $servicename = 'Factura Electronica';
@@ -43,8 +42,7 @@ if (! $user->admin) accessforbidden();
 
 $action = GETPOST('action');
 
-if ($action == 'setvalue' && $user->admin)
-{
+if ($action == 'setvalue' && $user->admin){
 	$registro = array(
 		'ambiente'			=> GETPOST('ambiente'),
 		'cuil'				=> GETPOST('cuil'),
@@ -60,8 +58,7 @@ if ($action == 'setvalue' && $user->admin)
 		'path_request'		=> GETPOST('path_request'),
 	);
 	
-	if(is_dir($registro['path_certificado']) && is_dir($registro['path_request']) )
-	{
+	if(is_dir($registro['path_certificado']) && is_dir($registro['path_request']) ){
 		$registro['path_certificado'] = str_replace('\\', '-', $registro['path_certificado']);
 		$registro['path_request'] = str_replace('\\', '-', $registro['path_request']);
 		
@@ -86,9 +83,7 @@ if ($action == 'setvalue' && $user->admin)
 		$db->query($sql);
 			
 		setEventMessage($langs->trans("SetupSaved"));
-	}
-	else
-	{
+	} else {
 		setEventMessage("No existe el directorio de la carpeta", 'errors');
 	}
 }
@@ -104,12 +99,9 @@ FROM
 	`tms_config_factura_electronica`";
 
 $fe_query = $db->query($sql);	
-	
 $num_fe	= $db->num_rows($fe_query);
-		
 
-if($num_fe > 0)
-{
+if($num_fe > 0){
 	$fe_array = $db->fetch_array($fe_query);
 }			
 
@@ -125,22 +117,18 @@ $form = new Form($db);
 
 llxHeader('',$langs->trans("FacturaElectronicaSetup"));
 
-
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ModuleSetup").' de Factura electrónica',$linkback);
 print '<br>';
 
 $head = paypaladmin_prepare_head();
-
 dol_fiche_head($head, 'config', 'Factura Electrónica', 0, 'facturaelectronica');
 
 print $langs->trans("FEconfigDesc")."<br>\n";
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-
-	print '<input type="hidden" name="action" value="setvalue">';
-	
+	print '<input type="hidden" name="action" value="setvalue">';	
 	print '<table class="noborder" width="100%">';
 	
 	print '<tr class="liste_titre">';

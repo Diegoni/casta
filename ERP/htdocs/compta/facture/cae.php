@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
@@ -139,27 +141,33 @@ if ($action == 'cae' && $user->rights->facture->creer) {
 	$i = 0;
 	
 	if($numr_det > 0){
-		while ($i < $numr_det){
-			$det_array = $db->fetch_array($resql_det);
+		if(isset($iva_id)){
+			while ($i < $numr_det){
+				$det_array = $db->fetch_array($resql_det);
 			
-			foreach ($iva_id as $key => $value) {	
-				if($det_array['tva_tx'] == $value){
-					$base_imp[$key]	= $base_imp[$key] + $det_array['total_ht'];
-				    $importe[$key]	= $importe[$key] + $det_array['total_tva'];
-				}	
+				foreach ($iva_id as $key => $value) {	
+					if($det_array['tva_tx'] == $value){
+						$base_imp[$key]	= $base_imp[$key] + $det_array['total_ht'];
+					    $importe[$key]	= $importe[$key] + $det_array['total_tva'];
+					}	
+				}
+			
+				$i++;
 			}
-			$i++;
 		}
 	}
 	
-	foreach ($base_imp as $key => $value) {
-		if($value != 0){
-			$agregariva[$key] = array(
-				'base_imp' 	=> $value,
-				'importe'	=> $importe[$key]
-			);
-		}
-	}  
+	if(isset($base_imp)){
+		foreach ($base_imp as $key => $value) {
+			if($value != 0){
+				$agregariva[$key] = array(
+					'base_imp' 	=> $value,
+					'importe'	=> $importe[$key]
+				);
+			}
+		}		
+	}
+	  
 	  
 /*----------------------------------------------------------------------------
 		06 - Intento obtener cae, inserto el resultado
