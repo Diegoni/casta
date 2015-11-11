@@ -8,6 +8,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fe_mx/librerias/facturaElectronica.class.php';
 
 $langs->load("cae");
+$langs->load("bills");
 
 $id     	= GETPOST('facid','int');
 $ref		= GETPOST('ref','alpha');
@@ -34,8 +35,6 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 			`llx_facture`.`datec` as `datecf` 
 		FROM 
 			`llx_facture` 
-		INNER JOIN 
-			`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`) 
 		WHERE 
 			`llx_facture`.`rowid` = $id";	
 	} else {
@@ -45,8 +44,6 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 			`llx_facture`.`datec` as `datecf` 
 		FROM 
 			`llx_facture` 
-		INNER JOIN 
-			`llx_societe` ON(`llx_facture`.`fk_soc` = `llx_societe`.`rowid`)  
 		WHERE 
 			`llx_facture`.`facnumber` = '$ref'";
 	}
@@ -77,38 +74,72 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 	---------------------------------------------------------------------------------*/
 	
 	// Array con la factura
-	$fecha = $fe_mx->formato_fecha($fac_array['datecf']);
+	$encabezado = array(
+		'fecha'				=> $fe_mx->formato_fecha($fac_array['datecf']),
+		'formaDePago'		=> $fe_mx->formaDePago($fac_array['fk_cond_reglement'], $langs),
+		'condicionesDePago'	=> $fe_mx->condicionesDePago($fac_array['fk_mode_reglement'], $langs),	
+	);
 	
+	$receptor	= $fe_mx->receptor($fac_array['fk_soc']);
+	$pais		= explode(":", MAIN_INFO_SOCIETE_COUNTRY);
+	$provincia	= $fe_mx->provincia(MAIN_INFO_SOCIETE_STATE);
+	$concepto	= $fe_mx->concepto($fac_array['rowid']);
+	
+	
+		
 	$array_factura = array(
 		'Encabezado' => array(
 			'serie'				=> '',
-			//'fecha'				=> $fecha,									//'2015-10-28T18:39:35',
-			'fecha'				=> '2015-10-28T18:39:35',
+			'fecha'				=> $encabezado['fecha'],							
 			'folio'				=> '',
 			'tipoDeComprobante'	=> 'ingreso',
-			'formaDePago'		=> 'PAGO EN UNA SOLA EXHIBICIÓN',
+			'formaDePago'		=> $encabezado['formaDePago'],
 			'metodoDePago'		=> 'Transferencía Electrónica',
-			'condicionesDePago'	=> 'Contado',
+			'condicionesDePago'	=> $encabezado['condicionesDePago'],
 			'NumCtaPago'		=> 'No identificado',
-			//'subTotal'			=> round($fac_array['total'], 2),			//'10.00',
-			'subTotal'			=> '10.00',
+			'subTotal'			=> round($fac_array['total'], 2),	
 			'descuento'			=> '0.00',
-			//'total'				=> round($fac_array['total_ttc'], 2) + 1,	//'11.60',
-			'total'				=> '11.60',
+			'total'				=> round($fac_array['total_ttc'], 2),
 			'Moneda'			=> 'MXN',
 			'noCertificado'		=> '',
 			'LugarExpedicion'	=> 'Nuevo León, México.'
-		)
-	);
+		),
+		'Receptor' 			=> $receptor['Receptor'],
+		'Domicilio' 		=> $receptor['Domicilio'],
+		'DatosAdicionales'	=> $receptor['DatosAdicionales'],
+		'Emisor' => array(
+			'rfc'				=> MAIN_INFO_TVAINTRA,
+			'nombre'			=> MAIN_INFO_SOCIETE_ADDRESS,
+			'RegimenFiscal'		=> 'REGIMEN GENERAL DE LEY'
+		),
+		'ExpedidoEn' => array(
+				'calle'				=> MAIN_INFO_SOCIETE_ADDRESS,
+				'noExterior'		=> '',
+				'noInterior'		=> '',
+				'colonia'			=> '',
+				'localidad'			=> '',
+				'municipio'			=> '',
+				'estado'			=> $provincia,
+				'pais'				=> $pais,
+				'codigoPostal'		=> MAIN_INFO_SOCIETE_ZIP,
+		),
+		'Datos Adicionales' => array(
+			'tipoDocumento'		=> 'Factura',
+			'observaciones'		=> $fac_array['note_public']
+		),
+	);	
 	
+	foreach ($concepto as $valores) {
+		$array_factura['Concepto'][] = $valores;
+	}
+		
 	// Obtengo resultados, ver como mejorar
 	$mensaje = $fe_mx->timbrado($array_factura);
 	
 	if($mensaje['resultado']){
 		foreach ($mensaje['archivo'] as $extencion => $archivo) {
 			$link[$extencion] = DOL_URL_ROOT.FE_MX_URL.$archivo;
-		}
-		
+		}		
 		
 		$sap = array(
 			'id_facture' 	=> $id,
@@ -116,9 +147,10 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 			'xml'			=> $link['xml'],
 			'pdf'			=> $link['pdf'],
 			'png'			=> $link['png'],
+			'date_add'		=> date('Y/m/d H:i:s'),
 		);
 			
-			$fe_mx->insert($sap);
+		$fe_mx->insert($sap);
 		
 	}	
 	

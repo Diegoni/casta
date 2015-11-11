@@ -1,5 +1,5 @@
 <?php
-function paypaladmin_prepare_head(){
+function fe_mx_prepare_head(){
 	global $langs, $conf;
 
 	$h = 0;
@@ -10,7 +10,7 @@ function paypaladmin_prepare_head(){
 	$head[$h][2] = 'config';
 	$h++;
 
-	$object=new stdClass();
+	$object	= new stdClass();
 
     complete_head_from_modules($conf,$langs,$object,$head,$h,'paypaladmin');
 	complete_head_from_modules($conf,$langs,$object,$head,$h,'paypaladmin','remove');

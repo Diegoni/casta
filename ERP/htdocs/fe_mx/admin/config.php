@@ -1,29 +1,4 @@
 <?php
-/* Copyright (C) 2004		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
- * Copyright (C) 2005-2013	Laurent Destailleur		<eldy@users.sourceforge.org>
- * Copyright (C) 2011-2012	Regis Houssin			<regis.houssin@capnetworks.com>
- * Copyright (C) 2011-2012  Juanjo Menent			<jmenent@2byte.es>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
- * \file       htdocs/paypal/admin/paypal.php
- * \ingroup    paypal
- * \brief      Page to setup paypal module
- */
-
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/fe_mx/lib/fe_mx.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
@@ -81,7 +56,6 @@ if ($action == 'setvalue' && $user->admin){
 					`id_config`		= 1";
 		
 		$db->query($sql);
-			
 		setEventMessage($langs->trans("SetupSaved"));
 	} else {
 		setEventMessage("No existe el directorio de la carpeta", 'errors');
@@ -93,10 +67,10 @@ if ($action == 'setvalue' && $user->admin){
 ----------------------------------------------------------------------------*/
 
 $sql	= 
-"SELECT 
-	* 
-FROM 
-	`tms_config_factura_electronica`";
+	"SELECT 
+		* 
+	FROM 
+		`tms_config_factura_electronica`";
 
 $fe_query = $db->query($sql);	
 $num_fe	= $db->num_rows($fe_query);
@@ -121,7 +95,7 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("ModuleSetup").' de Factura electrónica',$linkback);
 print '<br>';
 
-$head = paypaladmin_prepare_head();
+$head = fe_mx_prepare_head();
 dol_fiche_head($head, 'config', 'Factura Electrónica', 0, 'facturaelectronica');
 
 print $langs->trans("FEconfigDesc")."<br>\n";
@@ -167,7 +141,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<td>'.$langs->trans("FEpath_certificado").'</td>';
 	print '<td><input name="path_certificado" value="'.$fe_array['path_certificado'].'" size="80" required></td>';
 	print '</tr>';
-		
+	
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.$langs->trans("FEhomo_web_ser").'</td>';
@@ -191,13 +165,13 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<td>'.$langs->trans("FEprod_wsfe_v1").'</td>';
 	print '<td><input name="prod_wsfe_v1" value="'.$fe_array['prod_wsfe_v1'].'" size="80" required></td>';
 	print '</tr>';
-		
+	
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.$langs->trans("FErequest").'</td>';
 	print '<td><input name="request" value="'.$fe_array['request'].'" size="80" required></td>';
 	print '</tr>';	
-		
+	
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.$langs->trans("FEresponse").'</td>';
@@ -211,9 +185,9 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<td>'.$langs->trans("FEpath_request").'</td>';
 	print '<td><input name="path_request" value="'.$fe_array['path_request'].'" size="80" required></td>';
 	print '</tr>';
-			
+	
 	print '</table>';
-		
+	
 	print '<br><center><input type="submit" class="button" value="'.$langs->trans("Modify").'"></center>';
 
 print '</form>';

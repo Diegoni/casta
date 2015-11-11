@@ -3,6 +3,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 define('FE_MX_URL', '/fe_mx/librerias/');	
 include("FacturacionModerna/FacturacionModerna.php");
 
+
 /***************************************************************************
 * Descripción: Ejemplo del uso de la clase FacturacionModerna, generando un
 * archivo de texto simple con los layouts soportados para ser timbrados.
@@ -41,7 +42,7 @@ class facturaElectronica extends CommonObject{
 	private $numero_certificado = "20001000000200000192";
 	private $opciones 		= array();
 	private $routes;
-	var	$table			= "tms_sap";
+	private	$table			= "tms_sap";
 	
 	
 	
@@ -152,6 +153,8 @@ class facturaElectronica extends CommonObject{
 				}
 			}
 		}
+
+		echo $cfdi2."<br>";
 		
 		$final = '<<<LAYOUT 
 		'.$cfdi2.' 
@@ -164,9 +167,10 @@ class facturaElectronica extends CommonObject{
 
 	function estructuraFactura(){
 		$fecha = date('Y-m-j H:s:i');
-		$fecha_actual  = $this->formato_fecha($fecha);
+		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
 		$factura = array(
+			// Listo
 			'Encabezado' => array(
 				'serie'				=> '',
 				'fecha'				=> $fecha_actual,
@@ -183,15 +187,18 @@ class facturaElectronica extends CommonObject{
 				'noCertificado'		=> '',
 				'LugarExpedicion'	=> 'Nuevo León, México.'
 			),
+			// Listo
 			'Datos Adicionales' => array(
 				'tipoDocumento'		=> 'Factura',
 				'observaciones'		=> ''
 			),
+			// Listo
 			'Emisor' => array(
 				'rfc'				=> 'ESI920427886',
 				'nombre'			=> 'EMPRESA DE MUESTRA S.A de C.V.',
 				'RegimenFiscal'		=> 'REGIMEN GENERAL DE LEY'
 			),
+			// Listo
 			'DomicilioFiscal' => array(
 				'calle'				=> 'Calle', 
 				'noExterior'		=> 'Número Ext.',
@@ -203,6 +210,7 @@ class facturaElectronica extends CommonObject{
 				'pais'				=> 'México',
 				'codigoPostal'		=> '66260'
 			),
+			// Listo
 			'ExpedidoEn' => array(
 				'calle'				=> 'Calle sucursal',
 				'noExterior'		=> '',
@@ -214,10 +222,12 @@ class facturaElectronica extends CommonObject{
 				'pais'				=> 'México',
 				'codigoPostal'		=> '77000'
 			),
+			// Listo
 			'Receptor' => array(
 				'rfc'				=> 'XAXX010101000',
 				'nombre'			=> 'PÚBLICO EN GENERAL'
 			),
+			// Listo
 			'Domicilio' => array(
 				'calle'				=> 'Calle',
 				'noExterior'		=> 'Num. Ext',
@@ -229,6 +239,7 @@ class facturaElectronica extends CommonObject{
 				'pais'				=> 'México',
 				'codigoPostal'		=> '66260'
 			),
+			// Listo
 			'DatosAdicionales' => array(
 				'noCliente' 		=> '09871',
 				'email'				=> 'edgar.duran@facturacionmoderna.com'
@@ -240,6 +251,14 @@ class facturaElectronica extends CommonObject{
 				'descripcion'		=> 'Servicio Profesional',
 				'valorUnitario'		=> '10.00',
 				'importe'			=> '10.00'
+			),
+			'Concepto' => array(
+				'cantidad'			=> '2',
+				'unidad'			=> 'No aplica',
+				'noIdentificacion'	=> '',
+				'descripcion'		=> 'Servicio Profesional',
+				'valorUnitario'		=> '10.00',
+				'importe'			=> '20.00'
 			),
 			'ImpuestoTrasladado' => array(
 				'impuesto'			=> 'IVA',
@@ -254,9 +273,22 @@ class facturaElectronica extends CommonObject{
 
 
 
-	function formato_fecha($fecha){
-		$nuevafecha = strtotime ( '-1 day' , strtotime ( $fecha ) ) ;
-		$fecha = date ( 'Y-m-j' , $nuevafecha );
+	function formato_fecha($fecha, $restar_dias = null){
+		$fecha = date('Y/m/d H:s:i', strtotime($fecha));
+		// Controlamos la fecha de expedicion del comprobante es mayor a la fecha de certificacion
+		if(strtotime($fecha) > strtotime ('-1 day', strtotime ( $fecha ))){
+			if($restar_dias == NULL){
+				$restar_dias = 1;
+			}
+		}
+		// Restamos los dias a la fecha
+		if($restar_dias != NULL){
+			$nuevafecha = strtotime ( '-'.$restar_dias.' day' , strtotime ( $fecha )) ;	
+		}else{
+			$nuevafecha = strtotime($fecha);
+		}
+		// Le damos formato especifico
+		$fecha = date ( 'Y-m-d' , $nuevafecha );
 		$hora = date ( 'H:s:i' , $nuevafecha );
 		$fecha_actual = $fecha.'T'.$hora;
 		
@@ -360,7 +392,7 @@ class facturaElectronica extends CommonObject{
 	function generarXMLRetenciones($rfc_emisor,$numero_certificado, $archCer){
 
 		$fecha = date('Y-m-j H:s:i');
-		$fecha_actual  = $this->formato_fecha($fecha);
+		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		$fecha_actual = $fecha_actual.'-06:00';
 		
 		$certificado = str_replace(array('\n', '\r'), '', base64_encode(file_get_contents($archCer)));
@@ -460,7 +492,7 @@ XML;
 	function generarXML($rfc_emisor){
 
 		$fecha = date('Y-m-j H:s:i');
-		$fecha_actual  = $this->formato_fecha($fecha);
+		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
 		$factura = $this->estructuraXML();
 		
@@ -507,7 +539,7 @@ XML;
 	function estructuraXML(){
 		
 		$fecha = date('Y-m-j H:s:i');
-		$fecha_actual  = $this->formato_fecha($fecha);
+		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
 		$comprobante = array(
 			'xsi:schemaLocation'=> "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd", 
@@ -595,6 +627,186 @@ XML;
 			);";
 							
 		$this->db->query($sql);
+	}
+	
+	
+	
+	function formaDePago($fk_cond_reglement, $langs){	
+		$sql = 
+			"SELECT 
+				`code` 
+			FROM 
+				`llx_c_payment_term` 
+			WHERE 
+				`rowid`= '$fk_cond_reglement' ";
+		$fe_query = $this->db->query($sql);
+		$num_fe	= $this->db->num_rows($fe_query);
+		
+		if($num_fe > 0){
+			$fe_array = $this->db->fetch_array($fe_query);
+		}	
+		foreach ($fe_array as $key => $value) {
+			$return = $value;
+		}
+		$return = $langs->trans('PaymentConditionShort'.$return);
+		
+		return $return;
+	}
+	
+	
+	
+	function condicionesDePago($fk_mode_reglement, $langs){	
+		$sql = 
+			"SELECT 
+				`code` 
+			FROM 
+				`llx_c_paiement` 
+			WHERE 
+				`id`= '$fk_mode_reglement' ";
+		$fe_query = $this->db->query($sql);
+		$num_fe	= $this->db->num_rows($fe_query);
+		
+		if($num_fe > 0){
+			$fe_array = $this->db->fetch_array($fe_query);
+		}	
+		foreach ($fe_array as $key => $value) {
+			$return = $value;
+		}
+		$return = $langs->trans('PaymentType'.$return);
+		
+		return $return;
+	}
+	
+	
+	
+		
+	function receptor($fk_soc){	
+		$sql = 
+			"SELECT 
+				`llx_societe`.`siren` as rfc,
+				`llx_societe`.`nom` as nombre,
+				`llx_societe`.`address` as calle,
+				`llx_societe`.`town` as localidad,
+				`llx_c_departements`.`nom` as estado,
+				`llx_c_country`.`label` as pais,
+				`llx_societe`.`zip` as codigoPostal,
+				`llx_societe`.`email`,
+				`llx_societe`.`rowid` as noCliente
+			FROM 
+				`llx_societe` 
+			LEFT JOIN 	
+				`llx_c_country` ON(`llx_c_country`.`rowid` = `llx_societe`.`fk_pays`)
+			LEFT JOIN	
+				`llx_c_departements` ON(`llx_c_departements`.`rowid` = `llx_societe`.`fk_departement`)	
+			WHERE 
+				`llx_societe`.`rowid` = '$fk_soc' ";
+				
+		$fe_query = $this->db->query($sql);
+		$num_fe	= $this->db->num_rows($fe_query);
+
+		if($num_fe > 0){
+			$fe_array = $this->db->fetch_array($fe_query);
+		}	
+		
+		$receptor = array(
+			'rfc'			=> $fe_array['rfc'],
+			'nombre'		=> $fe_array['nombre'],
+		);
+
+		$domicilio = array(
+			'calle'			=> $fe_array['calle'],
+			'noExterior'	=> '',
+			'noInterior'	=> '',
+			'colonia'		=> '',
+			'localidad'		=> $fe_array['localidad'],
+			'municipio'		=> '',
+			'estado'		=> $fe_array['estado'],
+			'pais'			=> $fe_array['pais'],
+			'codigoPostal'	=> $fe_array['codigoPostal'],
+		);
+		
+		$datosAdicionales = array(
+			'noCliente'		=> $fe_array['noCliente'],
+			'email'			=> $fe_array['email'],
+		);
+
+		$return = array(
+			'Receptor'		=> $receptor,
+			'Domicilio'		=> $domicilio,
+			'DatosAdicionales' => $datosAdicionales,
+		);
+				
+		return $return;
+	}
+	
+	
+	function provincia($fk_departements){	
+		$sql = 
+			"SELECT 
+				`nom`  
+			FROM 
+				`llx_c_departements` 
+			WHERE 
+				`rowid` = '$fk_departements'";
+		$fe_query = $this->db->query($sql);
+		$num_fe	= $this->db->num_rows($fe_query);
+		$return = '606';
+		
+		if($num_fe > 0){
+			$fe_array = $this->db->fetch_array($fe_query);
+			
+			$return = $fe_array['nom'];
+		}
+
+		return $return;
+	}
+	
+	
+	function concepto($fk_facture){	
+		$sql = 
+			"SELECT 
+				qty as cantidad, 
+				subprice as valorUnitario,
+				total_ht as importe,
+				description as descripcion  
+			FROM 
+				`llx_facturedet` 
+			WHERE 
+				`fk_facture` = '$fk_facture'";
+				
+		$fe_query = $this->db->query($sql);
+		$num_fe	= $this->db->num_rows($fe_query);
+		$i = 0;
+		
+		if($num_fe > 0){
+			while ($i < $num_fe){
+				$registro = $this->db->fetch_object($fe_query);
+				$descripcion = $registro->descripcion;
+				if($descripcion == ""){
+					$descripcion = "-";
+				}
+				$concepto[] = array(
+					'cantidad'			=> $registro->cantidad,
+					'unidad'			=> 'No aplica',
+					'noIdentificacion'	=> '',
+					'descripcion'		=> $descripcion,
+					'valorUnitario'		=> round($registro->valorUnitario, 2),
+					'importe'			=> round($registro->importe, 2),
+				);
+				$i = $i+1;
+			}
+		}else{
+			$concepto['Concepto'] = array(
+				'cantidad'			=> '',
+				'unidad'			=> 'No aplica',
+				'noIdentificacion'	=> '',
+				'descripcion'		=> '',
+				'valorUnitario'		=> '',
+				'importe'			=> '',
+			);
+		}
+
+		return $concepto;
 	}
 }
 ?>
