@@ -1,6 +1,6 @@
 <?php
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
-define('FE_MX_URL', '/fe_mx/librerias/');	
+define('FE_MX_URL', '/compta/facture/');	
 include("FacturacionModerna/FacturacionModerna.php");
 
 
@@ -30,10 +30,10 @@ class facturaElectronica extends CommonObject{
 	private $rfc_emisor = "ESI920427886";
 	  
 	// Datos de acceso al ambiente de pruebas
+	private $cliente;
 	private	$url_timbrado	= "https://t1demo.facturacionmoderna.com/timbrado/wsdl";
 	private	$user_id		= "UsuarioPruebasWS";
 	private	$user_password	= "b9ec2afa3361a59af4b4d102d3f704eabdf097d4";
-	private $cliente;
 	private $mensaje 		= array();
 	private $archCer		= "utilerias/certificados/20001000000200000192.cer";
   	private $archKey		= "utilerias/certificados/20001000000200000192.key";
@@ -43,7 +43,6 @@ class facturaElectronica extends CommonObject{
 	private $opciones 		= array();
 	private $routes;
 	private	$table			= "tms_sap";
-	
 	
 	
 	function __construct($db){
@@ -75,7 +74,6 @@ class facturaElectronica extends CommonObject{
 			'generarTXT'	=> FALSE
 		);
 		
-		
 		$this->routes= array(
 			'comprobantes'		=> 'comprobantes/',
 			'retencion_xslt'	=> 'utilerias/xsltretenciones/retenciones.xslt',
@@ -99,7 +97,7 @@ class facturaElectronica extends CommonObject{
 			$this->mensaje['UUID'] = $this->cliente->UUID;
 			
 			if($this->cliente->xml){
-				$this->mensaje['archivo']['xml'] = "$comprobante.xml";        
+				$this->mensaje['archivo']['xml'] = "$comprobante.xml";  
 				file_put_contents($comprobante.".xml", $this->cliente->xml);
 			}
 			if(isset($this->cliente->pdf)){
@@ -153,9 +151,6 @@ class facturaElectronica extends CommonObject{
 				}
 			}
 		}
-
-		echo $cfdi2."<br>";
-		
 		$final = '<<<LAYOUT 
 		'.$cfdi2.' 
 		LAYOUT';
@@ -632,22 +627,13 @@ XML;
 	
 	
 	function formaDePago($fk_cond_reglement, $langs){	
-		$sql = 
-			"SELECT 
-				`code` 
-			FROM 
-				`llx_c_payment_term` 
-			WHERE 
-				`rowid`= '$fk_cond_reglement' ";
-		$fe_query = $this->db->query($sql);
-		$num_fe	= $this->db->num_rows($fe_query);
-		
-		if($num_fe > 0){
-			$fe_array = $this->db->fetch_array($fe_query);
-		}	
-		foreach ($fe_array as $key => $value) {
-			$return = $value;
-		}
+		$datos = array(
+			'dato'		=> 'code',
+			'tabla'		=> 'llx_c_payment_term',
+			'tablaid'	=> 'rowid',	
+			'id'		=> $fk_cond_reglement,
+		);
+		$return = $this->getItems($datos);
 		$return = $langs->trans('PaymentConditionShort'.$return);
 		
 		return $return;
@@ -655,25 +641,50 @@ XML;
 	
 	
 	
-	function condicionesDePago($fk_mode_reglement, $langs){	
+	function condicionesDePago($fk_mode_reglement, $langs){
+		$datos = array(
+			'dato'		=> 'code',
+			'tabla'		=> 'llx_c_paiement',
+			'tablaid'	=> 'id',	
+			'id'		=> $fk_mode_reglement,
+		);
+		$return = $this->getItems($datos);
+		$return = $langs->trans('PaymentType'.$return);
+	
+		return $return;
+	}
+	
+	
+	function provincia($fk_departements){
+		$datos = array(
+			'dato'		=> 'nom',
+			'tabla'		=> 'llx_c_departements',
+			'tablaid'	=> 'rowid',	
+			'id'		=> $fk_departements,
+		);
+		$return = $this->getItems($datos);
+
+		return $return;
+	}
+	
+	
+	
+	function getItems($datos){
 		$sql = 
 			"SELECT 
-				`code` 
+				`$datos[dato]`  
 			FROM 
-				`llx_c_paiement` 
+				`$datos[tabla]` 
 			WHERE 
-				`id`= '$fk_mode_reglement' ";
+				`$datos[tablaid]`  = '$datos[id]'";
 		$fe_query = $this->db->query($sql);
 		$num_fe	= $this->db->num_rows($fe_query);
-		
+		$return = '';
 		if($num_fe > 0){
 			$fe_array = $this->db->fetch_array($fe_query);
-		}	
-		foreach ($fe_array as $key => $value) {
-			$return = $value;
+			$return = $fe_array[$datos['dato']];	
 		}
-		$return = $langs->trans('PaymentType'.$return);
-		
+
 		return $return;
 	}
 	
@@ -736,28 +747,6 @@ XML;
 			'DatosAdicionales' => $datosAdicionales,
 		);
 				
-		return $return;
-	}
-	
-	
-	function provincia($fk_departements){	
-		$sql = 
-			"SELECT 
-				`nom`  
-			FROM 
-				`llx_c_departements` 
-			WHERE 
-				`rowid` = '$fk_departements'";
-		$fe_query = $this->db->query($sql);
-		$num_fe	= $this->db->num_rows($fe_query);
-		$return = '606';
-		
-		if($num_fe > 0){
-			$fe_array = $this->db->fetch_array($fe_query);
-			
-			$return = $fe_array['nom'];
-		}
-
 		return $return;
 	}
 	

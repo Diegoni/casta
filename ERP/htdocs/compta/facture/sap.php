@@ -100,9 +100,9 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 			'subTotal'			=> round($fac_array['total'], 2),	
 			'descuento'			=> '0.00',
 			'total'				=> round($fac_array['total_ttc'], 2),
-			'Moneda'			=> 'MXN',
+			'Moneda'			=> MAIN_MONNAIE,
 			'noCertificado'		=> '',
-			'LugarExpedicion'	=> 'Nuevo León, México.'
+			'LugarExpedicion'	=> ''.$provincia.', '.$pais[2].'.'
 		),
 		'Receptor' 			=> $receptor['Receptor'],
 		'Domicilio' 		=> $receptor['Domicilio'],
@@ -120,7 +120,7 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 				'localidad'			=> '',
 				'municipio'			=> '',
 				'estado'			=> $provincia,
-				'pais'				=> $pais,
+				'pais'				=> $pais[2],
 				'codigoPostal'		=> MAIN_INFO_SOCIETE_ZIP,
 		),
 		'Datos Adicionales' => array(
@@ -128,11 +128,11 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 			'observaciones'		=> $fac_array['note_public']
 		),
 	);	
-	
+	/*
 	foreach ($concepto as $valores) {
 		$array_factura['Concepto'][] = $valores;
 	}
-		
+	*/	
 	// Obtengo resultados, ver como mejorar
 	$mensaje = $fe_mx->timbrado($array_factura);
 	
