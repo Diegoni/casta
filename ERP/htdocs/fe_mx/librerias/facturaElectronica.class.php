@@ -31,17 +31,17 @@ class facturaElectronica extends CommonObject{
 	  
 	// Datos de acceso al ambiente de pruebas
 	private $cliente;
+	private $routes;
+	private $mensaje 		= array();
+	private $opciones 		= array();
 	private	$url_timbrado	= "https://t1demo.facturacionmoderna.com/timbrado/wsdl";
 	private	$user_id		= "UsuarioPruebasWS";
 	private	$user_password	= "b9ec2afa3361a59af4b4d102d3f704eabdf097d4";
-	private $mensaje 		= array();
 	private $archCer		= "utilerias/certificados/20001000000200000192.cer";
   	private $archKey		= "utilerias/certificados/20001000000200000192.key";
 	private $archKeypem 	= "utilerias/certificados/20001000000200000192.key.pem";
   	private $passKey		= "12345678a";
 	private $numero_certificado = "20001000000200000192";
-	private $opciones 		= array();
-	private $routes;
 	private	$table			= "tms_sap";
 	
 	
@@ -161,7 +161,7 @@ class facturaElectronica extends CommonObject{
 
 
 	function estructuraFactura(){
-		$fecha = date('Y-m-j H:s:i');
+		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
 		$factura = array(
@@ -247,20 +247,11 @@ class facturaElectronica extends CommonObject{
 				'valorUnitario'		=> '10.00',
 				'importe'			=> '10.00'
 			),
-			'Concepto' => array(
-				'cantidad'			=> '2',
-				'unidad'			=> 'No aplica',
-				'noIdentificacion'	=> '',
-				'descripcion'		=> 'Servicio Profesional',
-				'valorUnitario'		=> '10.00',
-				'importe'			=> '20.00'
-			),
 			'ImpuestoTrasladado' => array(
 				'impuesto'			=> 'IVA',
 				'importe'			=> '1.60',
 				'tasa'				=> '16.00'
 			)
-			
 		);
 		
 		return $factura;
@@ -269,22 +260,22 @@ class facturaElectronica extends CommonObject{
 
 
 	function formato_fecha($fecha, $restar_dias = null){
-		$fecha = date('Y/m/d H:s:i', strtotime($fecha));
+		$fecha = date('Y/m/d H:i:s', strtotime($fecha));
 		// Controlamos la fecha de expedicion del comprobante es mayor a la fecha de certificacion
-		if(strtotime($fecha) > strtotime ('-1 day', strtotime ( $fecha ))){
+		if(strtotime($fecha) > strtotime('-1 day', strtotime($fecha))){
 			if($restar_dias == NULL){
 				$restar_dias = 1;
 			}
 		}
 		// Restamos los dias a la fecha
 		if($restar_dias != NULL){
-			$nuevafecha = strtotime ( '-'.$restar_dias.' day' , strtotime ( $fecha )) ;	
+			$nuevafecha = strtotime('-'.$restar_dias.' day',strtotime($fecha)) ;	
 		}else{
 			$nuevafecha = strtotime($fecha);
 		}
 		// Le damos formato especifico
-		$fecha = date ( 'Y-m-d' , $nuevafecha );
-		$hora = date ( 'H:s:i' , $nuevafecha );
+		$fecha = date('Y-m-d', $nuevafecha);
+		$hora = date('H:i:s', $nuevafecha);
 		$fecha_actual = $fecha.'T'.$hora;
 		
 		return $fecha_actual;
@@ -386,7 +377,7 @@ class facturaElectronica extends CommonObject{
 	
 	function generarXMLRetenciones($rfc_emisor,$numero_certificado, $archCer){
 
-		$fecha = date('Y-m-j H:s:i');
+		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		$fecha_actual = $fecha_actual.'-06:00';
 		
@@ -486,7 +477,7 @@ XML;
 	
 	function generarXML($rfc_emisor){
 
-		$fecha = date('Y-m-j H:s:i');
+		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
 		$factura = $this->estructuraXML();
@@ -533,7 +524,7 @@ XML;
 
 	function estructuraXML(){
 		
-		$fecha = date('Y-m-j H:s:i');
+		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
 		$comprobante = array(

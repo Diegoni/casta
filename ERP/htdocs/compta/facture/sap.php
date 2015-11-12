@@ -19,8 +19,6 @@ if ($user->societe_id) $socid=$user->societe_id;
 	$result = restrictedArea($user, 'facture', $id);
 	
 	$object = new Facture($db);
-	
-	 
 if ($action == 'sap' && $user->rights->facture->creer) {
 	$fe_mx = new facturaElectronica($db);
 	
@@ -155,6 +153,16 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 	}	
 	
 }
+
+$sql_sap = 
+	"SELECT 
+		* 
+	FROM 
+		`tms_sap`
+	WHERE 
+		`id_facture` = '$id'";
+$resql_sap = $db->query($sql_sap);	
+$numr_sap = $db->num_rows($resql_sap);
  
 /* *************************************************************************** */
 /*                                                                             */
@@ -181,18 +189,32 @@ if ($id > 0 || ! empty($ref)){
 		$head = facture_prepare_head($object);
 		dol_fiche_head($head, 'sap', $langs->trans('sap'), 0, 'bill');
 		
-		if($mensaje['resultado']){
-			foreach ($link as $value) {
-				echo '<a href="'.$value.'" target="_blank">'.$mensaje['UUID'].'</a>';	
-			}
-		}else{
-			echo $mensaje['error'];
-		};
-	
-		if($cae_array['cae'] == ''){
-			print '<br><center><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=sap">' . $langs->trans('SapObtener') . '</center></a>';	
-		} 
 		
+		
+		if($numr_sap > 0){
+			$sap_array = $db->fetch_array($resql_sap);
+			print '<table class="border" width="100%">';
+				print '<tr><td width="20%">';
+		        print $langs->trans('SAP');
+		        print '</td><td colspan="3">';
+		        print '<a href="'.$sap_array['xml'].'" target="_blank">'.$sap_array['sap'].'</a>';
+				print '</td></tr>';
+			print '</table>';
+		}else if($cae_array['cae'] == ''){
+			if(!$mensaje['resultado']){
+				print '<table class="border" width="100%">';
+				
+				print '<tr><td width="20%">';
+		        print $langs->trans('Error');
+		        print '</td><td colspan="3">';
+		        print $mensaje['error'];
+				print '</td></tr>';
+				
+				print '</table>';	
+			};
+			
+			print '<br><center><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?facid=' . $object->id . '&amp;action=sap">' . $langs->trans('SapObtener') . '</center></a>';	
+		} 	
 	} else {
 		// Record not found
 		print "ErrorRecordNotFound";
