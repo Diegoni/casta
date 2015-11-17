@@ -43,17 +43,17 @@ class facturaElectronica extends CommonObject{
   	private $passKey		= "12345678a";
 	private $numero_certificado = "20001000000200000192";
 	private	$table			= "tms_sap";
-	
-	
+
+
 	function __construct($db){
 		$parametros = array(
 	  		'emisorRFC'	=> $this->rfc_emisor, 
 	  		'UserID'	=> $this->user_id,
 	  		'UserPass'	=> $this->user_password
 		);
-		
+
 		$this->cliente = new FacturacionModerna($this->url_timbrado, $parametros, $this->debug);
-		
+
 		$this->opciones = array(
 			/**
 			* Establecer el valor a true, si desea que el Web services genere el CBB en
@@ -95,7 +95,7 @@ class facturaElectronica extends CommonObject{
 			//Almacenanos en la raíz del proyecto los archivos generados.
 			$comprobante = $this->routes['comprobantes'].$this->cliente->UUID;
 			$this->mensaje['UUID'] = $this->cliente->UUID;
-			
+
 			if($this->cliente->xml){
 				$this->mensaje['archivo']['xml'] = "$comprobante.xml";  
 				file_put_contents($comprobante.".xml", $this->cliente->xml);
@@ -163,7 +163,7 @@ class facturaElectronica extends CommonObject{
 	function estructuraFactura(){
 		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
-		
+
 		$factura = array(
 			// Listo
 			'Encabezado' => array(
@@ -253,9 +253,10 @@ class facturaElectronica extends CommonObject{
 				'tasa'				=> '16.00'
 			)
 		);
-		
+
 		return $factura;
 	}
+
 
 
 
@@ -277,9 +278,10 @@ class facturaElectronica extends CommonObject{
 		$fecha = date('Y-m-d', $nuevafecha);
 		$hora = date('H:i:s', $nuevafecha);
 		$fecha_actual = $fecha.'T'.$hora;
-		
+
 		return $fecha_actual;
 	}
+	
 	
 	
 	
@@ -296,6 +298,7 @@ class facturaElectronica extends CommonObject{
 		
 		return $this->mensaje;
 	}
+	
 	
 	
 	
@@ -323,7 +326,7 @@ class facturaElectronica extends CommonObject{
 
 			//Almacenanos en la raíz del proyecto los archivos generados.
 			$comprobante = $this->routes['comprobantes'].$this->cliente->UUID;
-    
+
 			if($this->cliente->xml){
 				$this->mensaje['archivo']['xml'] = "$comprobante.xml";        
 				file_put_contents($comprobante.".xml", $this->cliente->xml);
@@ -338,7 +341,6 @@ class facturaElectronica extends CommonObject{
 			}
     
 			$this->mensaje['resultado'] = TRUE;
-	    
 		}else{
 			$this->mensaje['resultado'] = FALSE;
 			$this->mensaje['error'] = "[".$this->cliente->ultimoCodigoError."] - ".$this->cliente->ultimoError."\n";
@@ -376,7 +378,6 @@ class facturaElectronica extends CommonObject{
 	
 	
 	function generarXMLRetenciones($rfc_emisor,$numero_certificado, $archCer){
-
 		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		$fecha_actual = $fecha_actual.'-06:00';
@@ -476,7 +477,6 @@ XML;
 	
 	
 	function generarXML($rfc_emisor){
-
 		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		
@@ -523,7 +523,6 @@ XML;
 
 
 	function estructuraXML(){
-		
 		$fecha = date('Y-m-j H:i:s');
 		$fecha_actual  = $this->formato_fecha($fecha, 1);
 		

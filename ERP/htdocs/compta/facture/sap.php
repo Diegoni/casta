@@ -83,8 +83,6 @@ if ($action == 'sap' && $user->rights->facture->creer) {
 	$provincia	= $fe_mx->provincia(MAIN_INFO_SOCIETE_STATE);
 	$concepto	= $fe_mx->concepto($fac_array['rowid']);
 	
-	
-		
 	$array_factura = array(
 		'Encabezado' => array(
 			'serie'				=> '',
