@@ -29,7 +29,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
 		TMS paso 1 de 2: importar clase  
 ----------------------------------------------------------------*/
 
-require_once DOL_DOCUMENT_ROOT.'/sincronizar/Actualizar_menu.php';
+require_once DOL_DOCUMENT_ROOT.'/sincronizar/actualizar_menu.php';
 
 /*----------------------------------------------------------------
 		FIN Paso 1  
